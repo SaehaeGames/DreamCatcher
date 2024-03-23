@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     // 게임 데이터를 관리하는 싱글톤 패턴
 
     //싱글톤 패턴을 사용하기 위한 전역 변수
+    // 테스트
     public static GameManager instance;
 
     [Header("[Game Data]")]
