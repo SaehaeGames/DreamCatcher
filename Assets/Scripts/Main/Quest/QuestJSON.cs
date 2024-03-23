@@ -87,7 +87,6 @@ public class QuestJSON : MonoBehaviour
                 if (curText1.Equals("{"))   //하나의 퀘스트 데이터 내부
                 {
                     string oneItem = "{";   // 시작 중괄호 추가
-                    Debug.Log("객체 하나 시작 : " + oneItem);
 
                     for (int j = i + 1; j < loadJson.Length; j++) 
                     {
@@ -103,7 +102,6 @@ public class QuestJSON : MonoBehaviour
                                 {
                                     oneDC += "}";   // 닫는 중괄호 추가
                                     j = k;  // 탐색(?)한 라인 반영
-                                    Debug.Log("드림캐쳐 데이터 끝 : " + oneDC); 
                                     break;  // 하나의 드림캐쳐 데이터를 가져오는 반복문 종료
                                 }
                                 else    // 드림캐쳐 데이터가 끝나지 않았다면
@@ -116,7 +114,6 @@ public class QuestJSON : MonoBehaviour
                         if (curText2.Contains("}"))     //퀘스트 데이터 하나가 끝났다면
                         {
                             oneItem += oneDC + "}";     //퀘스트 데이터를 저장하는 string 객체 마지막에 드림캐쳐 데이터를 추가하고, 닫는 중괄호 추가
-                            Debug.Log("객체 하나 끝 : " + oneItem);
 
                             dataContainer.questList.Add(JsonUtility.FromJson<QuestData>(oneItem));  // 퀘스트 데이터 string을 QuestData형으로 변경하여 퀘스트 리스트에 추가
                             oneItem = "";   //퀘스트 데이터값 초기화

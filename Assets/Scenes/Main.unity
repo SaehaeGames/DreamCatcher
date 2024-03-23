@@ -1861,7 +1861,6 @@ MonoBehaviour:
   - {fileID: 714498412}
   - {fileID: 1394204922}
   checkedNotice: 
-  curMainQuestIndex: 0
 --- !u!1 &68544866
 GameObject:
   m_ObjectHideFlags: 0
@@ -7030,7 +7029,6 @@ MonoBehaviour:
   itemContents: {fileID: 1679855919}
   questObject: {fileID: 746535976}
   checkObject: {fileID: 1308122757}
-  testpanel: {fileID: 746535976}
 --- !u!1 &370251932
 GameObject:
   m_ObjectHideFlags: 0
@@ -13325,9 +13323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentTexts: {fileID: 1107003044}
   deliveryView: {fileID: 553120850}
-  curMainQuestIndex: 0
-  testbtn: {fileID: 167481800}
-  deliveryPanel: {fileID: 1308122757}
+  curQuestNumber: 0
 --- !u!1 &747085728
 GameObject:
   m_ObjectHideFlags: 0
@@ -41042,7 +41038,8 @@ PrefabInstance:
       propertyPath: testText
       value: 
       objectReference: {fileID: 801377822}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1222026266, guid: e5fda08ead39f5a478cdaa17e2f0f601, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e5fda08ead39f5a478cdaa17e2f0f601, type: 3}
 --- !u!114 &5237020123689401746
 MonoBehaviour:
