@@ -1,0 +1,33 @@
+{
+    "dataCount": 7,
+    "dataList": [
+        {
+            "dataName": "DreamMarble",
+            "dataNumber": 0.0
+        },
+        {
+            "dataName": "Gold",
+            "dataNumber": 30000.0
+        },
+        {
+            "dataName": "SpecialFeed",
+            "dataNumber": 100.0
+        },
+        {
+            "dataName": "BGM",
+            "dataNumber": 1.0
+        },
+        {
+            "dataName": "Effect",
+            "dataNumber": 1.0
+        },
+        {
+            "dataName": "BGMMute",
+            "dataNumber": 0.0
+        },
+        {
+            "dataName": "EffectMute",
+            "dataNumber": 0.0
+        }
+    ]
+}

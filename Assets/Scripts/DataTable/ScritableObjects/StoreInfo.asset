@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4ddc353863ff442a1f782c2ee713e1, type: 3}
+  m_Name: StoreInfo
+  m_EditorClassIdentifier: 
+  associatedSheet: 1Kfo_r8_sHcCpR3YIue9AwwLu6eY7IMGYuRwH7hwPPus
+  associatedWorksheet: storeinfo
+  startid: 5001
+  endid: 5016
+  datalist:
+  - id: 5001
+    name: Rack_1
+    category: rack
+    effect: 1
+    gold: 0
+  - id: 5002
+    name: Rack_2
+    category: rack
+    effect: 2
+    gold: 5000
+  - id: 5003
+    name: Rack_3
+    category: rack
+    effect: 3
+    gold: 10000
+  - id: 5004
+    name: Vase_1
+    category: vase
+    effect: 0
+    gold: 0
+  - id: 5005
+    name: Vase_2
+    category: vase
+    effect: 5
+    gold: 4000
+  - id: 5006
+    name: Vase_3
+    category: vase
+    effect: 10
+    gold: 7000
+  - id: 5007
+    name: Vase_4
+    category: vase
+    effect: 15
+    gold: 10000
+  - id: 5008
+    name: Box_1
+    category: box
+    effect: 5
+    gold: 0
+  - id: 5009
+    name: Box_2
+    category: box
+    effect: 8
+    gold: 2000
+  - id: 5010
+    name: Box_3
+    category: box
+    effect: 12
+    gold: 5000
+  - id: 5011
+    name: Box_4
+    category: box
+    effect: 16
+    gold: 10000
+  - id: 5012
+    name: Thread_1
+    category: thread
+    effect: "\uD770\uC0C9"
+    gold: 0
+  - id: 5013
+    name: Thread_2
+    category: thread
+    effect: "\uB178\uB780\uC0C9"
+    gold: 1000
+  - id: 5014
+    name: Thread_3
+    category: thread
+    effect: "\uD30C\uB780\uC0C9"
+    gold: 2000
+  - id: 5015
+    name: Thread_4
+    category: thread
+    effect: "\uBE68\uAC04\uC0C9"
+    gold: 3000
+  - id: 5016
+    name: Thread_5
+    category: thread
+    effect: "\uAC80\uC815\uC0C9"
+    gold: 4000

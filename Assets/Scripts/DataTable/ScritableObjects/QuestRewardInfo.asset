@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0cef9676e522749a2d5476e81cb040, type: 3}
+  m_Name: QuestRewardInfo
+  m_EditorClassIdentifier: 
+  associatedSheet: 1W0ML_fkdwZLb9MR4dElftbOhuofJutOvdotkpdRijQQ
+  associatedWorksheet: questreward
+  startid: 9001
+  endid: 9011
+  datalist:
+  - id: 9001
+    name: "\uAFC8\uAD6C\uC2AC"
+    rewardType: Item
+  - id: 9002
+    name: "\uD2B9\uC81C\uBA39\uC774"
+    rewardType: Item
+  - id: 9003
+    name: "\uBA39\uC774_\uBCA0\uB9AC"
+    rewardType: Unlock
+  - id: 9004
+    name: "\uBA39\uC774_\uC9C0\uB801\uC774"
+    rewardType: Unlock
+  - id: 9005
+    name: "\uBA39\uC774_\uC0B4\uCF54\uAE30"
+    rewardType: Unlock
+  - id: 9006
+    name: "\uD574\uAE08_\uBC18\uBCF5\uD018\uC2A4\uD2B8"
+    rewardType: Unlock
+  - id: 9007
+    name: "\uD574\uAE08_\uC0C1\uC810"
+    rewardType: Unlock
+  - id: 9008
+    name: "\uD574\uAE08_\uCE74\uB860\uC774\uBCA4\uD2B8"
+    rewardType: Unlock
+  - id: 9009
+    name: "\uC2E0\uAE30\uD55C \uC561\uCCB4"
+    rewardType: Item
+  - id: 9010
+    name: "\uBC88\uC5ED\uAE30"
+    rewardType: Item
+  - id: 9011
+    name: "\uC77C\uAE30"
+    rewardType: Item

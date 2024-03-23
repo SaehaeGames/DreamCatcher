@@ -1,0 +1,21 @@
+{
+    "goodsCount": 4,
+    "goodsList": [
+        {
+            "goodsName": "Rack",
+            "goodsLevel": 0
+        },
+        {
+            "goodsName": "Vase",
+            "goodsLevel": 0
+        },
+        {
+            "goodsName": "Box",
+            "goodsLevel": 0
+        },
+        {
+            "goodsName": "Thread",
+            "goodsLevel": 0
+        }
+    ]
+}
