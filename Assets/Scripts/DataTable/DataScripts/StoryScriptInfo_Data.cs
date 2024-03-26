@@ -18,17 +18,18 @@ public class StoryScriptInfo_Data : ScriptableObject
 
     public int startid = 7000;
     public int endid = 7230;
-    
-    public List<StoryScriptInfo_Object> datalist=new List<StoryScriptInfo_Object>();
+
+    public List<StoryScriptInfo_Object> datalist = new List<StoryScriptInfo_Object>();
 
     public void LoadStoryScriptInfoData()
     {
         string savePath = getPath(fileName);
 
-        if(!File.Exists(savePath)) // 파일이 존재하지 않는다면
+        if (!File.Exists(savePath)) // 파일이 존재하지 않는다면
         {
             UpdateStoryScriptInfoData(); // 데이터 테이블 가져오기
             Debug.Log("StoryScriptInfo_Data : 존재하지 않아서 생성 및 저장");
+            DataLoadText(); //파일 로드
         }
         else // 파일이 존재 한다면
         {
@@ -45,7 +46,7 @@ public class StoryScriptInfo_Data : ScriptableObject
     {
         datalist.Clear();
 
-        for(int i=startid; i<=endid; i++)
+        for (int i = startid; i <= endid; i++)
         {
             StoryScriptInfo_Object new_storyscriptinfo = new StoryScriptInfo_Object();
 
@@ -66,7 +67,7 @@ public class StoryScriptInfo_Data : ScriptableObject
         DataSaveText(datalist); // 업데이트한 데이터 저장
     }
 
-    void UpdateStats(UnityAction<GstuSpreadSheet> callback, bool mergedCells=false)
+    void UpdateStats(UnityAction<GstuSpreadSheet> callback, bool mergedCells = false)
     {
         SpreadsheetManager.Read(new GSTU_Search(associatedSheet, associatedWorksheet), callback, mergedCells);
     }
@@ -79,9 +80,9 @@ public class StoryScriptInfo_Data : ScriptableObject
 
     public void DataSaveText(List<StoryScriptInfo_Object> _datalist)
     {
-        string savePath=getPath(fileName);
+        string savePath = getPath(fileName);
         string saveJson = "";
-        for(int i=0; i<_datalist.Count; i++)
+        for (int i = 0; i < _datalist.Count; i++)
         {
             string saveText = JsonUtility.ToJson(_datalist[i], true) + ", \n";
             saveJson += saveText;
@@ -95,19 +96,19 @@ public class StoryScriptInfo_Data : ScriptableObject
         datalist.Clear();
 
         string savePath = getPath(fileName);
-        string[] loadJson=File.ReadAllLines(savePath);
+        string[] loadJson = File.ReadAllLines(savePath);
 
-        for(int i=0; i<loadJson.Length; i++)
+        for (int i = 0; i < loadJson.Length; i++)
         {
             string curText1 = loadJson[i];
-            if(curText1.Equals("{"))
+            if (curText1.Equals("{"))
             {
                 string oneItem = "{";
 
-                for(int j=i+1; i<loadJson.Length; j++)
+                for (int j = i + 1; i < loadJson.Length; j++)
                 {
                     string curText2 = loadJson[j];
-                    if(curText2.Equals("}, ")) 
+                    if (curText2.Equals("}, "))
                     {
                         oneItem += "}";
                         datalist.Add(JsonUtility.FromJson<StoryScriptInfo_Object>(oneItem));
@@ -126,7 +127,7 @@ public class StoryScriptInfo_Data : ScriptableObject
     private static string getPath(string fileName)
     {
 #if UNITY_EDITOR
-        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
+        return Application.dataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_ANDROID
         return Application.persistentDataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_IPHONE

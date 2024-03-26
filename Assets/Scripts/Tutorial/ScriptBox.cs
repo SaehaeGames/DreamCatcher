@@ -32,6 +32,8 @@ public class ScriptBox : MonoBehaviour
     public int startId;
     public int endId;
     public bool next;
+    public string talk;
+    private IEnumerator typingCoroutine;
 
     // 데이터 테이블
     private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
@@ -106,7 +108,7 @@ public class ScriptBox : MonoBehaviour
 
     public bool NextScript()
     {
-        if(next)
+        if (next)
         {
             // 한 대화 묶음 끝 확인
             if (7000 + lineNum >= (endId + 1))
@@ -118,13 +120,21 @@ public class ScriptBox : MonoBehaviour
             // 타이핑 중
             if (typing)
             {
-                speed = 0.005f; // 속도 빠르게
+                StopCoroutine(typingCoroutine);
+                talk = talk.Replace("  ", "\n");
+                talk = talk.Replace("<", "-<");
+                talk = talk.Replace(">", ">-");
+                talk = talk.Replace("-<", "<color=#ffb7a6><b>");
+                talk = talk.Replace(">-", "</b></color>");
+                loadingTxt.text = talk;
+                typing = false;
+                highlightChar = false; // 하이라이트 표시 종료
                 return false;
             }
             else // 타이핑 끝
             {
                 // 대사라면
-                if(_storyscriptinfo_data.datalist[lineNum].charImage!=99)
+                if (_storyscriptinfo_data.datalist[lineNum].charImage != 99)
                 {
                     characterNameText.text = _storyscriptinfo_data.datalist[lineNum].speaker;
 
@@ -139,7 +149,9 @@ public class ScriptBox : MonoBehaviour
                     {
                         characterBody.color = new Color(0f, 0f, 0f, 1f);
                     }
-                    StartCoroutine(Typing(_storyscriptinfo_data.datalist[lineNum].line));
+                    talk = _storyscriptinfo_data.datalist[lineNum].line;
+                    typingCoroutine = Typing();
+                    StartCoroutine(typingCoroutine);
                     lineNum++;
                 } // 대사가 아니라면(클릭 명령)
                 else
@@ -148,7 +160,7 @@ public class ScriptBox : MonoBehaviour
                 }
 
                 // 새로운 씬으로 넘어가면 => 저장
-                if(_storyscriptinfo_data.datalist[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
+                if (_storyscriptinfo_data.datalist[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
                 {
                     // 현재 씬 업데이트
                     curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.datalist[lineNum].sceneNum;
@@ -161,12 +173,12 @@ public class ScriptBox : MonoBehaviour
     }
 
     // 타이핑 효과
-    IEnumerator Typing(string talk)
+    IEnumerator Typing()
     {
         speed = 0.1f; // 스피드 설정(기본)
         typing = true; // 타이핑 중
         loadingTxt.text = null; // 텍스트 박스 초기화
-        
+
         // 줄바꿈 처리
         if (talk.Contains("  "))
         {
@@ -177,7 +189,7 @@ public class ScriptBox : MonoBehaviour
         for (int i = 0; i < talk.Length; i++)
         {
             // 하이라이트 효과 확인
-            if (talk[i]=='<')
+            if (talk[i] == '<')
             {
                 highlightChar = true; // 하이라이트 표시 시작
                 continue; // 대사창에는 표시X
@@ -189,7 +201,7 @@ public class ScriptBox : MonoBehaviour
             }
 
             // 하이라이트 효과 적용/미적용
-            if(highlightChar) // 적용
+            if (highlightChar) // 적용
             {
                 loadingTxt.text += ("<color=#ffb7a6><b>" + talk[i] + "</b></color>");
             }
@@ -229,5 +241,11 @@ public class ScriptBox : MonoBehaviour
     public void ResetLog()
     {
         scriptLog = "";
+    }
+
+    // 대화창 on/off
+    public void ScriptBoxOnOff(bool onoff)
+    {
+
     }
 }

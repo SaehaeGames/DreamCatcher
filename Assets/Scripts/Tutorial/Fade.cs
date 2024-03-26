@@ -50,7 +50,7 @@ public class Fade : MonoBehaviour
             color.a = Mathf.Lerp(start, end, fadeCurve.Evaluate(percent));
             fadeImage.color = color;
 
-            Debug.Log(fadeImage.color);
+            //Debug.Log(fadeImage.color);
             yield return null;
         }
 

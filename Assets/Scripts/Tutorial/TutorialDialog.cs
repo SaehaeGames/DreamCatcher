@@ -10,10 +10,11 @@ public class TutorialDialog : TutorialBase
     public override void Enter()
     {
         Debug.Log("Dialog");
-        scriptBox =GameObject.FindObjectOfType<ScriptBox>();
+        scriptBox = GameObject.FindObjectOfType<ScriptBox>();
+        scriptBox.gameObject.SetActive(true);
         scriptBox.StartScript(startId, endId);
         Debug.Log(scriptBox.startId + " " + scriptBox.endId);
-        
+
     }
 
     public override void Execute(TutorialController controller)
@@ -30,6 +31,6 @@ public class TutorialDialog : TutorialBase
 
     public override void Exit()
     {
-        
+        //scriptBox.gameObject.SetActive(false);
     }
 }

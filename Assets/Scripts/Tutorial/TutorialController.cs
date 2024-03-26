@@ -22,7 +22,7 @@ public class TutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentTutorial != null)
+        if (currentTutorial != null)
         {
             currentTutorial.Execute(this);
         }
@@ -31,13 +31,13 @@ public class TutorialController : MonoBehaviour
     public void SetNextTutorial()
     {
         // 현재 튜토리얼의 Exit() 메소드 호출
-        if(currentTutorial!=null)
+        if (currentTutorial != null)
         {
             currentTutorial.Exit();
         }
 
         // 마지막 튜토리얼을 진행했다면 CompletedAllTutorials() 메소드 호출
-        if(currentIndex>=tutorials.Count-1)
+        if (currentIndex >= tutorials.Count - 1)
         {
             CompletedAllTutorials();
             return;
@@ -60,7 +60,7 @@ public class TutorialController : MonoBehaviour
         //현재 씬 전환
 
         Debug.Log("Complete All");
-        if(!nextSceneName.Equals(""))
+        if (!nextSceneName.Equals(""))
         {
             SceneManager.LoadScene(nextSceneName);
         }

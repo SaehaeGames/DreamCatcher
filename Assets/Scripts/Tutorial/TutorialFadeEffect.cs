@@ -23,7 +23,7 @@ public class TutorialFadeEffect : TutorialBase
 
     public override void Execute(TutorialController controller)
     {
-        if(isCompleted==true)
+        if (isCompleted == true)
         {
             controller.SetNextTutorial();
         }

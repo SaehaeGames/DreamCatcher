@@ -49,19 +49,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //UpdateGameDataFromSpreadSheet();
+        UpdateGameDataFromSpreadSheet();
 
         ResetGameManager();
         LoadGameDataFromJson();
         //LoadGameDataFromJson();
-        try
+        /*try
         {
             testText.text = "테스트용 : " + loadQuestData.questList[2].questDreamCatcher.GetFeather(2);
         }
         catch (Exception e)
         {
             testText.text = e.ToString();
-        }
+        }*/
     }
 
     public static GameManager GetGameManager()

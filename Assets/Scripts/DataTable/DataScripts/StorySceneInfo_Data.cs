@@ -31,6 +31,7 @@ public class StorySceneInfo_Data : ScriptableObject
         {
             UpdateStorySceneInfoData();
             Debug.Log("존재하지 않아서 생성 및 저장(StorySceneInfo)");
+            DataLoadText(); //파일 로드
         }
         else
         {
@@ -116,7 +117,7 @@ public class StorySceneInfo_Data : ScriptableObject
     private static string getPath(string fileName)
     {
 #if UNITY_EDITOR
-        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
+        return Application.dataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_ANDROID
         return Application.persistentDataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_IPHONE
