@@ -1,0 +1,32 @@
+{
+    "birdListCnt": 3,
+    "birdList": [
+        {
+            "isFed": false,
+            "startTime": "0",
+            "feedingTime": 0.0,
+            "decreaseTime": 0.0,
+            "isAppeared": false,
+            "feedNumber": 0,
+            "birdNumber": 0
+        },
+        {
+            "isFed": false,
+            "startTime": "0",
+            "feedingTime": 0.0,
+            "decreaseTime": 0.0,
+            "isAppeared": false,
+            "feedNumber": 0,
+            "birdNumber": 0
+        },
+        {
+            "isFed": false,
+            "startTime": "0",
+            "feedingTime": 0.0,
+            "decreaseTime": 0.0,
+            "isAppeared": false,
+            "feedNumber": 0,
+            "birdNumber": 0
+        }
+    ]
+}

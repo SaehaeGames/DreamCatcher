@@ -1,5 +1,5 @@
 {
-    "dataCount": 7,
+    "dataCount": 8,
     "dataList": [
         {
             "dataName": "DreamMarble",
@@ -27,6 +27,10 @@
         },
         {
             "dataName": "EffectMute",
+            "dataNumber": 0.0
+        },
+        {
+            "dataName": "nowSceneNum",
             "dataNumber": 0.0
         }
     ]

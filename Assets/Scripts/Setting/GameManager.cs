@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public MyDreamCatcher loadDreamCatcherData; //드림캐쳐 저장 데이터
     public InteriorContainer loadInteriorData;  //플레이어 인테리어 저장 데이터
     public QuestContainer loadQuestData;
-    public Text testText;
 
     //데이터 테이블 오브젝트
     public BirdInfo_Data birdinfo_data;

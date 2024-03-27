@@ -29,7 +29,7 @@ public class StoryScriptInfo_Data : ScriptableObject
         {
             UpdateStoryScriptInfoData(); // 데이터 테이블 가져오기
             Debug.Log("StoryScriptInfo_Data : 존재하지 않아서 생성 및 저장");
-            DataLoadText(); //파일 로드
+            //DataLoadText(); //파일 로드
         }
         else // 파일이 존재 한다면
         {

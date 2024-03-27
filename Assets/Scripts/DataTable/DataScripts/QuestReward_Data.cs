@@ -142,11 +142,11 @@ public class QuestReward_Data : ScriptableObject
 #if UNITY_EDITOR
         return Application.dataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_ANDROID
-        return Application.persistentDataPath+ fileName + ".json";
+        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+ fileName + ".json";
+        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
 #else
-        return Application.dataPath +"/"+ fileName + ".json";
+        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
 #endif
     }
 }

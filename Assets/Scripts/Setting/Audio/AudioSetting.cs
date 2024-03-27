@@ -26,6 +26,7 @@ public class AudioSetting : MonoBehaviour
     public void Start()
     {
         ResetAudio();
+        Debug.Log("오디오 실행");
     }
 
     public void ResetAudio()

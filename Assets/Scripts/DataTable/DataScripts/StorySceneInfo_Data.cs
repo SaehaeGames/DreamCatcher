@@ -31,7 +31,7 @@ public class StorySceneInfo_Data : ScriptableObject
         {
             UpdateStorySceneInfoData();
             Debug.Log("존재하지 않아서 생성 및 저장(StorySceneInfo)");
-            DataLoadText(); //파일 로드
+            //DataLoadText(); //파일 로드
         }
         else
         {

@@ -21,12 +21,12 @@ public class ResetGame : MonoBehaviour
 
         //1. 플레이어 데이터 리셋(꿈구슬, 특제먹이, 골드, 볼륨)
         curPlayerData = new PlayerDataContainer();
-        //GameManager.instance.loadPlayerData = curPlayerData;
+        GameManager.instance.loadPlayerData = curPlayerData;
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);   //변경사항 json으로 저장
 
         //2. 상점 구매 데이터 리셋
         curGoodsData = new GoodsContainer();
-        //GameManager.instance.loadGoodsData = curGoodsData;
+        GameManager.instance.loadGoodsData = curGoodsData;
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GoodsJSON>().DataSaveText(curGoodsData);   //변경사항 json으로 저장
 
         //3. 인벤토리 데이터 리셋
@@ -39,7 +39,7 @@ public class ResetGame : MonoBehaviour
         //2) 인벤토리 드림캐쳐 개수 리셋
         //GameManager의 loadInventoryDreamCatcherData를 초기화
         System.IO.File.Delete(getPath("Saves", "DreamCatcherListData.json"));
-        Directory.Delete(getPath("DreamCatcherImgs", ""), true);
+        //Directory.Delete(getPath("DreamCatcherImgs", ""), true);
 
         //5. 새 저장 데이터 리셋(먹이둔 새 데이터)
         curBirdData = new BirdContainer();

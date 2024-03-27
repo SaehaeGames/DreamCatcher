@@ -34,7 +34,6 @@ public class BirdInfo_Data : ScriptableObject
             UpdateBirdInfoData();  //데이터 테이블 가져오기
 
             Debug.Log("존재하지 않아서 생성 및 저장");
-            //DataLoadText(); //파일 로드
         }
         else    //파일이 존재한다면
         {
