@@ -17,17 +17,16 @@ public class QuestItem_Data : ScriptableObject
     public List<QuestItem_Object> dataList = new List<QuestItem_Object>();
 
 
-    public void UpdateQuestItemData()
+    public void UpdateQuestItemData(Action onUpdateComplete)
     {
         // QuestItemInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<QuestItem_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
         {
             dataList = _loadedDataList;
-            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+            GameManager.instance.GetComponent<ScriptableObjectManager>().SaveScriptableObjectAtPath(objectName);    // 변동사항 저장
+            onUpdateComplete?.Invoke(); //onUpdateComplete 콜백 호출
         });
-
-        AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
     }
 
     public void InitializeQuestItemData()

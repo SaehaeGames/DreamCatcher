@@ -16,17 +16,16 @@ public class StoryScriptInfo_Data : ScriptableObject
     private static string objectName = "StoryScriptInfo";
 
     public List<StoryScriptInfo_Object> dataList = new List<StoryScriptInfo_Object>();
-    public void UpdateStoryScriptInfoData()
+    public void UpdateStoryScriptInfoData(Action onUpdateComplete)
     {
         // StoryScriptInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<StoryScriptInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
         {
             dataList = _loadedDataList;
-            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+            GameManager.instance.GetComponent<ScriptableObjectManager>().SaveScriptableObjectAtPath(objectName);    // 변동사항 저장
+            onUpdateComplete?.Invoke(); //onUpdateComplete 콜백 호출
         });
-
-        AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
     }
 
     public void InitializeStoryScriptInfoData()

@@ -12,88 +12,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4ddc353863ff442a1f782c2ee713e1, type: 3}
   m_Name: StoreInfo
   m_EditorClassIdentifier: 
-  associatedSheet: 1Kfo_r8_sHcCpR3YIue9AwwLu6eY7IMGYuRwH7hwPPus
-  associatedWorksheet: storeinfo
-  startid: 5001
-  endid: 5016
-  datalist:
-  - id: 5001
+  dataList:
+  - id: 4000
     name: Rack_1
-    category: rack
+    category: 0
+    contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
     effect: 1
     gold: 0
-  - id: 5002
+  - id: 4001
     name: Rack_2
-    category: rack
+    category: 0
+    contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
     effect: 2
     gold: 5000
-  - id: 5003
+  - id: 4002
     name: Rack_3
-    category: rack
+    category: 0
+    contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
     effect: 3
     gold: 10000
-  - id: 5004
+  - id: 4003
     name: Vase_1
-    category: vase
+    category: 1
+    contents: "\uC0C8 \uB4F1\uC7A5\uC2DC\uAC04 \uB2E8\uCD95"
     effect: 0
     gold: 0
-  - id: 5005
+  - id: 4004
     name: Vase_2
-    category: vase
+    category: 1
+    contents: "\uC0C8 \uB4F1\uC7A5\uC2DC\uAC04 \uB2E8\uCD95"
     effect: 5
     gold: 4000
-  - id: 5006
+  - id: 4005
     name: Vase_3
-    category: vase
+    category: 1
+    contents: "\uC0C8 \uB4F1\uC7A5\uC2DC\uAC04 \uB2E8\uCD95"
     effect: 10
     gold: 7000
-  - id: 5007
+  - id: 4006
     name: Vase_4
-    category: vase
+    category: 1
+    contents: "\uC0C8 \uB4F1\uC7A5\uC2DC\uAC04 \uB2E8\uCD95"
     effect: 15
     gold: 10000
-  - id: 5008
+  - id: 4007
     name: Box_1
-    category: box
+    category: 2
+    contents: "\uC778\uBCA4\uD1A0\uB9AC \uC6A9\uB7C9"
     effect: 5
     gold: 0
-  - id: 5009
+  - id: 4008
     name: Box_2
-    category: box
+    category: 2
+    contents: "\uC778\uBCA4\uD1A0\uB9AC \uC6A9\uB7C9"
     effect: 8
     gold: 2000
-  - id: 5010
+  - id: 4009
     name: Box_3
-    category: box
+    category: 2
+    contents: "\uC778\uBCA4\uD1A0\uB9AC \uC6A9\uB7C9"
     effect: 12
     gold: 5000
-  - id: 5011
+  - id: 4010
     name: Box_4
-    category: box
+    category: 2
+    contents: "\uC778\uBCA4\uD1A0\uB9AC \uC6A9\uB7C9"
     effect: 16
     gold: 10000
-  - id: 5012
+  - id: 4011
     name: Thread_1
-    category: thread
+    category: 3
+    contents: "\uC2E4\uC758 \uC0C9"
     effect: "\uD770\uC0C9"
     gold: 0
-  - id: 5013
+  - id: 4012
     name: Thread_2
-    category: thread
+    category: 3
+    contents: "\uC2E4\uC758 \uC0C9"
     effect: "\uB178\uB780\uC0C9"
     gold: 1000
-  - id: 5014
+  - id: 4013
     name: Thread_3
-    category: thread
+    category: 3
+    contents: "\uC2E4\uC758 \uC0C9"
     effect: "\uD30C\uB780\uC0C9"
     gold: 2000
-  - id: 5015
+  - id: 4014
     name: Thread_4
-    category: thread
+    category: 3
+    contents: "\uC2E4\uC758 \uC0C9"
     effect: "\uBE68\uAC04\uC0C9"
     gold: 3000
-  - id: 5016
+  - id: 4015
     name: Thread_5
-    category: thread
+    category: 3
+    contents: "\uC2E4\uC758 \uC0C9"
     effect: "\uAC80\uC815\uC0C9"
     gold: 4000

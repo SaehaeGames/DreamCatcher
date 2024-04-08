@@ -12,8 +12,104 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1634b836646f24ab41134fe3fda8b2, type: 3}
   m_Name: StorySceneInfo
   m_EditorClassIdentifier: 
-  associateSheet: 14moYHgh4H_et4Dj0CY6UtzB7eaOoR_C7Oi4GL5qeZqE
-  associatedWorksheet: storysceneinfo
-  startid: 8000
-  endid: 8024
-  datalist: []
+  dataList:
+  - id: 8000
+    sceneNum: 0
+    startId: 7000
+    endId: 7005
+  - id: 8001
+    sceneNum: 1
+    startId: 7006
+    endId: 7010
+  - id: 8002
+    sceneNum: 2
+    startId: 7011
+    endId: 7016
+  - id: 8003
+    sceneNum: 3
+    startId: 7017
+    endId: 7026
+  - id: 8004
+    sceneNum: 4
+    startId: 7027
+    endId: 7042
+  - id: 8005
+    sceneNum: 5
+    startId: 7043
+    endId: 7057
+  - id: 8006
+    sceneNum: 6
+    startId: 7058
+    endId: 7067
+  - id: 8007
+    sceneNum: 7
+    startId: 7068
+    endId: 7074
+  - id: 8008
+    sceneNum: 8
+    startId: 7075
+    endId: 7086
+  - id: 8009
+    sceneNum: 9
+    startId: 7087
+    endId: 7101
+  - id: 8010
+    sceneNum: 10
+    startId: 7102
+    endId: 7107
+  - id: 8011
+    sceneNum: 11
+    startId: 7108
+    endId: 7112
+  - id: 8012
+    sceneNum: 12
+    startId: 7113
+    endId: 7119
+  - id: 8013
+    sceneNum: 13
+    startId: 7120
+    endId: 7132
+  - id: 8014
+    sceneNum: 14
+    startId: 7133
+    endId: 7141
+  - id: 8015
+    sceneNum: 15
+    startId: 7142
+    endId: 7148
+  - id: 8016
+    sceneNum: 16
+    startId: 7149
+    endId: 7153
+  - id: 8017
+    sceneNum: 17
+    startId: 7154
+    endId: 7155
+  - id: 8018
+    sceneNum: 18
+    startId: 7156
+    endId: 7164
+  - id: 8019
+    sceneNum: 19
+    startId: 7165
+    endId: 7169
+  - id: 8020
+    sceneNum: 20
+    startId: 7170
+    endId: 7173
+  - id: 8021
+    sceneNum: 21
+    startId: 7174
+    endId: 7188
+  - id: 8022
+    sceneNum: 22
+    startId: 7189
+    endId: 7192
+  - id: 8023
+    sceneNum: 23
+    startId: 7193
+    endId: 7197
+  - id: 8024
+    sceneNum: 24
+    startId: 7198
+    endId: 7230

@@ -18,20 +18,21 @@ public class BirdInfo_Data : ScriptableObject
 
     public List<BirdInfo_Object> dataList = new List<BirdInfo_Object>();
 
-    public void UpdateBirdInfoData()
+    public void UpdateBirdInfoData(Action onUpdateComplete)
     {
         // BirdInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<BirdInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) => 
         {
             dataList = _loadedDataList;
-            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+            GameManager.instance.GetComponent<ScriptableObjectManager>().SaveScriptableObjectAtPath(objectName);    // 변동사항 저장
+            onUpdateComplete?.Invoke(); //onUpdateComplete 콜백 호출
         });
     }
 
     public void InitializeBirdInfoData()
     {
-        // BirdInfo 스크립터블 오브젝트를 초기화하는 함수
+        // BirdInfo 스크립터블 오브젝트를 삭제하고 재생성하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<BirdInfo_Data>(CreateInstance<BirdInfo_Data>(), objectName); 
     }

@@ -20,9 +20,22 @@ public class ScriptableObjectManager : MonoBehaviour
 
         string objectAddress = objectAddress_start + objectName + objectAddress_end;   // 스크립터블 오브젝트의 주소
 
-        AssetDatabase.DeleteAsset(objectAddress_start);  // 기존 스크립터블 오브젝트 삭제
-        AssetDatabase.CreateAsset(asset, objectAddress_start);   // 스크립터블 오브젝트 신규 생성
+        AssetDatabase.DeleteAsset(objectAddress);  // 기존 스크립터블 오브젝트 삭제
+        AssetDatabase.CreateAsset(asset, objectAddress);   // 스크립터블 오브젝트 신규 생성
         AssetDatabase.SaveAssets(); // 에셋 저장
+    }
+
+    public void SaveScriptableObjectAtPath(string objectName)
+    {
+        // 해당 경로에 있는 스크립터블 오브젝트의 변동사항을 저장하는 함수
+
+        string objectAddress = objectAddress_start + objectName + objectAddress_end;   // 스크립터블 오브젝트의 주소
+        UnityEngine.Object scriptableObject = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(objectAddress);
+
+        if (scriptableObject != null)   // 로드한 스크립터블 오브젝트가 null이 아니라면
+        {
+            EditorUtility.SetDirty(scriptableObject);   // 변동사항 저장
+        }
     }
 
     public void GetScriptableObjectToObjectList<T>(string address, string range, long sheetID, Action<List<T>> onDataLoaded)

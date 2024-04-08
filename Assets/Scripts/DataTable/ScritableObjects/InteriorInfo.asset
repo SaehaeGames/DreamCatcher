@@ -12,8 +12,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeac2828b7dd1184fb618cf47088b063, type: 3}
   m_Name: InteriorInfo
   m_EditorClassIdentifier: 
-  associatedSheet: 1F3nQXJxatyzvJHbba9H0B832GQ6aQh0cigMeJJxSLx4
-  associatedWorksheet: interiorinfo
-  startid: 4001
-  endid: 4027
-  datalist: []
+  dataList:
+  - id: 3000
+    name: wallpaper_0
+    category: Wallpaper
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3001
+    name: wallpaper_1
+    category: Wallpaper
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3002
+    name: wallpaper_2
+    category: Wallpaper
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3003
+    name: garland_0
+    category: Garland
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3004
+    name: garland_1
+    category: Garland
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3005
+    name: garland_2
+    category: Garland
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3006
+    name: windowframe_0
+    category: WindowFrame
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3007
+    name: windowframe_1
+    category: WindowFrame
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3008
+    name: windowframe_2
+    category: WindowFrame
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3009
+    name: pad_0
+    category: Pad
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3010
+    name: pad_1
+    category: Pad
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3011
+    name: pad_2
+    category: Pad
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3012
+    name: fillpen_0
+    category: Quill
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3013
+    name: fillpen_1
+    category: Quill
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3014
+    name: fillpen_2
+    category: Quill
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3015
+    name: object1_default
+    category: Prop1
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3016
+    name: pocketwatch
+    category: Prop1
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3017
+    name: stardrop
+    category: Prop1
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3018
+    name: crystalball_0
+    category: CrystalBall
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3019
+    name: crystalball_1
+    category: CrystalBall
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3020
+    name: crystalball_2
+    category: CrystalBall
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3021
+    name: telescope_0
+    category: Telescope
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3022
+    name: telescope_1
+    category: Telescope
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3023
+    name: telescope_2
+    category: Telescope
+    theme: "Star\r"
+    contents: 
+    gold: 0
+  - id: 3024
+    name: object2_default
+    category: Prop2
+    theme: "Default\r"
+    contents: 
+    gold: 0
+  - id: 3025
+    name: conch
+    category: Prop2
+    theme: "Sea\r"
+    contents: 
+    gold: 0
+  - id: 3026
+    name: musicbox
+    category: Prop2
+    theme: Star
+    contents: 
+    gold: 0

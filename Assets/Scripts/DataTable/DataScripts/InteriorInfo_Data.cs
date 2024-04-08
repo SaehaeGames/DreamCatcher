@@ -16,14 +16,15 @@ public class InteriorInfo_Data : ScriptableObject
 
     public List<InteriorInfo_Object> dataList = new List<InteriorInfo_Object>();
 
-    public void UpdateInteriorInfoData()
+    public void UpdateInteriorInfoData(Action onUpdateComplete)
     {
         // InteriorInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<InteriorInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
         {
             dataList = _loadedDataList;
-            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+            GameManager.instance.GetComponent<ScriptableObjectManager>().SaveScriptableObjectAtPath(objectName);    // 변동사항 저장
+            onUpdateComplete?.Invoke(); //onUpdateComplete 콜백 호출
         });
     }
 
