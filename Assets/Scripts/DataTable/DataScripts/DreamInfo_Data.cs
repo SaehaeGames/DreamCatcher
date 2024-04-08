@@ -18,15 +18,17 @@ public class DreamInfo_Data : ScriptableObject
     {
         // DreamInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
-        dataList = GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<DreamInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet);
-
-        AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<DreamInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
+        {
+            dataList = _loadedDataList;
+            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        });
     }
 
     public void InitializeBirdInfoData()
     {
         // DreamInfo 스크립터블 오브젝트를 초기화하는 함수
 
-        GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<BirdInfo_Data>(CreateInstance<DreamInfo_Data>(), objectName);
+        GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<DreamInfo_Data>(CreateInstance<DreamInfo_Data>(), objectName);
     }
 }

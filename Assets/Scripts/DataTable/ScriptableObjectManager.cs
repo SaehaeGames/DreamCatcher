@@ -25,11 +25,14 @@ public class ScriptableObjectManager : MonoBehaviour
         AssetDatabase.SaveAssets(); // 에셋 저장
     }
 
-    public List<T> GetScriptableObjectToObjectList<T>(string address, string range, long sheetID)
+    public void GetScriptableObjectToObjectList<T>(string address, string range, long sheetID, Action<List<T>> onDataLoaded)
     {
         // 스프레드 시트에서 가져온 데이터를 스크립터블 오브젝트에 저장하는 함수
-
         // 스프레드 시트의 데이터 리스트를 가져옴
-        return this.GetComponent<SpreadSheetManager>().GetSpreadSheetDataToObject<T>(address, range, sheetID);
+
+        this.GetComponent<SpreadSheetManager>().GetSpreadSheetDataToObject<T>(address, range, sheetID, (dataList) =>
+        {
+            onDataLoaded(dataList);
+        });
     }
 }

@@ -8,29 +8,32 @@ using UnityEngine.Networking;
 public class SpreadSheetManager : MonoBehaviour
 {
     // 스프레드 시트 데이터 매니저
-
+    
     private static string defaultAddress = "https://docs.google.com/spreadsheets/d/"; // 스프레드 시트 주소의 공통 부분
 
-    public List<T> GetSpreadSheetDataToObject<T>(string address, string range, long sheetID)
+    public void GetSpreadSheetDataToObject<T>(string address, string range, long sheetID, Action<List<T>> callback)
     {
         // 주소, 시트의 범위, 시트ID를 입력하면 스프레드 시트의 데이터를 객체 리스트로 반환하는 함수
 
-        return GetSpreadSheetDatas<T>(GetSpreadSheetDataToText(address, range, sheetID));
+        StartCoroutine(GetSpreadSheetDataToText<T>(address, range, sheetID, (www) => 
+        {
+            List<T> dataList = GetSpreadSheetDatas<T>(www.downloadHandler.text);
+            callback(dataList); //데이터를 콜백으로 전달
+        }));
     }
 
     public List<T> GetSpreadSheetDatas<T>(string data)
     {
         // 스트레드 시트 클래스 인스턴스화 한 데이터를 리스트화
-        
-        List<T> returnList = new List<T>();
-        string[] splitedData = data.Split('\n');    // \n을 기준으로 분리
 
-        foreach(string element in splitedData)
+        List<T> returnList = new List<T>();
+        string[] splitedData = data.Split('\n');    // 행을 기준으로 분리
+        
+        foreach (string element in splitedData)
         {
-            string[] datas = element.Split('\t');   // \t를 기준으로 분리
+            string[] datas = element.Split('\t');   // 열을 기준으로 분리
             returnList.Add(GetSpreadSheetData<T>(datas));   // 리스트에 추가
         }
-
         return returnList;
     }
 
@@ -50,7 +53,6 @@ public class SpreadSheetManager : MonoBehaviour
             {
                 // string > parse
                 Type type = fields[i].FieldType;
-
                 if (string.IsNullOrEmpty(datas[i])) continue;
 
                 // 변수에 맞는 자료형으로 파싱해서 넣음
@@ -75,18 +77,24 @@ public class SpreadSheetManager : MonoBehaviour
         return (T)data;
     }
 
-    public string GetSpreadSheetDataToText(string address, string range, long sheetID)
+    public IEnumerator GetSpreadSheetDataToText<T>(string address, string range, long sheetID, Action<UnityWebRequest> callback)
     {
         // 주소, 시트의 범위, 시트ID를 입력하면 스프레드 시트의 데이터를 하나의 텍스트로 반환하는 함수
 
         UnityWebRequest www = UnityWebRequest.Get(GetTSVAddress(address, range, sheetID));
-        return www.downloadHandler.text;
+        yield return www.SendWebRequest();
+        
+        if (www != null)
+        {
+            callback(www);
+        }
+        www.Dispose();
     }
 
     public static string GetTSVAddress(string address, string range, long sheetID)
     {
         // 주소, 시트의 범위, 시트ID를 입력하면 TSV 주소로 반환하는 함수
 
-        return defaultAddress + $"{address}/export?format=tsv&range={range}&grid={sheetID}";
+        return defaultAddress+$"{address}/export?format=tsv&range={range}&grid={sheetID}";
     }
 }

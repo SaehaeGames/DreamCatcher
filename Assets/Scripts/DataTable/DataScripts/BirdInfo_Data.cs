@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEditor;
+using UnityEngine.Networking;
+using System.Collections;
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/BirdInfo")]    // 스크립터블 오브젝트 객체 생성
 [Serializable]
@@ -20,9 +22,11 @@ public class BirdInfo_Data : ScriptableObject
     {
         // BirdInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
-        dataList = GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<BirdInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet);
-
-        AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<BirdInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) => 
+        {
+            dataList = _loadedDataList;
+            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        });
     }
 
     public void InitializeBirdInfoData()

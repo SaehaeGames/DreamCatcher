@@ -18,16 +18,20 @@ public class StoryScriptInfo_Data : ScriptableObject
     public List<StoryScriptInfo_Object> dataList = new List<StoryScriptInfo_Object>();
     public void UpdateStoryScriptInfoData()
     {
-        // BirdInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
+        // StoryScriptInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
-        dataList = GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<StoryScriptInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet);
+        GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<StoryScriptInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
+        {
+            dataList = _loadedDataList;
+            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        });
 
         AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
     }
 
     public void InitializeStoryScriptInfoData()
     {
-        // BirdInfo 스크립터블 오브젝트를 초기화하는 함수
+        // StoryScriptInfo 스크립터블 오브젝트를 초기화하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<StoryScriptInfo_Data>(CreateInstance<StoryScriptInfo_Data>(), objectName);
     }

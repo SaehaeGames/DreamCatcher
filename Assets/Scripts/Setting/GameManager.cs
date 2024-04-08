@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateGameDataFromSpreadSheet();
+        //StartCoroutine(UpdateGameDataFromSpreadSheet());
 
         ResetGameManager();
     }

@@ -18,16 +18,18 @@ public class InteriorInfo_Data : ScriptableObject
 
     public void UpdateInteriorInfoData()
     {
-        // BirdInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
+        // InteriorInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
 
-        dataList = GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<InteriorInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet);
-
-        AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<InteriorInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
+        {
+            dataList = _loadedDataList;
+            AssetDatabase.SaveAssetIfDirty(this);   // 변동사항이 있다면 저장
+        });
     }
 
     public void InitializeInteriorInfoData()
     {
-        // BirdInfo 스크립터블 오브젝트를 초기화하는 함수
+        // InteriorInfo 스크립터블 오브젝트를 초기화하는 함수
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<InteriorInfo_Data>(CreateInstance<InteriorInfo_Data>(), objectName);
     }
