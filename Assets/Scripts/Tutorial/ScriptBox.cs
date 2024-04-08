@@ -67,12 +67,12 @@ public class ScriptBox : MonoBehaviour
         lineNum = startId % 7000; // 인덱스화
         this.endId = endId;
 
-        characterNameText.text = _storyscriptinfo_data.datalist[lineNum].speaker;
+        characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
 
-        characterBody.sprite = characterBodySprites[_storyscriptinfo_data.datalist[lineNum].charImage];
-        characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.datalist[lineNum].faceImage];
-        characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.datalist[lineNum].effectImage];
-        if (_storyscriptinfo_data.datalist[lineNum].charImage > 0)
+        characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
+        characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
+        characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
+        if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
         {
             characterBody.color = new Color(1f, 1f, 1f, 1f);
         }
@@ -134,14 +134,14 @@ public class ScriptBox : MonoBehaviour
             else // 타이핑 끝
             {
                 // 대사라면
-                if (_storyscriptinfo_data.datalist[lineNum].charImage != 99)
+                if (_storyscriptinfo_data.dataList[lineNum].charImage != 99)
                 {
-                    characterNameText.text = _storyscriptinfo_data.datalist[lineNum].speaker;
+                    characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
 
-                    characterBody.sprite = characterBodySprites[_storyscriptinfo_data.datalist[lineNum].charImage];
-                    characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.datalist[lineNum].faceImage];
-                    characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.datalist[lineNum].effectImage];
-                    if (_storyscriptinfo_data.datalist[lineNum].charImage > 0)
+                    characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
+                    characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
+                    characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
+                    if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
                     {
                         characterBody.color = new Color(1f, 1f, 1f, 1f);
                     }
@@ -149,7 +149,7 @@ public class ScriptBox : MonoBehaviour
                     {
                         characterBody.color = new Color(0f, 0f, 0f, 1f);
                     }
-                    talk = _storyscriptinfo_data.datalist[lineNum].line;
+                    talk = _storyscriptinfo_data.dataList[lineNum].line;
                     typingCoroutine = Typing();
                     StartCoroutine(typingCoroutine);
                     lineNum++;
@@ -160,10 +160,10 @@ public class ScriptBox : MonoBehaviour
                 }
 
                 // 새로운 씬으로 넘어가면 => 저장
-                if (_storyscriptinfo_data.datalist[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
+                if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
                 {
                     // 현재 씬 업데이트
-                    curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.datalist[lineNum].sceneNum;
+                    curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
                     GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
                 }
                 return false;

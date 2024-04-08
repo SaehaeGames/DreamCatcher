@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -52,7 +50,7 @@ public class InventoryData : MonoBehaviour
         int PocketLevel = curGoodsData.goodsList[2].goodsLevel;  //주머니의 레벨을 가져옴
 
         StoreInfo_Data _storeinfo_data = GameManager.instance.storeinfo_data;  
-        int boxEffect = int.Parse(_storeinfo_data.datalist[PocketLevel + 8].effect);    //상자 효과를 가져옴(12는 상점 데이터의 박스 시작 인덱스)
+        int boxEffect = int.Parse(_storeinfo_data.dataList[PocketLevel + 8].effect);    //상자 효과를 가져옴(12는 상점 데이터의 박스 시작 인덱스)
         //위 이거 말고 그냥 플레이어 데이터 저장할 때 상품 레벨(0,1,2,3)이 아니라 아이템 id로 저장하기.. 그래서 아이템 id 바로 가져와서 그걸로 조회하기?
 
 
@@ -97,7 +95,7 @@ public class InventoryData : MonoBehaviour
     public void UpdateInventory()
     {
         //인벤토리 데이터를 기준으로 인벤토리 업데이트
-
+/*
         InventoryInfo_Data _inventoryinfo_data = GameManager.instance.inventoryinfo_data;
         featherData = GameManager.instance.loadFeatherData;   //깃털 정보를 가져옴
 
@@ -181,7 +179,7 @@ public class InventoryData : MonoBehaviour
 
                 listCnt++;  //리스트 번호 증가
             }
-        }
+        }*/
     }
 
     public string WriteDreamCatcherContents(DreamCatcher obj)
@@ -224,23 +222,23 @@ public class InventoryData : MonoBehaviour
 
         if (_feather1 == _feather2 && _feather1 == _feather3)
         {
-            featherTxt = _birdinfo_data.datalist[_feather1].name + " 깃털 X3";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " 깃털 X3";
         }
         else if (_feather1 == _feather2 && _feather1 != _feather3)
         {
-            featherTxt = _birdinfo_data.datalist[_feather1].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[_feather3].name + " 깃털";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[_feather3].name + " 깃털";
         }
         else if (_feather1 == _feather3 && _feather1 != _feather2)
         {
-            featherTxt = _birdinfo_data.datalist[_feather1].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[_feather2].name + " 깃털";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[_feather2].name + " 깃털";
         }
         else if (_feather2 == _feather3 && _feather2 != _feather1)
         {
-            featherTxt = _birdinfo_data.datalist[_feather2].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[_feather1].name + " 깃털";
+            featherTxt = _birdinfo_data.dataList[_feather2].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[_feather1].name + " 깃털";
         }
         else
         {
-            featherTxt = _birdinfo_data.datalist[_feather1].name + " 깃털" + "\n" + _birdinfo_data.datalist[_feather2].name + " 깃털" + "\n" + _birdinfo_data.datalist[_feather3].name + " 깃털";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " 깃털" + "\n" + _birdinfo_data.dataList[_feather2].name + " 깃털" + "\n" + _birdinfo_data.dataList[_feather3].name + " 깃털";
         }
         return featherTxt;
     }

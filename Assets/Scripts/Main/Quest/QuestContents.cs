@@ -53,10 +53,10 @@ public class QuestContents : MonoBehaviour
         int isCheck = questData.questList[questNumber].questCheck;
         if (isCheck != 1)   //아직 확인 안 한 퀘스트라면
         {
-            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = questInfo_data.datalist[questNumber].title.ToString();    //퀘스트 이름 변경
-            string contents = questInfo_data.datalist[questNumber].contents.ToString(); //퀘스트 내용을 가져옴
+            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].title.ToString();    //퀘스트 이름 변경
+            string contents = questInfo_data.dataList[questNumber].contents.ToString(); //퀘스트 내용을 가져옴
             contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents.Replace("nn", "\n"); //퀘스트 내용 변경
-            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = questInfo_data.datalist[questNumber].from.ToString();    //퀘스트 발신인 변경
+            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].from.ToString();    //퀘스트 발신인 변경
 
             questData.questList[questNumber].questCheck = 1;
             GameManager.instance.loadQuestData = questData;

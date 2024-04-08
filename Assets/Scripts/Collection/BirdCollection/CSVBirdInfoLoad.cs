@@ -53,7 +53,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
             }
             else // 새가 등장한 적이 있다면
             {
-                birdColName[i].GetComponent<Text>().text = _birdinfo_data.datalist[i].name;
+                birdColName[i].GetComponent<Text>().text = _birdinfo_data.dataList[i].name;
                 birdColImg[i].GetComponent<Button>().interactable = true;
             }
         }
@@ -64,11 +64,11 @@ public class CSVBirdInfoLoad : MonoBehaviour
     {
         // 텍스트 설정
         numberTxt.text = "획득 수 "+ featherData.featherList[index].feather_number+"마리";
-        nameTxt.text = _birdinfo_data.datalist[index].name;
-        int startTime = _birdinfo_data.datalist[index].starttime;
-        int endTime = _birdinfo_data.datalist[index].endtime;
+        nameTxt.text = _birdinfo_data.dataList[index].name;
+        int startTime = _birdinfo_data.dataList[index].startTime;
+        int endTime = _birdinfo_data.dataList[index].endTime;
         //텍스트 설정(설명)
-        string expContent = _birdinfo_data.datalist[index].exp;
+        string expContent = _birdinfo_data.dataList[index].exp;
         expTxt.text = expContent.Replace("nn", "\n");
         // 텍스트 설정(등장시간)
         if (startTime < 3600)
@@ -98,7 +98,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
         
 
         // 슬라이더 설정
-        numberSlide.maxValue = _birdinfo_data.datalist[index].maxnum;
+        numberSlide.maxValue = _birdinfo_data.dataList[index].maxNum;
         numberSlide.value = featherData.featherList[index].feather_number;
 
         // 이미지 설정

@@ -23,11 +23,11 @@
         },
         {
             "dataName": "BGMMute",
-            "dataNumber": 0.0
+            "dataNumber": 1.0
         },
         {
             "dataName": "EffectMute",
-            "dataNumber": 0.0
+            "dataNumber": 1.0
         },
         {
             "dataName": "nowSceneNum",

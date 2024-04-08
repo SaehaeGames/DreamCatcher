@@ -79,7 +79,7 @@ public class AudioSetting : MonoBehaviour
         BGMute = BGToggle.isOn;
         AudioManager.instance.SetBGMute(BGMute);
 
-        SaveAudioSetting();
+        //SaveAudioSetting();
     }
 
     //효과음 음소거 함수
@@ -90,7 +90,7 @@ public class AudioSetting : MonoBehaviour
         EffectMute = EffectToggle.isOn;
         AudioManager.instance.SetEffectMute(EffectMute);
 
-        SaveAudioSetting();
+        //SaveAudioSetting();
     }
 
     public void SaveAudioSetting()

@@ -251,12 +251,12 @@ public class DCCheckManager : MonoBehaviour
         {
             if (featherMap[0] == featherMap[1])
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털 X2";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털 X2";
                 return featherTxt;
             }
             else
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털" + "\n" + _birdinfo_data.datalist[featherMap[1]].name + " 깃털";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털" + "\n" + _birdinfo_data.dataList[featherMap[1]].name + " 깃털";
                 return featherTxt;
             }
         }
@@ -264,33 +264,33 @@ public class DCCheckManager : MonoBehaviour
         {
             if (featherMap[0] == featherMap[1] && featherMap[0] == featherMap[2])
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털 X3";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털 X3";
                 return featherTxt;
             }
             else if (featherMap[0] == featherMap[1] && featherMap[0] != featherMap[2])
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[featherMap[2]].name + " 깃털";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[featherMap[2]].name + " 깃털";
                 return featherTxt;
             }
             else if (featherMap[0] == featherMap[2] && featherMap[0] != featherMap[1])
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[featherMap[1]].name + " 깃털";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[featherMap[1]].name + " 깃털";
                 return featherTxt;
             }
             else if (featherMap[1] == featherMap[2] && featherMap[1] != featherMap[0])
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[1]].name + " 깃털 X2" + "\n" + _birdinfo_data.datalist[featherMap[0]].name + " 깃털";
+                featherTxt = _birdinfo_data.dataList[featherMap[1]].name + " 깃털 X2" + "\n" + _birdinfo_data.dataList[featherMap[0]].name + " 깃털";
                 return featherTxt;
             }
             else
             {
-                featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털" + "\n" + _birdinfo_data.datalist[featherMap[1]].name + " 깃털" + "\n" + _birdinfo_data.datalist[featherMap[2]].name + " 깃털";
+                featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털" + "\n" + _birdinfo_data.dataList[featherMap[1]].name + " 깃털" + "\n" + _birdinfo_data.dataList[featherMap[2]].name + " 깃털";
                 return featherTxt;
             }
         }
         else
         {
-            featherTxt = _birdinfo_data.datalist[featherMap[0]].name + " 깃털";
+            featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털";
             return featherTxt;
         }
     }

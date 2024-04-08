@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     public BirdInfo_Data birdinfo_data;
     public DreamInfo_Data dreaminfo_data;
     public StoreInfo_Data storeinfo_data;
-    public InventoryInfo_Data inventoryinfo_data;
     public InteriorInfo_Data interiorinfo_data;
     public QuestInfo_Data questinfo_data;
     public StoryScriptInfo_Data storyscriptinfo_data;
@@ -51,36 +50,12 @@ public class GameManager : MonoBehaviour
         UpdateGameDataFromSpreadSheet();
 
         ResetGameManager();
-        LoadGameDataFromJson();
-        //LoadGameDataFromJson();
-        /*try
-        {
-            testText.text = "테스트용 : " + loadQuestData.questList[2].questDreamCatcher.GetFeather(2);
-        }
-        catch (Exception e)
-        {
-            testText.text = e.ToString();
-        }*/
     }
 
     public static GameManager GetGameManager()
     {
         return instance;
-    }
-
-    public void LoadGameDataFromJson()
-    {
-        //데이터 테이블 불러오는 함수
-
-        birdinfo_data.LoadBirdInfoData();
-        dreaminfo_data.LoadDreamInfoData();
-        storeinfo_data.LoadStoreInfoData();
-        inventoryinfo_data.LoadInventoryInfoData();
-        interiorinfo_data.LoadInteriorInfoData();
-        questinfo_data.LoadQuestInfoData();
-        storyscriptinfo_data.LoadStoryScriptInfoData();
-        storysceneinfo_data.LoadStorySceneInfoData();
-    }
+    }  
 
     public void UpdateGameDataFromSpreadSheet()
     {
@@ -90,7 +65,6 @@ public class GameManager : MonoBehaviour
         birdinfo_data.UpdateBirdInfoData();
         dreaminfo_data.UpdateDreamInfoData();
         storeinfo_data.UpdateStoreInfoData();
-        inventoryinfo_data.UpdateInventoryInfoData();
         interiorinfo_data.UpdateInteriorInfoData();
         questinfo_data.UpdateQuestInfoData();
         storyscriptinfo_data.UpdateStoryScriptInfoData();

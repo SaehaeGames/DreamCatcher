@@ -71,7 +71,7 @@ public class BirdSelect : MonoBehaviour
         List<int> birdRandom = new List<int>(); //새 등장 확률을 추첨할 리스트
         for (int i = 0; i < 3; i++)
         {
-            int appearCnt = birdinfo_data.datalist[categoryCnt + i].probability;   //도감에 저장된 해당 먹이의 i번째 새의 등장 확률을 가져옴
+            int appearCnt = birdinfo_data.dataList[categoryCnt + i].probability;   //도감에 저장된 해당 먹이의 i번째 새의 등장 확률을 가져옴
             for (int j = 0; j < appearCnt; j++)
             {
                 birdRandom.Add(i);  //리스트에 i번 새 등장확률만큼 입력
@@ -116,27 +116,27 @@ public class BirdSelect : MonoBehaviour
         //해당 먹이의 특별새가 이미 등장하였는지 여부를 반환하는 함수
         //해당 먹이의 특별새 인덱스(3, 7, 11, 15)
 
-        int isAppeared;
+        int isAppeared = 0;
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;
 
-        switch (feedNum)
+/*        switch (feedNum)
         {
             case 0:
-                isAppeared = birdinfo_data.datalist[3].appear;
+                isAppeared = birdinfo_data.dataList[3].appear;
                 break;
             case 1:
-                isAppeared = birdinfo_data.datalist[7].appear;
+                isAppeared = birdinfo_data.dataList[7].appear;
                 break;
             case 2:
-                isAppeared = birdinfo_data.datalist[11].appear;
+                isAppeared = birdinfo_data.dataList[11].appear;
                 break;
             case 3:
-                isAppeared = birdinfo_data.datalist[15].appear;
+                isAppeared = birdinfo_data.dataList[15].appear;
                 break;
             default:
                 isAppeared = 0;
                 break;
-        }
+        }*/
 
         return System.Convert.ToBoolean(isAppeared);
     }

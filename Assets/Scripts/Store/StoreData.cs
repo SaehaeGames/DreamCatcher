@@ -32,22 +32,22 @@ public class StoreData : MonoBehaviour
     public void UpdateStoreData()
     {
         curGoodsData = GameManager.instance.loadGoodsData;   //플레이어의 상품 정보를 가져옴
-
+/*
         //상점 데이터를 가져오는 함수
         //int goodCnt = 0;    //상품 인덱스(횃대: 0, 꽃병: 1, 박스: 2, 실: 3)
         string leftCategoty = "";  //확인한 카테고리
-        int cnt = _storeinfo_data.endid - _storeinfo_data.startid + 1;
+        int cnt = _storeinfo_data.endId - _storeinfo_data.startId + 1;
         int checkCnt = 0;
         for (int goodCnt = 0; goodCnt < cnt; goodCnt++)
         {
-            string curCategory = _storeinfo_data.datalist[goodCnt].category;  //현재 카테고리
+            string curCategory = _storeinfo_data.dataList[goodCnt].category;  //현재 카테고리
             if (curCategory.Equals(leftCategoty))   //만약 이미 확인했던 카테고리라면
             {
                 continue;   //넘어감
             }
             else    //처음 확인하는 카테고리라면
             {
-                leftCategoty = _storeinfo_data.datalist[goodCnt].category;  //현재 카테고리를 확인한 카테고리로 설정
+                leftCategoty = _storeinfo_data.dataList[goodCnt].category;  //현재 카테고리를 확인한 카테고리로 설정
 
                 //상품 정보 가져옴
                 int goodsLevel = curGoodsData.goodsList[checkCnt].goodsLevel;  //플레이어의 상품 레벨 데이터
@@ -82,7 +82,7 @@ public class StoreData : MonoBehaviour
             //**실 구매시 마지막 번호라 오류 뜬 것 해결하기
             soldOut[3].SetActive(true);   //구매 막기
         }
-
+*/
         //변동사항 저장
         GameManager.instance.loadGoodsData = curGoodsData;
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GoodsJSON>().DataSaveText(curGoodsData);
@@ -120,16 +120,16 @@ public class StoreData : MonoBehaviour
             switch (goodsNumber)
             {
                 case 0:
-                    goodsCost = _storeinfo_data.datalist[goodsNumber + goodsLevel + 1].gold;
+                    goodsCost = _storeinfo_data.dataList[goodsNumber + goodsLevel + 1].gold;
                     break;
                 case 1:
-                    goodsCost = _storeinfo_data.datalist[goodsNumber + goodsLevel + 3].gold;
+                    goodsCost = _storeinfo_data.dataList[goodsNumber + goodsLevel + 3].gold;
                     break;
                 case 2:
-                    goodsCost = _storeinfo_data.datalist[goodsNumber + goodsLevel + 6].gold;
+                    goodsCost = _storeinfo_data.dataList[goodsNumber + goodsLevel + 6].gold;
                     break;
                 case 3:
-                    goodsCost = _storeinfo_data.datalist[goodsNumber + goodsLevel + 9].gold;
+                    goodsCost = _storeinfo_data.dataList[goodsNumber + goodsLevel + 9].gold;
                     break;
                 default:
                     //goodsCost = _storeinfo_data.datalist[goodsNumber + goodsLevel + 1].gold;

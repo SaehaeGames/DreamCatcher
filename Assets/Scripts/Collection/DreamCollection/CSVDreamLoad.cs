@@ -40,19 +40,19 @@ public class CSVDreamLoad : MonoBehaviour
         for (int i = 0; i < 24; i++)
         {
             dreamColImg[i].GetComponent<Image>().sprite = dreamImgs[i];
-            dreamColName[i].GetComponent<Text>().text = _dreaminfo_data.datalist[i].name;
+            dreamColName[i].GetComponent<Text>().text = _dreaminfo_data.dataList[i].name;
         }
     }
 
     public void LoadDreamInfo(int index)
     {
         // 텍스트 설정(이름)
-        nameTxt.text= _dreaminfo_data.datalist[index].name; // 이름
+        nameTxt.text= _dreaminfo_data.dataList[index].name; // 이름
 
         // 이미지 설정(드림캐쳐, 실, 깃털)
         dreamCatcherImg.sprite = dreamCatcherImgs[index]; // 드림캐쳐
         // 실
-        string lineColor = _dreaminfo_data.datalist[index].line;
+        string lineColor = _dreaminfo_data.dataList[index].line;
         if (lineColor == "w")
         {
             lineImg.sprite = lineImgs[0];
@@ -76,22 +76,22 @@ public class CSVDreamLoad : MonoBehaviour
         // 깃털
         for (int i = 0; i < 12; i++)
         {
-            if (_dreaminfo_data.datalist[index].feather1 == featherNames[i])
+            if (_dreaminfo_data.dataList[index].feather1 == featherNames[i])
             {
                 featherImg1.sprite = featherImgs[i];
             }
 
-            if (_dreaminfo_data.datalist[index].feather2 == featherNames[i])
+            if (_dreaminfo_data.dataList[index].feather2 == featherNames[i])
             {
                 featherImg2.sprite = featherImgs[i];
             }
 
-            if (_dreaminfo_data.datalist[index].feather3 == featherNames[i])
+            if (_dreaminfo_data.dataList[index].feather3 == featherNames[i])
             {
                 featherImg3.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 featherImg3.sprite = featherImgs[i];
             }
-            if (_dreaminfo_data.datalist[index].feather3 == "없음")
+            if (_dreaminfo_data.dataList[index].feather3 == "없음")
             {
                 featherImg3.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 

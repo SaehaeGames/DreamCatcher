@@ -96,14 +96,14 @@ public class FeedManager : MonoBehaviour
 
         // 먹이 시간 랜덤 설정
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;   // 새 도감 데이터를 가져옴
-        int birdStartTime = birdinfo_data.datalist[randomBird].starttime;  // 도감에서 해당 새의 시작 시간 데이터를 가져옴
-        int birdEndTime = birdinfo_data.datalist[randomBird].endtime;  // 도감에서 해당 새의 끝 시간 데이터를 가져옴
+        int birdStartTime = birdinfo_data.dataList[randomBird].startTime;  // 도감에서 해당 새의 시작 시간 데이터를 가져옴
+        int birdEndTime = birdinfo_data.dataList[randomBird].endTime;  // 도감에서 해당 새의 끝 시간 데이터를 가져옴
         int randomTime = UnityEngine.Random.Range(birdStartTime, birdEndTime + 1);    // 랜덤으로 소요 시간을 정함
 
         // 꽃병 레벨별 먹이 시간 감소치 적용
         // ** 수정 필요 (3은 상점 데이터의 꽃병 시작 인덱스. 해당 부분을 수정하기)
         int goodsLevel = GameManager.instance.loadGoodsData.goodsList[1].goodsLevel;  // 꽃병의 레벨을 가져옴
-        int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.datalist[goodsLevel + 3].effect.ToString());    // 감소 효과를 가져옴
+        int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[goodsLevel + 3].effect.ToString());    // 감소 효과를 가져옴
         double decreaseTime = (double)vaseEffect * 0.01 * randomTime;    // 퍼센트를 적용하여 감소 시간 계산
 
 

@@ -145,9 +145,9 @@ public class InteriorCategory : MonoBehaviour
 
         for (int j = 0; j < 26; j++)
         {
-            if (itemId == GameManager.instance.interiorinfo_data.datalist[j].id)
+            if (itemId == GameManager.instance.interiorinfo_data.dataList[j].id)
             {
-                itemCategory = GameManager.instance.interiorinfo_data.datalist[j].category_2.ToString();
+                itemCategory = GameManager.instance.interiorinfo_data.dataList[j].theme.ToString();
             }
         }
 
