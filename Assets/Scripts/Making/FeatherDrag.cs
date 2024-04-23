@@ -39,12 +39,6 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
         //Debug.Log("featherNum("+this.featherNum+") : " + itemcnt + "-itemcnt(FeatherCntReset)");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     // 깃털 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {

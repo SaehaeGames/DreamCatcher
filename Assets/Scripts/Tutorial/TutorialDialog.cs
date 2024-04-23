@@ -5,7 +5,10 @@ using UnityEngine;
 public class TutorialDialog : TutorialBase
 {
     private ScriptBox scriptBox;
-    public int startId, endId;
+    [Header("대사 시작 아이디-입력")]
+    public int startId;
+    [Header("대사 끝 아이디-입력")]
+    public int endId;
 
     public override void Enter()
     {

@@ -7,7 +7,7 @@ public class TutorialFadeEffect : TutorialBase
     [SerializeField]
     private Fade fadeEffect;
     [SerializeField]
-    private bool isFadeIn = false;
+    //private bool isFadeIn = false;
     private bool isCompleted = false;
 
     public override void Enter()

@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialTimer : TutorialBase
+public class TutorialAppear : TutorialBase
 {
-    [Header("대기 시간(초)-입력")]
-    [SerializeField] private int waitingTime; // 대기 시간(개발자 입력)
-    private float timer;
+    [SerializeField] private GameObject appearObject;
+    private bool appear = false;
 
     public override void Enter()
     {
-        timer = 0.0f;
+        appearObject.SetActive(true);
+        appear = true;
     }
 
     public override void Execute(TutorialController controller)
     {
-        timer += Time.deltaTime;
-        if (timer > waitingTime)
+        if(appear)
         {
             controller.SetNextTutorial();
         }
@@ -24,6 +23,6 @@ public class TutorialTimer : TutorialBase
 
     public override void Exit()
     {
-
+        
     }
 }
