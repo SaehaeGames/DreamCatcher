@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startId: 7066
-  endId: 7074
+  startId: 7033
+  endId: 7033
 --- !u!4 &1669530
 Transform:
   m_ObjectHideFlags: 0
@@ -503,7 +503,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227293035}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &227293037
 Camera:
   m_ObjectHideFlags: 0
@@ -1542,7 +1542,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1650631037}
         m_TargetAssemblyTypeName: ScriptBox, Assembly-CSharp
-        m_MethodName: NextScriptBtnHandler
+        m_MethodName: NextScript
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2285,8 +2285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startId: 7010
-  endId: 7016
+  startId: 7009
+  endId: 7015
 --- !u!1 &1366051842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,8 +2552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startId: 7031
-  endId: 7040
+  startId: 7022
+  endId: 7031
 --- !u!1 &1650631033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2653,7 +2653,8 @@ MonoBehaviour:
   characterFace: {fileID: 1744757686}
   characterEffect: {fileID: 1797489831}
   characterNameText: {fileID: 1872677008}
-  nextScriptBtn: {fileID: 0}
+  nextScriptBtn: {fileID: 975368940}
+  logBtn: {fileID: 1987181416}
   characterBodySprites:
   - {fileID: 21300000, guid: 4b132b7adb1ceb249ae9759996d3bd7d, type: 3}
   - {fileID: 21300000, guid: 4b132b7adb1ceb249ae9759996d3bd7d, type: 3}
@@ -2702,10 +2703,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 836d781bd26a5e54e8f73ea3e288fd4d, type: 3}
   startId: 0
   endId: 0
-  next: 0
   talk: 
   _storyscriptinfo_data: {fileID: 11400000, guid: 22e832dab8e0708429752f7cf1d15044, type: 2}
   _storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}
+  myreturn: 0
 --- !u!1 &1676020459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,8 +2807,8 @@ RectTransform:
   - {fileID: 1212786824}
   - {fileID: 716537185}
   - {fileID: 499482428}
-  - {fileID: 1881228553}
   - {fileID: 286184568}
+  - {fileID: 1881228553}
   - {fileID: 116681275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

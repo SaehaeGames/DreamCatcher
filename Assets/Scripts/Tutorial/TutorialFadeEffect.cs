@@ -12,7 +12,6 @@ public class TutorialFadeEffect : TutorialBase
 
     public override void Enter()
     {
-        Debug.Log("FadeIn");
         fadeEffect.FadeIn(OnAfterFadeEffect);
     }
 
@@ -26,6 +25,7 @@ public class TutorialFadeEffect : TutorialBase
         if (isCompleted == true)
         {
             controller.SetNextTutorial();
+            isCompleted = false;
         }
     }
 
