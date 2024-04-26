@@ -32,27 +32,28 @@ public class StoreData : MonoBehaviour
     public void UpdateStoreData()
     {
         curGoodsData = GameManager.instance.loadGoodsData;   //플레이어의 상품 정보를 가져옴
-/*
+
         //상점 데이터를 가져오는 함수
         //int goodCnt = 0;    //상품 인덱스(횃대: 0, 꽃병: 1, 박스: 2, 실: 3)
         string leftCategoty = "";  //확인한 카테고리
-        int cnt = _storeinfo_data.endId - _storeinfo_data.startId + 1;
+        int cnt = _storeinfo_data.dataList.Count;
+
         int checkCnt = 0;
         for (int goodCnt = 0; goodCnt < cnt; goodCnt++)
         {
-            string curCategory = _storeinfo_data.dataList[goodCnt].category;  //현재 카테고리
+            string curCategory = _storeinfo_data.dataList[goodCnt].category.ToString();  //현재 카테고리
             if (curCategory.Equals(leftCategoty))   //만약 이미 확인했던 카테고리라면
             {
                 continue;   //넘어감
             }
             else    //처음 확인하는 카테고리라면
             {
-                leftCategoty = _storeinfo_data.dataList[goodCnt].category;  //현재 카테고리를 확인한 카테고리로 설정
+                leftCategoty = _storeinfo_data.dataList[goodCnt].category.ToString();  //현재 카테고리를 확인한 카테고리로 설정
 
                 //상품 정보 가져옴
                 int goodsLevel = curGoodsData.goodsList[checkCnt].goodsLevel;  //플레이어의 상품 레벨 데이터
-                goodsContents[checkCnt].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[goodCnt + goodsLevel + 1].effect;   //상품 효과 불러옴
-                goodsContents[checkCnt].transform.GetChild(6).GetChild(2).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[goodCnt + goodsLevel + 1].gold.ToString();     //상품 가격 불러옴
+                goodsContents[checkCnt].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[goodCnt + goodsLevel + 1].effect;   //상품 효과 불러옴
+                goodsContents[checkCnt].transform.GetChild(6).GetChild(2).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[goodCnt + goodsLevel + 1].gold.ToString();     //상품 가격 불러옴
                 goodsContents[checkCnt].transform.GetChild(1).gameObject.GetComponent<Image>().sprite = goodsImages[checkCnt].imageList[goodsLevel + 1]; //상품 이미지 불러옴
 
                 checkCnt++;
@@ -63,26 +64,26 @@ public class StoreData : MonoBehaviour
         //만약 상품 레벨이 최고 레벨이라면 해당 상품 sold out 표시(**소프트코딩으로 바꿀 수 있을지 고민..)
         if (curGoodsData.goodsList[0].goodsLevel == 2)    //횃대 마지막 레벨을 구매했다면
         {
-            goodsContents[0].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[2].effect;   //상품 효과 불러옴
+            goodsContents[0].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[2].effect;   //상품 효과 불러옴
             soldOut[0].SetActive(true);   //구매 막기
         }
         if (curGoodsData.goodsList[1].goodsLevel == 3)    //꽃병 마지막 레벨을 구매했다면
         {
-            goodsContents[1].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[6].effect;   //상품 효과 불러옴
+            goodsContents[1].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[6].effect;   //상품 효과 불러옴
             soldOut[1].SetActive(true);   //구매 막기
         }
         if (curGoodsData.goodsList[2].goodsLevel == 3)    //상자 마지막 레벨을 구매했다면
         {
-            goodsContents[2].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[10].effect;   //상품 효과 불러옴
+            goodsContents[2].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[10].effect;   //상품 효과 불러옴
             soldOut[2].SetActive(true);   //구매 막기
         }
         if (curGoodsData.goodsList[3].goodsLevel == 4)    //실 마지막 레벨을 구매했다면
         {
-            goodsContents[3].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.datalist[15].effect;   //상품 효과 불러옴
+            goodsContents[3].transform.GetChild(4).GetChild(0).gameObject.GetComponent<Text>().text = _storeinfo_data.dataList[15].effect;   //상품 효과 불러옴
             //**실 구매시 마지막 번호라 오류 뜬 것 해결하기
             soldOut[3].SetActive(true);   //구매 막기
         }
-*/
+
         //변동사항 저장
         GameManager.instance.loadGoodsData = curGoodsData;
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GoodsJSON>().DataSaveText(curGoodsData);

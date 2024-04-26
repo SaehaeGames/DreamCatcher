@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
 
         ResetGameManager();
     }
@@ -94,12 +94,14 @@ public class GameManager : MonoBehaviour
     {
         //초기화 함수
 
-        loadGoodsData = this.gameObject.GetComponent<GoodsJSON>().GetGoodsData();   //상품 데이터 가져오기
-        loadPlayerData = this.gameObject.GetComponent<PlayerDataJSON>().GetTopBarData();    //상단바 데이터 가져오기
-        loadBirdData = this.gameObject.GetComponent<BirdJSON>().GetBirdData();   //먹이둔 새 데이터 가져오기
-        loadFeatherData = this.gameObject.GetComponent<FeatherNumDataManager>().GetFeatherData();
-        loadDreamCatcherData = this.gameObject.GetComponent<DreamCatcherDataManager>().GetDreamCatcherData();
-        loadInteriorData = this.gameObject.GetComponent<InteriorJSON>().GetInteriorData();  //인테리어 저장 데이터 가져오기
-        loadQuestData = this.gameObject.GetComponent<QuestJSON>().GetQuestData();
+        JsonManager jsonManager = new JsonManager();    // JSON 저장 매니저 객체 생성
+
+        loadPlayerData = jsonManager.GetData<PlayerDataContainer>("PlayerDataFile");    // 플레이어 데이터 가져오기
+        loadBirdData = jsonManager.GetData<BirdContainer>("BirdDataFile");      //먹이둔 새 데이터 가져오기
+        loadFeatherData = jsonManager.GetData<MyFeatherNumber>("FeatherNumInfo");
+        loadDreamCatcherData = jsonManager.GetData<MyDreamCatcher>("DreamCatcherListData");
+        loadGoodsData = jsonManager.GetData<GoodsContainer>("GoodsDataFile");   //상품 데이터 가져오기
+        loadInteriorData = jsonManager.GetData<InteriorContainer>("InteriorDataFile");
+        loadQuestData = jsonManager.GetData<QuestContainer>("QuestDataFile");
     }
 }

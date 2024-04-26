@@ -26,7 +26,7 @@ MonoBehaviour:
     price: 50
     startTime: 60
     endTime: 300
-    maxNum: 40
+    maxNum: 30
     probability: 0
   - id: 1001
     name: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
@@ -42,7 +42,7 @@ MonoBehaviour:
     price: 100
     startTime: 300
     endTime: 600
-    maxNum: 40
+    maxNum: 30
     probability: 0
   - id: 1002
     name: "\uACF5\uC791\uBE44\uB458\uAE30"
@@ -57,7 +57,7 @@ MonoBehaviour:
     price: 200
     startTime: 600
     endTime: 600
-    maxNum: 40
+    maxNum: 30
     probability: 0
   - id: 1003
     name: "\uC591\uBE44\uB458\uAE30"
@@ -68,7 +68,7 @@ MonoBehaviour:
     price: 0
     startTime: 60
     endTime: 600
-    maxNum: 40
+    maxNum: 1
     probability: 0
   - id: 1004
     name: "\uB531\uC0C8(\uC218\uCEF7)"
@@ -83,7 +83,7 @@ MonoBehaviour:
     price: 300
     startTime: 900
     endTime: 900
-    maxNum: 40
+    maxNum: 20
     probability: 0
   - id: 1005
     name: "\uB3D9\uACE0\uBE44"
@@ -97,7 +97,7 @@ MonoBehaviour:
     price: 400
     startTime: 900
     endTime: 1800
-    maxNum: 40
+    maxNum: 20
     probability: 0
   - id: 1006
     name: "\uC720\uB9AC\uB531\uC0C8(\uC218\uCEF7)"
@@ -111,7 +111,7 @@ MonoBehaviour:
     price: 500
     startTime: 1800
     endTime: 1800
-    maxNum: 40
+    maxNum: 20
     probability: 0
   - id: 1007
     name: "\uC194\uB531\uC0C8"
@@ -125,7 +125,7 @@ MonoBehaviour:
     price: 0
     startTime: 900
     endTime: 1800
-    maxNum: 40
+    maxNum: 1
     probability: 0
   - id: 1008
     name: "\uCCAD\uB531\uB530\uAD6C\uB9AC(\uC218\uCEF7)"
@@ -139,7 +139,7 @@ MonoBehaviour:
     price: 700
     startTime: 3600
     endTime: 3600
-    maxNum: 40
+    maxNum: 10
     probability: 0
   - id: 1009
     name: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
@@ -154,7 +154,7 @@ MonoBehaviour:
     price: 800
     startTime: 3600
     endTime: 7200
-    maxNum: 40
+    maxNum: 10
     probability: 0
   - id: 1010
     name: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
@@ -168,7 +168,7 @@ MonoBehaviour:
     price: 1000
     startTime: 10800
     endTime: 10800
-    maxNum: 40
+    maxNum: 10
     probability: 0
   - id: 1011
     name: "\uAE4C\uB9C8\uADC0"
@@ -182,7 +182,7 @@ MonoBehaviour:
     price: 0
     startTime: 3600
     endTime: 10800
-    maxNum: 40
+    maxNum: 1
     probability: 0
   - id: 1012
     name: "\uC62C\uBE7C\uBBF8"
@@ -195,7 +195,7 @@ MonoBehaviour:
     price: 1500
     startTime: 14400
     endTime: 14400
-    maxNum: 40
+    maxNum: 3
     probability: 0
   - id: 1013
     name: "\uB9E4"
@@ -210,7 +210,7 @@ MonoBehaviour:
     price: 2000
     startTime: 14400
     endTime: 21600
-    maxNum: 40
+    maxNum: 3
     probability: 0
   - id: 1014
     name: "\uD770\uBA38\uB9AC \uC218\uB9AC"
@@ -225,7 +225,7 @@ MonoBehaviour:
     price: 2500
     startTime: 21600
     endTime: 21600
-    maxNum: 40
+    maxNum: 3
     probability: 0
   - id: 1015
     name: "\uD770\uC62C\uBE7C\uBBF8"
@@ -239,5 +239,5 @@ MonoBehaviour:
     price: 0
     startTime: 14400
     endTime: 21600
-    maxNum: 40
+    maxNum: 1
     probability: 0

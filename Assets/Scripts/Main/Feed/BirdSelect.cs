@@ -79,7 +79,9 @@ public class BirdSelect : MonoBehaviour
         }
 
         int randomBird = Random.Range(0, 100);   //랜덤으로 새를 뽑기 위해 난수 생성(0~100 사이의 수 하나)
-        selectedBirdNum = birdRandom[randomBird] + categoryCnt;     //선택된 새 번호
+        //selectedBirdNum = birdRandom[randomBird] + categoryCnt;     //선택된 새 번호
+        selectedBirdNum = 1;
+        // ** 여기 오류 해결하기
 
         return selectedBirdNum;  //선정된 랜덤 새 번호 반환
     }

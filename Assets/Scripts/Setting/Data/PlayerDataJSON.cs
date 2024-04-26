@@ -92,11 +92,11 @@ public class PlayerDataJSON : MonoBehaviour
 #if UNITY_EDITOR
         return Application.dataPath + "/Saves/" + fileName + ".json";
 #elif UNITY_ANDROID
-        return Application.persistentDataPath+ fileName + ".json";
+        return Application.persistentDataPath + fileName + ".json";
 #elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+ fileName + ".json";
+        return Application.persistentDataPath+"/" + fileName + ".json";
 #else
-        return Application.dataPath +"/"+fileName + ".json";
+        return Application.dataPath +"/"+ fileName + ".json";
 #endif
     }
 }
