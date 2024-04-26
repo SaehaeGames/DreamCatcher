@@ -48,7 +48,6 @@ public class TutorialController : MonoBehaviour
         currentTutorial = tutorials[currentIndex];
 
         // 새로 바뀐 튜토리얼의 Enter() 메소드 호출
-        Debug.Log("새로운 튜토리얼 Enter");
         currentTutorial.Enter();
     }
 

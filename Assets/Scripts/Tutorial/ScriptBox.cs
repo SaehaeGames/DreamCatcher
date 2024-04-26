@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ScriptBox : MonoBehaviour
 {
     // 스크립트 박스 구성 게임오브젝트
+    [Header("스크립트 박스 구성 게임오브젝트")]
     public GameObject scriptLogBox;
     private Text scriptLogBoxTxt; // 로그 박스 Txt
     private Text loadingTxt; // 대사 박스 Txt
@@ -14,24 +15,24 @@ public class ScriptBox : MonoBehaviour
     public Image characterFace; // 캐릭터 표정 Img
     public Image characterEffect; // 캐릭터 효과 Img
     public Text characterNameText; // 캐릭터 이름 Txt
-    public Button nextScriptBtn;
-
-    private string scriptLog;
-    private int lineNum;
+    public Button nextScriptBtn; // 다음 스크립트 Btn
+    public Button logBtn; // 로그 Btn
 
     // 이미지 리소스
+    [Header("이미지 리소스")]
     public Sprite[] characterBodySprites; // 캐릭터 몸통 이미지
     public Sprite[] characterFaceSprites; // 캐릭터 표정 이미지
     public Sprite[] characterEffectSprites; // 캐릭터 효과 이미지
 
     // 변수
+    private string scriptLog;
+    private int lineNum;
     private float speed;
     private bool typing;
     private bool scriptLogOpen;
     private bool highlightChar;
     public int startId;
     public int endId;
-    public bool next;
     public string talk;
     private IEnumerator typingCoroutine;
 
@@ -55,23 +56,70 @@ public class ScriptBox : MonoBehaviour
         scriptLogBox.gameObject.SetActive(false); // 스크립트로그 박스 닫기
         speed = 0.1f; // 스크립트 재생 속도
         highlightChar = false;
-
-        //startId = _storysceneinfo_data.datalist[(int)curPlayerData.dataList[7].dataNumber].startId; // 시작 아이디 불러오기
-        //StartScript(startId, endId);
     }
 
     // 대사창 시작
-    public void StartScript(int startId, int endId)
+    public void SetScriptBox(int startId, int endId)
     {
         // 시작 아이디 설정
+        this.startId = startId;
         lineNum = startId % 7000; // 인덱스화
+        lineNum--;
         this.endId = endId;
 
-        characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
+        SetNextDialog();  
+    }
 
+    public bool myreturn = false;
+    // 다음 스크립트 재생
+    public void NextScript()
+    {
+        // 텍스트 타이핑 효과가 재생중일 때
+        if (typing)
+        {
+            StopCoroutine(typingCoroutine); // Typing 코루틴 중단
+
+            // 줄바꿈 및 특수효과 Replace
+            talk = talk.Replace("  ", "\n");
+            talk = talk.Replace("<", "-<");
+            talk = talk.Replace(">", ">-");
+            talk = talk.Replace("-<", "<color=#ffb7a6><b>");
+            talk = talk.Replace(">-", "</b></color>");
+
+            // 텍스트 표시
+            loadingTxt.text = talk;
+            typing = false;
+            highlightChar = false; // 하이라이트 표시 종료
+            myreturn = false;
+            return;
+        }
+
+        // 대화가 끝나지 않았을 때
+        if (endId > 7000 + lineNum)
+        {
+            SetNextDialog();
+        }
+        else // endId까지 대화가 끝났을 때
+        {
+            myreturn = true;
+            return;
+        }
+
+        myreturn = false;
+        return;
+    }
+
+    private void SetNextDialog()
+    {
+        lineNum++;
+
+        // UI 설정
+        characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
         characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
         characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
         characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
+
+        // 캐릭터 음영 처리
         if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
         {
             characterBody.color = new Color(1f, 1f, 1f, 1f);
@@ -81,95 +129,28 @@ public class ScriptBox : MonoBehaviour
             characterBody.color = new Color(0f, 0f, 0f, 1f);
         }
 
-        /*characterNameText.text = _storyscriptinfo_data.datalist[lineNum].speaker;
 
-        characterBody.sprite = characterBodySprites[_storyscriptinfo_data.datalist[lineNum].charImage];
-        characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.datalist[lineNum].faceImage];
-        characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.datalist[lineNum].effectImage];
-        if (_storyscriptinfo_data.datalist[lineNum].charImage > 0)
+        talk = _storyscriptinfo_data.dataList[lineNum].line;
+        typingCoroutine = Typing();
+        StartCoroutine(typingCoroutine);
+
+        // 새로운 씬으로 넘어가면 => 저장
+        /*if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
         {
-            characterBody.color = new Color(1f, 1f, 1f, 1f);
-        }
-        else
-        {
-            characterBody.color = new Color(0f, 0f, 0f, 1f);
-        }
-        // 타이핑 효과
-        StartCoroutine(Typing(_storyscriptinfo_data.datalist[lineNum].line));*/
+            // 현재 씬 업데이트
+            curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
+            GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
+        }*/
     }
 
-    //다음 대사 버튼
-
-    public void NextScriptBtnHandler()
+    public bool ReturnNextScript()
     {
-        next = true;
-        NextScript();
+        return myreturn;
     }
 
-    public bool NextScript()
+    public void ResetMyreturn()
     {
-        if (next)
-        {
-            // 한 대화 묶음 끝 확인
-            if (7000 + lineNum >= (endId + 1))
-            {
-                Debug.Log("챕터 끝");
-                return true;
-            }
-            next = false;
-            // 타이핑 중
-            if (typing)
-            {
-                StopCoroutine(typingCoroutine);
-                talk = talk.Replace("  ", "\n");
-                talk = talk.Replace("<", "-<");
-                talk = talk.Replace(">", ">-");
-                talk = talk.Replace("-<", "<color=#ffb7a6><b>");
-                talk = talk.Replace(">-", "</b></color>");
-                loadingTxt.text = talk;
-                typing = false;
-                highlightChar = false; // 하이라이트 표시 종료
-                return false;
-            }
-            else // 타이핑 끝
-            {
-                // 대사라면
-                if (_storyscriptinfo_data.dataList[lineNum].charImage != 99)
-                {
-                    characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
-
-                    characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
-                    characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
-                    characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
-                    if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
-                    {
-                        characterBody.color = new Color(1f, 1f, 1f, 1f);
-                    }
-                    else
-                    {
-                        characterBody.color = new Color(0f, 0f, 0f, 1f);
-                    }
-                    talk = _storyscriptinfo_data.dataList[lineNum].line;
-                    typingCoroutine = Typing();
-                    StartCoroutine(typingCoroutine);
-                    lineNum++;
-                } // 대사가 아니라면(클릭 명령)
-                else
-                {
-                    lineNum++;
-                }
-
-                // 새로운 씬으로 넘어가면 => 저장
-                if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
-                {
-                    // 현재 씬 업데이트
-                    curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
-                    GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
-                }
-                return false;
-            }
-        }
-        return false;
+        myreturn = false;
     }
 
     // 타이핑 효과
@@ -216,8 +197,6 @@ public class ScriptBox : MonoBehaviour
 
         typing = false; // 타이핑 종료
         scriptLog += talk + '\n'; // 로그 업데이트
-
-        //lineNum++; // 다음 대사 번호
     }
 
 
@@ -246,6 +225,45 @@ public class ScriptBox : MonoBehaviour
     // 대화창 on/off
     public void ScriptBoxOnOff(bool onoff)
     {
+        if(onoff)
+        {
+            // ScriptBox ON
 
+            // 이미지
+            this.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            characterBody.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            characterFace.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            characterEffect.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+
+            // 텍스트
+            characterNameText.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+            characterNameText.GetComponent<Outline>().effectColor = new Color(0.302709f, 0.1894357f, 0.4056604f);
+            loadingTxt.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+
+            // 버튼
+            nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            logBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+        }
+        else
+        {
+            // ScriptBox OFF
+
+            // 이미지
+            this.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            characterBody.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            characterFace.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            characterEffect.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+
+            // 텍스트
+            characterNameText.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
+            characterNameText.GetComponent<Outline>().effectColor = new Color(0.302709f, 0.1894357f, 0.4056604f);
+            loadingTxt.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
+
+            // 버튼
+            nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            logBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(0.302709f, 0.302709f, 0.302709f);
+        }
     }
 }

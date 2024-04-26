@@ -9,6 +9,7 @@ public class TutorialAppear : TutorialBase
 
     public override void Enter()
     {
+        Debug.Log("Tutorial Appear");
         appearObject.SetActive(true);
         appear = true;
     }

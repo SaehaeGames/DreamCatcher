@@ -12,28 +12,26 @@ public class TutorialDialog : TutorialBase
 
     public override void Enter()
     {
-        Debug.Log("Dialog");
         scriptBox = GameObject.FindObjectOfType<ScriptBox>();
-        scriptBox.gameObject.SetActive(true);
-        scriptBox.StartScript(startId, endId);
-        Debug.Log(scriptBox.startId + " " + scriptBox.endId);
-
+        scriptBox.ResetMyreturn();
+        scriptBox.ScriptBoxOnOff(true);
+        scriptBox.SetScriptBox(startId, endId);
     }
 
     public override void Execute(TutorialController controller)
     {
-        bool isCompleted = scriptBox.NextScript(); // 수정 필요
-        Debug.Log("Dialog Execute : " + isCompleted);
+        bool isCompleted = scriptBox.ReturnNextScript(); // 수정 필요
+        //Debug.Log("Dialog Execute : " + isCompleted);
 
         if (isCompleted)
         {
-            Debug.Log("대사 끝");
             controller.SetNextTutorial();
+            isCompleted = false;
         }
     }
 
     public override void Exit()
     {
-        //scriptBox.gameObject.SetActive(false);
+        scriptBox.ScriptBoxOnOff(false);
     }
 }

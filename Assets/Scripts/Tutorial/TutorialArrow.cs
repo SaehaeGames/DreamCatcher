@@ -23,13 +23,17 @@ public class TutorialArrow : TutorialBase
     {
         // 캔버스 불러오기
         canvas = GameObject.FindObjectOfType<Canvas>().gameObject;
+
         // 화살표 생성
         arrow = Instantiate(arrow, arrowPos, Quaternion.Euler(new Vector3(0f, 0f, 90f)));
         arrow.transform.SetParent(canvas.transform, false); // 캔버스 아래로 이동
-        arrowPos = new Vector2(clickBtn.transform.position.x, clickBtn.transform.position.y - 20f);
+        // 화살표 위치 조정
+        arrowPos = new Vector2(clickBtn.transform.position.x, clickBtn.transform.position.y+0.3f);
+        arrow.transform.position = arrowPos;
         // 화살표 깜박임 애니메이션 재생
         arrow.GetComponent<Animator>().enabled = true;
         arrow.GetComponent<Animator>().Play("blinkArrow");
+
         // 패널 이동시
         if (panelChange)
         {
