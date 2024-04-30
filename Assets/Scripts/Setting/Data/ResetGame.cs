@@ -49,7 +49,7 @@ public class ResetGame : MonoBehaviour
         GameManager.instance.ResetGameManager();
 
         //7. 시작 화면으로 이동
-        GameObject.FindGameObjectWithTag("BottomBar").GetComponent<SceneChange>().ChangeStartScene();
+        GameObject.FindGameObjectWithTag("BottomBar").GetComponent<SceneChange>().ChangeScene("Start");
 
         //나중에 수정할 것(급하게 한다고..)
         PlayerPrefs.SetInt("RepearFirstLetter", System.Convert.ToInt16(false)); //상단주의 편지 안읽음 처리

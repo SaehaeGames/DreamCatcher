@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -7,6 +5,16 @@ using UnityEngine.SceneManagement;
 public class SceneChange : MonoBehaviour
 {
     public UnityAction<string> SceneChangeWarn;
+
+    private BottomBar bottomBar;
+    private EffectChange effectChange;
+
+    public void Start()
+    {
+        // 한 번만 호출
+        bottomBar = this.GetComponent<BottomBar>();
+        effectChange = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>();
+    }
 
     private void OnEnable()
     {
@@ -18,8 +26,11 @@ public class SceneChange : MonoBehaviour
     {
         // 씬 전환 효과
 
-        this.GetComponent<BottomBar>().SetActiveCategory();
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene();   //씬 전환 효과음
+        if (bottomBar != null)
+            bottomBar.SetActiveCategory();
+
+        if (effectChange != null)
+            effectChange.PlayEffect_OpenScene();    // 씬 전환 효과음
         //this.gameObject.GetComponent<FadeEffect>().PlayFadeIn();   //페이드 효과
     }
 
@@ -29,59 +40,18 @@ public class SceneChange : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void ChangeStartScene()
+    public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene("Start");
-    }
-    public void ChangeMainScene()
-    {
-        if(SceneManager.GetActiveScene().name=="Making")
+        string activeSceneName = SceneManager.GetActiveScene().name;    // 현재 활성중인 씬 이름
+        
+        if (activeSceneName == "Making")    // 만들기 씬일 경우
         {
-            //다른 일
-            SceneChangeWarn.Invoke("Main");
+            // 다른 일
+            SceneChangeWarn.Invoke(sceneName);
         }
         else
         {
-            SceneManager.LoadScene("Main");
-        }
-    }
-
-    public void ChangeMakingScene()
-    {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            SceneChangeWarn.Invoke("Making");
-        }
-        else
-        {
-            SceneManager.LoadScene("Making");
-        }
-    }
-   
-    public void ChangeGuideScene()
-    {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            SceneChangeWarn.Invoke("CollectionBook");
-        }
-        else
-        {
-            SceneManager.LoadScene("CollectionBook");
-        }
-    }
-
-    public void ChangeStoreScene()
-    {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            SceneChangeWarn.Invoke("Store");
-        }
-        else
-        {
-            SceneManager.LoadScene("Store");
+            SceneManager.LoadScene(sceneName);  // 씬 로드
         }
     }
 }
