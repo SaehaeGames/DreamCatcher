@@ -41,6 +41,7 @@ public class TutorialArrow : TutorialBase
             shadowPanal = Instantiate(shadowPanal, new Vector2(0f, 0f), Quaternion.identity);
             shadowPanal.transform.SetParent(canvas.transform, false);
             shadowPanal.GetComponent<Image>().sprite = shadowImages[panelChangeNum]; // 패널 종류 선택
+            clickBtn.gameObject.transform.SetParent(canvas.transform, true); // 버튼 가장 위로
             clickBtn.gameObject.transform.SetAsLastSibling(); // 버튼 가장 위로
         }
     }

@@ -64,11 +64,11 @@ public class SceneChange : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Making")
         {
             //다른 일
-            SceneChangeWarn.Invoke("CollectionBook");
+            SceneChangeWarn.Invoke("CollectionDream");
         }
         else
         {
-            SceneManager.LoadScene("CollectionBook");
+            SceneManager.LoadScene("CollectionDream");
         }
     }
 
