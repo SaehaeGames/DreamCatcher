@@ -35,6 +35,7 @@ public class ScriptBox : MonoBehaviour
     public int endId;
     public string talk;
     private IEnumerator typingCoroutine;
+    private bool myreturn = false;
 
     // 데이터 테이블
     private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
@@ -62,6 +63,7 @@ public class ScriptBox : MonoBehaviour
     public void SetScriptBox(int startId, int endId)
     {
         // 시작 아이디 설정
+        myreturn = false; // myreturn 초기화
         this.startId = startId;
         lineNum = startId % 7000; // 인덱스화
         lineNum--;
@@ -70,7 +72,7 @@ public class ScriptBox : MonoBehaviour
         SetNextDialog();  
     }
 
-    public bool myreturn = false;
+    
     // 다음 스크립트 재생
     public void NextScript()
     {
@@ -123,10 +125,12 @@ public class ScriptBox : MonoBehaviour
         if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
         {
             characterBody.color = new Color(1f, 1f, 1f, 1f);
+            characterFace.color = new Color(1f, 1f, 1f, 1f);
         }
         else
         {
             characterBody.color = new Color(0f, 0f, 0f, 1f);
+            characterFace.color = new Color(0f, 0f, 0f, 1f);
         }
 
 
@@ -146,11 +150,6 @@ public class ScriptBox : MonoBehaviour
     public bool ReturnNextScript()
     {
         return myreturn;
-    }
-
-    public void ResetMyreturn()
-    {
-        myreturn = false;
     }
 
     // 타이핑 효과

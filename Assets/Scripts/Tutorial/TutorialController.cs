@@ -16,6 +16,11 @@ public class TutorialController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tutorials.Clear();
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            tutorials.Add(this.transform.GetChild(i).gameObject.GetComponent<TutorialBase>());
+        }
         SetNextTutorial();
     }
 

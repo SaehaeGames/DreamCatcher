@@ -13,7 +13,6 @@ public class TutorialDialog : TutorialBase
     public override void Enter()
     {
         scriptBox = GameObject.FindObjectOfType<ScriptBox>();
-        scriptBox.ResetMyreturn();
         scriptBox.ScriptBoxOnOff(true);
         scriptBox.SetScriptBox(startId, endId);
     }
