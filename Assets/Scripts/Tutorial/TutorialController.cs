@@ -64,9 +64,6 @@ public class TutorialController : MonoBehaviour
         //현재 씬 전환
 
         Debug.Log("Complete All");
-        if (!nextSceneName.Equals(""))
-        {
-            SceneManager.LoadScene(nextSceneName);
-        }
+        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
     }
 }
