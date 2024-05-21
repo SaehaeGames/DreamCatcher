@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - id: 2000
+    name: "\uC232\uC744 \uD5E4\uB9E4\uB294 \uAFC8"
+    kind: "\uC790\uC5F0"
+    line: w
+    feather1: "\uBA67\uBE44\uB458\uAE30"
+    feather2: "\uBA67\uBE44\uB458\uAE30"
+    feather3: "\uBA67\uBE44\uB458\uAE30"
+    bead: 1
+  - id: 2001
     name: "\uAC1C\uAC00 \uBB3C\uC5B4\uB72F\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
     line: w
@@ -21,7 +29,7 @@ MonoBehaviour:
     feather2: "\uBA67\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
-  - id: 2001
+  - id: 2002
     name: "\uACE0\uB798\uC5D0\uAC8C \uBA39\uD788\uB294 \uAFC8"
     kind: "\uC778\uAC04"
     line: r
@@ -29,7 +37,7 @@ MonoBehaviour:
     feather2: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     bead: 0
-  - id: 2002
+  - id: 2003
     name: "\uAD34\uBB3C\uC774 \uB098\uC624\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
     line: y
@@ -37,7 +45,7 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uACF5\uC791\uBE44\uB458\uAE30"
     bead: 1
-  - id: 2003
+  - id: 2004
     name: "\uADC0\uC2E0\uC5D0\uAC8C \uC7A1\uD600\uAC00\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
     line: r
@@ -45,7 +53,7 @@ MonoBehaviour:
     feather2: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     bead: 1
-  - id: 2004
+  - id: 2005
     name: "\uB0A9\uCE58 \uB2F9\uD558\uB294 \uAFC8"
     kind: "\uC778\uAC04"
     line: b
@@ -53,7 +61,7 @@ MonoBehaviour:
     feather2: "\uB531\uC0C8"
     feather3: "\uB3D9\uACE0\uBE44"
     bead: 2
-  - id: 2005
+  - id: 2006
     name: "\uB291\uB300\uAC00 \uB098\uC624\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
     line: y
@@ -61,7 +69,7 @@ MonoBehaviour:
     feather2: "\uBA67\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
-  - id: 2006
+  - id: 2007
     name: "\uB3C4\uC801\uC744 \uB9CC\uB098\uB294 \uAFC8"
     kind: "\uC778\uAC04"
     line: w
@@ -69,7 +77,7 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
-  - id: 2007
+  - id: 2008
     name: "\uB3C5\uC744 \uB9C8\uC2DC\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
     line: d
@@ -77,7 +85,7 @@ MonoBehaviour:
     feather2: "\uB9E4"
     feather3: "\uD770\uBA38\uB9AC\uB3C5\uC218\uB9AC"
     bead: 1
-  - id: 2008
+  - id: 2009
     name: "\uBC14\uB2E4\uC5D0 \uBE60\uC9C0\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
     line: b
@@ -85,7 +93,7 @@ MonoBehaviour:
     feather2: "\uC720\uB9AC\uB531\uC0C8"
     feather3: "\uC720\uB9AC\uB531\uC0C8"
     bead: 1
-  - id: 2009
+  - id: 2010
     name: "\uBC40\uC5D0\uAC8C \uBB3C\uB9AC\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
     line: r
@@ -93,7 +101,7 @@ MonoBehaviour:
     feather2: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     bead: 1
-  - id: 2010
+  - id: 2011
     name: "\uBC8C\uB808\uAC00 \uB098\uC624\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
     line: r
@@ -101,7 +109,7 @@ MonoBehaviour:
     feather2: "\uC720\uB9AC\uB531\uC0C8"
     feather3: "\uC62C\uBE7C\uBBF8"
     bead: 1
-  - id: 2011
+  - id: 2012
     name: "\uBCBC\uB77D \uB9DE\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
     line: y
@@ -109,21 +117,13 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uB3D9\uACE0\uBE44"
     bead: 0
-  - id: 2012
+  - id: 2013
     name: "\uC0AC\uB78C\uC744 \uC8FD\uC774\uB294 \uAFC8"
     kind: "\uC778\uAC04"
     line: d
     feather1: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     feather2: "\uC62C\uBE7C\uBBF8"
     feather3: "\uC62C\uBE7C\uBBF8"
-    bead: 1
-  - id: 2013
-    name: "\uC232\uC744 \uD5E4\uB9E4\uB294 \uAFC8"
-    kind: "\uC790\uC5F0"
-    line: w
-    feather1: "\uBA67\uBE44\uB458\uAE30"
-    feather2: "\uBA67\uBE44\uB458\uAE30"
-    feather3: "\uBA67\uBE44\uB458\uAE30"
     bead: 1
   - id: 2014
     name: "\uC2DD\uBB3C\uC774 \uC8FD\uB294 \uAFC8"

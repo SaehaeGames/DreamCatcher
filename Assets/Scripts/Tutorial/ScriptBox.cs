@@ -46,7 +46,7 @@ public class ScriptBox : MonoBehaviour
     {
         curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
         GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
-        loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+        loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
     }
 
@@ -224,10 +224,14 @@ public class ScriptBox : MonoBehaviour
     // 대화창 on/off
     public void ScriptBoxOnOff(bool onoff)
     {
-        if(onoff)
+        this.gameObject.transform.GetChild(1).gameObject.SetActive(onoff);
+        this.gameObject.transform.GetChild(0).gameObject.SetActive(onoff);
+
+        if (onoff)
         {
             // ScriptBox ON
-
+            
+            /*
             // 이미지
             this.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             characterBody.GetComponent<Image>().color = new Color(1f, 1f, 1f);
@@ -243,11 +247,13 @@ public class ScriptBox : MonoBehaviour
             nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             logBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
+            */
         }
         else
         {
             // ScriptBox OFF
 
+            /*
             // 이미지
             this.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             characterBody.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
@@ -263,6 +269,8 @@ public class ScriptBox : MonoBehaviour
             nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             logBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(0.302709f, 0.302709f, 0.302709f);
+
+            */
         }
     }
 }
