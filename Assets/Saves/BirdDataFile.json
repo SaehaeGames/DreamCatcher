@@ -2,11 +2,11 @@
     "birdListCnt": 3,
     "birdList": [
         {
-            "isFed": true,
+            "isFed": false,
             "startTime": "2024-04-26 오후 10:08:17",
             "feedingTime": 459.0,
             "decreaseTime": 0.0,
-            "isAppeared": false,
+            "isAppeared": true,
             "feedNumber": 0,
             "birdNumber": 1
         },

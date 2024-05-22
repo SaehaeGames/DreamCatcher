@@ -12,6 +12,7 @@ public class TutorialFadeEffect : TutorialBase
 
     public override void Enter()
     {
+        fadeEffect.gameObject.SetActive(true);
         fadeEffect.FadeIn(OnAfterFadeEffect);
     }
 

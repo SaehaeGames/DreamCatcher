@@ -60,10 +60,8 @@ public class TutorialController : MonoBehaviour
     {
         currentTutorial = null;
 
-        // 행동 양식이 여러 종류가 되었을 때 코드 추가 작성
-        //현재 씬 전환
-
         Debug.Log("Complete All");
         this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
+        Debug.Log("ChangeSceneNum"+this.gameObject.name);
     }
 }
