@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class TutorialArrow : TutorialBase
 {
-    [SerializeField] private GameObject arrow; // 화살표 프리팹
+    private GameObject arrow;
+    private GameObject arrowPrefab; // 화살표 프리팹
     private Vector2 arrowPos;
     private GameObject canvas;
     [SerializeField] private GameObject guidImg;
@@ -34,8 +35,10 @@ public class TutorialArrow : TutorialBase
         _gameSceneManager=GameSceneManager.Instance;
 
         // 화살표 생성
-        arrow = Instantiate(arrow, arrowPos, Quaternion.Euler(new Vector3(0f, 0f, 90f)));
-        arrow.transform.SetParent(canvas.transform, false); // 캔버스 아래로 이동
+        arrowPrefab = Resources.Load<GameObject>("Prefabs/Tutorial/HighlightArrowPref");
+        arrow = Instantiate(arrowPrefab, new Vector2(0f, 0f), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+        
+        //arrow.transform.SetParent(canvas.transform, false); // 캔버스 아래로 이동
 
         // 화살표 위치 조정
         Debug.Log("화살표 위치 조정");
@@ -48,7 +51,9 @@ public class TutorialArrow : TutorialBase
         arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f); //clickBtn.transform.position.y+0.3f
         //arrowPos = new Vector2(objectPosition.x, objectPosition.y+objectSize.y/2+arrow.GetComponent<RectTransform>().rect.size.y/2); //clickBtn.transform.position.y+0.3f
         //Debug.Log("objectSize : " + objectSize + " | arrowSize : " + arrow.GetComponent<RectTransform>().rect.size + " | arrowPos : " + arrowPos);*/
-        arrow.transform.position = arrowPos;
+        arrow.GetComponent<Canvas>().worldCamera=Camera.main;
+        arrow.transform.GetChild(0).position = arrowPos;
+        arrow.transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
 
         // 화살표 깜박임 애니메이션 재생
         arrow.GetComponent<Animator>().enabled = true;
