@@ -25,7 +25,7 @@ public class TutorialFadeEffect : TutorialBase
     {
         if (isCompleted == true)
         {
-            controller.SetNextTutorial();
+            controller.SetNextTutorial(SceneState.None);
             isCompleted = false;
         }
     }

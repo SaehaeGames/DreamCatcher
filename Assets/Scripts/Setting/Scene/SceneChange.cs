@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    public UnityAction<string> SceneChangeWarn;
+    //public UnityAction<string> SceneChangeWarn;
 
     private void OnEnable()
     {
@@ -38,7 +38,7 @@ public class SceneChange : MonoBehaviour
         if(SceneManager.GetActiveScene().name=="Making")
         {
             //다른 일
-            SceneChangeWarn.Invoke("Main");
+            //SceneChangeWarn.Invoke("Main");
         }
         else
         {
@@ -51,7 +51,7 @@ public class SceneChange : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Making")
         {
             //다른 일
-            SceneChangeWarn.Invoke("Making");
+            //SceneChangeWarn.Invoke("Making");
         }
         else
         {
@@ -64,7 +64,7 @@ public class SceneChange : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Making")
         {
             //다른 일
-            SceneChangeWarn.Invoke("CollectionDream");
+            //SceneChangeWarn.Invoke("CollectionDream");
         }
         else
         {
@@ -77,7 +77,7 @@ public class SceneChange : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Making")
         {
             //다른 일
-            SceneChangeWarn.Invoke("Store");
+            //SceneChangeWarn.Invoke("Store");
         }
         else
         {

@@ -137,14 +137,6 @@ public class ScriptBox : MonoBehaviour
         talk = _storyscriptinfo_data.dataList[lineNum].line;
         typingCoroutine = Typing();
         StartCoroutine(typingCoroutine);
-
-        // 새로운 씬으로 넘어가면 => 저장
-        /*if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
-        {
-            // 현재 씬 업데이트
-            curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
-            GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
-        }*/
     }
 
     public bool ReturnNextScript()

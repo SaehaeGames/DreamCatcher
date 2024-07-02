@@ -19,23 +19,21 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        // json 확인 진행된 씬 확인
-        //텍스트들을 업데이트 하는 함수
-
         curPlayerData = GameManager.instance.loadPlayerData;    //플레이어의 상단바 데이터 정보를 가져옴
 
         curScene = (int)curPlayerData.dataList[7].dataNumber;
         this.transform.GetChild(curScene).gameObject.SetActive(true);
-        
-        if(curScene==0)
+        if(tutorialFadePanal!=null)
         {
-            tutorialFadePanal.SetActive(true);
+            if ((curScene == 0))
+            {
+                tutorialFadePanal.SetActive(true);
+            }
+            else
+            {
+                tutorialFadePanal.SetActive(false);
+            }
         }
-        else
-        {
-            tutorialFadePanal.SetActive(false);
-        }
-
         Debug.Log(curScene);
 
     }
@@ -46,20 +44,14 @@ public class TutorialManager : MonoBehaviour
     {
         // 이전 씬 오브젝트 비활성화
         this.transform.GetChild(curScene).gameObject.SetActive(false);
-
+        Debug.Log("ChangeScene : 이정 씬 오브젝트 비활성화");
         // 씬 오브젝트 활성화
         curScene++;
         this.transform.GetChild(curScene).gameObject.SetActive(true);
-
+        Debug.Log("ChangeScene : 씬 오브젝트 활성화");
         // 씬 데이터 업데이트
         curPlayerData.dataList[7].dataNumber = curScene;
         GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
-
-        
-    }
-
-    public void ChangeTutorial()
-    {
-
+        Debug.Log("ChangeScene : 씬 데이터 업데이트");
     }
 }

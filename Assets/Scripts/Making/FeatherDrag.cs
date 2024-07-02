@@ -43,7 +43,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     public void OnBeginDrag(PointerEventData eventData)
     {
         startParent = transform.parent;
-        transform.SetParent(GameObject.FindGameObjectWithTag("UI Canvas").transform);
+        transform.SetParent(GameObject.FindGameObjectWithTag("FeatherDrag").transform);
     }
 
     // 깃털 드래그 중
@@ -78,7 +78,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
             makingUiManager.StartMakingFeather();
 
             // 깃털 데이터 저장
-            DCManager.UpdateFeather(eventData.pointerCurrentRaycast.gameObject.GetComponent<FeatherDrop>().featherNum, this.featherNum);
+            DCManager.UpdateFeather(eventData.pointerCurrentRaycast.gameObject.GetComponent<FeatherDrop>().decoNum, this.featherNum);
             // 해당장식 깃털 변경
             GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_MakingOrFeather();   //제작, 선긋기 효과음
             eventData.pointerCurrentRaycast.gameObject.transform.GetChild(3).GetComponent<Image>().sprite = this.gameObject.GetComponent<Image>().sprite;

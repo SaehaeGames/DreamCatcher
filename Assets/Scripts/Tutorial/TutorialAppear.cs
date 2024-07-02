@@ -18,7 +18,7 @@ public class TutorialAppear : TutorialBase
     {
         if(appear)
         {
-            controller.SetNextTutorial();
+            controller.SetNextTutorial(SceneState.None);
         }
     }
 

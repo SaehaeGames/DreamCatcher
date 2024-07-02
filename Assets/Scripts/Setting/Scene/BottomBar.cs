@@ -8,9 +8,10 @@ public class BottomBar : MonoBehaviour
 {
     public GameObject[] Selects;
     public GameObject[] UnSelects;
-
+    private GameSceneManager _gameSceneManager;
     private void Start()
     {
+        _gameSceneManager = GameSceneManager.Instance;
         OnClickSetting();
     }
 
@@ -51,19 +52,51 @@ public class BottomBar : MonoBehaviour
 
     public void OnClickSetting()
     {
-        UnSelects[0].GetComponent<Button>().onClick.AddListener(() => GameSceneManager.Instance.ChangeSceneState(SceneState.Main));
-        UnSelects[1].GetComponent<Button>().onClick.AddListener(() => GameSceneManager.Instance.ChangeSceneState(SceneState.Making));
-        UnSelects[2].GetComponent<Button>().onClick.AddListener(() => GameSceneManager.Instance.ChangeSceneState(SceneState.CollectionDream));
-        UnSelects[3].GetComponent<Button>().onClick.AddListener(() => GameSceneManager.Instance.ChangeSceneState(SceneState.Store));
+        UnSelects[0].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
+        UnSelects[1].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
+        UnSelects[2].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
+        UnSelects[3].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
     }
 
     public void onClickRemove(int menu)
     {
-        UnSelects[menu].GetComponent<Button>().onClick.RemoveAllListeners();
+        switch(menu)
+        {
+            case 0:
+                UnSelects[0].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
+                Debug.Log("onClickRemove: " + 0);
+                break;
+            case 1:
+                UnSelects[1].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
+                Debug.Log("onClickRemove: " + 1);
+                break;
+            case 2:
+                UnSelects[2].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
+                Debug.Log("onClickRemove: " + 2);
+                break;
+            case 3:
+                UnSelects[3].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
+                Debug.Log("onClickRemove: " + 3);
+                break;
+        }
     }
 
     public void OnClickAdd(int menu)
     {
-
+        switch (menu)
+        {
+            case 0:
+                UnSelects[0].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
+                break;
+            case 1:
+                UnSelects[1].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
+                break;
+            case 2:
+                UnSelects[2].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
+                break;
+            case 3:
+                UnSelects[3].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
+                break;
+        }
     }
 }

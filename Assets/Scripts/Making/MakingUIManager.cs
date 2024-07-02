@@ -61,8 +61,8 @@ public class MakingUIManager : MonoBehaviour
     // HangPoint
     public GameObject hangPoints;
 
-    public string SceneName;
-    public SceneChange bottonBarSceneChange;
+    public SceneState sceneState;
+    public GameSceneManager _gameSceneManager;
     private bool makingLineStartCheck;
     private bool makingFeatherStartCheck;
 
@@ -72,8 +72,8 @@ public class MakingUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        bottonBarSceneChange = GameObject.FindGameObjectWithTag("BottomBar").GetComponent<SceneChange>();
-        bottonBarSceneChange.SceneChangeWarn += WarnWinMove;
+        _gameSceneManager = GameSceneManager.Instance;
+        _gameSceneManager.SceneChangeWarn += WarnWinMove;
         DCManager = GameObject.FindWithTag("CreateManager").gameObject.GetComponent<DCCheckManager>();
         //FNDManager = GameObject.FindWithTag("GameManager").gameObject.GetComponent<FeatherNumDataManager>();
         FNDManager = GameManager.instance.loadFeatherData;
@@ -83,7 +83,7 @@ public class MakingUIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        bottonBarSceneChange.SceneChangeWarn -= WarnWinMove;
+        _gameSceneManager.SceneChangeWarn -= WarnWinMove;
         DCManager.gemActive -= Gem;
         DCManager.beadActive -= Bead;
     }
@@ -396,7 +396,7 @@ public class MakingUIManager : MonoBehaviour
     public void CompleteDreamCatcher()
     {
         // 깃털충분=>캡쳐, 깃털부족=>팝업
-        if (onCapture == false && this.GetComponent<DCCheckManager>().fNum == 3)
+        if (onCapture == false && this.GetComponent<DCCheckManager>().fNum >= 2)
         {
             // 드림캐쳐 챕쳐
             StartCoroutine(CRSaveScreenshot());
@@ -551,9 +551,9 @@ public class MakingUIManager : MonoBehaviour
     }
 
     // 창 이동 경고 팝업 열기
-    public void WarnWinMove(string name)
+    public void WarnWinMove(SceneState nextSceneState)
     {
-        SceneName = name;
+        sceneState = nextSceneState;
         if (makingLineStartCheck || makingFeatherStartCheck)
         {
             PopupWin.SetActive(true);
@@ -561,7 +561,8 @@ public class MakingUIManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneName);
+            _gameSceneManager.UpdateSceneState(sceneState, SceneState.Making);
+            SceneManager.LoadScene(sceneState.ToString());
         }
     }
 
@@ -576,7 +577,8 @@ public class MakingUIManager : MonoBehaviour
     // 창 이동 경고 창 이동 확인
     public void ChangeWinOk()
     {
-        SceneManager.LoadScene(SceneName);
+        _gameSceneManager.UpdateSceneState(sceneState, SceneState.Making);
+        SceneManager.LoadScene(sceneState.ToString());
     }
 
     private static string getPath(string directoryName)

@@ -24,7 +24,7 @@ public class TutorialDialog : TutorialBase
 
         if (isCompleted)
         {
-            controller.SetNextTutorial();
+            controller.SetNextTutorial(SceneState.None);
             isCompleted = false;
         }
     }

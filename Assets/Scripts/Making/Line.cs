@@ -7,18 +7,6 @@ public class Line : MonoBehaviour
     public BoxCollider2D col;
     public int startNum, endNum;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void addColliderToLine()
     {
         Vector2 StartPoint = gameObject.GetComponent<LineRenderer>().GetPosition(0);

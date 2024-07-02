@@ -12,16 +12,18 @@ public class TutorialController : MonoBehaviour
 
     private TutorialBase currentTutorial = null;
     private int currentIndex = -1;
+    private GameSceneManager _gameSceneManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameSceneManager = GameSceneManager.Instance;
         tutorials.Clear();
         for (int i = 0; i < this.transform.childCount; i++)
         {
             tutorials.Add(this.transform.GetChild(i).gameObject.GetComponent<TutorialBase>());
         }
-        SetNextTutorial();
+        SetNextTutorial(SceneState.None);
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class TutorialController : MonoBehaviour
         }
     }
 
-    public void SetNextTutorial()
+    public void SetNextTutorial(SceneState _sceneState)
     {
         // 현재 튜토리얼의 Exit() 메소드 호출
         if (currentTutorial != null)
@@ -44,7 +46,7 @@ public class TutorialController : MonoBehaviour
         // 마지막 튜토리얼을 진행했다면 CompletedAllTutorials() 메소드 호출
         if (currentIndex >= tutorials.Count - 1)
         {
-            CompletedAllTutorials();
+            CompletedAllTutorials(_sceneState);
             return;
         }
 
@@ -56,12 +58,17 @@ public class TutorialController : MonoBehaviour
         currentTutorial.Enter();
     }
 
-    public void CompletedAllTutorials()
+    public void CompletedAllTutorials(SceneState _sceneState)
     {
+        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
         currentTutorial = null;
 
-        Debug.Log("Complete All");
-        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
+        Debug.Log("Complete Scene");
+        if(_sceneState!=SceneState.None)
+        {
+            Debug.Log("CompletedAllTutorials and SceneChange");
+            _gameSceneManager.ChangeSceneState(_sceneState);
+        }
         Debug.Log("ChangeSceneNum"+this.gameObject.name);
     }
 }

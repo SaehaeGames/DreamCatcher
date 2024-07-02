@@ -18,7 +18,7 @@ public class TutorialTimer : TutorialBase
         timer += Time.deltaTime;
         if (timer > waitingTime)
         {
-            controller.SetNextTutorial();
+            controller.SetNextTutorial(SceneState.None);
         }
     }
 

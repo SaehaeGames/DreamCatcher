@@ -1,27 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum SceneState
 {
-    None,
-    Start,
-    Main,
-    Making,
-    CollectionDream,
-    CollectionBird,
-    Store
+    None=0,
+    Start=1,
+    Main=2,
+    Making=3,
+    CollectionDream=4,
+    CollectionBird=5,
+    Store=6
 }
 
-public class GameSceneManager : MonoBehaviour
+public partial class GameSceneManager : MonoBehaviour
 {
-    static private GameSceneManager instance;
+    #region Singleton
 
-    private void Awake()
-    {
-        
-    }
+    static private GameSceneManager instance;
+    public delegate void OnSceneChange(SceneState InState);
+    public OnSceneChange onSceneChangedCallback;
 
     public static GameSceneManager Instance
     {
@@ -41,12 +41,33 @@ public class GameSceneManager : MonoBehaviour
             return instance;
         }
     }
+    #endregion
+
+    public UnityAction<SceneState> SceneChangeWarn;
 
     private SceneState currentSceneState = SceneState.None;
+    private SceneState prevSceneState = SceneState.None;
+
+    public void UpdateSceneState(SceneState nextScene, SceneState nowScene)
+    {
+        prevSceneState = nowScene;
+        currentSceneState = nextScene;
+        Debug.Log("pre : " + prevSceneState + " | next : " + currentSceneState);
+    }
 
     public void ChangeSceneState(SceneState inState)
     {
-        currentSceneState = inState;
+        if (currentSceneState == SceneState.Making)
+        {
+            SceneChangeWarn.Invoke(inState);
+            return;
+        }
+        
+        UpdateSceneState(inState, currentSceneState);
+        //prevSceneState = currentSceneState;
+        //currentSceneState = inState;
+        Debug.Log("SceneChange State : " + currentSceneState.ToString());
+
         switch (currentSceneState)
         {
             case SceneState.Start:
@@ -67,9 +88,18 @@ public class GameSceneManager : MonoBehaviour
             case SceneState.Store:
                 SceneManager.LoadScene(SceneState.Store.ToString());
                 break;
-
         }
     }
 
+    // 씬 상태를 초기화하는 함수
+    public void InitSceneState()
+    {
+        currentSceneState = SceneState.None;
+    }
+
+    private void Start()
+    {
+        InitSceneState();
+    }
 
 }
