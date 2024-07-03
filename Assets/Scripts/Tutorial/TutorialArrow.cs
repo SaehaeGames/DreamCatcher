@@ -32,32 +32,34 @@ public class TutorialArrow : TutorialBase
         // 캔버스 불러오기
         canvas = GameObject.FindGameObjectWithTag("UI Canvas");
         _bottomBar = GameObject.FindGameObjectWithTag("BottomBar").GetComponent<BottomBar>();
-        _gameSceneManager=GameSceneManager.Instance;
+        _gameSceneManager =GameSceneManager.Instance;
 
         // 화살표 생성
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Tutorial/HighlightArrowPref");
         arrow = Instantiate(arrowPrefab, new Vector2(0f, 0f), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-        
-        //arrow.transform.SetParent(canvas.transform, false); // 캔버스 아래로 이동
+        arrow.GetComponent<Canvas>().worldCamera = Camera.main;
+        GameObject arrowChild = arrow.transform.GetChild(0).gameObject;
 
         // 화살표 위치 조정
-        Debug.Log("화살표 위치 조정");
-        /*
         RectTransform rectTransform = clickBtn.GetComponent<RectTransform>();
         if (rectTransform == null) return;
-        Debug.Log("화살표 위치 조정111");
-        Vector2 objectSize = rectTransform.rect.size;*/
-        Vector2 objectPosition = clickBtn.transform.position;
-        arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f); //clickBtn.transform.position.y+0.3f
-        //arrowPos = new Vector2(objectPosition.x, objectPosition.y+objectSize.y/2+arrow.GetComponent<RectTransform>().rect.size.y/2); //clickBtn.transform.position.y+0.3f
-        //Debug.Log("objectSize : " + objectSize + " | arrowSize : " + arrow.GetComponent<RectTransform>().rect.size + " | arrowPos : " + arrowPos);*/
-        arrow.GetComponent<Canvas>().worldCamera=Camera.main;
-        arrow.transform.GetChild(0).position = arrowPos;
-        arrow.transform.GetChild(0).rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+        Vector2 objectSize = rectTransform.sizeDelta;  // 버튼 사이즈
+        Vector2 objectPosition = clickBtn.transform.position; //버튼 위치
+
+        arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f);
+        //arrowPos = new Vector2(objectPosition.x, objectPosition.y+((objectSize.y/2)+(arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2))); //clickBtn.transform.position.y+0.3f
+        //Debug.Log("objectSize : " + objectSize.y / 2 + " | arrowSize : " + arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2 + " | arrowPos : " + objectPosition.y + ((objectSize.y / 2) + (arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2)));
+        
+        arrowChild.transform.position = arrowPos;
+        arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+
+        /*Vector2 canvasPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)rectTransform.parent, arrowPos, null, out canvasPos);
+        arrowChild.GetComponent<RectTransform>().anchoredPosition = canvasPos;*/
 
         // 화살표 깜박임 애니메이션 재생
-        arrow.GetComponent<Animator>().enabled = true;
-        arrow.GetComponent<Animator>().Play("blinkArrow");
+        arrowChild.GetComponent<Animator>().enabled = true;
+        arrowChild.GetComponent<Animator>().Play("blinkArrow");
 
         // 패널 이동시
         if (panelChange)
