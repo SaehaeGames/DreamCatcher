@@ -38,13 +38,16 @@ public class LineCollider : MonoBehaviour
     {
         GameObject targetObj = GetMouseUpObject();
         // 마우스가 올라간 부분(GetMouseUpObject의 반환값)이 HangPoint인 경우
-        if(targetObj.CompareTag("HangPoint"))
+        if(targetObj != null )
         {
-            //Debug.Log("행포인트 타겟 : "+ targetObj.GetComponent<HangPoint>().HangPointNum+"/"+ this.transform.parent.GetComponent<Line>().startNum+"/"+ this.transform.parent.GetComponent<Line>().endNum);
-            // HangPoint의 번호와 라인의 시작과 끝 숫자를 저장하는 함수 가동
-            DCManager.UpdateHangPnt(targetObj.GetComponent<HangPoint>().HangPointNum, 
-                this.transform.parent.GetComponent<Line>().startNum, 
-                this.transform.parent.GetComponent<Line>().endNum);
+            if (targetObj.CompareTag("HangPoint"))
+            {
+                //Debug.Log("행포인트 타겟 : "+ targetObj.GetComponent<HangPoint>().HangPointNum+"/"+ this.transform.parent.GetComponent<Line>().startNum+"/"+ this.transform.parent.GetComponent<Line>().endNum);
+                // HangPoint의 번호와 라인의 시작과 끝 숫자를 저장하는 함수 가동
+                DCManager.UpdateHangPnt(targetObj.GetComponent<HangPoint>().HangPointNum,
+                    this.transform.parent.GetComponent<Line>().startNum,
+                    this.transform.parent.GetComponent<Line>().endNum);
+            }
         }
     }
 
