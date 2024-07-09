@@ -44156,7 +44156,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectDraged: 0
-  targets: []
+  targets:
+  - {fileID: 201707748}
 --- !u!58 &6785893267115422576
 CircleCollider2D:
   m_ObjectHideFlags: 0

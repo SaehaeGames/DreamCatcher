@@ -13,6 +13,7 @@ public class TutorialArrow : TutorialBase
     [SerializeField] private GameObject guidImg;
 
     private bool isDragObj;
+    private ScriptBox scriptBox;
 
     [Header("클릭/드래그 대상-입력")]
     [SerializeField] private GameObject clickBtn; // 클릭/드래그 대상
@@ -28,7 +29,21 @@ public class TutorialArrow : TutorialBase
 
     public override void Enter()
     {
+        // 변수 초기화
         isDragObj = false;
+
+        // 스크립트 박스 관리
+        scriptBox = GameObject.FindObjectOfType<ScriptBox>();
+        Transform parentTransform = transform.parent;
+        if (parentTransform != null)
+        {
+            int index = transform.GetSiblingIndex();
+            if (index == 0)
+            {
+                scriptBox.gameObject.GetComponent<ScriptBox>().ScriptBoxOnOff(false);
+            }
+        }
+
         // 캔버스 불러오기
         canvas = GameObject.FindGameObjectWithTag("UI Canvas");
         _bottomBar = GameObject.FindGameObjectWithTag("BottomBar").GetComponent<BottomBar>();
