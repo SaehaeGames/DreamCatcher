@@ -61,16 +61,21 @@ public class TutorialArrow : TutorialBase
         Vector2 objectSize = rectTransform.sizeDelta;  // 버튼 사이즈
         Vector2 objectPosition = clickBtn.transform.position; //버튼 위치
 
-        arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f);
-        //arrowPos = new Vector2(objectPosition.x, objectPosition.y+((objectSize.y/2)+(arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2))); //clickBtn.transform.position.y+0.3f
-        //Debug.Log("objectSize : " + objectSize.y / 2 + " | arrowSize : " + arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2 + " | arrowPos : " + objectPosition.y + ((objectSize.y / 2) + (arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2)));
-        
+        // 수정 전
+        /*arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f);
+        arrowChild.transform.position = arrowPos;
+        arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));*/
+
+        // 수정 중
+        arrowPos = new Vector2(objectPosition.x, objectPosition.y+((objectSize.y/2)+(arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2))); //clickBtn.transform.position.y+0.3f
+        Debug.Log("objectSize : " + objectSize.y / 2 + " | arrowSize : " + arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2 + " | arrowPos : " + objectPosition.y + ((objectSize.y / 2) + (arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2)));
+
         arrowChild.transform.position = arrowPos;
         arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
 
-        /*Vector2 canvasPos;
+        Vector2 canvasPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)rectTransform.parent, arrowPos, null, out canvasPos);
-        arrowChild.GetComponent<RectTransform>().anchoredPosition = canvasPos;*/
+        arrowChild.GetComponent<RectTransform>().anchoredPosition = canvasPos;
 
         // 화살표 깜박임 애니메이션 재생
         arrowChild.GetComponent<Animator>().enabled = true;
