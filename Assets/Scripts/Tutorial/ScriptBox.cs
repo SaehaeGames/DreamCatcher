@@ -218,51 +218,5 @@ public class ScriptBox : MonoBehaviour
     {
         this.gameObject.transform.GetChild(1).gameObject.SetActive(onoff);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(onoff);
-
-        if (onoff)
-        {
-            // ScriptBox ON
-            
-            /*
-            // 이미지
-            this.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-            characterBody.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-            characterFace.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-            characterEffect.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-
-            // 텍스트
-            characterNameText.GetComponent<Text>().color = new Color(1f, 1f, 1f);
-            characterNameText.GetComponent<Outline>().effectColor = new Color(0.302709f, 0.1894357f, 0.4056604f);
-            loadingTxt.GetComponent<Text>().color = new Color(1f, 1f, 1f);
-
-            // 버튼
-            nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-            logBtn.gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-            logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(1f, 1f, 1f);
-            */
-        }
-        else
-        {
-            // ScriptBox OFF
-
-            /*
-            // 이미지
-            this.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-            characterBody.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-            characterFace.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-            characterEffect.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-
-            // 텍스트
-            characterNameText.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
-            characterNameText.GetComponent<Outline>().effectColor = new Color(0.302709f, 0.1894357f, 0.4056604f);
-            loadingTxt.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
-
-            // 버튼
-            nextScriptBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-            logBtn.gameObject.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
-            logBtn.gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(0.302709f, 0.302709f, 0.302709f);
-
-            */
-        }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialArrow : TutorialBase
+public class TutorialClick : TutorialBase
 {
     private GameObject arrow;
     private GameObject arrowPrefab; // 화살표 프리팹
@@ -14,6 +14,8 @@ public class TutorialArrow : TutorialBase
 
     private bool isDragObj;
     private ScriptBox scriptBox;
+    [Header("화살표 강조 ON/OFF")]
+    [SerializeField] private bool highlightArrowOnOff;
 
     [Header("클릭/드래그 대상-입력")]
     [SerializeField] private GameObject clickBtn; // 클릭/드래그 대상
@@ -50,16 +52,27 @@ public class TutorialArrow : TutorialBase
         _gameSceneManager =GameSceneManager.Instance;
 
         // 화살표 생성
+        
+
+        // 화살표 생성
         arrowPrefab = Resources.Load<GameObject>("Prefabs/Tutorial/HighlightArrowPref");
         arrow = Instantiate(arrowPrefab, new Vector2(0f, 0f), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
         arrow.GetComponent<Canvas>().worldCamera = Camera.main;
         GameObject arrowChild = arrow.transform.GetChild(0).gameObject;
 
+
+
         // 화살표 위치 조정
-        RectTransform rectTransform = clickBtn.GetComponent<RectTransform>();
+        RectTransform rectTransform = clickBtn.GetComponent<RectTransform>(); // 클릭 대상 위치
         if (rectTransform == null) return;
         Vector2 objectSize = rectTransform.sizeDelta;  // 버튼 사이즈
-        Vector2 objectPosition = clickBtn.transform.position; //버튼 위치
+        Vector3[] objectCorners = new Vector3[4];
+        rectTransform.GetWorldCorners(objectCorners);
+        Vector3 topCenter = (objectCorners[1] + objectCorners[2]) / 2;
+        Vector2 arrowSize = arrowChild.GetComponent<RectTransform>().sizeDelta;
+
+
+        //Vector2 objectPosition = clickBtn.transform.position; //버튼 위치
 
         // 수정 전
         /*arrowPos = new Vector2(objectPosition.x, objectPosition.y + +0.3f);
@@ -67,15 +80,24 @@ public class TutorialArrow : TutorialBase
         arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));*/
 
         // 수정 중
-        arrowPos = new Vector2(objectPosition.x, objectPosition.y+((objectSize.y/2)+(arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2))); //clickBtn.transform.position.y+0.3f
-        Debug.Log("objectSize : " + objectSize.y / 2 + " | arrowSize : " + arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2 + " | arrowPos : " + objectPosition.y + ((objectSize.y / 2) + (arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2)));
+        /*RectTransform uiCanvasRectTransform = clickBtn.transform.root.GetComponent<RectTransform>();
+        if(uiCanvasRectTransform == null) return;*/
 
-        arrowChild.transform.position = arrowPos;
-        arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+        arrowPos = new Vector3(rectTransform.position.x, topCenter.y + arrowSize.y / 2, topCenter.z);
+        Debug.Log("topCenter" + topCenter + "arrowSize" + arrowSize+"clickBtnPositionX"+rectTransform.position.x);
+
+        //Debug.Log("objectSize : " + objectSize.y / 2 + " | arrowSize : " + arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2 + " | arrowPos : " + objectPosition.y + ((objectSize.y / 2) + (arrowChild.GetComponent<RectTransform>().sizeDelta.y / 2)) + " | objPosition x : " + objectPosition.x + " | objPosition y : " + objectPosition.y);
+
+        //arrowChild.transform.position = arrowPos;
+        //arrowChild.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
 
         Vector2 canvasPos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)rectTransform.parent, arrowPos, null, out canvasPos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)rectTransform.parent, arrowPos, Camera.main, out canvasPos);
         arrowChild.GetComponent<RectTransform>().anchoredPosition = canvasPos;
+
+        Debug.Log("afterArrowPos" + arrowChild.transform.position+"afterArrowPosLocal"+arrowChild.transform.localPosition);
+
+        arrowChild.GetComponent<RectTransform>().rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
 
         // 화살표 깜박임 애니메이션 재생
         arrowChild.GetComponent<Animator>().enabled = true;
