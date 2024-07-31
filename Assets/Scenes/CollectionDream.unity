@@ -1611,6 +1611,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
   highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1926855734}
   panelChange: 0
   panelChangeNum: 0
@@ -3275,7 +3277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 1
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 965822292}
   panelChange: 0
   panelChangeNum: 0
@@ -8631,7 +8635,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1508375854}
   panelChange: 1
   panelChangeNum: 0

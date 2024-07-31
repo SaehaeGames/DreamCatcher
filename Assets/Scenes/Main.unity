@@ -6270,7 +6270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 236901352}
   panelChange: 0
   panelChangeNum: 0
@@ -8495,7 +8497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 586512345}
   panelChange: 1
   panelChangeNum: 1
@@ -10374,6 +10378,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
   highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1762904041}
   panelChange: 0
   panelChangeNum: 0
@@ -17726,7 +17732,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 1
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 2110055522}
   panelChange: 0
   panelChangeNum: 0
@@ -20330,7 +20338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 747085728}
   panelChange: 0
   panelChangeNum: 0
@@ -24168,7 +24178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 201707748}
   panelChange: 0
   panelChangeNum: 0
@@ -25065,7 +25077,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 1
+  arrowImg: {fileID: 21300000, guid: d1947202a10f3fa4dbcae9431e94e813, type: 3}
   clickBtn: {fileID: 2110055522}
   panelChange: 0
   panelChangeNum: 0
@@ -27352,7 +27366,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1168268326}
   panelChange: 0
   panelChangeNum: 0
@@ -27784,7 +27800,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 21300000, guid: d6f845a1ad35cd04cbaa5007d83da97a, type: 3}
   clickBtn: {fileID: 1762904041}
   panelChange: 0
   panelChangeNum: 0
@@ -30121,7 +30139,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 586512345}
   panelChange: 1
   panelChangeNum: 1
@@ -30958,6 +30978,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
   highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 2110055522}
   panelChange: 0
   panelChangeNum: 0
@@ -31638,7 +31660,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 586512344}
   panelChange: 1
   panelChangeNum: 2
@@ -31862,7 +31886,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
-  highlightArrowOnOff: 0
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 586512344}
   panelChange: 1
   panelChangeNum: 2

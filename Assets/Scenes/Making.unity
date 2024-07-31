@@ -214,6 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1610724791}
   panelChange: 1
   panelChangeNum: 0
@@ -564,6 +567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 1
   panelChangeNum: 2
@@ -860,6 +866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1434669934}
   panelChange: 0
   panelChangeNum: 0
@@ -2058,6 +2067,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 862014039}
   panelChange: 0
   panelChangeNum: 0
@@ -2581,6 +2593,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0
@@ -4357,6 +4372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0
@@ -8296,6 +8314,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1434669934}
   panelChange: 0
   panelChangeNum: 0
@@ -11586,6 +11607,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0
@@ -12813,6 +12837,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1565826805}
   panelChange: 0
   panelChangeNum: 0
@@ -13111,6 +13138,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0
@@ -14612,6 +14642,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 1284265373}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 64125425}
   panelChange: 0
   panelChangeNum: 0
@@ -15046,6 +15079,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 1
   panelChangeNum: 1
@@ -15355,6 +15391,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1731155132}
   panelChange: 0
   panelChangeNum: 0
@@ -17498,6 +17537,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 1
   panelChangeNum: 2
@@ -18336,6 +18378,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0
@@ -20568,6 +20613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 1
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 1434669934}
   panelChange: 0
   panelChangeNum: 0
@@ -20921,6 +20969,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidImg: {fileID: 0}
+  highlightArrowOnOff: 0
+  doClickButnDuplicate: 0
+  arrowImg: {fileID: 0}
   clickBtn: {fileID: 0}
   panelChange: 0
   panelChangeNum: 0

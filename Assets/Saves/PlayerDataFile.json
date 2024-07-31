@@ -11,7 +11,7 @@
         },
         {
             "dataName": "SpecialFeed",
-            "dataNumber": 87.0
+            "dataNumber": 85.0
         },
         {
             "dataName": "BGM",
@@ -31,7 +31,7 @@
         },
         {
             "dataName": "nowSceneNum",
-            "dataNumber": 11.0
+            "dataNumber": 6.0
         }
     ]
 }
