@@ -8,15 +8,10 @@ public class TutorialClick : TutorialBase
 {
     private GameObject arrow;
     private GameObject arrowPrefab; // 화살표 프리팹
-    private Vector2 arrowPos;
     private GameObject canvas;
-    [SerializeField] private GameObject guidImg;
 
-    private bool isDragObj;
     private ScriptBox scriptBox;
-
     private Transform startParent;
-
     private GameObject duplicatedClickBtn;
 
     [Header("화살표 강조 ON/OFF")]
@@ -32,15 +27,13 @@ public class TutorialClick : TutorialBase
     [SerializeField] private int panelChangeNum; // 그림자 패널 번호
     [SerializeField] GameObject shadowPanal; // 그림자 패널
     [SerializeField] private Sprite[] shadowImages; // 그림자 패널 리소스
+
     private BottomBar _bottomBar;
     private GameSceneManager _gameSceneManager;
     private SceneState[] sceneStates = { SceneState.Main, SceneState.Making, SceneState.CollectionDream, SceneState.Store };
 
     public override void Enter()
     {
-        // 변수 초기화
-        isDragObj = false;
-
         // 스크립트 박스 관리
         scriptBox = GameObject.FindObjectOfType<ScriptBox>();
         Transform parentTransform = transform.parent;
@@ -117,29 +110,11 @@ public class TutorialClick : TutorialBase
                 clickBtn.transform.SetParent(startParent);
                 controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-        } // 해당 오브젝트를 드래그하면
-        else if (clickBtn.GetComponent<TutorialDrag>() != null)
-        {
-            if(clickBtn.GetComponent<TutorialDrag>().GetObjectDraged())
-            {
-                Debug.Log("드래그 튜토리얼 완료");
-                clickBtn.transform.SetParent(startParent);
-                isDragObj = true;
-                controller.SetNextTutorial(SceneState.None); // 다음 토리얼
-            }
         }
     }
 
     public override void Exit()
     {
-        if (guidImg != null)
-        {
-            guidImg.SetActive(false);
-        }
-        if(isDragObj)
-        {
-            clickBtn.GetComponent<TutorialDrag>().SetObjctDraged(false);
-        }
         Destroy(arrow); // 화살표 삭제
         if (panelChange)
         {

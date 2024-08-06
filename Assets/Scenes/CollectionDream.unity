@@ -3279,7 +3279,7 @@ MonoBehaviour:
   guidImg: {fileID: 0}
   highlightArrowOnOff: 1
   doClickButnDuplicate: 1
-  arrowImg: {fileID: 0}
+  arrowImg: {fileID: 21300000, guid: e0d2d029cc972df4790ab70755f1a385, type: 3}
   clickBtn: {fileID: 965822292}
   panelChange: 0
   panelChangeNum: 0
@@ -8637,7 +8637,7 @@ MonoBehaviour:
   guidImg: {fileID: 0}
   highlightArrowOnOff: 1
   doClickButnDuplicate: 0
-  arrowImg: {fileID: 0}
+  arrowImg: {fileID: 21300000, guid: b1246382318cbb04ea857017540b2e02, type: 3}
   clickBtn: {fileID: 1508375854}
   panelChange: 1
   panelChangeNum: 0
