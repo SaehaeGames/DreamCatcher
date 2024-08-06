@@ -5,7 +5,6 @@ using UnityEngine;
 public class TutorialConnectLine : TutorialBase
 {
     [SerializeField] private GameObject dragPoints;
-    [SerializeField] private GameObject guidImg;
     private int numberOfTimesCorrect;
 
     public override void Enter()
@@ -23,10 +22,7 @@ public class TutorialConnectLine : TutorialBase
 
     public override void Exit()
     {
-        if (guidImg != null)
-        {
-            guidImg.SetActive(false);
-        }
+
     }
 
     public void PlusNumberOfTimesCorrect()

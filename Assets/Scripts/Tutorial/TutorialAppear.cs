@@ -5,12 +5,12 @@ using UnityEngine;
 public class TutorialAppear : TutorialBase
 {
     [SerializeField] private GameObject appearObject;
+    [SerializeField] private bool doesItMakeObjectAppear;
     private bool appear = false;
 
     public override void Enter()
     {
-        Debug.Log("Tutorial Appear");
-        appearObject.SetActive(true);
+        appearObject.SetActive(doesItMakeObjectAppear);
         appear = true;
     }
 
