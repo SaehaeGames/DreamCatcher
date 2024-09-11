@@ -34,15 +34,47 @@ public class TutorialDragPointLimit : MonoBehaviour
 
     public bool ReceiveEndPointNum(int endPointNum)
     {
-        endPoint = endPointNum;
-        if (endPoint == targetEndPoint1 || endPoint == targetEndPoint2)
+        if (_tutorialConnectLine == null)
         {
-            _tutorialConnectLine.PlusNumberOfTimesCorrect();
-            return true;
+            _tutorialConnectLine = GameObject.FindFirstObjectByType<TutorialConnectLine>();
+        }
+        endPoint = endPointNum;
+        if (targetEndPoint1 == targetEndPoint2)
+        {
+            if (endPoint == targetEndPoint1)
+            {
+                if(_tutorialConnectLine==null)
+                {
+                    Debug.LogError("_tutorialConnectLine이 존재하지 않습니다.");
+                }
+                _tutorialConnectLine.PlusNumberOfTimesCorrect();
+                Debug.Log("연결 성공 타겟 같음");
+                return true;
+            }
+            else
+            {
+                Debug.Log("연결 실패 타겟 같음");
+                return false;
+            }
         }
         else
         {
-            return false;
+            if (endPoint == targetEndPoint1 || endPoint == targetEndPoint2)
+            {
+                if (_tutorialConnectLine == null)
+                {
+                    Debug.LogError("_tutorialConnectLine이 존재하지 않습니다.");
+                }
+                _tutorialConnectLine.PlusNumberOfTimesCorrect();
+                Debug.Log("연결 성공 타겟 다름");
+                return true;
+            }
+            else
+            {
+                Debug.Log("연결 성공 타겟 다름");
+                return false;
+            }
         }
+        
     }
 }

@@ -30,6 +30,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     {
         //transform.SetAsFirstSibling();
         FeatherCntReset();
+        startParent = transform.parent;
     }
 
     public void FeatherCntReset()
@@ -42,7 +43,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     // 깃털 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
-        startParent = transform.parent;
+        
         transform.SetParent(GameObject.FindGameObjectWithTag("FeatherDrag").transform);
     }
 
@@ -72,6 +73,8 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
             }
             else if (itemcnt > 1)
             {
+                Debug.Log(startParent.gameObject); //HighlightPref
+                Debug.Log(startParent.transform.GetChild(0).gameObject); //Arrow
                 startParent.transform.GetChild(0).gameObject.GetComponent<Text>().text = "X" + itemcnt;
             }
             // 제작 시작 알림

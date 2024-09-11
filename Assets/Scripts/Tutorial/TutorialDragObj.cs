@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
-public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     public bool objectDraged;
     [SerializeField] private GameObject[] targets;
@@ -22,18 +22,15 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         objectDraged = false;
-        Debug.Log("드래그 시작");
     }
 
     public void SetTargetParent(Transform arrowTransform)
     {
         numberOfTargets = targets.Length;
-        Debug.Log("부모 변경 이전"+numberOfTargets);
         for (int i = 0; i < numberOfTargets; i++)
         {
             startParent = targets[i].transform.parent;
             targets[i].transform.SetParent(arrowTransform);
-            Debug.Log("부모 변경");
         }
     }
 
@@ -47,15 +44,11 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         return objectDraged;
     }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-
-    }
-
     // 드래그 끝
     public void OnEndDrag(PointerEventData eventData)
     {
-        for(int i=0; i < numberOfTargets; i++) 
+        numberOfTargets = targets.Length;
+        for (int i=0; i < numberOfTargets; i++) 
         {
             targets[i].transform.SetParent(startParent);
         }
@@ -70,21 +63,18 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
                 if (eventData.pointerCurrentRaycast.gameObject == targets[0])
                 {
                     objectDraged = true; // 드래그 완료 표시
-                    Debug.Log("드래그 성공");
                 }
                 break;
             case 2:
                 if (eventData.pointerCurrentRaycast.gameObject == targets[0] || eventData.pointerCurrentRaycast.gameObject == targets[1])
                 {
                     objectDraged = true; // 드래그 완료 표시
-                    Debug.Log("드래그 성공");
                 }
                 break;
             case 3:
                 if (eventData.pointerCurrentRaycast.gameObject == targets[0] || eventData.pointerCurrentRaycast.gameObject == targets[1] || eventData.pointerCurrentRaycast.gameObject == targets[2])
                 {
                     objectDraged = true; // 드래그 완료 표시
-                    Debug.Log("드래그 성공");
                 }
                 break;
         }

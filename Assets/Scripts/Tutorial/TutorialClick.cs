@@ -55,6 +55,7 @@ public class TutorialClick : TutorialBase
         {
             if(doClickButnDuplicate)
             {
+                Debug.Log("클릭버튼 위치 이전 : "+clickBtn.transform.position);
                 duplicatedClickBtn = Instantiate(clickBtn, clickBtn.transform.position, clickBtn.transform.rotation);
             }
             // 화살표 생성
@@ -67,7 +68,7 @@ public class TutorialClick : TutorialBase
             arrowChild.GetComponent<Image>().sprite = arrowImg;
 
             // 클릭/드래그 대상 높이 조정
-            if(doClickButnDuplicate)
+            if(doClickButnDuplicate) // 버튼 복제
             {
                 duplicatedClickBtn.transform.SetParent(arrow.transform);
                 duplicatedClickBtn.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -102,6 +103,7 @@ public class TutorialClick : TutorialBase
         {
             if (doClickButnDuplicate && duplicatedClickBtn.GetComponent<TutorialButton>().buttonClicked)
             {
+                Debug.Log("클릭버튼 위치 이후 : " + clickBtn.transform.position);
                 Destroy(duplicatedClickBtn);
                 controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }

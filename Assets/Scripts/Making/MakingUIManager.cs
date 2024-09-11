@@ -234,9 +234,11 @@ public class MakingUIManager : MonoBehaviour
 
         // 구슬 크기 변화
         smallBeadLayer.SetActive(true);
+        
         for (int i = 0; i < 48; i++)
         {
-            if (bead.transform.GetChild(i).gameObject.activeSelf&& bead.transform.GetChild(i).gameObject.GetComponent<Image>().color.a > 0f)
+            
+            if (DCManager.GetBead(i))
             {
                 smallBeadLayer.transform.GetChild(i + 1).gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
                 smallBeadLayer.transform.GetChild(i + 1).gameObject.GetComponent<Image>().sprite = beadsImg[colorNumber];

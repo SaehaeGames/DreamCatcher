@@ -318,6 +318,12 @@ public class DCCheckManager : MonoBehaviour
         return colorDic[colorMap];
     }
 
+    // 비즈 활성화 상태 가져오기
+    public bool GetBead(int beadIndex)
+    {
+        return BeadMap[beadIndex];
+    }
+
     // 드림캐쳐 1차 완성
     public void CheckCompleteDreamCatcher()
     {
