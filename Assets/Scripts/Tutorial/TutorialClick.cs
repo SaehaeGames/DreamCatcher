@@ -107,9 +107,13 @@ public class TutorialClick : TutorialBase
                 Destroy(duplicatedClickBtn);
                 controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            else if (clickBtn.GetComponent<TutorialButton>().buttonClicked)
+            else if (highlightArrowOnOff && clickBtn.GetComponent<TutorialButton>().buttonClicked)
             {
                 clickBtn.transform.SetParent(startParent);
+                controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
+            }
+            else if(clickBtn.GetComponent<TutorialButton>().buttonClicked)
+            {
                 controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
         }
