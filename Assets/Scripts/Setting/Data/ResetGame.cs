@@ -7,17 +7,22 @@ public class ResetGame : MonoBehaviour
 {
     //게임을 초기화하는 스크립트
 
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
-    private GoodsContainer curGoodsData;   //상품 정보
-    private BirdContainer curBirdData;  //먹이둔 새 데이터 정보
+    private PlayerDataManager playerDataManager;   //플레이어 데이터 정보
+    //private GoodsContainer curGoodsData;   //상품 정보
+    //private BirdContainer curBirdData;  //먹이둔 새 데이터 정보
     private MyFeatherNumber featherData;
     //List<MyFeatherNumber> featherData;    //인벤토리 깃털 정보
     //private List<InventoryDreamCatcherData> curInventoryDreamCatherData;    //인벤토리 드림캐쳐 데이터 정보
 
+    private void Start()
+    {
+        playerDataManager = GameManager.instance.playerDataManager;
+    }
+
     public void ResettingGame()
     {
         //리셋 버튼 이벤트
-
+/*
         //1. 플레이어 데이터 리셋(꿈구슬, 특제먹이, 골드, 볼륨)
         curPlayerData = new PlayerDataContainer();
         GameManager.instance.loadPlayerData = curPlayerData;
@@ -43,20 +48,20 @@ public class ResetGame : MonoBehaviour
         //5. 새 저장 데이터 리셋(먹이둔 새 데이터)
         curBirdData = new BirdContainer();
         GameManager.instance.loadBirdData = curBirdData;
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<BirdJSON>().DataSaveText(curBirdData);   //변경사항 json으로 저장
+        //GameObject.FindGameObjectWithTag("GameManager").GetComponent<BirdJSON>().DataSaveText(curBirdData);   //변경사항 json으로 저장
 
         //6. 리셋한 데이터 GameManager에 반영
         GameManager.instance.ResetGameManager();
 
         //7. 시작 화면으로 이동
-        GameObject.FindGameObjectWithTag("BottomBar").GetComponent<SceneChange>().ChangeStartScene();
+        GameObject.FindGameObjectWithTag("BottomBar").GetComponent<SceneChange>().ChangeScene("Start");
 
         //나중에 수정할 것(급하게 한다고..)
         PlayerPrefs.SetInt("RepearFirstLetter", System.Convert.ToInt16(false)); //상단주의 편지 안읽음 처리
-        //GameManager.instance.resetTempData();
+        //GameManager.instance.resetTempData();*/
     }
 
-    private static string getPath(string directory, string fileName)
+/*    private static string getPath(string directory, string fileName)
     {
 #if UNITY_EDITOR
         return Application.dataPath + "/"+ directory + "/" + fileName;
@@ -67,6 +72,6 @@ public class ResetGame : MonoBehaviour
 #else
         return Application.dataPath +"/"+ fileName;
 #endif
-    }
+    }*/
 
 }

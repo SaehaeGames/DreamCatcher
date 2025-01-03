@@ -12,7 +12,7 @@ public class SpecialFeed : MonoBehaviour
     [SerializeField] private int selectCount;    //선택한 먹이 수
     [SerializeField] private float decreaseTime;   //감소시키는 시간
 
-    [SerializeField] private PlayerDataContainer curPlayerData;   //상품 정보
+    [SerializeField] private PlayerDataManager playerDataManager;   //상품 정보
 
     [Space]
     [Header("[Feed Text]")]
@@ -20,12 +20,12 @@ public class SpecialFeed : MonoBehaviour
 
     void Start()
     {
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어의 상단바 데이터 정보를 가져옴
-        feedCount = (int)curPlayerData.dataList[2].dataNumber;  //특제 먹이 개수를 가져옴
-        selectCount = 0;
-        decreaseTime = 300;   //특제먹이 감소 시간
+        playerDataManager = GameManager.instance.playerDataManager;    //플레이어의 상단바 데이터 정보를 가져옴
 
-        countText.text = selectCount + " 개";
+        feedCount = (int)playerDataManager.GetPlayerData(Constants.PlayerData_SpecialFeed).dataNumber;  //특제 먹이 개수를 가져옴
+        decreaseTime = 300;   //특제먹이 감소 시간
+        selectCount = 0;
+        UpdateCountText(selectCount);
     }
 
     public void LeftButton()
@@ -37,15 +37,14 @@ public class SpecialFeed : MonoBehaviour
             //바로 최대로 사용 가능한 개수로 변경
             float leftTime = this.gameObject.GetComponent<FeedTimer>().GetLeftTime(0);    //먹이 남은 시간
             float maxCount = leftTime / decreaseTime + 1.0f; //남은 시간 내 최대로 사용 가능한 특제 먹이 수
-            selectCount = (int)maxCount; //특제 먹이 사용 개수를 최대치로 변경
-
-            countText.text = selectCount + " 개";
+            selectCount = Mathf.FloorToInt(maxCount); //특제 먹이 사용 개수를 최대치로 변경
         }
         else
         {
             selectCount--;
-            countText.text = selectCount + " 개";
         }
+
+        UpdateCountText(selectCount);
     }
 
     public void RightButton()
@@ -55,45 +54,45 @@ public class SpecialFeed : MonoBehaviour
         if (selectCount < feedCount)
         {
             selectCount++;
-
-            //특제 먹이 사용 개수 수정
-
             float leftTime = this.gameObject.GetComponent<FeedTimer>().GetLeftTime(0);    //먹이 남은 시간
             float maxCount = leftTime / decreaseTime + 1.0f; //남은 시간 내 최대로 사용 가능한 특제 먹이 수
             selectCount = selectCount > maxCount ? (int)maxCount : selectCount; //특제 먹이 사용 개수가 시간 내 최대 사용 가능 개수를 넘지 않도록 조정
 
 
-            countText.text = selectCount + " 개";
+            UpdateCountText(selectCount);
         }
     }
 
-    public void selectSpecialFeed()
+    public void selectSpecialFeed(int rackIndex)
     {
         //특제먹이 사용 함수
-        curPlayerData = GameManager.instance.loadPlayerData;
 
         if (feedCount >= selectCount)
         {
             //특제 먹이 사용
-            //int birdInx = this.gameObject.GetComponent<FeedTimer>().curbirdIdx;    //시간 감소시키려는 새의 인덱스
-            float decrease = selectCount * decreaseTime;     //특제 먹이 사용으로 감소하는 시간 계산
+            // rackIndex에 사용되도록 구현하기
 
-            int rackLevel = GameManager.instance.loadGoodsData.goodsList[0].goodsLevel; // 현재 플레이어의 횃대 레벨
-            for (int i = 0; i < rackLevel + 1; i++)
-            {
-                this.gameObject.GetComponent<FeedTimer>().DecreaseFeedingTime(i, decrease);     //특제 먹이 사용(남은 시간 감소)
-            }
+            float decrease = selectCount * decreaseTime;     // 특제 먹이 사용으로 감소하는 시간 계산
+            int rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level;
 
-            feedCount = feedCount - selectCount;    //특제 먹이 개수 갱신
-            curPlayerData.dataList[2].dataNumber = feedCount;
-            GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);   //특제먹이 수 변경사항 json으로 저장
-            GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();   //상단바 업데이트
-
+            GetComponent<FeedTimer>().DecreaseFeedingTime(rackIndex, decrease);     // 선택한 횃대에 특제 먹이 사용(남은 시간 감소)
+            feedCount -= selectCount;    //특제 먹이 개수 갱신
             selectCount = 0;        //선택한 먹이 개수 갱신
-            countText.text = selectCount + " 개";
 
-            GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().SetSpecialFeedText(feedCount);   //상단바 특제 먹이 개수 갱신
-            this.GetComponent<FeedPanel>().OpenOrCloseSpecialFeedPanel(false);  // 패널 닫기
+            // UI 업데이트 및 저장
+            UpdateCountText(selectCount);
+            GameObject.FindGameObjectWithTag(Constants.Tag_TopBar).GetComponent<TopBarText>().UpdateText();
+
+            GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_SpecialFeed).dataNumber = feedCount;
+            GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, playerDataManager);
+            
+            this.GetComponent<FeedPanel>().SetSpecialFeedPanelActive(false);  // 패널 닫기
         }
+    }
+    private void UpdateCountText(int count)
+    {
+        // 먹이 개수 텍스트 업데이트
+
+        countText.text = count + " 개";
     }
 }

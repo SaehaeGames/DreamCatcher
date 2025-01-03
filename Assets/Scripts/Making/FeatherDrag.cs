@@ -21,7 +21,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     private void OnEnable()
     {
         DCManager = GameObject.FindWithTag("CreateManager").gameObject.GetComponent<DCCheckManager>();
-        featherData = GameManager.instance.loadFeatherData;
+        featherData = GameManager.instance.featherDataManager;
         makingUiManager = GameObject.FindGameObjectWithTag("CreateManager").GetComponent<MakingUIManager>();
         //FNDManager = GameObject.FindWithTag("GameManager").gameObject.GetComponent<FeatherNumDataManager>();
     }

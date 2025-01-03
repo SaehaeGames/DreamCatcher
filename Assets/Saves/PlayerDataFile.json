@@ -1,5 +1,4 @@
 {
-    "dataCount": 8,
     "dataList": [
         {
             "dataName": "DreamMarble",
@@ -7,11 +6,15 @@
         },
         {
             "dataName": "Gold",
-            "dataNumber": 28000.0
+            "dataNumber": 0.0
         },
         {
             "dataName": "SpecialFeed",
+<<<<<<< HEAD
             "dataNumber": 83.0
+=======
+            "dataNumber": 100.0
+>>>>>>> pearl
         },
         {
             "dataName": "BGM",
@@ -27,11 +30,15 @@
         },
         {
             "dataName": "EffectMute",
-            "dataNumber": 1.0
+            "dataNumber": 0.0
         },
         {
             "dataName": "nowSceneNum",
+<<<<<<< HEAD
             "dataNumber": 11.0
+=======
+            "dataNumber": 0.0
+>>>>>>> pearl
         }
     ]
 }

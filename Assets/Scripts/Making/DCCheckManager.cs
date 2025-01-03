@@ -51,7 +51,7 @@ public class DCCheckManager : MonoBehaviour
     void Start()
     {
         //birdCSV = GameObject.FindWithTag("GameManager").gameObject.GetComponent<BirdCSV>();
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         hangPntChecker = false;
         gem.SetActive(false);
         hangPoints.SetActive(false);
@@ -391,7 +391,7 @@ public class DCCheckManager : MonoBehaviour
     // : 인벤토리에서 깃털을 사용할 때 itemNumber에 해당하는 깃털을 삭제한다.
     public void DeleteInventory(int itemNumber)
     {
-        FNDManager = GameManager.instance.loadFeatherData;
+        FNDManager = GameManager.instance.featherDataManager;
 
         //itemNumber에 해당하는 깃털의 갯수 불러서 감소하기
         int itemCnt = FNDManager.featherList[itemNumber].feather_number - 1;

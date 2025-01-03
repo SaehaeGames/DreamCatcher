@@ -45,8 +45,8 @@ public class BuyCheck : MonoBehaviour
 
 
         //이부분 수정하기
-        int curCategoryIdx = this.GetComponent<CategorySelect>().GetSelectedCategory();
-        if (curCategoryIdx == 1)    //인테리어 구매라면
+        StoreType curCategoryIdx = this.GetComponent<CategorySelect>().GetSelectedCategory();
+        if (curCategoryIdx == StoreType.Interior)    //인테리어 구매라면
         {
             SetActiveAdjustCheckPanel();
         }

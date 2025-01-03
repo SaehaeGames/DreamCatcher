@@ -1,0 +1,190 @@
+{
+    "dataList": [
+        {
+            "id": 4003,
+            "level": 0,
+            "isHaving": true,
+            "isAdjusting": true
+        },
+        {
+            "id": 4004,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4005,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4006,
+            "level": 3,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4007,
+            "level": 0,
+            "isHaving": true,
+            "isAdjusting": true
+        },
+        {
+            "id": 4008,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4009,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4010,
+            "level": 3,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4011,
+            "level": 0,
+            "isHaving": true,
+            "isAdjusting": true
+        },
+        {
+            "id": 4012,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4013,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4014,
+            "level": 3,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4015,
+            "level": 4,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4017,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4020,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4023,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4026,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4029,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4032,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4035,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4038,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4041,
+            "level": 1,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4018,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4021,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4024,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4027,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4030,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4033,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4036,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4039,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        },
+        {
+            "id": 4042,
+            "level": 2,
+            "isHaving": false,
+            "isAdjusting": false
+        }
+    ]
+}

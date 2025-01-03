@@ -76,7 +76,7 @@ public class MakingUIManager : MonoBehaviour
         _gameSceneManager.SceneChangeWarn += WarnWinMove;
         DCManager = GameObject.FindWithTag("CreateManager").gameObject.GetComponent<DCCheckManager>();
         //FNDManager = GameObject.FindWithTag("GameManager").gameObject.GetComponent<FeatherNumDataManager>();
-        FNDManager = GameManager.instance.loadFeatherData;
+        FNDManager = GameManager.instance.featherDataManager;
         DCManager.gemActive += Gem;
         DCManager.beadActive += Bead;
     }
@@ -109,8 +109,8 @@ public class MakingUIManager : MonoBehaviour
             featherDecos[i].SetActive(false);
         }
 
-        GoodsContainer curGoodsData = GameManager.instance.loadGoodsData;  //가구 데이터 가져옴
-        int threadLevel = curGoodsData.goodsList[3].goodsLevel;  //실의 레벨을 가져옴
+        //GoodsContainer curGoodsData = GameManager.instance.loadGoodsData;  //가구 데이터 가져옴       
+        int threadLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Thread).level;  //실의 레벨을 가져옴
         //Debug.Log(threadLevel);
         for(int i=0; i<threadLevel+1; i++)
         {
@@ -437,7 +437,7 @@ public class MakingUIManager : MonoBehaviour
 
         
         // 아이디 로드
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
         // 파일 위치&이름
