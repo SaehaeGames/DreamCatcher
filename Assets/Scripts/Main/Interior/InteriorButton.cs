@@ -8,7 +8,7 @@ public class InteriorButton : MonoBehaviour
     // 인테리어 카테고리, 아이템 버튼이 가지고 있는 스크립트
 
     public int buttonNumber;   //패널 정보
-    public int imageNumber; //버튼의 이미지 번호
+    public int itemID;  // 버튼에 해당하는 아이템 id
 
 
     public void SettingInteriorFunction()
@@ -28,14 +28,14 @@ public class InteriorButton : MonoBehaviour
     public void SelectInteriorButton()
     {
         //인테리어 패널 버튼 클릭 함수
-        
+
         GameObject.FindGameObjectWithTag("GoodsManager").GetComponent<InteriorCategory>().UpdateCatrgoryPanel(buttonNumber);   //현재 버튼 번호를 노출되는 카테고리를 설정
     }
 
     public void SelectInteriorItemButton()
     {
         //인테리어 아이템 클릭 함수
-        GameObject.FindGameObjectWithTag("GoodsManager").GetComponent<InteriorCategory>().SelectInteriorItem(buttonNumber, imageNumber);   //현재 버튼으로 인테리어 아이템 이미지 변경
+        GameObject.FindGameObjectWithTag("GoodsManager").GetComponent<InteriorCategory>().SelectInteriorItem(buttonNumber, itemID);   //현재 버튼으로 인테리어 아이템 이미지 변경
     }
 
     public void SetButtonNumber(int num)
@@ -43,8 +43,8 @@ public class InteriorButton : MonoBehaviour
         buttonNumber = num;
     }
 
-    public void SetButtonImgNumber(int num)
+    public void SetButtonItemID(int num)
     {
-        imageNumber = num;
+        itemID = num;
     }
 }

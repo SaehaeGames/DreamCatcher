@@ -48,18 +48,18 @@ public class QuestContents : MonoBehaviour
 
         //List<Dictionary<string, object>> data_Quest = CSVParser.ReadFromFile("Quest");  //퀘스트 데이터를 가져옴  
         QuestInfo_Data questInfo_data = GameManager.instance.questinfo_data;    //** 스크립터블 오브젝트 말고 저장한 json에서 가져와도 될 듯..
-        QuestContainer questData = GameManager.instance.loadQuestData;
+        QuestDataManager questDataManager = GameManager.instance.questDataManager;
 
-        int isCheck = questData.questList[questNumber].questCheck;
-        if (isCheck != 1)   //아직 확인 안 한 퀘스트라면
+        bool isCheck = questDataManager.dataList[questNumber].isChecked;
+        if (!isCheck)   //아직 확인 안 한 퀘스트라면
         {
             contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].title.ToString();    //퀘스트 이름 변경
             string contents = questInfo_data.dataList[questNumber].contents.ToString(); //퀘스트 내용을 가져옴
             contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents.Replace("nn", "\n"); //퀘스트 내용 변경
             contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].from.ToString();    //퀘스트 발신인 변경
 
-            questData.questList[questNumber].questCheck = 1;
-            GameManager.instance.loadQuestData = questData;
+            questDataManager.dataList[questNumber].isChecked = true;
+            GameManager.instance.questDataManager = questDataManager;
         }
         else
         {

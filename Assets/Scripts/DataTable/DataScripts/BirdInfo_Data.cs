@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using System.IO;
-using UnityEditor;
-using UnityEngine.Networking;
-using System.Collections;
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/BirdInfo")]    // 스크립터블 오브젝트 객체 생성
 [Serializable]

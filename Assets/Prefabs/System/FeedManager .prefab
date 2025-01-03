@@ -28,12 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244612243008376983}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6516135497311503021
 MonoBehaviour:
@@ -47,9 +48,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48941da175ac7d64f83c833fae324f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FeedObjects: []
-  RackFeedObjects: []
-  RackTriggerObjects: []
+  FeedObjects:
+  - {fileID: 6592955158838293401, guid: bf83ddd444bae4f4f9c1781f2fe3553c, type: 3}
+  - {fileID: 205485846408662501, guid: 04f6793084886cc4c84ebce51e4a8468, type: 3}
+  - {fileID: 2758370198887881648, guid: da92262ddd19d724fa4c93ee98fe8787, type: 3}
+  - {fileID: 5237020123525199310, guid: 24d2272bb4f81c243b34e34c9ef080d9, type: 3}
+  RackFeedObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RackTriggerObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  RackBirdObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &299077798067191944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f40e1bfffc06440bde44899a29d1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText:
+  timers:
   - {fileID: 0}
-  leftTime: []
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &299077798067191942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,9 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300db52008d717d45a6c6232865086d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedBirdNum: 0
-  specialBirdAppear: 0
-  viewBird: {fileID: 0}
   birdImage:
   - {fileID: 21300000, guid: d3546881f013a144d9a90df1a1df01b7, type: 3}
   - {fileID: 21300000, guid: 18ed28d9a7092b444b4273e005af8940, type: 3}

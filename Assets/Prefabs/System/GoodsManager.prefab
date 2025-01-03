@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4700025106777566815}
   - component: {fileID: 4700025106777566809}
   - component: {fileID: 4700025107160112503}
+  - component: {fileID: 1118850157585868892}
   m_Layer: 0
   m_Name: GoodsManager
   m_TagString: GoodsManager
@@ -25,12 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4700025106777566812}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -330.6286, y: 1187.6335, z: -89.05737}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4700025106777566809
 MonoBehaviour:
@@ -49,31 +51,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  goodsImages:
-  - imageList:
-    - {fileID: 21300000, guid: 7d32afeb20957aa40ae79bac2e74bf04, type: 3}
-    - {fileID: 21300000, guid: f83723316ca89824ab85780136ab541d, type: 3}
-    - {fileID: 21300000, guid: 4892968c2a911724a9c7dc014faa197d, type: 3}
-    - {fileID: 21300000, guid: 4892968c2a911724a9c7dc014faa197d, type: 3}
-    - {fileID: 21300000, guid: 4892968c2a911724a9c7dc014faa197d, type: 3}
-  - imageList:
-    - {fileID: 21300000, guid: c09c38027e4484d47a806eb59380b80b, type: 3}
-    - {fileID: 21300000, guid: bf5caeee21d113344bf986dd149b381a, type: 3}
-    - {fileID: 21300000, guid: 11db61b57e5973e49801d6a30ab7d3be, type: 3}
-    - {fileID: 21300000, guid: bde3bf39c07bc0c4faf551d6ba72a499, type: 3}
-    - {fileID: 21300000, guid: bde3bf39c07bc0c4faf551d6ba72a499, type: 3}
-  - imageList:
-    - {fileID: 21300000, guid: 71087dd3a2e4f674bb8c72019a6e7eb4, type: 3}
-    - {fileID: 21300000, guid: 4e4b3f724be566444bc4a578c32a1e83, type: 3}
-    - {fileID: 21300000, guid: 5c641bd688c56564ea5890ba6eed2536, type: 3}
-    - {fileID: 21300000, guid: c0745767bf026ad41a583ed11f782c74, type: 3}
-    - {fileID: 21300000, guid: c0745767bf026ad41a583ed11f782c74, type: 3}
-  - imageList:
-    - {fileID: 21300000, guid: 02ab0202af80ed44882d2191abc83a56, type: 3}
-    - {fileID: 21300000, guid: 903a5fd82f7fbf54a8e15f22ff369133, type: 3}
-    - {fileID: 21300000, guid: 2143fb63882bd90438c3dd57e335ccfc, type: 3}
-    - {fileID: 21300000, guid: e9d9651a517146841b781dca84211eba, type: 3}
-    - {fileID: 21300000, guid: 71e3c74855d89804a92fcc5a28f23d25, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &4700025107160112503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +96,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d189bc45aa75d9544827cdc34e803587, type: 3}
   - {fileID: 21300000, guid: 7efe9561887bc9945a24ecdff81422d5, type: 3}
   - {fileID: 21300000, guid: 1ce71e95b4c7f0949a01bb6741c33273, type: 3}
+  dreamCatcherPrefab: {fileID: 4134925339439903505, guid: 5af0781f4ef4b734e9939efb7b25bbd3, type: 3}
   itemMaxCnt: 0
   itemCurCnt: 0
   itemList: []
+--- !u!114 &1118850157585868892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700025106777566812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a347847ae8d970846a2e306f2c4575df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel_Interior: {fileID: 0}

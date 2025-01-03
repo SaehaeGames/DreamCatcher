@@ -32,7 +32,7 @@ public class DreamCatcherInfoLoad : MonoBehaviour
         else // 인덱스를 입력받았을 때
         {
             // Json파일 로드
-            dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+            dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
             GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
             DreamCatcher selectDreamCatcher = dreamCatcherData.dreamCatcherList[index];
 
@@ -56,7 +56,7 @@ public class DreamCatcherInfoLoad : MonoBehaviour
     {
         // 아이디 json 삭제
         // Json파일 로드
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
         if(index>=1000)

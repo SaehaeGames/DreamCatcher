@@ -36,14 +36,14 @@ public class ScriptBox : MonoBehaviour
     private IEnumerator typingCoroutine;
 
     // 데이터 테이블
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager playerDataManager;   //플레이어 데이터 정보
     public StoryScriptInfo_Data _storyscriptinfo_data;
     public StorySceneInfo_Data _storysceneinfo_data;
 
     private void Awake()
     {
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
-        GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
+        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+        //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
     }
@@ -160,11 +160,11 @@ public class ScriptBox : MonoBehaviour
                 }
 
                 // 새로운 씬으로 넘어가면 => 저장
-                if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)curPlayerData.dataList[7].dataNumber)
+                if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)playerDataManager.GetPlayerData(Constants.PlayerData_NowSceneNum).dataNumber)
                 {
                     // 현재 씬 업데이트
-                    curPlayerData.dataList[7].dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
-                    GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
+                    playerDataManager.GetPlayerData(Constants.PlayerData_NowSceneNum).dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
+                    GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, playerDataManager);
                 }
                 return false;
             }

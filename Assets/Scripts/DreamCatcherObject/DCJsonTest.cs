@@ -17,7 +17,7 @@ public class DCJsonTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         //시작
         mytext.text = "시작\n"; //텍스트 확인용
 
@@ -28,7 +28,7 @@ public class DCJsonTest : MonoBehaviour
 
         //드림캐쳐 임의 데이터 불러오기
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData;
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager;
         mytext.text += "로드 : " + dreamCatcherData.GetDreamCatcherData(0).GetLine()[3] + '\n'; //텍스트 확인용
     }
 

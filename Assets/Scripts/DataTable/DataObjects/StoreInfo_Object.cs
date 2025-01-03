@@ -9,31 +9,30 @@ public class StoreInfo_Object
     public int id;
     public string name;
     public StoreItemCategory category;
+    public ItemTheme theme;
+    public int level;
     public string contents;
     public string effect;
     public int gold;
+    public bool isButtonActive;
     
     public StoreInfo_Object()
     {
-        id = gold = 0;
+        id = level = gold = 0;
         name = contents = effect = "";
+        isButtonActive = false;
     }
 
-    public StoreInfo_Object(int _id, string _name, StoreItemCategory _category, string _contents, string _effect, int _gold)
+    public StoreInfo_Object(int _id, string _name, StoreItemCategory _category, ItemTheme _theme, int _level, string _contents, string _effect, int _gold, bool _isButtonActive)
     {
         id = _id;
         name = _name;
         category = _category;
+        theme = _theme;
+        level = _level;
         contents = _contents;
         effect = _effect;
         gold = _gold;
-    }
-
-    public enum StoreItemCategory
-    {
-        Rack,
-        Vase,
-        Box,
-        Thread
+        isButtonActive= _isButtonActive;
     }
 }

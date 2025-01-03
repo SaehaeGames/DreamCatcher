@@ -10,19 +10,20 @@ public class GameManager : MonoBehaviour
     // 게임 데이터를 관리하는 싱글톤 패턴
 
     //싱글톤 패턴을 사용하기 위한 전역 변수
-    // 테스트
     public static GameManager instance;
 
     [Header("[Game Data]")]
-    public GoodsContainer loadGoodsData;  //상품(보조도구) 레벨 데이터
-    public PlayerDataContainer loadPlayerData;  //플레이어 데이터(꿈구슬, 골드, 특제먹이) 개수, 음향 데이터 (여기에 보조도구 레벨 데이터 넣어도 될 듯)
-    public BirdContainer loadBirdData;  //먹이둔 새 데이터
-    public MyFeatherNumber loadFeatherData;
-    public MyDreamCatcher loadDreamCatcherData; //드림캐쳐 저장 데이터
-    public InteriorContainer loadInteriorData;  //플레이어 인테리어 저장 데이터
-    public QuestContainer loadQuestData;
+    public JsonManager jsonManager;  // JsonManager : 세이브&로드 클래스
+    public PlayerDataManager playerDataManager;  //플레이어 데이터(꿈구슬, 골드, 특제먹이) 개수, 음향 데이터
+    public List<RackData> rackDataList;                  // 횃대에 놓인 먹이 데이터   ** 이건 횃대 레벨업 하면 리스트에 add해서 저장하도록 하기
+    public GoodsDataManager goodsDataManager;                // 상점 아이템 레벨 데이터
+    public InteriorDataManager interiorDataManager;  //플레이어 인테리어 저장 데이터
+    public QuestDataManager questDataManager;               // 퀘스트 데이터 리스트
+    public MyFeatherNumber featherDataManager;
+    public MyDreamCatcher dreamCatcherDataManager; //드림캐쳐 저장 데이터
 
-    //데이터 테이블 오브젝트
+    //데이터 베이스 오브젝트 (스크립터블 오브젝트 객체)
+    [Space]
     public BirdInfo_Data birdinfo_data;
     public DreamInfo_Data dreaminfo_data;
     public StoreInfo_Data storeinfo_data;
@@ -43,13 +44,15 @@ public class GameManager : MonoBehaviour
 
         instance = this;    //유일한 인스턴스
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
+
+        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        ResetGameManager();
     }
 
     private void Start()
     {
         //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
-
-        ResetGameManager();
+        //ResetGameManager();
     }
 
     public static GameManager GetGameManager()
@@ -94,14 +97,15 @@ public class GameManager : MonoBehaviour
     {
         //초기화 함수
 
-        JsonManager jsonManager = new JsonManager();    // JSON 저장 매니저 객체 생성
+        jsonManager = new JsonManager();    // JSON 저장 매니저 객체 생성
 
-        loadPlayerData = jsonManager.GetData<PlayerDataContainer>("PlayerDataFile");    // 플레이어 데이터 가져오기
-        loadBirdData = jsonManager.GetData<BirdContainer>("BirdDataFile");      //먹이둔 새 데이터 가져오기
-        loadFeatherData = jsonManager.GetData<MyFeatherNumber>("FeatherNumInfo");
-        loadDreamCatcherData = jsonManager.GetData<MyDreamCatcher>("DreamCatcherListData");
-        loadGoodsData = jsonManager.GetData<GoodsContainer>("GoodsDataFile");   //상품 데이터 가져오기
-        loadInteriorData = jsonManager.GetData<InteriorContainer>("InteriorDataFile");
-        loadQuestData = jsonManager.GetData<QuestContainer>("QuestDataFile");
+        // 각 저장 데이터 가져오기
+        rackDataList = jsonManager.LoadDataList<RackData>(Constants.RackDataFile);
+        goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
+        interiorDataManager = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
+        questDataManager = jsonManager.LoadData<QuestDataManager>(Constants.QuestDataFile);
+        playerDataManager = jsonManager.LoadData<PlayerDataManager>(Constants.PlayerDataFile);
+        featherDataManager = jsonManager.LoadData<MyFeatherNumber>(Constants.FeatherDataFile);
+        dreamCatcherDataManager = jsonManager.LoadData<MyDreamCatcher>(Constants.DreamCatcherDataFile);
     }
 }

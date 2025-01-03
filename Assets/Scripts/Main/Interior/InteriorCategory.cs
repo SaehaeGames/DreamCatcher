@@ -1,35 +1,87 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InteriorCategory : MonoBehaviour
 {
     // 인테리어 카테고리 스크립트
 
     public GameObject Panel_Interior; // 인테리어 패널
+    GameObject ScrollViewPort;  // 카테고리 뷰 포트
     public GameObject[] Button_InteriorCategory;   //인테리어 패널 버튼
     public GameObject[] Button_InteriorItem;    //인테리어 아이템 버튼
 
     public GameObject[] horLines;   //인테리어 UI의 카테고리 세로선 배열
 
-    int[] currentAdjusting = new int[40];  //현재 적용중인 아이템 여부
+    private List<GameObject> interiorItemArray; //인테리어 아이템 버튼 목록
+    public bool[] currentAdjusting;  //현재 적용중인 아이템 여부
+    int currentCategoryIndex;   //현재 활성화중인 인테리어 카테고리
 
-    private InteriorContainer curInteriorData;  //현재 플레이어 인테리어 데이터 정보
+    private InteriorDataManager interiorDataManager;  //현재 플레이어 인테리어 데이터 정보
+
     public void Start()
     {
-        UpdateCatrgoryPanel(0); //카테고리 번호에 맞게 노출되는 패널 업데이트
+        currentCategoryIndex = 0;
+        ScrollViewPort = Panel_Interior.gameObject.transform.GetChild(2).GetChild(0).gameObject;   //** 이걸 하드코딩 말고 함수로 가져와서 찾을 수 있는지 고민해보기
+        for (int i = 0; i < Button_InteriorCategory.Length; i++)
+        {
+            Button_InteriorCategory[i].GetComponent<InteriorButton>().buttonNumber = i;
+        }
+
+        interiorDataManager = GameManager.instance.interiorDataManager;
+        currentAdjusting = new bool[GetBtnItemCount()];
+
+        //SetAllItemsHavingTrue();
+        // isAdjusting 상태를 초기화하고 UI 업데이트
+        for (int i = 0; i < interiorItemArray.Count; i++)
+        {
+            currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
+            if (currentAdjusting[i])
+            {
+                UpdateInteriorImage(i, interiorDataManager.dataList[i].level);
+                UpdateButtonAdjusting(i, interiorDataManager.dataList[i].level); // 적용 중 UI 업데이트
+            }
+        }
+
+        for (int i = 0; i < interiorItemArray.Count; i++)
+        {
+            SettingItemHide(i);
+        }
+
+        UpdateCatrgoryPanel(currentCategoryIndex); //카테고리 번호에 맞게 노출되는 패널 업데이트
         DefineButtonNumber();   //카테고리 버튼 고유 번호 지정
         LoadSaveData(); // 저장 데이터 가져옴
-        
+
     }
 
     public void UpdateCatrgoryPanel(int panelIdx)
     {
-        //인테리어 카테고리 버튼 업데이트 함수
+        //인테리어 카테고리 버튼 업데이트 함수)
 
         OpenIndexPanel(panelIdx);
         SetHorLine(panelIdx);
+    }
+
+    public void OpenIndexPanel(int idx)
+    {
+        //해당하는 인덱스의 인테리어 패널을 활성화하는 함수
+
+        int panelCnt = ScrollViewPort.gameObject.transform.childCount;   //패널 오브젝트 개수
+        for (int i = 0; i < panelCnt; i++)  //패널 오브젝트 개수만큼 반복
+        {
+            if (i == idx)
+            {
+                ScrollViewPort.gameObject.transform.GetChild(i).gameObject.SetActive(true);    //해당하는 인덱스의 패널 활성화
+            }
+            else
+            {
+                ScrollViewPort.gameObject.transform.GetChild(i).gameObject.SetActive(false);    //패널 비활성화
+            }
+        }
     }
 
     public void SetHorLine(int curCateNum)
@@ -62,151 +114,64 @@ public class InteriorCategory : MonoBehaviour
         }
     }
 
-    public void OpenIndexPanel(int idx)
+    public int GetBtnItemCount()
     {
-        //해당하는 인덱스의 인테리어 패널을 활성화하는 함수
-
-        int panelCnt = Panel_Interior.gameObject.transform.childCount;   //패널 오브젝트 개수
-
-        for (int i = 0; i < panelCnt; i++)  //패널 오브젝트 개수만큼 반복
+        interiorItemArray = new List<GameObject>();
+        for (int i = 0; i < Button_InteriorItem.Length; i++)
         {
-            if (i == idx)
+            for (int j = 0; j < Button_InteriorItem[i].transform.GetChild(1).childCount; j++)
             {
-                Panel_Interior.gameObject.transform.GetChild(i).gameObject.SetActive(true);    //해당하는 인덱스의 패널 활성화
-            }
-            else
-            {
-                Panel_Interior.gameObject.transform.GetChild(i).gameObject.SetActive(false);    //패널 비활성화
+                var child = Button_InteriorItem[i].transform.GetChild(1).GetChild(j).gameObject;
+                if (child.GetComponent<InteriorButton>() != null)
+                {
+                    interiorItemArray.Add(child);
+                }
             }
         }
+
+        return interiorItemArray.Count;
     }
 
     public void DefineButtonNumber()
     {
         // 인테리어 버튼들에 에 고유 번호를 부여하는 함수
 
-        // 패널 버튼에 고유 번호 부여
-        int categoryBtnCnt = Button_InteriorCategory.Length;    //인테리어 카테고리 버튼 개수
-        for (int i = 0; i < categoryBtnCnt; i++)
+        // storeInfo에서 버튼 id를 가져옴
+        StoreInfo_Data storeInfo_data = GameManager.instance.storeinfo_data;
+
+        List<int> defaultItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Default);
+        List<int> SeaItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
+        List<int> StarItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Star);
+
+        List<int> combinedItemIDList = new List<int>();
+        combinedItemIDList.AddRange(defaultItemIDList);
+        combinedItemIDList.AddRange(SeaItemIDList);
+        combinedItemIDList.AddRange(StarItemIDList);
+
+        int itemNumber = 0;
+        for (int j = 0; j < Button_InteriorItem.Length; j++)
         {
-            Button_InteriorCategory[i].gameObject.GetComponent<InteriorButton>().SetButtonNumber(i);  //버튼 고유 번호 지정
-            Button_InteriorCategory[i].gameObject.GetComponent<InteriorButton>().SettingInteriorFunction();   //버튼 이벤트 지정
-        }
+            //버튼 이벤트 설정
 
-        int imgCnt = 0;
-        for (int j = 0; j < 40; j++)
-        {
-            //버튼 이벤트 지정
-            Button_InteriorItem[j].gameObject.GetComponent<InteriorButton>().SetButtonNumber(j);
-
-            // 버튼 이벤트 호출하여 설정
-            //Button_InteriorItem[j].gameObject.onClick.AddListener();
-            //Button_InteriorItem[j].gameObject.GetComponent<InteriorButton>().SettingInteriorItemFunction();
-
-
-            if (j < 8)  // 꽃병, 상자라면   //gameManager.instance.storeInfo로 가져와야하나
+            int itemsIndex = Button_InteriorItem[j].transform.childCount;
+            for (int k = 0; k < Button_InteriorItem[j].transform.GetChild(itemsIndex - 1).childCount; k++)
             {
-                Button_InteriorItem[j].gameObject.GetComponent<InteriorButton>().SetButtonImgNumber(imgCnt++);  //버튼 고유 이미지 지정
-
-                if (imgCnt > 3)
-                {
-                    imgCnt = 0; //4가 되면 초기화
-                }
-            }
-            else if (j >= 8 && j <= 12)     //실이라면
-            {
-                Button_InteriorItem[j].gameObject.GetComponent<InteriorButton>().SetButtonImgNumber(imgCnt++);  //버튼 고유 번호 지정
-
-                if (imgCnt > 4)
-                {
-                    imgCnt = 0; //5가 되면 초기화
-                }
-            }
-            else
-            {
-                // 인테리어 아이템이면 (기본 -> 바다 -> 별 순서)
-
-                Button_InteriorItem[j].gameObject.GetComponent<InteriorButton>().SetButtonImgNumber(imgCnt++);  //버튼 고유 번호 지정
-                
-                if (imgCnt > 2)
-                {
-                    imgCnt = 0; //3이 되면 초기화
-                }
+                var button = Button_InteriorItem[j].transform.GetChild(itemsIndex - 1).GetChild(k).gameObject.GetComponent<InteriorButton>();
+                button.SetButtonNumber(itemNumber);
+                button.SetButtonItemID(combinedItemIDList[itemNumber]);
+                itemNumber++;
             }
         }
     }
+
 
     public string CheckItemCategory2(int itemIdx)
     {
         // 데이터 테이블에서 아이템의 카테고리2를 가져오는 함수
 
-        int itemId = curInteriorData.itemList[itemIdx].itemId;
-        string itemCategory = "";
-
-        for (int j = 0; j < 26; j++)
-        {
-            if (itemId == GameManager.instance.interiorinfo_data.dataList[j].id)
-            {
-                itemCategory = GameManager.instance.interiorinfo_data.dataList[j].theme.ToString();
-            }
-        }
-
-        return itemCategory;
-    }
-
-    public void UpdateSameItemAdjusting(int itemIdx, int imgIdx)
-    {
-        // 같은 아이템류 중복 적용중 정리하는 함수
-        // *이부분 나중에 아이템 카테고리 가져와서 판단해서 수정하는 방법으로 코드 정리하기
-        int startIdx = 0;
-        int endIdx = 0;
-
-        if (itemIdx < 8)    // 화분 또는 상자라면 (아이템 종류가 4개)
-        {
-            if (itemIdx >= 4)   // 인벤토리라면
-            {
-                startIdx = 4;   // 반복 시작 숫는 4
-            }
-            endIdx = startIdx + 4;  // 4번 반복
-        }
-        else if (itemIdx >= 8 && itemIdx < 13) // 실이라면 (아이템 종류가 5개)
-        {
-            startIdx = 8;
-            endIdx = startIdx + 5;  // 5번 반복
-        }
-        else    // 인베리어 아이템이라면
-        {
-            string itemCategory = CheckItemCategory2(itemIdx);  // 아이템의 카테고리를 가져옴
-            if (itemCategory == "sea")
-            {
-                startIdx = itemIdx - 1;
-            }
-            else if (itemCategory == "star")
-            {
-                startIdx = itemIdx - 2;
-            }
-
-            endIdx = startIdx + 3;  // 3번 반복
-        }
-
-        for (int i = startIdx; i < endIdx; i++)
-        {
-            if (itemIdx == i)
-            {
-                continue;
-            }
-            else
-            {
-                currentAdjusting[i] = 0;
-                curInteriorData.itemList[i].itemAdjusting = 0;    // 적용X 반영
-            }
-
-        }
-        if (imgIdx == 0)
-        {
-            currentAdjusting[startIdx] = 1;
-            curInteriorData.itemList[startIdx].itemAdjusting = 1;    // 적용O 반영
-        }
+        int itemId = interiorDataManager.dataList[itemIdx].id;
+        var matchedItem = GameManager.instance.storeinfo_data.dataList.FirstOrDefault(data => data.id == itemId);
+        return matchedItem != null ? matchedItem.category.ToString() : string.Empty;
     }
 
     public void UpdateButtonAdjusting(int itemIdx, int imgIdx)
@@ -216,34 +181,67 @@ public class InteriorCategory : MonoBehaviour
         for (int j = 0; j < currentAdjusting.Length; j++)
         {
             //적용중인 아이템만 적용중 표시
-            int curAdjusting = currentAdjusting[j]; //현재 아이템의 레벨값
-
-            if (curAdjusting == 1)
+            bool curAdjusting = currentAdjusting[j];
+            int itemsIndex = interiorItemArray[j].transform.childCount;
+            if (curAdjusting)
             {
-                Button_InteriorItem[j].gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                interiorItemArray[j].transform.GetChild(1).gameObject.SetActive(true);
             }
             else
             {
-                Button_InteriorItem[j].gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                interiorItemArray[j].transform.GetChild(1).gameObject.SetActive(false);
             }
         }
     }
-    
+
     public void LoadSaveData()
     {
         // 인테리어 저장 데이터를 가져오는 함수
 
-        curInteriorData = GameManager.instance.loadInteriorData;    //플레이어의 인테리어 정보       
+        interiorDataManager = GameManager.instance.interiorDataManager;    //플레이어의 인테리어 정보       
+        StoreInfo_Data storeInfo_Data = GameManager.instance.storeinfo_data;
+
 
         for (int i = 0; i < currentAdjusting.Length; i++)
         {
-            currentAdjusting[i] = curInteriorData.itemList[i].itemAdjusting;
-            
-            if (currentAdjusting[i] == 1)
+            /*            if (i >= interiorDataManager.dataList.Count)
+                        {
+                            Debug.Log("인덱스 " + i + "에서 오류 발생");
+                            break;
+                        }
+
+                        currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
+
+                        if (currentAdjusting[i])
+                        {
+                            var interiorButton = interiorItemArray[i].GetComponent<InteriorButton>();
+                            if (interiorButton == null)
+                            {
+                                Debug.Log("인덱스 " + i + "에서 오류 발생");
+                                continue;
+                            }
+
+                            int itemID = interiorButton.itemID;
+                            int itemLevel = storeInfo_Data.GetLevelByID(itemID);
+
+                            Debug.Log(itemID + ", " + itemLevel);
+
+                            UpdateInteriorImage(i, itemLevel);
+                            UpdateButtonAdjusting(i, itemLevel);
+                        }*/
+            if (i >= interiorDataManager.dataList.Count)
             {
-                int imgNum = Button_InteriorItem[i].GetComponent<InteriorButton>().imageNumber;
-                UpdateInteriorImage(i, imgNum);
-                UpdateButtonAdjusting(i, imgNum);
+                Debug.Log("인덱스 " + i + "에서 오류 발생");
+                break;
+            }
+
+            currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
+
+            if (currentAdjusting[i])
+            {
+                int imgIdx = interiorDataManager.dataList[i].level;
+                UpdateInteriorImage(i, imgIdx); // 이미지 업데이트
+                UpdateButtonAdjusting(i, imgIdx); // 버튼 상태 업데이트
             }
         }
     }
@@ -252,19 +250,30 @@ public class InteriorCategory : MonoBehaviour
     {
         // 가구 이미지를 업데이트하는 함수
 
-        int objectNum = ChangeItemIdxToObjectNum(itemIdx);  // 오브젝트 번호를 가져옴
+        int objectNum = ChangeItemIdxToObjectNum(itemIdx);  // 아이템 인덱스를 카테고리 번호로 변경
+        var goodsImages = this.GetComponent<MainProducts>().goodsImages;
+        var imageList = goodsImages[objectNum].imageList;
 
-        //기본 아이템 이미지 변경       
-        GameObject itemObj = this.GetComponent<MainProducts>().goodsContents[objectNum].gameObject;   //적용할 아이템 오브젝트를 가져옴
-        itemObj.gameObject.GetComponent<Image>().sprite = this.GetComponent<MainProducts>().goodsImages[objectNum].imageList[imgIdx];   //오브젝트 이미지 변경
+        // 기본 이미지 설정
+        GameObject itemObj = this.GetComponent<MainProducts>().goodsContents[objectNum].gameObject;
+        itemObj.GetComponent<Image>().sprite = imageList[imgIdx];
 
-        if (objectNum == 4)
+        // Wallpaper의 경우
+        if (objectNum == 5) // Wallpaper의 objectNum이 5라고 지정
         {
-            //만약 벽지라면
+            UpdateRelatedWallpaperImages(imgIdx);
+        }
+    }
 
-            for (int j = 5; j < 8; j++)     // 벽지와 세트인 오브젝트들도 적용
+    private void UpdateRelatedWallpaperImages(int imgIdx)
+    {
+        var mainProducts = this.GetComponent<MainProducts>();
+        for (int j = 5; j < 9; j++) // Wallpaper 관련 오브젝트들
+        {
+            var relatedImageList = mainProducts.goodsImages[j].imageList;
+            if (imgIdx >= 0 && imgIdx < relatedImageList.Length)
             {
-                this.GetComponent<MainProducts>().goodsContents[j].gameObject.GetComponent<Image>().sprite = this.GetComponent<MainProducts>().goodsImages[j].imageList[imgIdx];
+                mainProducts.goodsContents[j].GetComponent<Image>().sprite = relatedImageList[imgIdx];
             }
         }
     }
@@ -272,131 +281,156 @@ public class InteriorCategory : MonoBehaviour
     public int ChangeItemIdxToObjectNum(int itemIdx)
     {
         // 아이템 인덱스 정보로 오브젝트 정보를 반환하는 함수
-        int objectNum = 0;  //오브젝트 번호
-        if (itemIdx >= 0 && itemIdx < 4)
-        {
-            objectNum = 1;  //꽃병
-        }
-        else if (itemIdx >= 4 && itemIdx < 8)
-        {
-            objectNum = 2;   //인벤토리
-        }
-        else if (itemIdx >= 8 && itemIdx < 13)
-        {
-            objectNum = 3;   //실
-        }
-        else if (itemIdx >= 13 && itemIdx < 16)
-        {
-            objectNum = 4;   //벽지
-        }
-        else if (itemIdx >= 16 && itemIdx < 19)
-        {
-            objectNum = 8;   //가랜드
-        }
-        else if (itemIdx >= 19 && itemIdx < 22)
-        {
-            objectNum = 9;   //창틀
-        }
-        else if (itemIdx >= 22 && itemIdx < 25)
-        {
-            objectNum = 10;   //패드
-        }
-        else if (itemIdx >= 25 && itemIdx < 28)
-        {
-            objectNum = 11;   //깃펜
-        }
-        else if (itemIdx >= 28 && itemIdx < 31)
-        {
-            objectNum = 12;   //스타드롭
-        }
-        else if (itemIdx >= 31 && itemIdx < 34)
-        {
-            objectNum = 13;   //수정구슬
-        }
-        else if (itemIdx >= 34 && itemIdx < 37)
-        {
-            objectNum = 14;   //망원경
-        }
-        else if (itemIdx >= 37 && itemIdx < 40)
-        {
-            objectNum = 15;   //오르골
-        }
+        Debug.Log("인덱스 " + itemIdx + "를 변경함");
 
-        return objectNum;
+        if (itemIdx >= 0 && itemIdx < 4) return 2;  // 꽃병
+        if (itemIdx >= 4 && itemIdx < 8) return 3;  // 인벤토리
+        if (itemIdx >= 8 && itemIdx < 13) return 4; // 실
+        if (itemIdx == 13 || itemIdx == 22) return 5; // 벽지
+        if (itemIdx == 14 || itemIdx == 23) return 9; // 가랜드
+        if (itemIdx == 15 || itemIdx == 24) return 10; // 창틀
+        if (itemIdx == 16 || itemIdx == 25) return 11; // 패드
+        if (itemIdx == 17 || itemIdx == 26) return 12; // 깃펜
+        if (itemIdx == 18 || itemIdx == 27) return 13; // 스타드롭
+        if (itemIdx == 19 || itemIdx == 28) return 14; // 수정구슬
+        if (itemIdx == 20 || itemIdx == 29) return 15; // 망원경
+        if (itemIdx == 21 || itemIdx == 30) return 16; // 오르골
+        return -1; // 유효하지 않은 경우
     }
 
-    public void SelectInteriorItem(int itemIdx, int imgIdx)
+    public void SelectInteriorItem(int itemIdx, int itemID)
     {
         // 인테리어 아이템 버튼을 클릭하는 함수
+        interiorDataManager = GameManager.instance.interiorDataManager;
+        var selectedItem = interiorDataManager.dataList[itemIdx];
+        int imgIdx = interiorDataManager.dataList[itemIdx].level;
+        // 현재 레벨이 아니라... 아이템 버튼의 레벨로 바꿔야함!!
 
-        curInteriorData = GameManager.instance.loadInteriorData;
-        int adjustingImg = imgIdx;
+        string category = CheckItemCategory2(itemIdx);
+        ItemTheme selectedTheme = GameManager.instance.storeinfo_data.GetThemeByID(selectedItem.id);
 
-        if (currentAdjusting[itemIdx] == 1)     // 만약 적용 중인 아이템을 한 번 더 클릭하여 적용 해제했다면
+        // 적용중인 카테고리 아이템을 적용 해제하는 경우
+        if (currentAdjusting[itemIdx])
         {
-            currentAdjusting[itemIdx] = 0;  //적용 해제
-            curInteriorData.itemList[itemIdx].itemAdjusting = 0;    //적용 해제 반영
+            int defaultIdx = -1; // 기본 아이템 인덱스를 저장할 변수 (초기값 -1)
 
-            adjustingImg = 0;   // 적용할 이미지 == 기본 이미지
-            if (itemIdx >= 0 && itemIdx < 4)
+            if (category == "Vase" || category == "Box" || category == "Thread" || category == "Wallpaper")
             {
-                // 화분의 경우
-                currentAdjusting[0] = 1;    // 기본 화분 적용
-                curInteriorData.itemList[0].itemAdjusting = 1;  // 기본 화분 적용
+                // 특정 아이템을 적용 해제 하는 경우
+                var defaultItem = interiorDataManager.dataList.FirstOrDefault(item =>
+                     CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category &&
+                     GameManager.instance.storeinfo_data.GetThemeByID(item.id).ToString() == "Default");
 
-                //Button_InteriorItem[0].gameObject.transform.GetChild(1).gameObject.SetActive(true); // 적용중 버튼 활성화
-            }
-            else if (itemIdx >= 4 && itemIdx < 8)
-            {
-                // 상자의 경우
-                currentAdjusting[4] = 1;    // 기본 상자 적용
-                curInteriorData.itemList[4].itemAdjusting = 1;  // 기본 상자 적용
-
-                //Button_InteriorItem[4].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else if (itemIdx >= 8 && itemIdx < 13)
-            {
-                // 실의 경우
-                currentAdjusting[8] = 1;    // 기본 실 적용
-                curInteriorData.itemList[8].itemAdjusting = 1;  // 기본 실 적용
-
-                //Button_InteriorItem[8].gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                // 그 외 아이템의 경우
-                string itemCategory = CheckItemCategory2(itemIdx);
-
-                if (itemCategory == "sea")
+                if (defaultItem != null)
                 {
-                    currentAdjusting[itemIdx - 1] = 0;  //적용
-                    curInteriorData.itemList[itemIdx - 1].itemAdjusting = 0;    //적용 반영
+                    defaultIdx = interiorDataManager.dataList.IndexOf(defaultItem); // 기본 아이템 인덱스 할당
+
+                    // 기본 아이템인 경우 해제 방지
+                    if (itemIdx == defaultIdx)
+                    {
+                        return; // 기본 아이템인 경우 해제 중단
+                    }
+
+                    UpdateInteriorImage(itemIdx, defaultIdx); // 기본 이미지로 변경
                 }
-                else if (itemCategory == "star")
+
+                // 기본 아이템이 아닌 경우 다른 아이템 해제
+                foreach (var item in interiorDataManager.dataList)
                 {
-                    currentAdjusting[itemIdx - 2] = 0;  //적용
-                    curInteriorData.itemList[itemIdx - 2].itemAdjusting = 0;    //적용 반영
+                    int index = interiorDataManager.dataList.IndexOf(item);
+
+                    // 기본 아이템이 아니면 해제
+                    if (CheckItemCategory2(index) == category && index != defaultIdx)
+                    {
+                        currentAdjusting[index] = false;
+                        item.isAdjusting = false;
+                    }
+                }
+            }
+            else    // 그 외 아이템(바다, 별 가구)를 적용 해제 하는 경우
+            {
+                currentAdjusting[itemIdx] = false;
+                interiorDataManager.dataList[itemIdx].isAdjusting = false;
+                UpdateInteriorImage(itemIdx, 0); // 기본 이미지로 변경
+            }
+        }
+        else    // 적용중이지 않은 아이템을 적용하는 경우
+        {
+
+            // 현재 다른 아이템으로 적용 중인 아이템이라면(같은 카테고리의 바다, 별 가구를 적용중이라면)
+            var sameCategoryItem = interiorDataManager.dataList.FirstOrDefault(item =>
+                CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category && currentAdjusting[interiorDataManager.dataList.IndexOf(item)]);
+
+            // 같은 카테고리의 아이템이 적용 중이라면 해당 아이템 적용 해제
+            if (sameCategoryItem != null)
+            {
+                int sameCategoryItemIdx = interiorDataManager.dataList.IndexOf(sameCategoryItem);
+
+                // 적용 중인 상태 해제
+                currentAdjusting[sameCategoryItemIdx] = false;
+                interiorDataManager.dataList[sameCategoryItemIdx].isAdjusting = false;
+            }
+
+            // 클릭한 아이템 적용
+            currentAdjusting[itemIdx] = true;
+            selectedItem.isAdjusting = true;
+            UpdateInteriorImage(itemIdx, imgIdx);
+
+            // Wallpaper의 경우 책상과 WindowFrame도 동일한 테마로 변경
+            if (category == "Wallpaper")
+            {
+                foreach (var relatedCategory in new[] { "Wood", "WindowFrame" })     // Pad를 책상으로 바꾸기
+                {
+                    var relatedItem = interiorDataManager.dataList.FirstOrDefault(item =>
+                        CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == relatedCategory &&
+                        GameManager.instance.storeinfo_data.GetThemeByID(item.id) == selectedTheme);
+
+                    if (relatedItem != null)
+                    {
+                        int relatedIdx = interiorDataManager.dataList.IndexOf(relatedItem);
+                        currentAdjusting[relatedIdx] = true;
+                        interiorDataManager.dataList[relatedIdx].isAdjusting = true;
+                        UpdateInteriorImage(relatedIdx, imgIdx);
+                    }
                 }
             }
         }
-        else    // 적용중이 아닌 아이템을 선택했다면
-        {
-            currentAdjusting[itemIdx] = 1;   // 적용중으로 변경
-            curInteriorData.itemList[itemIdx].itemAdjusting = 1;    // 적용중 반영
-        }
 
-        UpdateSameItemAdjusting(itemIdx, adjustingImg); // 같은 종류의 아이템 적용시 해제
-        UpdateInteriorImage(itemIdx, adjustingImg);   // 이미지 변경
-        UpdateButtonAdjusting(itemIdx, adjustingImg);    // 적용중 이미지 표시
+        // UI 업데이트
+        UpdateButtonAdjusting(itemIdx, imgIdx);
 
         // 저장
-        GameManager.instance.loadInteriorData = curInteriorData;
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<InteriorJSON>().DataSaveText(curInteriorData);
+        GameManager.instance.interiorDataManager = interiorDataManager;
+        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
-
     public void SettingItemHide(int itemIdx)
     {
-        //인덱스의 버튼을 검정 이미지로 가리는 함수
-        
+        // 아이템의 보유 여부에 따라 검정 이미지를 가리거나 보여주는 함수
+        var item = interiorDataManager.dataList[itemIdx];
+
+        // 버튼의 마지막 자식 오브젝트를 검정 이미지로 가정
+        Transform buttonTransform = interiorItemArray[itemIdx].transform;
+        GameObject blackImage = buttonTransform.GetChild(buttonTransform.childCount - 1).gameObject;
+
+        if (item.isHaving)
+        {
+            blackImage.SetActive(false); // 보유 중인 경우 검정 이미지를 비활성화
+            interiorItemArray[itemIdx].GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            blackImage.SetActive(true); // 보유하지 않은 경우 검정 이미지를 활성화
+            interiorItemArray[itemIdx].GetComponent<Button>().interactable = false;
+        }
+    }
+
+    // 테스트용: 모든 아이템의 isHaving 값을 true로 설정하는 함수
+    public void SetAllItemsHavingTrue()
+    {
+        foreach (var item in interiorDataManager.dataList)
+        {
+            item.isHaving = true;
+        }
     }
 }
+

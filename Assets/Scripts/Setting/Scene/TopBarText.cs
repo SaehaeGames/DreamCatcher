@@ -12,46 +12,45 @@ public class TopBarText : MonoBehaviour
     public Text GoldText;      //골드 텍스트
     public Text SpecialFeedText;      //먹이 개수 텍스트
 
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager playerDataManager;
 
     private void Start()
     {
+        playerDataManager = GameManager.instance.playerDataManager;
         UpdateText();
     }
 
     public void UpdateText()
     {
-        //텍스트들을 업데이트 하는 함수
-
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어의 상단바 데이터 정보를 가져옴
+        //플레이어 데이터 정보 텍스트들을 업데이트 하는 함수
 
         if (DreamMarbleText.IsActive())
         {
             //만약 텍스트가 숨겨져있지않으면(스타트 화면은 숨겨져있음)
-            DreamMarbleText.text = curPlayerData.dataList[0].dataNumber.ToString();
-            GoldText.text = curPlayerData.dataList[1].dataNumber.ToString();    //특제 먹이 개수를 가져옴
-            SpecialFeedText.text = curPlayerData.dataList[2].dataNumber.ToString();    //특제 먹이 개수를 가져옴
+            SetDreamMarbleText((int)playerDataManager.GetPlayerData(Constants.PlayerData_DreamMarble).dataNumber);
+            SetGoldText((int)playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
+            SetSpecialFeedText((int)playerDataManager.GetPlayerData(Constants.PlayerData_SpecialFeed).dataNumber);
         }
     }
 
-    public void SetDreamMarbleText(int marbleNum)
+    private void SetDreamMarbleText(int marbleNum)
     {
         //꿈구슬 텍스트를 수정하는 함수
 
         DreamMarbleText.text = marbleNum.ToString();
     }
 
-    public void SetSpecialFeedText(int feedNum)
-    {
-        //특제 먹이 개수 텍스트를 수정하는 함수
-
-        SpecialFeedText.text = feedNum.ToString();
-    }
-
-    public void SetGoldText(int GoldNum)
+    private void SetGoldText(int GoldNum)
     {
         //골드 텍스트를 수정하는 함수
 
         GoldText.text = GoldNum.ToString();
+    }
+
+    private void SetSpecialFeedText(int feedNum)
+    {
+        //특제 먹이 개수 텍스트를 수정하는 함수
+
+        SpecialFeedText.text = feedNum.ToString();
     }
 }

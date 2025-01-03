@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,30 +15,23 @@ public class BirdSelect : MonoBehaviour
     {
         // 새 몸통과 깃털의 이미지를 바꾸는 함수
 
-        rackBird.gameObject.GetComponent<Image>().sprite = birdImage[birdNumber];   // 새 몸통 이미지 변경
-        rackBird.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = birdFeatherImage[birdNumber];  // 새 깃털 이미지 변경
+        Image rackBirdImage = rackBird.GetComponent<Image>();
+        rackBirdImage.sprite = birdImage[birdNumber];   // 새 몸통 이미지 변경
+
+        Image featherImage = rackBird.transform.GetChild(0).GetComponent<Image>();
+        featherImage.sprite = birdFeatherImage[birdNumber];  // 새 깃털 이미지 변경
     }
 
-    public int SelectBirdType(int feedNumber)
+    public int SelectBirdType(FeedType feed)
     {
         // 먹이를 통해 랜덤으로 새 종류를 정하는 함수
 
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;   // 새 도감 데이터를 가져옴
-        MyFeatherNumber featherData = GameManager.instance.loadFeatherData; // 깃털 데이터를 가져옴
+        MyFeatherNumber featherData = GameManager.instance.featherDataManager; // 깃털 데이터를 가져옴
 
-        int categoryCnt = SettingCategoryCnt(feedNumber); //카테고리(새 종류, 먹이) 시작 번호를 설정함
-
-        // 이렇게 말고 birdInfo 데이터에 food가 비둘기콩인거 전부 조회
-        // -> 조회 결과 id를 배열에 저장
-        // -> 그 배열에서 랜덤 새 설정 및 id 저장??
-        // 지금까지 birdNumber로 저장하던 거 전부 idx로 바꿔야하나.. BirdInfo[index]의 index니까
-
-        // 특별새 등장 여부 또한 featherData[idx]의 idx..에 birdNumber 적어서 검색
-
-
-        bool specialBirdAppear = CheckSpecialBirdAppear(feedNumber);    //특별새가 등장하였는지 여부 (** 수정 필요)
-        int selectedBirdNum;    // 랜덤으로 선택된 새 고유 번호
-
+        int categoryCnt = SettingCategoryCnt((int)feed); //카테고리(새 종류, 먹이) 시작 번호를 설정함
+        bool specialBirdAppear = CheckSpecialBirdAppear(categoryCnt);    //특별새가 등장하였는지 여부 (** 수정 필요)
+        int selectedBirdNum = 0;
         //만약 특별 새 나오는 조건을 만족한다면 특별 새 등장(해당 먹이의 특별 새가 한 번도 등장하지 않았다면)
         if (!specialBirdAppear)
         {
@@ -58,9 +50,7 @@ public class BirdSelect : MonoBehaviour
 
                 specialBirdAppear = true;   //특별 새 등장
                 selectedBirdNum = categoryCnt + 3;  //특별 새로 설정
-
-                int appearCnt = 1;
-                featherData.featherList[selectedBirdNum].appear = appearCnt; //도감에 특별새 등장 횟수 입력
+                featherData.featherList[selectedBirdNum].appear = 1; //도감에 특별새 등장 횟수 입력
                 //birdinfo_data.DataSaveText(birdinfo_data.datalist); //도감 저장
 
                 return selectedBirdNum; //특별 새 반환
@@ -72,6 +62,7 @@ public class BirdSelect : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             int appearCnt = birdinfo_data.dataList[categoryCnt + i].probability;   //도감에 저장된 해당 먹이의 i번째 새의 등장 확률을 가져옴
+            Debug.Log("확률 : " + appearCnt);
             for (int j = 0; j < appearCnt; j++)
             {
                 birdRandom.Add(i);  //리스트에 i번 새 등장확률만큼 입력
@@ -79,9 +70,8 @@ public class BirdSelect : MonoBehaviour
         }
 
         int randomBird = Random.Range(0, 100);   //랜덤으로 새를 뽑기 위해 난수 생성(0~100 사이의 수 하나)
-        //selectedBirdNum = birdRandom[randomBird] + categoryCnt;     //선택된 새 번호
-        selectedBirdNum = 1;
-        // ** 여기 오류 해결하기
+        Debug.Log("이거 뽑음 : " + birdRandom[randomBird] + ", " + randomBird);
+        selectedBirdNum = birdRandom[randomBird] + categoryCnt;     //선택된 새 번호
 
         return selectedBirdNum;  //선정된 랜덤 새 번호 반환
     }
@@ -113,33 +103,21 @@ public class BirdSelect : MonoBehaviour
         return cnt;
     }
 
-    public bool CheckSpecialBirdAppear(int feedNum)
+    public bool CheckSpecialBirdAppear(int categoryCnt)
     {
         //해당 먹이의 특별새가 이미 등장하였는지 여부를 반환하는 함수
-        //해당 먹이의 특별새 인덱스(3, 7, 11, 15)
 
-        int isAppeared = 0;
-        BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;
+        BirdInfo_Data birdinfoData = GameManager.instance.birdinfo_data;
+        int[] specialBirdIndices = { 3, 7, 11, 15 };
 
-/*        switch (feedNum)
+        // 이 부분을 특별새 깃털이 있는지.. 여부로 판단하기
+        // 아니면 특별새 획득 여부만 저장하는 json 파일 따로 만들기
+/*        foreach (int index in specialBirdIndices)
         {
-            case 0:
-                isAppeared = birdinfo_data.dataList[3].appear;
-                break;
-            case 1:
-                isAppeared = birdinfo_data.dataList[7].appear;
-                break;
-            case 2:
-                isAppeared = birdinfo_data.dataList[11].appear;
-                break;
-            case 3:
-                isAppeared = birdinfo_data.dataList[15].appear;
-                break;
-            default:
-                isAppeared = 0;
-                break;
+            if (birdinfoData.dataList[index].appear == 1)
+                return true;
         }*/
 
-        return System.Convert.ToBoolean(isAppeared);
+        return false;
     }
 }

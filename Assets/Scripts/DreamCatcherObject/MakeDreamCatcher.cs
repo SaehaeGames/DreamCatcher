@@ -178,7 +178,7 @@ public class MakeDreamCatcher : MonoBehaviour
         }
 
         //Json파일 로드
-        dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
         DreamCatcher selectDreamCatcher = dreamCatcherData.dreamCatcherList[dreamcatcherIndex];
         

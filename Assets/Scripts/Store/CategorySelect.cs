@@ -1,120 +1,91 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-enum category { Development, Wallpaper, SpecialProduct};    //카테고리 열거형
-enum interior { Star, Sea };    //인테리어 카테고리 열거형
 
 public class CategorySelect : MonoBehaviour
 {
     //카테고리 선택 부분을 담당하는 클래스
 
     [Header("[Current Store]")]
-    [SerializeField] private int currentMainCategory; //현재 선택된 상점 화면(보이는 화면)
-    public GameObject[] CategoryProducts;   //해당 카테고리 상품 화면
-    [SerializeField] private int currentInteriorCategory; //현재 선택된 상점 화면(보이는 화면)
-    public GameObject[] InteriorProducts;
+    [SerializeField] private StoreType currentMainCategory; //현재 선택된 상점 화면(보이는 화면)
+    [SerializeField] private ItemTheme currentInteriorCategory; //현재 선택된 인테리어 상점 화면(보이는 화면)
+
+    public GameObject[] categoryProducts;   //해당 카테고리 상품 화면
+    public GameObject[] interiorProducts;
 
     [Space]
     [Header("[Category Background]")]
-    public GameObject[] UnselectedBackGround;   //비활성화된 메인 카테고리 배경
-    public GameObject[] UnselectedInteriorBackGround;   //비활성화된 인테리어 카테고리 배경
+    public GameObject[] unselectedBackground;   //비활성화된 메인 카테고리 배경
+    public GameObject[] unselectedInteriorBackground;   //비활성화된 인테리어 카테고리 배경
 
     void Start()
     {
-        currentMainCategory = (int)category.Development;   //기본은 보조도구 화면
-        CategoryProducts[currentMainCategory].SetActive(true);     //해당 카테고리 상품 화면 활성화
+        currentMainCategory = (int)StoreType.Development;   //기본은 보조도구 화면
+
+
+        ActivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
+
+        //CategoryProducts[currentMainCategory].SetActive(true);     //해당 카테고리 상품 화면 활성화
     }
 
-    public int GetSelectedCategory()
-    {
-        //선택된 화면을 반환하는 함수
+    public StoreType GetSelectedCategory() => currentMainCategory;
 
-        return currentMainCategory;
-    }
-
-    public void SetStarInteriorSelect()
-    {
-        //별 인테리어 화면을 선택하는 함수
-
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene(); //창 이동 효과음
-        //SetInActiveBeforeCategory(currentInteriorCategory);     //이전 카테고리 비활성화
-
-
-        InteriorProducts[currentInteriorCategory].SetActive(false);     //이전 카테고리 상품 화면 비활성화
-        UnselectedInteriorBackGround[currentInteriorCategory].SetActive(true); // 이전 카테고리 비활성화 배경 활성화
-
-        currentInteriorCategory = (int)interior.Star;
-
-        //SetActiveCurrentCategory(currentInteriorCategory);      //현재 카테고리 활성화
-        InteriorProducts[currentInteriorCategory].SetActive(true);     //현재 카테고리 상품 화면 활성화
-        UnselectedInteriorBackGround[currentInteriorCategory].SetActive(false); // 현재 카테고리 비활성화 배경 비활성화
-        Debug.Log(currentInteriorCategory + "현재 카테고리 번호");
-    }
-
-    public void SetSeaInteriorSelect()
-    {
-        //바다 인테리어 화면을 선택하는 함수
-
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene(); //창 이동 효과음
-        //SetInActiveBeforeCategory(currentInteriorCategory);     //이전 카테고리 비활성화
-        InteriorProducts[currentInteriorCategory].SetActive(false);     //이전 카테고리 상품 화면 비활성화
-        UnselectedInteriorBackGround[currentInteriorCategory].SetActive(true); // 이전 카테고리 비활성화 배경 활성화
-
-        Debug.Log(currentInteriorCategory + "이전 카테고리 번호");
-        currentInteriorCategory = (int)interior.Sea;
-        //SetActiveCurrentCategory(currentInteriorCategory);      //현재 카테고리 활성화
-
-        InteriorProducts[currentInteriorCategory].SetActive(true);     //현재 카테고리 상품 화면 활성화
-        UnselectedInteriorBackGround[currentInteriorCategory].SetActive(false); // 현재 카테고리 비활성화 배경 비활성화
-
-        Debug.Log(currentInteriorCategory + "현재 카테고리 번호");
-    }
-
-    public void SetDevelopmentSelect()
-    {
-        //보조도구 화면을 선택하는 함수
-
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene(); //창 이동 효과음
-        SetInActiveBeforeCategory(currentMainCategory);     //이전 카테고리 비활성화
-        currentMainCategory = (int)category.Development;
-        SetActiveCurrentCategory(currentMainCategory);      //현재 카테고리 활성화
-    }
-
+    // 메인에서 카테고리 선택
+    public void SetDevelopmentSelect() => SetMainCategory(StoreType.Development);
     public void SetWallpaperSelect()
     {
-        //벽지 화면을 선택하는 함수
+        SetMainCategory(StoreType.Interior);
+        currentInteriorCategory = ItemTheme.Star; // 기본 인테리어는 별 화면
+    }
+    public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
 
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene(); //창 이동 효과음
-        SetInActiveBeforeCategory(currentMainCategory);     //이전 카테고리 비활성화
-        currentMainCategory = (int)category.Wallpaper;
-        currentInteriorCategory = (int)interior.Star;   //기본은 인테리어 별 화면
-        SetActiveCurrentCategory(currentMainCategory);      //현재 카테고리 활성화
+    // 인테리어 카테고리 선택
+    public void SetStarInteriorSelect() => SetInteriorCategory(ItemTheme.Star);
+    public void SetSeaInteriorSelect() => SetInteriorCategory(ItemTheme.Sea);
+
+    // 통합 메서드
+    private void SetMainCategory(StoreType category)
+    {
+        PlayOpenSceneEffect();
+        DeactivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
+        currentMainCategory = category;
+        ActivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
     }
 
-    public void SetSpecialProductSelect()
+    private void SetInteriorCategory(ItemTheme theme)
     {
-        //특별상품 화면을 선택하는 함수
-
-        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_OpenScene(); //창 이동 효과음
-        SetInActiveBeforeCategory(currentMainCategory);
-        currentMainCategory = (int)category.SpecialProduct;
-        SetActiveCurrentCategory(currentMainCategory);      //현재 카테고리 활성화
+        PlayOpenSceneEffect();
+        DeactivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
+        currentInteriorCategory = theme;
+        ActivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
     }
 
-    private void SetActiveCurrentCategory(int currentCategory)
+    private void ActivateCategory<T>(GameObject[] products, GameObject[] backgrounds, T category) where T : Enum
     {
-        //현재 카테고리를 활성화 하는 함수
-
-        CategoryProducts[currentCategory].SetActive(true);     //현재 카테고리 상품 화면 활성화
-        UnselectedBackGround[currentCategory].SetActive(false); // 현재 카테고리 비활성화 배경 비활성화
+        int categoryIndex = Convert.ToInt32(category);
+        products[categoryIndex].SetActive(true);
+        backgrounds[categoryIndex].SetActive(false);
     }
 
-    private void SetInActiveBeforeCategory(int beforeCategory)
+    private void DeactivateCategory<T>(GameObject[] products, GameObject[] backgrounds, T category) where T : Enum
     {
-        //이전 카테고리를 비활성화 하는 함수
+        int categoryIndex = Convert.ToInt32(category);
+        products[categoryIndex].SetActive(false);
+        backgrounds[categoryIndex].SetActive(true);
+    }
 
-        CategoryProducts[beforeCategory].SetActive(false);     //이전 카테고리 상품 화면 비활성화
-        UnselectedBackGround[beforeCategory].SetActive(true); // 이전 카테고리 비활성화 배경 활성화
+    private void PlayOpenSceneEffect()
+    {
+        var audioManager = GameObject.FindGameObjectWithTag("AudioManager");
+        if (audioManager != null)
+        {
+            var effectChange = audioManager.GetComponent<EffectChange>();
+            effectChange?.PlayEffect_OpenScene();
+        }
+        else
+        {
+            Debug.LogWarning("AudioManager 게임 오브젝트를 찾을 수 없음");
+        }
     }
 }
