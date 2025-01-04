@@ -33,10 +33,14 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     // 제작시작여부 판단
     private MakingUIManager makingUiManager;
 
+    private InteractiveLimitDragPoint _tutorialDragPointLimit;
+
     private void OnEnable()
     {
         makingUiManager = GameObject.FindGameObjectWithTag("CreateManager").GetComponent<MakingUIManager>();
+        _tutorialDragPointLimit = this.gameObject.GetComponent<InteractiveLimitDragPoint>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,12 +51,6 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         startPointNum = PointNumber;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void StringColorSet(int colorNum)
     {
         stringColor = stringColors[colorNum];
@@ -60,12 +58,8 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     private Vector3 PointResetting(Vector3 StartPnt, Vector3 EndPnt)
     {
-        //Debug.Log("포인트 적용");
         Vector3 addPnt = (StartPnt - EndPnt).normalized;
-        //Debug.Log("addPnt = "+addPnt);
         return addPnt;
-        //Line.GetComponent<LineRenderer>().SetPosition(0, StartPoint + addPnt * -addDegree);
-        //Line.GetComponent<LineRenderer>().SetPosition(1, EndPoint + addPnt * addDegree);
     }
 
     // 오브젝트 드래그 시작
@@ -110,17 +104,39 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (eventData.pointerCurrentRaycast.gameObject.CompareTag("DragPoint"))
         {
             endPointNum = eventData.pointerCurrentRaycast.gameObject.GetComponent<DragPoint>().PointNumber;
-            // 닿으면 거기서 한줄 완성
-            EndPoint = eventData.pointerCurrentRaycast.gameObject.transform.position;
-            Line.GetComponent<LineRenderer>().SetPosition(1, EndPoint - PointResetting(StartPoint, EndPoint)*addDegree);
-            Line.GetComponent<LineRenderer>().SetPosition(0, StartPoint - PointResetting(StartPoint, EndPoint) * -addDegree);
 
-            Line.GetComponent<Line>().addColliderToLine();
-            // 제작 시작 알림
-            makingUiManager.StartMakingLine();
-            // 라인 저장
-            Line.GetComponent<Line>().endNum = eventData.pointerCurrentRaycast.gameObject.GetComponent<DragPoint>().PointNumber;
-            DCManager.UpdateDreamCatcher(startPointNum, endPointNum);
+            if (!DCManager.CheckDreamCatcher(startPointNum, endPointNum))
+            {
+                Debug.Log("처음 연결");
+                // 튜토리얼
+                if (_tutorialDragPointLimit.enabled != false)
+                {
+                    if (!_tutorialDragPointLimit.ReceiveEndPointNum(endPointNum))
+                    {
+                        Debug.Log("틀림");
+                        Destroy(Line);
+                        Line = null;
+                        return;
+                    }
+                }
+
+                // 닿으면 거기서 한줄 완성
+                EndPoint = eventData.pointerCurrentRaycast.gameObject.transform.position;
+                Line.GetComponent<LineRenderer>().SetPosition(1, EndPoint - PointResetting(StartPoint, EndPoint) * addDegree);
+                Line.GetComponent<LineRenderer>().SetPosition(0, StartPoint - PointResetting(StartPoint, EndPoint) * -addDegree);
+
+                Line.GetComponent<Line>().addColliderToLine();
+
+                // 제작 시작 알림
+                makingUiManager.StartMakingLine();
+                // 라인 저장
+                Line.GetComponent<Line>().endNum = eventData.pointerCurrentRaycast.gameObject.GetComponent<DragPoint>().PointNumber;
+                DCManager.UpdateDreamCatcher(startPointNum, endPointNum);
+            }
+            else
+            {
+                Debug.Log("두 번 연결");
+            }
         }
         else
         {

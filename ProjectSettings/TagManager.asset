@@ -3,7 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - QuestManager
+  - Feed
+  - AudioManager
+  - TopBar
+  - GoodsManager
+  - Deco
+  - DragPoint
+  - HangPoint
+  - GameManager
+  - BottomBar
+  - FeedManager
+  - UI Canvas
+  - CreateManager
+  - SceneManager
+  - FeatherDrag
   layers:
   - Default
   - TransparentFX

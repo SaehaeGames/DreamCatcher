@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    public UnityAction<string> SceneChangeWarn;
+    //public UnityAction<string> SceneChangeWarn;
 
     private BottomBar bottomBar;
     private EffectChange effectChange;
@@ -46,12 +46,60 @@ public class SceneChange : MonoBehaviour
         
         if (activeSceneName == "Making")    // 만들기 씬일 경우
         {
+<<<<<<< HEAD
             // 다른 일
             SceneChangeWarn.Invoke(sceneName);
         }
         else
         {
             SceneManager.LoadScene(sceneName);  // 씬 로드
+=======
+            //다른 일
+            //SceneChangeWarn.Invoke("Main");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main");
+        }
+    }
+
+    public void ChangeMakingScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Making")
+        {
+            //다른 일
+            //SceneChangeWarn.Invoke("Making");
+        }
+        else
+        {
+            SceneManager.LoadScene("Making");
+        }
+    }
+   
+    public void ChangeGuideScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Making")
+        {
+            //다른 일
+            //SceneChangeWarn.Invoke("CollectionDream");
+        }
+        else
+        {
+            SceneManager.LoadScene("CollectionDream");
+        }
+    }
+
+    public void ChangeStoreScene()
+    {
+        if (SceneManager.GetActiveScene().name == "Making")
+        {
+            //다른 일
+            //SceneChangeWarn.Invoke("Store");
+        }
+        else
+        {
+            SceneManager.LoadScene("Store");
+>>>>>>> origin/chaemm
         }
     }
 }

@@ -59,12 +59,6 @@ public class DCCheckManager : MonoBehaviour
         testTxt.text += "dreamCatcherCnt: " + dreamCatcherData.dreamCatcherCnt;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     // 드림캐쳐 배열변형(2D->1D) 함수
     // : 드림캐쳐의 실모양을 나타내는 DCLine을 2차원배열에서 1차원배열로 변환하는 함수
     public int[] ConvertLineArrayTo1D(int[,] line2d)
@@ -81,6 +75,18 @@ public class DCCheckManager : MonoBehaviour
             }
         }
         return line1d;
+    }
+
+    // 드림캐쳐 라인 연결 상태 확인
+    // : startNum과 endNum을 매개변수로 받아 연결되었는지 확인한다.
+    public bool CheckDreamCatcher(int startNum, int endNum)
+    {
+        // 연결되어 있지 않을 때
+        if (DreamCatcherMap[startNum, endNum] == 0)
+        {
+            return false;
+        } // 연결되어 있을 때
+        else { return true; }
     }
 
     // 드림캐쳐 상태기록 및 보석 활성화 위치 설정
@@ -246,12 +252,23 @@ public class DCCheckManager : MonoBehaviour
     // 깃털 정보 가져오기
     public string GetFeather()
     {
+        for (int i = 0; i < 3; i++)
+        {
+            Debug.Log(featherMap[i]);
+        }
+
+        Debug.Log(_birdinfo_data.dataList[1]);
         string featherTxt;
         if (fNum == 2)
         {
-            if (featherMap[0] == featherMap[1])
+            if ((featherMap[0] == featherMap[1]) || (featherMap[0] == featherMap[2]))
             {
                 featherTxt = _birdinfo_data.dataList[featherMap[0]].name + " 깃털 X2";
+                return featherTxt;
+            }
+            else if(featherMap[1] == featherMap[2])
+            {
+                featherTxt = _birdinfo_data.dataList[featherMap[1]].name + " 깃털 X2";
                 return featherTxt;
             }
             else
@@ -299,6 +316,12 @@ public class DCCheckManager : MonoBehaviour
     public string GetColor()
     {
         return colorDic[colorMap];
+    }
+
+    // 비즈 활성화 상태 가져오기
+    public bool GetBead(int beadIndex)
+    {
+        return BeadMap[beadIndex];
     }
 
     // 드림캐쳐 1차 완성
@@ -356,7 +379,10 @@ public class DCCheckManager : MonoBehaviour
         // 드림캐쳐 사용 재료 인벤토리 삭제
         for (int i = 0; i < fNum; i++)
         {
-            DeleteInventory(featherMap[i]);
+            if (featherMap[i]!=99)
+            {
+                DeleteInventory(featherMap[i]);
+            }
         }
         ResetDeamCatcher();
     }
@@ -373,6 +399,7 @@ public class DCCheckManager : MonoBehaviour
         if(itemCnt<0)
         {
             Debug.LogError("깃털 갯수가 부족합니다.");
+            return;
         }
         //FNDManager.GetFeatherIndexData(itemNumber).SetFeatherNumber(itemCnt);
         FNDManager.featherList[itemNumber].feather_number = itemCnt;

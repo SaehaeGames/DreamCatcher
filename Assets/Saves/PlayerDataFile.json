@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
+=======
+    "dataCount": 10,
+>>>>>>> origin/chaemm
     "dataList": [
         {
             "dataName": "DreamMarble",
@@ -10,7 +14,11 @@
         },
         {
             "dataName": "SpecialFeed",
+<<<<<<< HEAD
             "dataNumber": 100.0
+=======
+            "dataNumber": 42.0
+>>>>>>> origin/chaemm
         },
         {
             "dataName": "BGM",
@@ -22,7 +30,7 @@
         },
         {
             "dataName": "BGMMute",
-            "dataNumber": 1.0
+            "dataNumber": 0.0
         },
         {
             "dataName": "EffectMute",
@@ -30,7 +38,19 @@
         },
         {
             "dataName": "nowSceneNum",
+<<<<<<< HEAD
             "dataNumber": 0.0
+=======
+            "dataNumber": 14.0
+        },
+        {
+            "dataName": "nowQuestNum",
+            "dataNumber": 4.0
+        },
+        {
+            "dataName": "questAccepted",
+            "dataNumber": 1.0
+>>>>>>> origin/chaemm
         }
     ]
 }
