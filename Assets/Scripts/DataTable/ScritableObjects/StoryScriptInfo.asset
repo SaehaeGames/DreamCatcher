@@ -1876,8 +1876,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uC774\uACF3\uC5D0\uC11C \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC744\uAC70\uC57C.
-      \r"
+    line: "\r"
   - id: 7195
     sceneNum: 28
     questNum: 19
@@ -1886,7 +1885,8 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\r"
+    line: "\uB3CC\uC544\uC624\uBA74 \uB9CE\uC740 \uC774\uC57C\uAE30\uB97C \uB4E4\uB824
+      \uC918\uC57C\uD574.\r"
   - id: 7196
     sceneNum: 28
     questNum: 19
@@ -1895,7 +1895,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\r"
+    line: "\uB09C \uC774\uACF3\uC5D0\uC11C \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC744\uAC70\uC57C.\r"
   - id: 7197
     sceneNum: 28
     questNum: 19
