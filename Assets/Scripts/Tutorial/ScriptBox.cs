@@ -44,26 +44,22 @@ public class ScriptBox : MonoBehaviour
 
     private void Awake()
     {
-<<<<<<< HEAD
-//        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
-        //GameManager.instance.GetComponent<PlayerDataManager>();
+        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+        GameManager.instance.GetComponent<PlayerDataManager>();
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
 /*=======
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
         //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
 >>>>>>> pearl*/
-=======
-<<<<<<< HEAD
-        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+        /*playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
         //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
 =======
         curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
         GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
->>>>>>> origin/chaemm
->>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
+>>>>>>> origin/chaemm*/
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
     }
 
@@ -160,91 +156,10 @@ public class ScriptBox : MonoBehaviour
 
     public bool ReturnNextScript()
     {
-<<<<<<< HEAD
         return myreturn;
         /*next = true;
         NextScript();*/
-=======
-<<<<<<< HEAD
-        next = true;
-        NextScript();
->>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
     }
-/*
-    public bool NextScript()
-    {
-        bool next = true;
-
-        if (next)
-        {
-            // 한 대화 묶음 끝 확인
-            if (7000 + lineNum >= (endId + 1))
-            {
-                Debug.Log("챕터 끝");
-                return true;
-            }
-            next = false;
-            // 타이핑 중
-            if (typing)
-            {
-                StopCoroutine(typingCoroutine);
-                talk = talk.Replace("  ", "\n");
-                talk = talk.Replace("<", "-<");
-                talk = talk.Replace(">", ">-");
-                talk = talk.Replace("-<", "<color=#ffb7a6><b>");
-                talk = talk.Replace(">-", "</b></color>");
-                loadingTxt.text = talk;
-                typing = false;
-                highlightChar = false; // 하이라이트 표시 종료
-                return false;
-            }
-            else // 타이핑 끝
-            {
-                // 대사라면
-                if (_storyscriptinfo_data.dataList[lineNum].charImage != 99)
-                {
-                    characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
-
-                    characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
-                    characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
-                    characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
-                    if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
-                    {
-                        characterBody.color = new Color(1f, 1f, 1f, 1f);
-                    }
-                    else
-                    {
-                        characterBody.color = new Color(0f, 0f, 0f, 1f);
-                    }
-                    talk = _storyscriptinfo_data.dataList[lineNum].line;
-                    typingCoroutine = Typing();
-                    StartCoroutine(typingCoroutine);
-                    lineNum++;
-                } // 대사가 아니라면(클릭 명령)
-                else
-                {
-                    lineNum++;
-                }
-
-                // 새로운 씬으로 넘어가면 => 저장
-                if (_storyscriptinfo_data.dataList[lineNum].sceneNum != (int)playerDataManager.GetPlayerData(Constants.PlayerData_NowSceneNum).dataNumber)
-                {
-                    // 현재 씬 업데이트
-                    playerDataManager.GetPlayerData(Constants.PlayerData_NowSceneNum).dataNumber = _storyscriptinfo_data.dataList[lineNum].sceneNum;
-                    GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, playerDataManager);
-                }
-                return false;
-            }
-        }
-        return false;
-<<<<<<< HEAD
-    }*/
-=======
-=======
-        return myreturn;
->>>>>>> origin/chaemm
-    }
->>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
 
     // 타이핑 효과
     IEnumerator Typing()
