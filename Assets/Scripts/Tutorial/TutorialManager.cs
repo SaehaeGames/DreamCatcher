@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager curPlayerData;   //플레이어 데이터 정보
     private int curScene;
     private int curTutorial;
     [SerializeField] private GameObject tutorialFadePanal;
@@ -23,7 +23,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // 플레이어 데이터(PlayerDataFile) 로드
-        curPlayerData = GameManager.instance.loadPlayerData;
+        curPlayerData = GameManager.instance.playerDataManager;
 
         // 현재 튜토리얼 씬 설정
         curScene = (int)curPlayerData.dataList[7].dataNumber; // 현재 튜토리얼 씬 불러오기
@@ -82,6 +82,6 @@ public class TutorialManager : MonoBehaviour
         
         // 씬 데이터 업데이트
         curPlayerData.dataList[7].dataNumber = curScene;
-        GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);
+        GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, curPlayerData);
     }
 }

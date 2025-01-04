@@ -46,7 +46,6 @@ public class SceneChange : MonoBehaviour
         
         if (activeSceneName == "Making")    // 만들기 씬일 경우
         {
-<<<<<<< HEAD
             //다른 일
             //SceneChangeWarn.Invoke("Main");
         }
@@ -92,14 +91,8 @@ public class SceneChange : MonoBehaviour
         else
         {
             SceneManager.LoadScene("Store");
-=======
             // 다른 일
-            SceneChangeWarn.Invoke(sceneName);
-        }
-        else
-        {
-            SceneManager.LoadScene(sceneName);  // 씬 로드
->>>>>>> pearl
+            //SceneChangeWarn.Invoke(sceneName);
         }
     }
 }

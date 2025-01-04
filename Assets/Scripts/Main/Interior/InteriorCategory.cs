@@ -18,7 +18,7 @@ public class InteriorCategory : MonoBehaviour
     public GameObject[] horLines;   //인테리어 UI의 카테고리 세로선 배열
 
     private List<GameObject> interiorItemArray; //인테리어 아이템 버튼 목록
-    public bool[] currentAdjusting;  //현재 적용중인 아이템 여부
+    private bool[] currentAdjusting;  //현재 적용중인 아이템 여부
     int currentCategoryIndex;   //현재 활성화중인 인테리어 카테고리
 
     private InteriorDataManager interiorDataManager;  //현재 플레이어 인테리어 데이터 정보
@@ -26,7 +26,7 @@ public class InteriorCategory : MonoBehaviour
     public void Start()
     {
         currentCategoryIndex = 0;
-        ScrollViewPort = Panel_Interior.gameObject.transform.GetChild(2).GetChild(0).gameObject;   //** 이걸 하드코딩 말고 함수로 가져와서 찾을 수 있는지 고민해보기
+        ScrollViewPort = Panel_Interior.gameObject.transform.GetChild(2).GetChild(0).gameObject;  
         for (int i = 0; i < Button_InteriorCategory.Length; i++)
         {
             Button_InteriorCategory[i].GetComponent<InteriorButton>().buttonNumber = i;
@@ -52,9 +52,9 @@ public class InteriorCategory : MonoBehaviour
             SettingItemHide(i);
         }
 
-        UpdateCatrgoryPanel(currentCategoryIndex); //카테고리 번호에 맞게 노출되는 패널 업데이트
         DefineButtonNumber();   //카테고리 버튼 고유 번호 지정
         LoadSaveData(); // 저장 데이터 가져옴
+        UpdateCatrgoryPanel(currentCategoryIndex); //카테고리 번호에 맞게 노출되는 패널 업데이트
 
     }
 

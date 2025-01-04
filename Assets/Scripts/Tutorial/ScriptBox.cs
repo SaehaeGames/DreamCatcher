@@ -44,20 +44,21 @@ public class ScriptBox : MonoBehaviour
 
     private void Awake()
     {
-<<<<<<< HEAD
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
-        GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
+//        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+        //GameManager.instance.GetComponent<PlayerDataManager>();
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
-=======
+/*=======
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
         //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
->>>>>>> pearl
+>>>>>>> pearl*/
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
     }
 
     void Start()
     {
+        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+
         // 초기화
         scriptLogOpen = false; // 스크립트로그 닫기 상태
         scriptLogBox.gameObject.SetActive(false); // 스크립트로그 박스 닫기
@@ -147,15 +148,15 @@ public class ScriptBox : MonoBehaviour
 
     public bool ReturnNextScript()
     {
-<<<<<<< HEAD
         return myreturn;
-=======
-        next = true;
-        NextScript();
+        /*next = true;
+        NextScript();*/
     }
-
+/*
     public bool NextScript()
     {
+        bool next = true;
+
         if (next)
         {
             // 한 대화 묶음 끝 확인
@@ -218,8 +219,7 @@ public class ScriptBox : MonoBehaviour
             }
         }
         return false;
->>>>>>> pearl
-    }
+    }*/
 
     // 타이핑 효과
     IEnumerator Typing()

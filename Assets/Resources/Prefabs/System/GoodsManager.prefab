@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4700025106777566815}
   - component: {fileID: 4700025106777566809}
   - component: {fileID: 4700025107160112503}
-  - component: {fileID: 1118850157585868892}
   m_Layer: 0
   m_Name: GoodsManager
   m_TagString: GoodsManager
@@ -64,6 +63,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  goodsImages: []
 --- !u!114 &4700025107160112503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,16 +100,3 @@ MonoBehaviour:
   itemMaxCnt: 0
   itemCurCnt: 0
   itemList: []
---- !u!114 &1118850157585868892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4700025106777566812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a347847ae8d970846a2e306f2c4575df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Panel_Interior: {fileID: 0}

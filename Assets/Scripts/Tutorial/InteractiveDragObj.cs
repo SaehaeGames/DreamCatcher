@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     // 플레이어 데이터
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager curPlayerData;   //플레이어 데이터 정보
     private int curScene;
 
 

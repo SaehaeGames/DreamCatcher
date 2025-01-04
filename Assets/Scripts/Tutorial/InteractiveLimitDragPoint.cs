@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class InteractiveLimitDragPoint : MonoBehaviour
 {
     // 플레이어 데이터 
-    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager curPlayerData;   //플레이어 데이터 정보
     private int curScene;
 
     // 포인트 데이터
@@ -21,7 +21,7 @@ public class InteractiveLimitDragPoint : MonoBehaviour
     {
         _tutorialConnectLine=GameObject.FindFirstObjectByType<InteractiveSequenceConnectLine>();
         // 튜토리얼 씬 상황 확인
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어의 상단바 데이터 정보를 가져옴
+        curPlayerData = GameManager.instance.playerDataManager;    //플레이어의 상단바 데이터 정보를 가져옴
         curScene = (int)curPlayerData.dataList[7].dataNumber;
 
         // 튜토리얼 드래그 포인트 튜토리얼 과정 외엔 비활성화

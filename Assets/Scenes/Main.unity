@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &30590340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &45133211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &50589554
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2894,7 +2894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &105615580
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3666,7 +3666,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &180606038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3935,7 +3936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &187459478
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,7 +4361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &201707748
 GameObject:
   m_ObjectHideFlags: 0
@@ -4519,11 +4520,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4701,7 +4702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &202870794
 GameObject:
   m_ObjectHideFlags: 0
@@ -7034,7 +7035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &339766341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7380,7 +7381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &346593565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7859,7 +7860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &371438632
 GameObject:
   m_ObjectHideFlags: 0
@@ -8945,7 +8946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &438169719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9404,7 +9405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &469042774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9725,7 +9727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &495091413
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10269,7 +10271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &533943608
 GameObject:
   m_ObjectHideFlags: 0
@@ -10891,7 +10893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &564659933
 GameObject:
   m_ObjectHideFlags: 0
@@ -12849,7 +12851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &666334980
 GameObject:
   m_ObjectHideFlags: 0
@@ -13273,7 +13275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &688703549
 GameObject:
   m_ObjectHideFlags: 0
@@ -14039,7 +14041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &711170756
 GameObject:
   m_ObjectHideFlags: 0
@@ -14300,7 +14302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &723299061
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15441,7 +15443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &777585356
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17724,7 +17726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &880520223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17843,7 +17845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &880903450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19055,7 +19057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &924309024
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20336,7 +20338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &984105249
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21016,7 +21018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &1026629817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23397,7 +23399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1135031295
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25545,7 +25547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1296184424
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26235,7 +26237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1309971393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27613,7 +27615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &1380789117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28467,7 +28470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &1405021125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29145,7 +29148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &1479199640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30061,7 +30064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &1521807397
 GameObject:
   m_ObjectHideFlags: 0
@@ -32127,7 +32130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &1636152620
 GameObject:
   m_ObjectHideFlags: 0
@@ -32558,7 +32561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1645527677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -32848,7 +32851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &1656564881
 GameObject:
   m_ObjectHideFlags: 0
@@ -34507,7 +34510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1760436249
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34976,7 +34979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &1776251633
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36569,7 +36572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &1824169047
 GameObject:
   m_ObjectHideFlags: 0
@@ -37731,7 +37734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &1874085655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39184,7 +39187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!114 &1956241326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39703,7 +39706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &1973455340
 GameObject:
   m_ObjectHideFlags: 0
@@ -40058,7 +40061,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &1991136549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41558,7 +41562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &2050540257
 GameObject:
   m_ObjectHideFlags: 0
@@ -41865,7 +41869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &2065604780
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42224,7 +42228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!222 &2071231847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43271,7 +43275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &2128885371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43892,7 +43897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonNumber: 0
-  imageNumber: 0
+  itemID: 0
 --- !u!1 &2145978296
 GameObject:
   m_ObjectHideFlags: 0
@@ -44060,9 +44065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNumber: 1
-  isDragging: 0
-  selectRackNumber: 0
+  feed: 0
+  lastRackNumber: 0
 --- !u!114 &254895448101900421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44075,9 +44079,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNumber: 0
-  isDragging: 0
-  selectRackNumber: 0
+  feed: 0
+  lastRackNumber: 0
 --- !u!1001 &299077798067191940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44443,9 +44446,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1883164456}
     - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
       propertyPath: timerText.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1605486166}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1855131740}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[2]
+      value: 
+      objectReference: {fileID: 1919474961}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[3]
+      value: 
+      objectReference: {fileID: 1919474961}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[4]
+      value: 
+      objectReference: {fileID: 1919474961}
+    - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
+      propertyPath: timers.Array.data[5]
+      value: 
+      objectReference: {fileID: 1919474961}
     - target: {fileID: 4208795823739651648, guid: 0bd78ca1bd16aa643b788a3caa5d0cf0, type: 3}
       propertyPath: timerText.Array.data[0]
       value: 
@@ -44629,9 +44660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNumber: 2
-  isDragging: 0
-  selectRackNumber: 0
+  feed: 0
+  lastRackNumber: 0
 --- !u!1001 &2971994516693520521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44932,6 +44962,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118850157585868892, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Panel_Interior
+      value: 
+      objectReference: {fileID: 1566263866}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: deskObject
       value: 
@@ -45077,6 +45111,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[2].imageList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[3].imageList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: goodsImages.Array.data[4].imageList.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -45129,11 +45171,23 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[0].imageList.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7d32afeb20957aa40ae79bac2e74bf04, type: 3}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: goodsImages.Array.data[0].imageList.Array.data[1]
       value: 
       objectReference: {fileID: 21300000, guid: bc3a17b11a822004a82a235e9d10bf4f, type: 3}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: goodsImages.Array.data[0].imageList.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 31550325d1da8e941b286b2fa89ddb46, type: 3}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[0].imageList.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 31550325d1da8e941b286b2fa89ddb46, type: 3}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[0].imageList.Array.data[4]
       value: 
       objectReference: {fileID: 21300000, guid: 31550325d1da8e941b286b2fa89ddb46, type: 3}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
@@ -45530,6 +45584,7 @@ MonoBehaviour:
   - {fileID: 1393506283}
   - {fileID: 17512834}
   - {fileID: 1909131445}
+  currentAdjusting: 
 --- !u!1001 &5107403565194878041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45590,6 +45645,10 @@ PrefabInstance:
       propertyPath: testText
       value: 
       objectReference: {fileID: 801377822}
+    - target: {fileID: 7787520737359582079, guid: e5fda08ead39f5a478cdaa17e2f0f601, type: 3}
+      propertyPath: storyscriptinfo_data
+      value: 
+      objectReference: {fileID: 11400000, guid: b1c7c24261577b947b1444c281b2bdf8, type: 2}
     m_RemovedComponents:
     - {fileID: 1222026266, guid: e5fda08ead39f5a478cdaa17e2f0f601, type: 3}
     m_RemovedGameObjects: []
@@ -45608,9 +45667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedNumber: 3
-  isDragging: 0
-  selectRackNumber: 0
+  feed: 0
+  lastRackNumber: 0
 --- !u!1001 &5532427223867986082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45978,7 +46036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd78b6b98d15dca468718dd74695e2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdIdx: 0
+  rackNumber: 0
+  birdNumber: 0
 --- !u!114 &8279302668064500058
 MonoBehaviour:
   m_ObjectHideFlags: 0
