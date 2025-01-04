@@ -54,7 +54,7 @@ MonoBehaviour:
   storeinfo_data: {fileID: 11400000, guid: 1f4fabd34cc3d6a499163bc3906e2fb9, type: 2}
   interiorinfo_data: {fileID: 11400000, guid: 6b285af3cad8cde47a6c08cde67ae308, type: 2}
   questinfo_data: {fileID: 11400000, guid: a66775841f187704e88b128bed9e8dfa, type: 2}
-  storyscriptinfo_data: {fileID: 11400000, guid: 22e832dab8e0708429752f7cf1d15044, type: 2}
+  storyscriptinfo_data: {fileID: 11400000, guid: 9b4f7421e00b866488f5c966d69ee11a, type: 2}
   storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}
 --- !u!114 &7787520737359582068
 MonoBehaviour:

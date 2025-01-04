@@ -45,7 +45,6 @@ public class ScriptBox : MonoBehaviour
     private void Awake()
     {
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
-        GameManager.instance.GetComponent<PlayerDataManager>();
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
 /*=======
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
