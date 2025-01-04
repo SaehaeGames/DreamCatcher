@@ -1302,8 +1302,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2633e5e3dbdfe4748aacaea702a597a3, type: 3}
   characterEffectSprites:
   - {fileID: 21300000, guid: 4b31413bae7fd554db51d670b573eb10, type: 3}
-  - {fileID: 21300000, guid: 5a8512798a666004da5fb648f9437923, type: 3}
   - {fileID: 21300000, guid: 836d781bd26a5e54e8f73ea3e288fd4d, type: 3}
+  - {fileID: 21300000, guid: 5a8512798a666004da5fb648f9437923, type: 3}
   startId: 0
   endId: 0
   talk: 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialDialog : TutorialBase
+public class InteractiveSequenceDialog : InteractiveSequenceBase
 {
     private ScriptBox scriptBox;
     [Header("대사 시작 아이디-입력")]
@@ -17,14 +17,24 @@ public class TutorialDialog : TutorialBase
         scriptBox.SetScriptBox(startId, endId);
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        bool isCompleted = scriptBox.ReturnNextScript(); // 수정 필요
-        //Debug.Log("Dialog Execute : " + isCompleted);
+        bool isCompleted = scriptBox.ReturnNextScript();
 
         if (isCompleted)
         {
-            controller.SetNextTutorial(SceneState.None);
+            tutorialPipeline.SetNextTutorial(SceneState.None);
+            isCompleted = false;
+        }
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+        bool isCompleted = scriptBox.ReturnNextScript();
+
+        if (isCompleted)
+        {
+            questActionPipeline.SetNextQuestAction();
             isCompleted = false;
         }
     }

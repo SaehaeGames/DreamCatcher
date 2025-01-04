@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialClick : TutorialBase
+public class InteractiveSequenceClick : InteractiveSequenceBase
 {
     private GameObject arrow;
     private GameObject arrowPrefab; // 화살표 프리팹
@@ -45,6 +45,8 @@ public class TutorialClick : TutorialBase
                 scriptBox.gameObject.GetComponent<ScriptBox>().ScriptBoxOnOff(false);
             }
         }
+
+        clickBtn.GetComponent<InteractiveButton>().SetButtonClicked(false);
 
         // 캔버스 불러오기
         canvas = GameObject.FindGameObjectWithTag("UI Canvas");
@@ -96,25 +98,48 @@ public class TutorialClick : TutorialBase
         }
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
         // 해당 버튼을 누르면
-        if (clickBtn.GetComponent<TutorialButton>() != null)
+        if (clickBtn.GetComponent<InteractiveButton>() != null)
         {
-            if (doClickButnDuplicate && duplicatedClickBtn.GetComponent<TutorialButton>().buttonClicked)
+            if (doClickButnDuplicate && duplicatedClickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
                 Debug.Log("클릭버튼 위치 이후 : " + clickBtn.transform.position);
                 Destroy(duplicatedClickBtn);
-                controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
+                tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            else if (highlightArrowOnOff && clickBtn.GetComponent<TutorialButton>().buttonClicked)
+            else if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
                 clickBtn.transform.SetParent(startParent);
-                controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
+                tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            else if(clickBtn.GetComponent<TutorialButton>().buttonClicked)
+            else if(clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
-                controller.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
+                tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
+            }
+        }
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+        // 해당 버튼을 누르면
+        if (clickBtn.GetComponent<InteractiveButton>() != null)
+        {
+            if (doClickButnDuplicate && duplicatedClickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            {
+                Debug.Log("클릭버튼 위치 이후 : " + clickBtn.transform.position);
+                Destroy(duplicatedClickBtn);
+                questActionPipeline.SetNextQuestAction(); // 다음 튜토리얼
+            }
+            else if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            {
+                clickBtn.transform.SetParent(startParent);
+                questActionPipeline.SetNextQuestAction(); // 다음 튜토리얼
+            }
+            else if (clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            {
+                questActionPipeline.SetNextQuestAction(); // 다음 튜토리얼
             }
         }
     }

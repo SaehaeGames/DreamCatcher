@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialDummy : TutorialBase
+public class InteractiveSequenceDummy : InteractiveSequenceBase
 {
     private ScriptBox scriptBox;
 
@@ -12,9 +12,14 @@ public class TutorialDummy : TutorialBase
         scriptBox.ScriptBoxOnOff(false);
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
         
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+
     }
 
     public override void Exit()
