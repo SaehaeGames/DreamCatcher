@@ -82,6 +82,6 @@ public class TutorialManager : MonoBehaviour
         
         // 씬 데이터 업데이트
         curPlayerData.dataList[7].dataNumber = curScene;
-        GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, curPlayerData);
+        GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, curPlayerData);
     }
 }

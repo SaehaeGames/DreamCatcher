@@ -1307,7 +1307,7 @@ MonoBehaviour:
   startId: 0
   endId: 0
   talk: 
-  _storyscriptinfo_data: {fileID: 11400000, guid: 22e832dab8e0708429752f7cf1d15044, type: 2}
+  _storyscriptinfo_data: {fileID: 11400000, guid: 9b4f7421e00b866488f5c966d69ee11a, type: 2}
   _storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}
 --- !u!223 &8621151203940707326
 Canvas:

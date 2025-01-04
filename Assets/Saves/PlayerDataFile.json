@@ -1,5 +1,4 @@
 {
-    "dataCount": 10,
     "dataList": [
         {
             "dataName": "DreamMarble",
@@ -31,7 +30,7 @@
         },
         {
             "dataName": "nowSceneNum",
-            "dataNumber": 0.0
+            "dataNumber": 3.0
         },
         {
             "dataName": "nowQuestNum",
