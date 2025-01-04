@@ -596,19 +596,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 136923398}
         m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
-<<<<<<< HEAD
         m_MethodName: 
         m_Mode: 1
-=======
-        m_MethodName: ChangeScene
-        m_Mode: 5
->>>>>>> pearl
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Main
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &758101589
@@ -2020,10 +2015,6 @@ PrefabInstance:
     - target: {fileID: 1645616838076621556, guid: ca09aa69313b44a47994ba6ffe354107, type: 3}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 1645616838076621567, guid: ca09aa69313b44a47994ba6ffe354107, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1645616838076621567, guid: ca09aa69313b44a47994ba6ffe354107, type: 3}
       propertyPath: m_LocalPosition.x
