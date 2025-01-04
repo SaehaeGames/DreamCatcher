@@ -33,12 +33,12 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     // 제작시작여부 판단
     private MakingUIManager makingUiManager;
 
-    private TutorialDragPointLimit _tutorialDragPointLimit;
+    private InteractiveLimitDragPoint _tutorialDragPointLimit;
 
     private void OnEnable()
     {
         makingUiManager = GameObject.FindGameObjectWithTag("CreateManager").GetComponent<MakingUIManager>();
-        _tutorialDragPointLimit = this.gameObject.GetComponent<TutorialDragPointLimit>();
+        _tutorialDragPointLimit = this.gameObject.GetComponent<InteractiveLimitDragPoint>();
     }
 
     // Start is called before the first frame update
@@ -109,7 +109,7 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             {
                 Debug.Log("처음 연결");
                 // 튜토리얼
-                if (_tutorialDragPointLimit != null)
+                if (_tutorialDragPointLimit.enabled != false)
                 {
                     if (!_tutorialDragPointLimit.ReceiveEndPointNum(endPointNum))
                     {

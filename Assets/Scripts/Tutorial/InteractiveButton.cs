@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialButton : MonoBehaviour
+public class InteractiveButton : MonoBehaviour
 {
     public bool buttonClicked;
 
@@ -18,5 +18,15 @@ public class TutorialButton : MonoBehaviour
     public void TutorialButtonClicked()
     {
         buttonClicked = true;
+    }
+
+    public bool GetButtonClicked()
+    {
+        return buttonClicked;
+    }
+
+    public void SetButtonClicked(bool _buttonClicked)
+    {
+        buttonClicked = _buttonClicked;
     }
 }

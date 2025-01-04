@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TutorialDragPointLimit : MonoBehaviour
+public class InteractiveLimitDragPoint : MonoBehaviour
 {
     // 플레이어 데이터 
     private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
@@ -14,19 +14,18 @@ public class TutorialDragPointLimit : MonoBehaviour
     public int targetEndPoint1, targetEndPoint2;
     private int startPoint, endPoint;
 
-    private TutorialConnectLine _tutorialConnectLine;
+    private InteractiveSequenceConnectLine _tutorialConnectLine;
 
     // Start is called before the first frame update
     void Start()
     {
-        _tutorialConnectLine=GameObject.FindFirstObjectByType<TutorialConnectLine>();
+        _tutorialConnectLine=GameObject.FindFirstObjectByType<InteractiveSequenceConnectLine>();
         // 튜토리얼 씬 상황 확인
         curPlayerData = GameManager.instance.loadPlayerData;    //플레이어의 상단바 데이터 정보를 가져옴
         curScene = (int)curPlayerData.dataList[7].dataNumber;
 
-        // 튜토리얼 드래그 포인트 활성/비활성화
-        if (curScene != 8) this.GetComponent<TutorialDragPointLimit>().enabled = false;
-        Debug.Log("튜토리얼 드래그 포인트 활성화");
+        // 튜토리얼 드래그 포인트 튜토리얼 과정 외엔 비활성화
+        if (curScene != 8) this.GetComponent<InteractiveLimitDragPoint>().enabled = false;
 
         // startPoint 데이터 가져오기
         startPoint = this.gameObject.GetComponent<DragPoint>().PointNumber;
@@ -36,7 +35,7 @@ public class TutorialDragPointLimit : MonoBehaviour
     {
         if (_tutorialConnectLine == null)
         {
-            _tutorialConnectLine = GameObject.FindFirstObjectByType<TutorialConnectLine>();
+            _tutorialConnectLine = GameObject.FindFirstObjectByType<InteractiveSequenceConnectLine>();
         }
         endPoint = endPointNum;
         if (targetEndPoint1 == targetEndPoint2)

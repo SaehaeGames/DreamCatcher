@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialDrag : TutorialBase
+public class InteractiveSequenceDrag : InteractiveSequenceBase
 {
     private GameObject arrow;
     private GameObject arrowPrefab;
@@ -32,35 +32,55 @@ public class TutorialDrag : TutorialBase
             // 화살표 위치 조정
             arrowChild.GetComponent<Image>().sprite = arrowImg;
             startParent = dragObj.transform.parent;
+            
             dragObj.transform.SetParent(arrow.transform);
 
             // 타겟 부모 조정
-            dragObj.GetComponent<TutorialDragObj>().SetTargetParent(arrow.transform);
+            dragObj.GetComponent<InteractiveDragObj>().SetTargetParent(arrow.transform);
 
             // 화살표 깜박임 애니메이션 재생
             arrowChild.GetComponent<Animator>().enabled = true;
             arrowChild.GetComponent<Animator>().Play("blinkArrow");
         }
+        else
+        {
+            startParent = dragObj.transform.parent;
+            dragObj.GetComponent<InteractiveDragObj>().SetTargetParent(canvas.transform);
+        }
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
         // 해당 오브젝트가 드래그 오브젝트라면
-        if (dragObj.GetComponent<TutorialDragObj>() != null)
+        if (dragObj.GetComponent<InteractiveDragObj>() != null)
         {
             // 드래그가 완료되었다면
-            if (dragObj.GetComponent<TutorialDragObj>().GetObjectDraged())
+            if (dragObj.GetComponent<InteractiveDragObj>().GetObjectDraged())
             {
-                Debug.Log("드래그 튜토리얼 완료");
                 dragObj.transform.SetParent(startParent);
-                controller.SetNextTutorial(SceneState.None); // 다음 토리얼
+                tutorialPipeline.SetNextTutorial(SceneState.None); // 다음 InteractiveSequence
+            }
+        }
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+        // 해당 오브젝트가 드래그 오브젝트라면
+        if (dragObj.GetComponent<InteractiveDragObj>() != null)
+        {
+            // 드래그가 완료되었다면
+            if (dragObj.GetComponent<InteractiveDragObj>().GetObjectDraged())
+            {
+                Debug.Log("<color=red>드래그 튜토리얼 완료</color>");
+                dragObj.transform.SetParent(startParent);
+                questActionPipeline.SetNextQuestAction(); // 다음 토리얼
             }
         }
     }
 
     public override void Exit()
     {
-        dragObj.GetComponent<TutorialDragObj>().SetObjctDraged(false);
+        dragObj.GetComponent<InteractiveDragObj>().SetObjctDraged(false);
         Destroy(arrow); // 화살표 삭제
     }
 }

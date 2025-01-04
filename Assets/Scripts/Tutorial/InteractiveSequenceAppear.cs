@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialAppear : TutorialBase
+public class InteractiveSequenceAppear : InteractiveSequenceBase
 {
     [SerializeField] private GameObject appearObject;
     [SerializeField] private bool doesItMakeObjectAppear;
@@ -14,11 +14,19 @@ public class TutorialAppear : TutorialBase
         appear = true;
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
         if(appear)
         {
-            controller.SetNextTutorial(SceneState.None);
+            tutorialPipeline.SetNextTutorial(SceneState.None);
+        }
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+        if (appear)
+        {
+            questActionPipeline.SetNextQuestAction();
         }
     }
 

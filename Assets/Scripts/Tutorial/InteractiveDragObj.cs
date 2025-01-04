@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
-public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
+    // 플레이어 데이터
+    private PlayerDataContainer curPlayerData;   //플레이어 데이터 정보
+    private int curScene;
+
+
     public bool objectDraged;
     [SerializeField] private GameObject[] targets;
     private Transform startParent;
@@ -14,6 +20,7 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     // Start is called before the first frame update
     void Start()
     {
+        // 변수 초기화
         objectDraged = false;
     }
 
@@ -21,7 +28,17 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     // 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
-        objectDraged = false;
+        objectDraged = false; // 초기화
+
+        // Tutorial 오브젝트들이 활성화 되어 있지 않으면 코드 비활성화
+        if (startParent == null)
+        {
+            this.GetComponent<InteractiveDragObj>().enabled = false;
+        }
+        else
+        {
+            this.GetComponent<InteractiveDragObj>().enabled = true;
+        }
     }
 
     public void SetTargetParent(Transform arrowTransform)
@@ -51,7 +68,9 @@ public class TutorialDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         for (int i=0; i < numberOfTargets; i++) 
         {
             targets[i].transform.SetParent(startParent);
+            Debug.Log("<color=red>드래그 타겟 제자리로 돌아감 :  "+startParent+"</color>");
         }
+        Debug.Log("<color=red>" + eventData.pointerCurrentRaycast.gameObject + "</color>");
 
         // 올바른 곳에 드래그 되었다면
         switch(numberOfTargets)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialFadeEffect : TutorialBase
+public class InteractiveSequenceFadeEffect : InteractiveSequenceBase
 {
     [SerializeField]
     private Fade fadeEffect;
@@ -21,16 +21,26 @@ public class TutorialFadeEffect : TutorialBase
         isCompleted = true;
     }
 
-    public override void Execute(TutorialController controller)
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
         if (isCompleted == true)
         {
-            controller.SetNextTutorial(SceneState.None);
+            tutorialPipeline.SetNextTutorial(SceneState.None);
             isCompleted = false;
         }
     }
 
-    public override void Exit()
+    
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
     {
+        if (isCompleted == true)
+        {
+            questActionPipeline.SetNextQuestAction();
+            isCompleted = false;
+        }
     }
+
+    public override void Exit() { }    
+    
 }
