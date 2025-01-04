@@ -596,18 +596,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 136923398}
         m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
-<<<<<<< HEAD
-        m_MethodName: 
-        m_Mode: 1
-=======
-<<<<<<< HEAD
         m_MethodName: ChangeScene
         m_Mode: 5
-=======
-        m_MethodName: 
-        m_Mode: 1
->>>>>>> origin/chaemm
->>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
