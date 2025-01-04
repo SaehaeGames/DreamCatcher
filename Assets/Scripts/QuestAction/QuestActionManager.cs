@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class QuestActionManager : MonoBehaviour
 {
-    private PlayerDataContainer _playerDataContainer;
+    private PlayerDataManager _playerDataContainer;
     private int currentQuestNum;
     public Transform[] quests;
 
@@ -31,7 +31,7 @@ public class QuestActionManager : MonoBehaviour
     void Start()
     {
         // 플레이어 데이터(PlayerDataFile) 로드
-        _playerDataContainer = GameManager.instance.loadPlayerData;
+        _playerDataContainer = GameManager.instance.playerDataManager;
 
         // 현재 퀘스트 번호 불러오기
         currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // 현재의 퀘스트 번호 불러오기
@@ -64,7 +64,7 @@ public class QuestActionManager : MonoBehaviour
 
                 // 퀘스트 수락 상태 업데이트
                 _playerDataContainer.dataList[9].dataNumber = 1; // [퀘스트 중]으로 수정
-                GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(_playerDataContainer);
+                GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, _playerDataContainer);
             }
         }
     }
@@ -83,7 +83,7 @@ public class QuestActionManager : MonoBehaviour
 
                 // 퀘스트 수락 상태 업데이트
                 _playerDataContainer.dataList[9].dataNumber = 0; // [퀘스트 없음]으로 수정
-                GameManager.instance.GetComponent<PlayerDataJSON>().DataSaveText(_playerDataContainer);
+                GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, _playerDataContainer);
             }
         }
     }

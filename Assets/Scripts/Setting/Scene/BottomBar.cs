@@ -3,22 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-<<<<<<< HEAD
-using UnityEngine.UI;
-=======
 using System;
->>>>>>> pearl
 
 public class BottomBar : MonoBehaviour
 {
     public GameObject[] Selects;
     public GameObject[] UnSelects;
     private GameSceneManager _gameSceneManager;
-    private void Start()
-    {
-        _gameSceneManager = GameSceneManager.Instance;
-        OnClickSetting();
-    }
 
     public enum SceneName
     {
@@ -30,6 +21,9 @@ public class BottomBar : MonoBehaviour
 
     public void Start()
     {
+        _gameSceneManager = GameSceneManager.Instance;
+        OnClickSetting();
+
         // 각 카테고리 버튼 이벤트 (씬 이동)
         for (int i = 0; i < UnSelects.Length; i++)
         {
