@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+<<<<<<< HEAD
 using System;
+=======
+<<<<<<< HEAD
+using System;
+=======
+using UnityEngine.UI;
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
 
 public class BottomBar : MonoBehaviour
 {

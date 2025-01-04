@@ -8,7 +8,15 @@
         },
         {
             "bird_id": 1002,
+<<<<<<< HEAD
             "feather_number": 87,
+=======
+<<<<<<< HEAD
+            "feather_number": 9,
+=======
+            "feather_number": 87,
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
             "appear": 1
         },
         {

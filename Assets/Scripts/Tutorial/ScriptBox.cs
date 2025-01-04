@@ -44,6 +44,7 @@ public class ScriptBox : MonoBehaviour
 
     private void Awake()
     {
+<<<<<<< HEAD
 //        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
         //GameManager.instance.GetComponent<PlayerDataManager>();
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
@@ -52,6 +53,17 @@ public class ScriptBox : MonoBehaviour
         //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
         loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
 >>>>>>> pearl*/
+=======
+<<<<<<< HEAD
+        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
+        //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
+        loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
+=======
+        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
+        GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
+        loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
     }
 
@@ -148,9 +160,15 @@ public class ScriptBox : MonoBehaviour
 
     public bool ReturnNextScript()
     {
+<<<<<<< HEAD
         return myreturn;
         /*next = true;
         NextScript();*/
+=======
+<<<<<<< HEAD
+        next = true;
+        NextScript();
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
     }
 /*
     public bool NextScript()
@@ -219,7 +237,14 @@ public class ScriptBox : MonoBehaviour
             }
         }
         return false;
+<<<<<<< HEAD
     }*/
+=======
+=======
+        return myreturn;
+>>>>>>> origin/chaemm
+    }
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
 
     // 타이핑 효과
     IEnumerator Typing()

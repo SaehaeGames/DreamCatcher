@@ -1,5 +1,12 @@
 {
+<<<<<<< HEAD
     "dataCount": 10,
+=======
+<<<<<<< HEAD
+=======
+    "dataCount": 10,
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
     "dataList": [
         {
             "dataName": "DreamMarble",
@@ -11,7 +18,15 @@
         },
         {
             "dataName": "SpecialFeed",
+<<<<<<< HEAD
             "dataNumber": 42.0
+=======
+<<<<<<< HEAD
+            "dataNumber": 100.0
+=======
+            "dataNumber": 42.0
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
         },
         {
             "dataName": "BGM",
@@ -31,6 +46,12 @@
         },
         {
             "dataName": "nowSceneNum",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            "dataNumber": 0.0
+=======
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
             "dataNumber": 14.0
         },
         {
@@ -40,6 +61,10 @@
         {
             "dataName": "questAccepted",
             "dataNumber": 1.0
+<<<<<<< HEAD
+=======
+>>>>>>> origin/chaemm
+>>>>>>> e84fc81b2e06ec4833188e0bcbe2d30d6462bab3
         }
     ]
 }
