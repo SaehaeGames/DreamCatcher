@@ -64,7 +64,7 @@ public class QuestActionManager : MonoBehaviour
 
                 // 퀘스트 수락 상태 업데이트
                 _playerDataContainer.dataList[9].dataNumber = 1; // [퀘스트 중]으로 수정
-                GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, _playerDataContainer);
+                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, _playerDataContainer);
             }
         }
     }
