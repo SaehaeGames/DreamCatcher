@@ -91,7 +91,7 @@ MonoBehaviour:
     questNum: 1
     charImage: 1
     faceImage: 19
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC138\uC218\uD558\uACE0 \uC640.  \uC758\uB8B0\uC628 \uD3B8\uC9C0\uB97C
@@ -120,7 +120,7 @@ MonoBehaviour:
     questNum: 1
     charImage: 1
     faceImage: 10
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB50\uD574?   \uC548 \uB9CC\uB4E4\uACE0?\r"
@@ -147,7 +147,7 @@ MonoBehaviour:
     questNum: 1
     charImage: 1
     faceImage: 24
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "....\uC54C\uC558\uC5B4.  \uB2E4\uC2DC \uC124\uBA85\uD574 \uC904\uAC8C.\r"
@@ -256,8 +256,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uAE43\uD138 \uCF69 \uAC00\uACA9 \uC880 \uC62C\uB824 \uB2EC\uB77C \uC544\uC6B0\uC131\uC744
-      \uCCE4\uC9C0!\r"
+    line: "\uAE43\uD138 \uCF69 \uAC00\uACA9 \uC880 \uC62C\uB824 \uB2EC\uB77C \uC544\uC6B0\uC131\uC774\uC5C8\uC796\uC544.\r"
   - id: 7026
     sceneNum: 6
     questNum: 1
@@ -273,7 +272,7 @@ MonoBehaviour:
     questNum: 1
     charImage: 1
     faceImage: 25
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uC0AC \uC624\uAE30 \uC804\uC5D0\uB294 \uADF8\uB0E5 \uB5A8\uC5B4\uC9C4
@@ -320,7 +319,7 @@ MonoBehaviour:
     questNum: 1
     charImage: 1
     faceImage: 4
-    effectImage: 0
+    effectImage: 1
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\uC544! \uC654\uB2E4.\r"
@@ -414,7 +413,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 1
+    faceImage: 3
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -423,7 +422,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 11
+    faceImage: 1
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -433,7 +432,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 10
+    faceImage: 5
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -444,7 +443,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 12
+    faceImage: 8
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -454,7 +453,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 1
+    faceImage: 9
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -463,7 +462,7 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 2
+    faceImage: 6
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -472,8 +471,8 @@ MonoBehaviour:
     sceneNum: 11
     questNum: 2
     charImage: 1
-    faceImage: 6
-    effectImage: 0
+    faceImage: 7
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC65C \uB300\uB2F5\uC774 \uC5C6\uC5B4?\r"
@@ -481,7 +480,7 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 2
+    faceImage: 5
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -501,7 +500,7 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 28
+    faceImage: 7
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -520,7 +519,7 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 8
+    faceImage: 9
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -540,7 +539,7 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 4
+    faceImage: 28
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -549,8 +548,8 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 22
-    effectImage: 2
+    faceImage: 12
+    effectImage: 1
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBA39\uC774\uC5D0 \uC11E\uC73C\uBA74 \uC0C8\uB4E4\uC774 \uD658\uC7A5\uD574\uC11C 
@@ -559,7 +558,7 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 21
+    faceImage: 16
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -570,8 +569,8 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 29
-    effectImage: 0
+    faceImage: 12
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
@@ -580,7 +579,7 @@ MonoBehaviour:
     questNum: 3
     charImage: 1
     faceImage: 20
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uD07C\uD07C... \uADF8\uB0E5 \uADF8\uB807\uB2E4\uB294 \uAC70\uC57C...\r"
@@ -588,8 +587,8 @@ MonoBehaviour:
     sceneNum: 12
     questNum: 3
     charImage: 1
-    faceImage: 14
-    effectImage: 1
+    faceImage: 4
+    effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB50, \uC758\uBB34\uB294 \uC544\uB2C8\uB77C\uB2C8\uAE4C.  \uB124\uAC00
@@ -598,7 +597,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 1
+    faceImage: 2
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -608,7 +607,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 2
+    faceImage: 30
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -617,8 +616,8 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 16
-    effectImage: 1
+    faceImage: 25
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC624, \uC778\uAC04\uB4E4\uC758 \uC740\uC5B4\uAD6C\uB098.  \uB9D0\uD558\uC9C0
@@ -628,7 +627,7 @@ MonoBehaviour:
     questNum: 4
     charImage: 1
     faceImage: 21
-    effectImage: 0
+    effectImage: 1
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC544\uAE4C \uC5BB\uC740 \uD2B9\uC81C \uBA39\uC774 \uC368\uBCF4\uC790!\r"
@@ -636,7 +635,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 1
+    faceImage: 3
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -646,7 +645,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 27
+    faceImage: 29
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -665,7 +664,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 16
+    faceImage: 13
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -674,7 +673,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 11
+    faceImage: 10
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -702,7 +701,7 @@ MonoBehaviour:
     sceneNum: 13
     questNum: 4
     charImage: 1
-    faceImage: 6
+    faceImage: 9
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -712,8 +711,8 @@ MonoBehaviour:
     sceneNum: 14
     questNum: 5
     charImage: 1
-    faceImage: 23
-    effectImage: 1
+    faceImage: 15
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB34\uC2A8 \uAD11\uACE0\uAC00 \uC808\uBC18\uC774\uC57C?  \uD3B8\uC9C0\uAC00
@@ -722,7 +721,7 @@ MonoBehaviour:
     sceneNum: 14
     questNum: 5
     charImage: 1
-    faceImage: 1
+    faceImage: 13
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -733,7 +732,7 @@ MonoBehaviour:
     questNum: 5
     charImage: 1
     faceImage: 8
-    effectImage: 1
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "... \uC624\uB80C\uC9C0? \uC73D...\r"
@@ -741,8 +740,8 @@ MonoBehaviour:
     sceneNum: 14
     questNum: 5
     charImage: 1
-    faceImage: 12
-    effectImage: 1
+    faceImage: 19
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB34\uC2A8 \uC0AC\uB2F4\uC774 \uC774\uB807\uAC8C \uAE38\uC5B4!  \uC815\uC2E0\uC5C6\uB294
@@ -751,8 +750,8 @@ MonoBehaviour:
     sceneNum: 14
     questNum: 5
     charImage: 1
-    faceImage: 22
-    effectImage: 0
+    faceImage: 21
+    effectImage: 1
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB0E0.  \uADF8\uB798\uB3C4 \uC774 \uBE68\uAC04 \uACFC\uC77C\uC740 \uB9DB\uC788\uB124.\r"
@@ -760,7 +759,7 @@ MonoBehaviour:
     sceneNum: 14
     questNum: 5
     charImage: 1
-    faceImage: 4
+    faceImage: 3
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -770,7 +769,7 @@ MonoBehaviour:
     sceneNum: 15
     questNum: 6
     charImage: 1
-    faceImage: 1
+    faceImage: 5
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -780,8 +779,8 @@ MonoBehaviour:
     sceneNum: 15
     questNum: 6
     charImage: 1
-    faceImage: 10
-    effectImage: 0
+    faceImage: 15
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB291\uB300 \uC601\uC5ED\uC778 \uC904 \uBAA8\uB974\uACE0 \uAC14\uB2E4\uAC00 
@@ -790,7 +789,7 @@ MonoBehaviour:
     sceneNum: 15
     questNum: 6
     charImage: 1
-    faceImage: 16
+    faceImage: 19
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -800,8 +799,8 @@ MonoBehaviour:
     sceneNum: 15
     questNum: 6
     charImage: 1
-    faceImage: 20
-    effectImage: 1
+    faceImage: 18
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC815\uB9D0 \uBB34\uC11C\uC6E0\uC5B4...\r"
@@ -818,7 +817,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 14
+    faceImage: 15
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -828,7 +827,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 16
+    faceImage: 11
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -838,8 +837,8 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 12
-    effectImage: 1
+    faceImage: 19
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB09C \uACE0\uC591\uC774\uB77C \uAD1C\uCC2E\uC558\uC9C0\uB9CC  \uB10C
@@ -848,7 +847,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 33
+    faceImage: 13
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -858,7 +857,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 12
+    faceImage: 2
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -868,7 +867,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 11
+    faceImage: 14
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -878,7 +877,7 @@ MonoBehaviour:
     sceneNum: 16
     questNum: 7
     charImage: 1
-    faceImage: 15
+    faceImage: 24
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -887,8 +886,8 @@ MonoBehaviour:
     sceneNum: 17
     questNum: 8
     charImage: 1
-    faceImage: 6
-    effectImage: 1
+    faceImage: 9
+    effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uAFC8 \uB0B4\uC6A9\uC774 \uD558\uB098\uB3C4 \uC548 \uBCF4\uC5EC!  \uC774\uB807\uAC8C
@@ -897,8 +896,8 @@ MonoBehaviour:
     sceneNum: 17
     questNum: 8
     charImage: 1
-    faceImage: 16
-    effectImage: 1
+    faceImage: 6
+    effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uB7F0 \uC758\uB8B0\uB97C \uC6B0\uB9AC\uAC00 \uBC1B\uC544\uC57C
@@ -907,8 +906,8 @@ MonoBehaviour:
     sceneNum: 17
     questNum: 8
     charImage: 1
-    faceImage: 11
-    effectImage: 0
+    faceImage: 30
+    effectImage: 2
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
@@ -916,7 +915,7 @@ MonoBehaviour:
     sceneNum: 17
     questNum: 8
     charImage: 1
-    faceImage: 12
+    faceImage: 34
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -926,7 +925,7 @@ MonoBehaviour:
     sceneNum: 17
     questNum: 8
     charImage: 1
-    faceImage: 19
+    faceImage: 35
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
@@ -1857,7 +1856,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "......\r"
+    line: "\uB09C \uACC4\uC18D \uC774\uACF3\uC5D0 \uC788\uC744\uAC8C.\r"
   - id: 7193
     sceneNum: 28
     questNum: 19
@@ -1866,8 +1865,7 @@ MonoBehaviour:
     effectImage: 1
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uC2AC\uD508 \uD45C\uC815 \uC9D3\uC9C0 \uB9C8.  \uC6B0\uB9AC \uD3C9\uC0DD
-      \uBABB\uBCF4\uB294 \uAC70 \uC544\uB2C8\uC796\uC544!\r"
+    line: "\uB108\uC758 \uAE38\uC7A1\uC774\uC774\uC790....\r"
   - id: 7194
     sceneNum: 28
     questNum: 19
@@ -1876,7 +1874,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uB09C \uC774\uACF3\uC5D0\uC11C \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC744\uAC70\uC57C.\r"
+    line: "\uC18C\uC911\uD55C \uB0B4 \uCE5C\uAD6C\uC57C.\r"
   - id: 7195
     sceneNum: 28
     questNum: 19
@@ -1885,7 +1883,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uB124 \uAE38\uC7A1\uC774\uC774\uC790....  \uC18C\uC911\uD55C \uCE5C\uAD6C\uB2C8\uAE4C.\r"
+    line: "......\r"
   - id: 7196
     sceneNum: 28
     questNum: 19
@@ -1894,7 +1892,8 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\r"
+    line: "\uC2AC\uD508 \uD45C\uC815 \uC9D3\uC9C0 \uB9C8.  \uC6B0\uB9AC \uD3C9\uC0DD
+      \uBABB\uBCF4\uB294 \uAC70 \uC544\uB2C8\uC796\uC544!\r"
   - id: 7197
     sceneNum: 28
     questNum: 19
@@ -1941,8 +1940,7 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "\uB098\uC911\uC5D0 \uBCF4\uC790.  \uC798 \uAC00 \uC18C\uC911\uD55C \uB0B4
-      \uCE5C\uAD6C\r"
+    line: "\uB098\uC911\uC5D0 \uBCF4\uC790.  \uC798 \uAC00\r"
   - id: 7202
     sceneNum: 28
     questNum: 19
