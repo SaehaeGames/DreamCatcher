@@ -24793,9 +24793,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2107341973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5429e58d2d62c6f4aad01b7b1a5b524e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3218f92f5b3a651459950a3504cb89e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragPoints: {fileID: 0}
 --- !u!1 &2112083727
 GameObject:
   m_ObjectHideFlags: 0
