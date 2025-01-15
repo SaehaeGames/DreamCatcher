@@ -11,14 +11,11 @@ public class CategorySelect : MonoBehaviour
     [SerializeField] private StoreType currentMainCategory; //현재 선택된 상점 화면(보이는 화면)
     [SerializeField] private ItemTheme currentInteriorCategory; //현재 선택된 인테리어 상점 화면(보이는 화면)
 
-    public GameObject[] categoryProducts;   //해당 카테고리 상품 화면
-    public GameObject[] interiorProducts;
+    public GameObject[] categoryProducts = new GameObject[3]; // Development, Interior, SpecialProduct
+    public GameObject[] unselectedBackground = new GameObject[3];
 
-    [Space]
-    [Header("[Category Background]")]
-    public GameObject[] unselectedBackground;   //비활성화된 메인 카테고리 배경
-    public GameObject[] unselectedInteriorBackground;   //비활성화된 인테리어 카테고리 배경
-
+    public GameObject[] interiorProducts = new GameObject[3]; // Default, Sea, Star
+    public GameObject[] unselectedInteriorBackground = new GameObject[3];
     void Start()
     {
         currentMainCategory = (int)StoreType.Development;   //기본은 보조도구 화면

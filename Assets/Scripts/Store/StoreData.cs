@@ -56,12 +56,14 @@ public class StoreData : MonoBehaviour
     private void UpdateDevelopmentGoodsData()
     {
         // 보조도구 상품을 업데이트 하는 함수
-        for (int i = 0; i < goodsDataManager.dataList.Count; i++)
+
+        for (int i = 0; i < goodsContents.Length; i++)
         {
             int goodsLevel = goodsDataManager.dataList[i].level;
             int dataOffset = goodsLevel + i + 1;
 
-            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel];
+
+            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
             goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
