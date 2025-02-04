@@ -25,7 +25,7 @@ public class ScriptBox : MonoBehaviour
     public Sprite[] characterEffectSprites; // 캐릭터 효과 이미지
 
     // 변수
-    private string scriptLog;
+    //private string scriptLog;
     private int lineNum;
     private float speed;
     private bool typing;
@@ -42,24 +42,16 @@ public class ScriptBox : MonoBehaviour
     public StoryScriptInfo_Data _storyscriptinfo_data;
     public StorySceneInfo_Data _storysceneinfo_data;
 
+    public ScriptManager _scriptManager;
+    private List<string> scriptLog;
+    private string scriptLogText;
+
     private void Awake()
     {
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
         loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
-/*=======
-        playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
-        //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
-        loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
->>>>>>> pearl*/
-        /*playerDataManager = GameManager.instance.playerDataManager;    //플레이어 데이터 json
-        //GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
-        loadingTxt = gameObject.transform.GetChild(1).gameObject.GetComponent<Text>();
-=======
-        curPlayerData = GameManager.instance.loadPlayerData;    //플레이어 데이터 json
-        GameManager.instance.GetComponent<PlayerDataJSON>().LoadTopBarData();
-        loadingTxt = gameObject.transform.GetChild(1).GetChild(2).gameObject.GetComponent<Text>();
->>>>>>> origin/chaemm*/
         scriptLogBoxTxt = scriptLogBox.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.GetComponent<Text>();
+        _scriptManager = ScriptManager.instance;
     }
 
     void Start()
@@ -76,18 +68,19 @@ public class ScriptBox : MonoBehaviour
     // 대사창 시작
     public void SetScriptBox(int startId, int endId)
     {
+        Debug.Log($"SetScriptBox 호출됨! startId: {startId}, endId: {endId}, 씬 이름: {SceneManager.GetActiveScene().name}");
         // 시작 아이디 설정
         myreturn = false; // myreturn 초기화
         this.startId = startId;
         lineNum = startId % 7000; // 인덱스화
-        lineNum--;
+        //lineNum--;
         this.endId = endId;
 
         SetNextDialog();  
     }
 
     
-    // 다음 스크립트 재생
+    // 다음 스크립트 재생(화살표 버튼과 연결)
     public void NextScript()
     {
         // 텍스트 타이핑 효과가 재생중일 때
@@ -95,12 +88,7 @@ public class ScriptBox : MonoBehaviour
         {
             StopCoroutine(typingCoroutine); // Typing 코루틴 중단
 
-            // 줄바꿈 및 특수효과 Replace
-            talk = talk.Replace("  ", "\n");
-            talk = talk.Replace("<", "-<");
-            talk = talk.Replace(">", ">-");
-            talk = talk.Replace("-<", "<color=#ffb7a6><b>");
-            talk = talk.Replace(">-", "</b></color>");
+            talk = AddSpecialEffectsToLine(talk);
 
             // 텍스트 표시
             loadingTxt.text = talk;
@@ -130,10 +118,10 @@ public class ScriptBox : MonoBehaviour
         lineNum++;
 
         // UI 설정
-        characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker;
-        characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage];
-        characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage];
-        characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage];
+        characterNameText.text = _storyscriptinfo_data.dataList[lineNum].speaker; // 화자
+        characterBody.sprite = characterBodySprites[_storyscriptinfo_data.dataList[lineNum].charImage]; // 캐릭터 몸통
+        characterFace.sprite = characterFaceSprites[_storyscriptinfo_data.dataList[lineNum].faceImage]; // 캐릭터 얼굴
+        characterEffect.sprite = characterEffectSprites[_storyscriptinfo_data.dataList[lineNum].effectImage]; // 캐릭터 이펙트
 
         // 캐릭터 음영 처리
         if (_storyscriptinfo_data.dataList[lineNum].charImage > 0)
@@ -148,7 +136,11 @@ public class ScriptBox : MonoBehaviour
         }
 
 
-        talk = _storyscriptinfo_data.dataList[lineNum].line;
+        talk = _storyscriptinfo_data.dataList[lineNum].line; // 대사
+        _scriptManager.AddLog(talk); // 로그 업데이트
+        Debug.Log("로그 추가: " + talk);
+
+        // 타이핑 효과
         typingCoroutine = Typing();
         StartCoroutine(typingCoroutine);
     }
@@ -156,8 +148,6 @@ public class ScriptBox : MonoBehaviour
     public bool ReturnNextScript()
     {
         return myreturn;
-        /*next = true;
-        NextScript();*/
     }
 
     // 타이핑 효과
@@ -203,30 +193,45 @@ public class ScriptBox : MonoBehaviour
         }
 
         typing = false; // 타이핑 종료
-        scriptLog += talk + '\n'; // 로그 업데이트
+    }
+
+    // 줄바꿈 및 하이라이트 효과 적용
+    // : text에 줄바꿈과 하이라이트 효과 적용
+    private string AddSpecialEffectsToLine(string text)
+    {
+        // 줄바꿈 및 특수효과 Replace
+        text = text.Replace("  ", "\n");
+        text = text.Replace("<", "-<");
+        text = text.Replace(">", ">-");
+        text = text.Replace("-<", "<color=#ffb7a6><b>");
+        text = text.Replace(">-", "</b></color>");
+
+        return text;
     }
 
 
     // 로그 박스 on/off 관리
     public void LogBoxOpen()
     {
+        scriptLog = _scriptManager.GetLogs();
+        scriptLogText = "";
         if (!scriptLogOpen) // 스크립트박스 on
         {
             scriptLogOpen = true;
             scriptLogBox.gameObject.SetActive(true);
-            scriptLogBoxTxt.text = scriptLog;
+
+            for(int i=0; i<scriptLog.Count; i++)
+            {
+                scriptLogText += AddSpecialEffectsToLine(scriptLog[i]) + '\n';
+            }
+
+            scriptLogBoxTxt.text = scriptLogText;
         }
         else // 스크립트박스 off
         {
             scriptLogOpen = false;
             scriptLogBox.gameObject.SetActive(false);
         }
-    }
-
-    // 로그 초기화
-    public void ResetLog()
-    {
-        scriptLog = "";
     }
 
     // 대화창 on/off

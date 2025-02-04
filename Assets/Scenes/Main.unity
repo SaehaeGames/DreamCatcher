@@ -15266,9 +15266,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1998238056}
     m_Modifications:
+    - target: {fileID: 2166844594226418317, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166844594226418317, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166844594226418317, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4529626907209382293, guid: 23509c8932faa86429d483beb79aec06, type: 3}
       propertyPath: m_Name
       value: ScriptBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169616163083191174, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169616163083191174, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169616163083191174, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9026123047853825978, guid: 23509c8932faa86429d483beb79aec06, type: 3}
       propertyPath: m_Pivot.x
@@ -26786,11 +26810,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334708756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2c04c385134c44198f0364745469a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startId: 0
-  endId: 0
 --- !u!1 &1337607031
 GameObject:
   m_ObjectHideFlags: 0
