@@ -12,8 +12,7 @@ public class StoreData : MonoBehaviour
 
     [Header("[Store Product]")]
     public GameObject[] goodsContents;   //보조 도구 상품 배열
-    public GameObject[] interiorStarContetns;   //별 상품 배열
-    public GameObject[] interiorSeaContetns;   //바다 상품 배열
+    public GameObject[] interiorContetns;   //인테리어 상품 배열
     public SpriteArray[] goodsImages; //상품 이미지 배열  
 
     private GoodsDataManager goodsDataManager;   //상품 정보
@@ -52,9 +51,15 @@ public class StoreData : MonoBehaviour
                 }*/
 
         UpdateDevelopmentGoodsData();
-        UpdateInteriorGoodsData(curCategory);
+        //UpdateInteriorGoodsData(curCategory);
     }
 
+    public void UpdateStoreInteriorData(ItemTheme theme)
+    {
+        Debug.Log("인테리어 업데이트 함수 호출");
+        curInteriorCategory = theme.ToString();
+        UpdateInteriorGoodsData(curInteriorCategory);
+    }
 
 
     private void UpdateDevelopmentGoodsData()
@@ -66,13 +71,15 @@ public class StoreData : MonoBehaviour
             int goodsLevel = goodsDataManager.dataList[i].level;
             int dataOffset = goodsLevel + i + 1;
 
+            Debug.Log("goodsLevel : " + i + ", " + goodsLevel + ", " + dataOffset);
+
             goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
             goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
 
-            if (IsItemSoldOut(i))
-                soldOut[i].SetActive(true);
+            /*if (IsItemSoldOut(i))
+                soldOut[i].SetActive(true);*/
         }
     }
 
@@ -83,20 +90,22 @@ public class StoreData : MonoBehaviour
         //this.GetComponent<CategorySelect>().SetStarInteriorSelect();
 
         int index = 0;
+        int interiorIndex = 0;
+        Debug.Log(curInteriorCategory);
+        if (curInteriorCategory == ItemTheme.Sea.ToString())
+        {
+            interiorIndex = 1;
+        }
 
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
         {
             var item = storeinfo_data.dataList[i];
 
-            Debug.Log("이번 아이템" + curInteriorCategory);
-            //curInteriorCategory = this.GetComponent<InteriorCategory>().currentCategoryIndex;
-            if (item.category.ToString() == curInteriorCategory)
+            if (item.theme.ToString() == curInteriorCategory)
             {
-                Debug.Log(curInteriorCategory + i + "에서 들어옴");
-
                 // UI 업데이트
-                goodsContents[index].transform.GetChild(3).GetComponent<Text>().text = item.contents;
-                goodsContents[index].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = item.gold.ToString();
+                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
+                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
 
                 // 품절 여부 확인 (Optional)
                 /*

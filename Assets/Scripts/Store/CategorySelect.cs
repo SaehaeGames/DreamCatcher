@@ -34,6 +34,7 @@ public class CategorySelect : MonoBehaviour
     {
         SetMainCategory(StoreType.Interior);
         currentInteriorCategory = ItemTheme.Star; // 기본 인테리어는 별 화면
+        SetStarInteriorSelect();
     }
     public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
 
@@ -56,6 +57,7 @@ public class CategorySelect : MonoBehaviour
         DeactivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
         currentInteriorCategory = theme;
         ActivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
+        this.GetComponent<StoreData>().UpdateStoreInteriorData(currentInteriorCategory);
     }
 
     private void ActivateCategory<T>(GameObject[] products, GameObject[] backgrounds, T category) where T : Enum
