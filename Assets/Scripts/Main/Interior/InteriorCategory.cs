@@ -19,7 +19,7 @@ public class InteriorCategory : MonoBehaviour
 
     private List<GameObject> interiorItemArray; //인테리어 아이템 버튼 목록
     private bool[] currentAdjusting;  //현재 적용중인 아이템 여부
-    int currentCategoryIndex;   //현재 활성화중인 인테리어 카테고리
+    public int currentCategoryIndex;   //현재 활성화중인 인테리어 카테고리
 
     private InteriorDataManager interiorDataManager;  //현재 플레이어 인테리어 데이터 정보
 
@@ -204,31 +204,6 @@ public class InteriorCategory : MonoBehaviour
 
         for (int i = 0; i < currentAdjusting.Length; i++)
         {
-            /*            if (i >= interiorDataManager.dataList.Count)
-                        {
-                            Debug.Log("인덱스 " + i + "에서 오류 발생");
-                            break;
-                        }
-
-                        currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
-
-                        if (currentAdjusting[i])
-                        {
-                            var interiorButton = interiorItemArray[i].GetComponent<InteriorButton>();
-                            if (interiorButton == null)
-                            {
-                                Debug.Log("인덱스 " + i + "에서 오류 발생");
-                                continue;
-                            }
-
-                            int itemID = interiorButton.itemID;
-                            int itemLevel = storeInfo_Data.GetLevelByID(itemID);
-
-                            Debug.Log(itemID + ", " + itemLevel);
-
-                            UpdateInteriorImage(i, itemLevel);
-                            UpdateButtonAdjusting(i, itemLevel);
-                        }*/
             if (i >= interiorDataManager.dataList.Count)
             {
                 Debug.Log("인덱스 " + i + "에서 오류 발생");

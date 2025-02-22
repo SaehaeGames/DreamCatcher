@@ -11,7 +11,8 @@ public class StoreData : MonoBehaviour
     //파일의 데이터를 가져오는 클래스
 
     [Header("[Store Product]")]
-    public GameObject[] goodsContents;   //상품 UI 배열
+    public GameObject[] goodsContents;   //보조 도구 상품 배열
+    public GameObject[] interiorContetns;   //인테리어 상품 배열
     public SpriteArray[] goodsImages; //상품 이미지 배열  
 
     private GoodsDataManager goodsDataManager;   //상품 정보
@@ -23,7 +24,8 @@ public class StoreData : MonoBehaviour
     public GameObject[] StarSoldOut;
     public GameObject[] SeaSoldOut;
 
-    private string curCategory;
+    public string curCategory;
+    public string curInteriorCategory;
     
     public void Start()
     {
@@ -49,38 +51,71 @@ public class StoreData : MonoBehaviour
                 }*/
 
         UpdateDevelopmentGoodsData();
+        //UpdateInteriorGoodsData(curCategory);
     }
 
+    public void UpdateStoreInteriorData(ItemTheme theme)
+    {
+        Debug.Log("인테리어 업데이트 함수 호출");
+        curInteriorCategory = theme.ToString();
+        UpdateInteriorGoodsData(curInteriorCategory);
+    }
 
 
     private void UpdateDevelopmentGoodsData()
     {
         // 보조도구 상품을 업데이트 하는 함수
-        for (int i = 0; i < goodsDataManager.dataList.Count; i++)
+
+        for (int i = 0; i < goodsContents.Length; i++)
         {
             int goodsLevel = goodsDataManager.dataList[i].level;
             int dataOffset = goodsLevel + i + 1;
 
-            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel];
+            Debug.Log("goodsLevel : " + i + ", " + goodsLevel + ", " + dataOffset);
+
+            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
             goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
 
-            if (IsItemSoldOut(i))
-                soldOut[i].SetActive(true);
+            /*if (IsItemSoldOut(i))
+                soldOut[i].SetActive(true);*/
         }
     }
 
-    private void UpdateInteriorGoodsData()
+    private void UpdateInteriorGoodsData(string curCategory)
     {
         // 인테리어 상품을 업데이트 하는 함수
+
+        //this.GetComponent<CategorySelect>().SetStarInteriorSelect();
+
+        int index = 0;
+        int interiorIndex = 0;
+        Debug.Log(curInteriorCategory);
+        if (curInteriorCategory == ItemTheme.Sea.ToString())
+        {
+            interiorIndex = 1;
+        }
+
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
         {
-            // 플레이어가 가지고 있는지 비교해서 도감 데이터 보여주기
-            string category = storeinfo_data.dataList[i].category.ToString();
-            if (!string.IsNullOrEmpty(category))
+            var item = storeinfo_data.dataList[i];
+
+            if (item.theme.ToString() == curInteriorCategory)
             {
-                //UpdateGoodsInfo(i, category);
+                // UI 업데이트
+                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
+                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
+
+                // 품절 여부 확인 (Optional)
+                /*
+                if (IsItemSoldOut(i))
+                {
+                    soldOut[index].SetActive(true);
+                }
+                */
+
+                index++;
             }
         }
     }
@@ -90,8 +125,7 @@ public class StoreData : MonoBehaviour
         // 각 카테고리별 다음 상품이 있는지 확인하는 함수
 
         int nextItemIndex = index + 1;
-        //return nextItemIndex < storeinfo_data.dataList.Count && storeinfo_data.dataList[nextItemIndex].category == storeinfo_data.dataList[index].category;
-        return false; //** 이거 수정하기
+        return nextItemIndex < storeinfo_data.dataList.Count && storeinfo_data.dataList[nextItemIndex].category == storeinfo_data.dataList[index].category;
     }
 
     /*
