@@ -68,7 +68,6 @@ public class ScriptBox : MonoBehaviour
     // 대사창 시작
     public void SetScriptBox(int startId, int endId)
     {
-        Debug.Log($"SetScriptBox 호출됨! startId: {startId}, endId: {endId}, 씬 이름: {SceneManager.GetActiveScene().name}");
         // 시작 아이디 설정
         myreturn = false; // myreturn 초기화
         this.startId = startId;

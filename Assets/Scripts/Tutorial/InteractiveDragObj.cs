@@ -10,8 +10,6 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
     // 플레이어 데이터
     private PlayerDataManager curPlayerData;   //플레이어 데이터 정보
     private int curScene;
-
-
     public bool objectDraged;
     [SerializeField] private GameObject[] targets;
     private Transform startParent;
