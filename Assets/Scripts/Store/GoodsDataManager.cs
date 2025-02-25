@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using UnityEditor;
-using static UnityEditor.Progress;
 
 [Serializable]
 public class GoodsData

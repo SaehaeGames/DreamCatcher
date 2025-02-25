@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         // 데이터 테이블에 변경사항 있을 때 딱 한 번 호출하기!
         // 비동기 방식으로 데이터를 불러오기 때문에, 데이터가 모두 불러와지면 저장 코드 실행
 
+#if UNITY_EDITOR
         int totalCount = 7; // 업데이트할 데이터의 총 개수
         int updatedCount = 0;   // 업데이트된 데이터의 개수
 
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
         questinfo_data.UpdateQuestInfoData(onUpdateComplete);
         storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
         storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
+#endif
     }
 
 

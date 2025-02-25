@@ -5,7 +5,6 @@ using System.IO;
 using UnityEngine.Events;
 using UnityEditor;
 using System.Linq;
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/StoreInfo")]
 public class StoreInfo_Data : ScriptableObject
