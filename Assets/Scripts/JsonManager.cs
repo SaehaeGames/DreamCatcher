@@ -65,16 +65,24 @@ public class JsonManager
     private string GetPath(string _fileName)
     {
         // 파일 저장 경로
+        string folderPath;
 
 #if UNITY_EDITOR
-        return Application.dataPath + "/Saves/" + _fileName + ".json";
+        folderPath = Application.dataPath + "/Saves/";
 #elif UNITY_ANDROID
-        return Application.persistentDataPath + "/Saves/" + _fileName + ".json";
+        folderPath = Application.persistentDataPath + "/Saves/";
 #elif UNITY_IPHONE
-        return Application.persistentDataPath + "/Saves/" + _fileName + ".json";
+        folderPath = Application.persistentDataPath + "/Saves/";
 #else
-        return Application.dataPath + "/Saves/" + _fileName + ".json";
+        folderPath = Application.dataPath + "/Saves/";
 #endif
+
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+
+        return folderPath + _fileName + ".json";
     }
 
     [System.Serializable]
