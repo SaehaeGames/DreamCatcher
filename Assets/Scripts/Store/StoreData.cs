@@ -26,13 +26,14 @@ public class StoreData : MonoBehaviour
 
     public string curCategory;
     public string curInteriorCategory;
+
+    public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread};
     
     public void Start()
     {
         goodsDataManager = GameManager.instance.goodsDataManager;
         storeinfo_data = GameManager.instance.storeinfo_data;
 
-        //curCategory = this.GetComponent<StoreItemCategory>()
         UpdateStoreData(StoreType.Development);
     }
 
@@ -40,18 +41,7 @@ public class StoreData : MonoBehaviour
     {
         //상점 데이터를 가져오는 함수
 
-        /*        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
-                {
-                    string category = storeinfo_data.dataList[i].category.ToString();
-
-                    if (!string.IsNullOrEmpty(category))
-                    {
-                        UpdateGoodsInfo(i, category);
-                    }
-                }*/
-
         UpdateDevelopmentGoodsData();
-        //UpdateInteriorGoodsData(curCategory);
     }
 
     public void UpdateStoreInteriorData(ItemTheme theme)
@@ -69,18 +59,19 @@ public class StoreData : MonoBehaviour
         for (int i = 0; i < goodsContents.Length; i++)
         {
             int goodsLevel = goodsDataManager.dataList[i].level;
-            int dataOffset = goodsLevel + i + 1;
+            int id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel);
 
-            Debug.Log("goodsLevel : " + i + ", " + goodsLevel + ", " + dataOffset);
+            Debug.Log(developCategory[i]  + goodsLevel + "ID : " + id);
 
             goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
-            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
-            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
+            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetContentsByID(id + 1);
+            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
+            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
 
             /*if (IsItemSoldOut(i))
                 soldOut[i].SetActive(true);*/
         }
+
     }
 
     private void UpdateInteriorGoodsData(string curCategory)
@@ -96,6 +87,7 @@ public class StoreData : MonoBehaviour
         {
             interiorIndex = 1;
         }
+        
 
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
         {
