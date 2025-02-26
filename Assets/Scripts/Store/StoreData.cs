@@ -68,8 +68,8 @@ public class StoreData : MonoBehaviour
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
 
-            /*if (IsItemSoldOut(i))
-                soldOut[i].SetActive(true);*/
+            if (IsItemSoldOut(developCategory[i], goodsLevel))
+                soldOut[i].SetActive(true);
         }
 
     }
@@ -112,12 +112,35 @@ public class StoreData : MonoBehaviour
         }
     }
 
-    private bool IsItemSoldOut(int index)
+    private bool IsItemSoldOut(string category, int level)
     {
         // 각 카테고리별 다음 상품이 있는지 확인하는 함수
 
-        int nextItemIndex = index + 1;
-        return nextItemIndex < storeinfo_data.dataList.Count && storeinfo_data.dataList[nextItemIndex].category == storeinfo_data.dataList[index].category;
+        bool result = false;
+
+        switch (category)
+        {
+            case Constants.GoodsData_Rack :
+                if (level == Constants.GoodsData_Rack_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Vase:
+                if (level == Constants.GoodsData_Vase_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Box:
+                if (level == Constants.GoodsData_Box_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Thread:
+                if (level == Constants.GoodsData_Thread_MaxLevel)
+                    result = true;
+                break;
+            default: result = false; break;
+
+        }
+
+        return result;
     }
 
     /*
