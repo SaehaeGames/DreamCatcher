@@ -78,8 +78,6 @@ public class StoreData : MonoBehaviour
     {
         // 인테리어 상품을 업데이트 하는 함수
 
-        //this.GetComponent<CategorySelect>().SetStarInteriorSelect();
-
         int index = 0;
         int interiorIndex = 0;
         Debug.Log(curInteriorCategory);
@@ -98,14 +96,6 @@ public class StoreData : MonoBehaviour
                 // UI 업데이트
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
-
-                // 품절 여부 확인 (Optional)
-                /*
-                if (IsItemSoldOut(i))
-                {
-                    soldOut[index].SetActive(true);
-                }
-                */
 
                 index++;
             }
@@ -143,21 +133,20 @@ public class StoreData : MonoBehaviour
         return result;
     }
 
-    /*
-        public void AddGoodsLevel(int goodsIndex)
-        {
-            curGoodsData.goodsList[goodsIndex].goodsLevel++;    //상품 레벨 증가
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GoodsJSON>().DataSaveText(curGoodsData);   //변경사항 json으로 저장
-        }
 
-        public void SpendGold(int cost)
-        {
-            curPlayerData.dataList[1].dataNumber -= cost;   //보유 골드 감소
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);   //변경사항 json으로 저장
-        }
-    */
+    public void AddGoodsLevel(int goodsIndex)
+    {
+        goodsDataManager.dataList[goodsIndex].level++;    //상품 레벨 증가
+    }
+
+    public void SpendGold(int cost)
+    {
+        GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
+    }
+
     public void BuyGoods(int goodsNumber)
     {
+        JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
         if (curCategory == StoreType.Development)   // 보조도구 상품이라면
@@ -168,14 +157,12 @@ public class StoreData : MonoBehaviour
 
             if (GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber >= goodsCost)    // 구매 가능하다면(돈이 충분하다면)
             {
-                Debug.Log(GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
-                GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= goodsCost;    // 골드 감소
-                Debug.Log(GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
+                SpendGold(goodsCost);
+                AddGoodsLevel(goodsNumber);
 
-                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);  // 변동된 플레이어 데이터 저장
-
-                goodsDataManager.dataList[goodsNumber].level++;
-                //GameManager.instance.GetComponent<GoodsJSON>().DataSaveText(curGoodsData);
+                jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);   //변경사항 json으로 저장
+                jsonManager.SaveData(Constants.GoodsDataFile, goodsDataManager);   //변경사항 json으로 저장
+                
                 UpdateStoreData(StoreType.Development);
             }
         }
@@ -185,10 +172,10 @@ public class StoreData : MonoBehaviour
 
             if (GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber >= goodsCost)
             {
-                GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= goodsCost;
-                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);  // 변동된 플레이어 데이터 저장
+                SpendGold(goodsCost);
 
-                //GameManager.instance.GetComponent<GoodsJSON>().DataSaveText(curGoodsData);
+                jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);  // 변동된 플레이어 데이터 저장
+
                 UpdateStoreData(StoreType.Interior);
             }
         }

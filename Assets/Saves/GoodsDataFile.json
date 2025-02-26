@@ -10,13 +10,13 @@
             "id": 3001,
             "name": "RackBack",
             "category": "Rack",
-            "level": 0
+            "level": 1
         },
         {
             "id": 3002,
             "name": "Vase",
             "category": "Vase",
-            "level": 0
+            "level": 1
         },
         {
             "id": 3003,
