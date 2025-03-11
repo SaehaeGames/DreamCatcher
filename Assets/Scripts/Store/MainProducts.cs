@@ -15,9 +15,12 @@ public class MainProducts : MonoBehaviour
 
     private void Start()
     {
-        goodsDataManager = GameManager.instance.goodsDataManager;  //저장 데이터 가져오기
-        ResetMainProducts(); //상품 정보 업데이트
+        GameManager.instance.goodsDataManager = GameManager.instance.jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
+
+        goodsDataManager = GameManager.instance.goodsDataManager;  // 최신 데이터 가져오기
+        ResetMainProducts(); // 상품 정보 업데이트
     }
+    
 
     public void ResetMainProducts()
     {

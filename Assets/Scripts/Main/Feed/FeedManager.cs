@@ -15,6 +15,22 @@ public class FeedManager : MonoBehaviour
 
     void Start()
     {
+        var dataList = GameManager.instance.goodsDataManager.dataList;
+        if (dataList == null || dataList.Count == 0)
+        {
+            Debug.LogError("goodsDataManager.dataList is null or empty!");
+        }
+
+        var rackData = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack);
+        if (rackData == null)
+        {
+            Debug.LogError($"No data found for category: {Constants.GoodsData_Rack}");
+        }
+        foreach (var item in GameManager.instance.goodsDataManager.dataList)
+        {
+            Debug.Log($"GoodsData Item: ID={item.id}, Category={item.category}, Level={item.level}");
+        }
+
         rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
 
         InitializeFeedObjects();

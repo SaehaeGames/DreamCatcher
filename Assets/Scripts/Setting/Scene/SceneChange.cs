@@ -31,7 +31,7 @@ public class SceneChange : MonoBehaviour
 
         if (effectChange != null)
             effectChange.PlayEffect_OpenScene();    // 씬 전환 효과음
-        //this.gameObject.GetComponent<FadeEffect>().PlayFadeIn();   //페이드 효과
+                                                    //this.gameObject.GetComponent<FadeEffect>().PlayFadeIn();   //페이드 효과
     }
 
     private void OnDisable()

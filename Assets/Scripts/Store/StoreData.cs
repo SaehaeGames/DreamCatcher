@@ -151,7 +151,7 @@ public class StoreData : MonoBehaviour
 
         if (curCategory == StoreType.Development)   // 보조도구 상품이라면
         {
-            int goodsLevel = goodsDataManager.dataList[goodsNumber].level;    // 플레이어의 상품 레벨
+/*            int goodsLevel = goodsDataManager.dataList[goodsNumber].level;    // 플레이어의 상품 레벨
             int dataOffset = goodsLevel + goodsNumber + 1;
             int goodsCost = storeinfo_data.dataList[dataOffset].gold;
 
@@ -162,9 +162,24 @@ public class StoreData : MonoBehaviour
 
                 jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);   //변경사항 json으로 저장
                 jsonManager.SaveData(Constants.GoodsDataFile, goodsDataManager);   //변경사항 json으로 저장
-                
+                GameManager.instance.goodsDataManager = GameManager.instance.jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);   // 새로 로드
                 UpdateStoreData(StoreType.Development);
+            }*/
+
+            List<GoodsData> itemList = GetGoodsDataListByIndex(goodsNumber); // 자동으로 카테고리 찾기
+
+            if (itemList != null && itemList.Count > 0)
+            {
+                foreach (var item in itemList)
+                {
+                    item.level++; // 해당 카테고리의 모든 아이템 레벨업
+                }
+
+                jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                GameManager.instance.goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
             }
+
+            UpdateStoreData(StoreType.Development);
         }
         else if (curCategory == StoreType.Interior)  // 인테리어 상품이라면
         {
@@ -181,6 +196,12 @@ public class StoreData : MonoBehaviour
         }
 
         GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
+    }
+
+    public List<GoodsData> GetGoodsDataListByIndex(int goodsNumber)
+    {
+        string category = GameManager.instance.storeinfo_data.dataList[goodsNumber].category.ToString();
+        return GameManager.instance.goodsDataManager.GetGoodsDataList(category);
     }
 
     public int GetCategoryStartNumber(StoreItemCategory category)

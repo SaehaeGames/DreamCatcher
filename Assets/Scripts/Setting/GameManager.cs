@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
 
+
     void Awake()
     {
         // 게임 시작과 동시에 싱글톤 구성

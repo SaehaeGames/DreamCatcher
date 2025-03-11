@@ -46,14 +46,13 @@ public class GoodsDataManager
             dataList.Add(new GoodsData(infoDataList[i].id, infoDataList[i].name, infoDataList[i].category, 0));
     }
 
-    public GoodsData GetGoodsData(string dataName)
+    public List<GoodsData> GetGoodsDataList(string dataName)
     {
-        GoodsData getData = dataList.FirstOrDefault(x => x.category == dataName);
-        if (getData != null)
-            return getData;
-        return null;
+        return dataList.Where(x => x.category.Trim().ToLower() == dataName.Trim().ToLower()).ToList();
     }
 
-    // 레벨업 하면 해당 카테고리 데이터들 레벨 한 번에 다 오르게 하는 함수도 필요함
-    // 예를들어 횃대 레벨업 하면 rackfront와 rackback에 해당하는 level이 전부 1씩 오르게 하는..
+    public GoodsData GetGoodsData(string dataName)
+    {
+        return (GoodsData)dataList.Where(x => x.name == dataName);
+    }
 }
