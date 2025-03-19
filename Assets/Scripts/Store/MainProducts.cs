@@ -15,30 +15,29 @@ public class MainProducts : MonoBehaviour
 
     private void Start()
     {
+        // ✅ 데이터 갱신 후 최신 값 반영
         GameManager.instance.goodsDataManager = GameManager.instance.jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
 
-        goodsDataManager = GameManager.instance.goodsDataManager;  // 최신 데이터 가져오기
-        ResetMainProducts(); // 상품 정보 업데이트
+        goodsDataManager = GameManager.instance.goodsDataManager;
+        ResetMainProducts();
     }
-    
 
     public void ResetMainProducts()
     {
-        //상품을 이미지를 불러오는 함수
-
         for (int i = 0; i < goodsContents.Length; i++)
         {
             SetGoodsImageToIndex(i, GetGoodsLevelToIndex(i));
         }
-
     }
 
     private int GetGoodsLevelToIndex(int index)
     {
-        // 상품의 레벨을 인덱스로 가져오는 함수
-        return goodsDataManager.dataList[index].level;
-    }
+        if (index >= 0 && index < goodsDataManager.dataList.Count)
+            return goodsDataManager.dataList[index].level;
 
+        Debug.LogError($"[ERROR] goodsDataManager.dataList에서 {index} 번째 데이터를 찾을 수 없음.");
+        return 0; // 기본값 반환
+    }
     private void SetGoodsImageToIndex(int index, int level)
     {
         // 상품 이미지를 인덱스로 설정하는 함수

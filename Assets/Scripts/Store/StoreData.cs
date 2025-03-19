@@ -56,22 +56,46 @@ public class StoreData : MonoBehaviour
     {
         // 보조도구 상품을 업데이트 하는 함수
 
+        /*        for (int i = 0; i < goodsContents.Length; i++)
+                {
+                    int goodsLevel = goodsDataManager.dataList[i].level;
+                    int id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel);
+
+                    Debug.Log(developCategory[i]  + goodsLevel + "ID : " + id);
+
+                    goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
+                    goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetContentsByID(id + 1);
+                    goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
+                    goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
+
+                    if (IsItemSoldOut(developCategory[i], goodsLevel))
+                        soldOut[i].SetActive(true);
+                }*/
+
         for (int i = 0; i < goodsContents.Length; i++)
         {
-            int goodsLevel = goodsDataManager.dataList[i].level;
-            int id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel);
+            if (i >= goodsDataManager.dataList.Count)
+            {
+                Debug.LogError($"[ERROR] goodsDataManager.dataList에 {i}번째 인덱스가 없음! (Count: {goodsDataManager.dataList.Count})");
+                continue; // ❌ 잘못된 접근 방지
+            }
 
-            Debug.Log(developCategory[i]  + goodsLevel + "ID : " + id);
+            int goodsLevel = goodsDataManager.dataList[i].level;
+            int dataOffset = goodsLevel + i + 1;
+
+            if (dataOffset >= storeinfo_data.dataList.Count)
+            {
+                Debug.LogError($"[ERROR] storeinfo_data.dataList[{dataOffset}]가 존재하지 않음! (Count: {storeinfo_data.dataList.Count})");
+                continue; // ❌ 잘못된 접근 방지
+            }
+
+            Debug.Log($"[DEBUG] 상품 업데이트 - Index: {i}, Level: {goodsLevel}, dataOffset: {dataOffset}");
 
             goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetContentsByID(id + 1);
-            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
-            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
-
-            if (IsItemSoldOut(developCategory[i], goodsLevel))
-                soldOut[i].SetActive(true);
+            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
+            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
+            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
         }
-
     }
 
     private void UpdateInteriorGoodsData(string curCategory)
@@ -144,44 +168,56 @@ public class StoreData : MonoBehaviour
         GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
     }
 
-    public void BuyGoods(int goodsNumber)
+    public void BuyGoods(string categoryStr)
     {
         JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
         if (curCategory == StoreType.Development)   // 보조도구 상품이라면
         {
-/*            int goodsLevel = goodsDataManager.dataList[goodsNumber].level;    // 플레이어의 상품 레벨
-            int dataOffset = goodsLevel + goodsNumber + 1;
-            int goodsCost = storeinfo_data.dataList[dataOffset].gold;
+            categoryStr = categoryStr.Trim();  // ✅ 불필요한 공백 제거
+            Debug.Log($"구매한 아이템 카테고리: {categoryStr}");
 
-            if (GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber >= goodsCost)    // 구매 가능하다면(돈이 충분하다면)
+            if (categoryStr.Equals("Rack", StringComparison.OrdinalIgnoreCase)) // ✅ 횃대일 경우 → 두 개 동시에 처리
             {
-                SpendGold(goodsCost);
-                AddGoodsLevel(goodsNumber);
+                List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(categoryStr);
 
-                jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);   //변경사항 json으로 저장
-                jsonManager.SaveData(Constants.GoodsDataFile, goodsDataManager);   //변경사항 json으로 저장
-                GameManager.instance.goodsDataManager = GameManager.instance.jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);   // 새로 로드
-                UpdateStoreData(StoreType.Development);
-            }*/
-
-            List<GoodsData> itemList = GetGoodsDataListByIndex(goodsNumber); // 자동으로 카테고리 찾기
-
-            if (itemList != null && itemList.Count > 0)
-            {
-                foreach (var item in itemList)
+                if (rackList != null && rackList.Count == 2)
                 {
-                    item.level++; // 해당 카테고리의 모든 아이템 레벨업
-                }
+                    rackList[0].level++; // RackFront 레벨업
+                    rackList[1].level++; // RackBack 레벨업
+                    Debug.Log($"[SUCCESS] RackFront & RackBack 레벨업 완료!");
 
-                jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
-                GameManager.instance.goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
+                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                }
+            }
+            else  // ✅ 일반 아이템일 경우 → 카테고리로 가져오기
+            {
+                GoodsData item = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(categoryStr);
+                if (item != null)
+                {
+                    item.level++; // ✅ 해당 아이템만 레벨업
+                    Debug.Log($"[SUCCESS] {categoryStr} 레벨업 완료!");
+
+                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                }
+                else
+                {
+                    Debug.LogError($"[ERROR] {categoryStr}에 해당하는 데이터를 찾을 수 없음.");
+                }
             }
 
             UpdateStoreData(StoreType.Development);
+            GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
+
+            // ✅ UI 즉시 반영
+            MainProducts mainProducts = FindObjectOfType<MainProducts>();
+            if (mainProducts != null)
+            {
+                mainProducts.ResetMainProducts();
+            }
         }
-        else if (curCategory == StoreType.Interior)  // 인테리어 상품이라면
+/*        else if (curCategory == StoreType.Interior)  // 인테리어 상품이라면
         {
             int goodsCost = GetCostForSpecialGoods(goodsNumber);
 
@@ -193,7 +229,7 @@ public class StoreData : MonoBehaviour
 
                 UpdateStoreData(StoreType.Interior);
             }
-        }
+        }*/
 
         GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
     }

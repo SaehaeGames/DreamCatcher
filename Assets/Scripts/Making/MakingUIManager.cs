@@ -110,7 +110,7 @@ public class MakingUIManager : MonoBehaviour
         }
 
         //GoodsContainer curGoodsData = GameManager.instance.loadGoodsData;  //가구 데이터 가져옴       
-        int threadLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Thread).level;  //실의 레벨을 가져옴
+        int threadLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Thread).level;  //실의 레벨을 가져옴
         //Debug.Log(threadLevel);
         for(int i=0; i<threadLevel+1; i++)
         {

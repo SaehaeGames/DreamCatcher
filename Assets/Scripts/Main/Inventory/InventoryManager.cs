@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour
     {
         //인벤토리 최대 용량을 반환하는 함수
 
-        int PocketLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Box).level;  //주머니의 레벨을 가져옴
+        int PocketLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Box).level;  //주머니의 레벨을 가져옴
 
         StoreInfo_Data _storeinfo_data = GameManager.instance.storeinfo_data;  
         int boxEffect = int.Parse(_storeinfo_data.dataList[PocketLevel + 8].effect);    //상자 효과를 가져옴(12는 상점 데이터의 박스 시작 인덱스)

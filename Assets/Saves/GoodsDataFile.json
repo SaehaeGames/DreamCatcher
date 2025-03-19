@@ -4,13 +4,13 @@
             "id": 3000,
             "name": "RackFront",
             "category": "Rack\r",
-            "level": 1
+            "level": 0
         },
         {
             "id": 3001,
             "name": "RackBack",
             "category": "Rack\r",
-            "level": 1
+            "level": 0
         },
         {
             "id": 3002,
@@ -22,84 +22,12 @@
             "id": 3003,
             "name": "Poket",
             "category": "Box\r",
-            "level": 0
+            "level": 1
         },
         {
             "id": 3004,
             "name": "Thread",
             "category": "Thread\r",
-            "level": 0
-        },
-        {
-            "id": 3005,
-            "name": "Wallpaper",
-            "category": "Wallpaper\r",
-            "level": 0
-        },
-        {
-            "id": 3006,
-            "name": "FrameUpper",
-            "category": "Wallpaper\r",
-            "level": 0
-        },
-        {
-            "id": 3007,
-            "name": "FrameLower",
-            "category": "Wallpaper\r",
-            "level": 0
-        },
-        {
-            "id": 3008,
-            "name": "Desk",
-            "category": "Wallpaper\r",
-            "level": 0
-        },
-        {
-            "id": 3009,
-            "name": "Garland",
-            "category": "Garland\r",
-            "level": 0
-        },
-        {
-            "id": 3010,
-            "name": "WindowFrame",
-            "category": "WindowFrame\r",
-            "level": 0
-        },
-        {
-            "id": 3011,
-            "name": "Pad",
-            "category": "Pad\r",
-            "level": 0
-        },
-        {
-            "id": 3012,
-            "name": "Fillpen",
-            "category": "Fillpen\r",
-            "level": 0
-        },
-        {
-            "id": 3013,
-            "name": "Prob1",
-            "category": "Prob1\r",
-            "level": 0
-        },
-        {
-            "id": 3014,
-            "name": "CrystalBall",
-            "category": "CrystalBall\r",
-            "level": 0
-        },
-        {
-            "id": 3015,
-            "name": "Telescope",
-            "category": "Telescope\r",
-            "level": 0
-        },
-        {
-            "id": 3016,
-            "name": "Prob2",
-            "category": "Prob2",
             "level": 0
         }
     ]

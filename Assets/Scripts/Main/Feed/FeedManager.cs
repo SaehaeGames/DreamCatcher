@@ -21,7 +21,7 @@ public class FeedManager : MonoBehaviour
             Debug.LogError("goodsDataManager.dataList is null or empty!");
         }
 
-        var rackData = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack);
+        var rackData = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack);
         if (rackData == null)
         {
             Debug.LogError($"No data found for category: {Constants.GoodsData_Rack}");
@@ -31,7 +31,7 @@ public class FeedManager : MonoBehaviour
             Debug.Log($"GoodsData Item: ID={item.id}, Category={item.category}, Level={item.level}");
         }
 
-        rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
+        rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
 
         InitializeFeedObjects();
         InitializeRackObjects();
@@ -107,7 +107,7 @@ public class FeedManager : MonoBehaviour
         // 위 경우만 함수가 실행되고, 이외에는 함수 종료
         if (datalist == null || datalist.Count <= rackNumber)
         {
-            int vaseLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
+            int vaseLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
             int vaseStartNumber = GetCategoryStartNumber(StoreItemCategory.Vase);// 꽃병의 시작 번호를 가져옴
             int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[vaseLevel + vaseStartNumber].effect.ToString());    // 감소 효과를 가져옴
             double decreaseTime = (double)vaseEffect * 0.01 * randomTime;    // 퍼센트를 적용하여 감소 시간 계산
@@ -128,7 +128,7 @@ public class FeedManager : MonoBehaviour
             }
             else
             {
-                int vaseLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
+                int vaseLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
                 int vaseStartNumber = GetCategoryStartNumber(StoreItemCategory.Vase);// 꽃병의 시작 번호를 가져옴
                 int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[vaseLevel + vaseStartNumber].effect.ToString());    // 감소 효과를 가져옴
                 double decreaseTime = (double)vaseEffect * 0.01 * randomTime;    // 퍼센트를 적용하여 감소 시간 계산
@@ -192,7 +192,7 @@ public class FeedManager : MonoBehaviour
     {
         // 횃대의 먹이를 활성화하는 함수
 
-        int rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level; //횃대 레벨
+        int rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level; //횃대 레벨
         RackFeedObjects[rackLevel].transform.GetChild(rackNumber).GetChild((int)feed).gameObject.SetActive(true);
     }
 
@@ -200,7 +200,7 @@ public class FeedManager : MonoBehaviour
     {
         // 횃대의 먹이를 비활성화 하는 함수
 
-        int rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level; //횃대 레벨
+        int rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level; //횃대 레벨
         RackFeedObjects[rackLevel].transform.GetChild(rackNumber).GetChild((int)feed).gameObject.SetActive(false);
     }
 

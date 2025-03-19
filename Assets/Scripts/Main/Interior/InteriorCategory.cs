@@ -41,8 +41,8 @@ public class InteriorCategory : MonoBehaviour
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
             if (currentAdjusting[i])
             {
-                UpdateInteriorImage(i, interiorDataManager.dataList[i].level);
-                UpdateButtonAdjusting(i, interiorDataManager.dataList[i].level); // 적용 중 UI 업데이트
+/*                UpdateInteriorImage(i, interiorDataManager.dataList[i]);
+                UpdateButtonAdjusting(i, interiorDataManager.dataList[i].level); // 적용 중 UI 업데이트*/
             }
         }
 
@@ -213,9 +213,9 @@ public class InteriorCategory : MonoBehaviour
 
             if (currentAdjusting[i])
             {
-                int imgIdx = interiorDataManager.dataList[i].level;
+/*              int imgIdx = interiorDataManager.dataList[i].level;
                 UpdateInteriorImage(i, imgIdx); // 이미지 업데이트
-                UpdateButtonAdjusting(i, imgIdx); // 버튼 상태 업데이트
+                UpdateButtonAdjusting(i, imgIdx); // 버튼 상태 업데이트*/
             }
         }
     }
@@ -277,8 +277,7 @@ public class InteriorCategory : MonoBehaviour
         // 인테리어 아이템 버튼을 클릭하는 함수
         interiorDataManager = GameManager.instance.interiorDataManager;
         var selectedItem = interiorDataManager.dataList[itemIdx];
-        int imgIdx = interiorDataManager.dataList[itemIdx].level;
-        // 현재 레벨이 아니라... 아이템 버튼의 레벨로 바꿔야함!!
+        //int imgIdx = interiorDataManager.dataList[itemIdx].level;
 
         string category = CheckItemCategory2(itemIdx);
         ItemTheme selectedTheme = GameManager.instance.storeinfo_data.GetThemeByID(selectedItem.id);
@@ -348,7 +347,7 @@ public class InteriorCategory : MonoBehaviour
             // 클릭한 아이템 적용
             currentAdjusting[itemIdx] = true;
             selectedItem.isAdjusting = true;
-            UpdateInteriorImage(itemIdx, imgIdx);
+            //UpdateInteriorImage(itemIdx, imgIdx);
 
             // Wallpaper의 경우 책상과 WindowFrame도 동일한 테마로 변경
             if (category == "Wallpaper")
@@ -364,14 +363,14 @@ public class InteriorCategory : MonoBehaviour
                         int relatedIdx = interiorDataManager.dataList.IndexOf(relatedItem);
                         currentAdjusting[relatedIdx] = true;
                         interiorDataManager.dataList[relatedIdx].isAdjusting = true;
-                        UpdateInteriorImage(relatedIdx, imgIdx);
+                        //UpdateInteriorImage(relatedIdx, imgIdx);
                     }
                 }
             }
         }
 
         // UI 업데이트
-        UpdateButtonAdjusting(itemIdx, imgIdx);
+        //UpdateButtonAdjusting(itemIdx, imgIdx);
 
         // 저장
         GameManager.instance.interiorDataManager = interiorDataManager;
