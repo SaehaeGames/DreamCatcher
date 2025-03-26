@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
         instance = this;    //유일한 인스턴스
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
 
-        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
-        ResetGameManager();
+        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        //ResetGameManager();
     }
 
     private void Start()

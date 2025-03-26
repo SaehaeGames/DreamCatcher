@@ -195,17 +195,14 @@ public class InteriorCategory : MonoBehaviour
 
     public void LoadSaveData()
     {
-        // 인테리어 저장 데이터를 가져오는 함수
-
-        interiorDataManager = GameManager.instance.interiorDataManager;    //플레이어의 인테리어 정보       
+        interiorDataManager = GameManager.instance.interiorDataManager;
         StoreInfo_Data storeInfo_Data = GameManager.instance.storeinfo_data;
-
 
         for (int i = 0; i < currentAdjusting.Length; i++)
         {
             if (i >= interiorDataManager.dataList.Count)
             {
-                Debug.Log("인덱스 " + i + "에서 오류 발생");
+                Debug.LogError($"[ERROR] 인덱스 {i}가 존재하지 않음.");
                 break;
             }
 
@@ -213,9 +210,7 @@ public class InteriorCategory : MonoBehaviour
 
             if (currentAdjusting[i])
             {
-/*              int imgIdx = interiorDataManager.dataList[i].level;
-                UpdateInteriorImage(i, imgIdx); // 이미지 업데이트
-                UpdateButtonAdjusting(i, imgIdx); // 버튼 상태 업데이트*/
+                SettingItemHide(i); // ✅ 보유 상태 반영
             }
         }
     }
@@ -274,45 +269,39 @@ public class InteriorCategory : MonoBehaviour
 
     public void SelectInteriorItem(int itemIdx, int itemID)
     {
-        // 인테리어 아이템 버튼을 클릭하는 함수
         interiorDataManager = GameManager.instance.interiorDataManager;
         var selectedItem = interiorDataManager.dataList[itemIdx];
-        //int imgIdx = interiorDataManager.dataList[itemIdx].level;
-
         string category = CheckItemCategory2(itemIdx);
         ItemTheme selectedTheme = GameManager.instance.storeinfo_data.GetThemeByID(selectedItem.id);
 
-        // 적용중인 카테고리 아이템을 적용 해제하는 경우
+        // ✅ 적용 해제 로직 개선
         if (currentAdjusting[itemIdx])
         {
-            int defaultIdx = -1; // 기본 아이템 인덱스를 저장할 변수 (초기값 -1)
+            int defaultIdx = -1;
 
+            // ✅ 특정 카테고리 (꽃병, 상자, 실, 벽지)의 기본 아이템 찾기
             if (category == "Vase" || category == "Box" || category == "Thread" || category == "Wallpaper")
             {
-                // 특정 아이템을 적용 해제 하는 경우
                 var defaultItem = interiorDataManager.dataList.FirstOrDefault(item =>
                      CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category &&
-                     GameManager.instance.storeinfo_data.GetThemeByID(item.id).ToString() == "Default");
+                     GameManager.instance.storeinfo_data.GetThemeByID(item.id) == ItemTheme.Default);
 
                 if (defaultItem != null)
                 {
-                    defaultIdx = interiorDataManager.dataList.IndexOf(defaultItem); // 기본 아이템 인덱스 할당
+                    defaultIdx = interiorDataManager.dataList.IndexOf(defaultItem);
 
-                    // 기본 아이템인 경우 해제 방지
                     if (itemIdx == defaultIdx)
                     {
-                        return; // 기본 아이템인 경우 해제 중단
+                        return; // 기본 아이템이면 해제하지 않음
                     }
 
-                    UpdateInteriorImage(itemIdx, defaultIdx); // 기본 이미지로 변경
+                    UpdateInteriorImage(itemIdx, defaultIdx);
                 }
 
-                // 기본 아이템이 아닌 경우 다른 아이템 해제
+                // ✅ 같은 카테고리의 모든 아이템을 해제
                 foreach (var item in interiorDataManager.dataList)
                 {
                     int index = interiorDataManager.dataList.IndexOf(item);
-
-                    // 기본 아이템이 아니면 해제
                     if (CheckItemCategory2(index) == category && index != defaultIdx)
                     {
                         currentAdjusting[index] = false;
@@ -320,39 +309,36 @@ public class InteriorCategory : MonoBehaviour
                     }
                 }
             }
-            else    // 그 외 아이템(바다, 별 가구)를 적용 해제 하는 경우
+            else
             {
+                // ✅ 일반 아이템 해제 로직
                 currentAdjusting[itemIdx] = false;
-                interiorDataManager.dataList[itemIdx].isAdjusting = false;
-                UpdateInteriorImage(itemIdx, 0); // 기본 이미지로 변경
+                selectedItem.isAdjusting = false;
+                UpdateInteriorImage(itemIdx, 0);
             }
         }
-        else    // 적용중이지 않은 아이템을 적용하는 경우
+        else
         {
-
-            // 현재 다른 아이템으로 적용 중인 아이템이라면(같은 카테고리의 바다, 별 가구를 적용중이라면)
+            // ✅ 같은 카테고리의 기존 아이템을 해제하고 새로운 아이템 적용
             var sameCategoryItem = interiorDataManager.dataList.FirstOrDefault(item =>
-                CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category && currentAdjusting[interiorDataManager.dataList.IndexOf(item)]);
+                CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category &&
+                currentAdjusting[interiorDataManager.dataList.IndexOf(item)]);
 
-            // 같은 카테고리의 아이템이 적용 중이라면 해당 아이템 적용 해제
             if (sameCategoryItem != null)
             {
                 int sameCategoryItemIdx = interiorDataManager.dataList.IndexOf(sameCategoryItem);
-
-                // 적용 중인 상태 해제
                 currentAdjusting[sameCategoryItemIdx] = false;
-                interiorDataManager.dataList[sameCategoryItemIdx].isAdjusting = false;
+                sameCategoryItem.isAdjusting = false;
             }
 
-            // 클릭한 아이템 적용
+            // ✅ 새 아이템 적용
             currentAdjusting[itemIdx] = true;
             selectedItem.isAdjusting = true;
-            //UpdateInteriorImage(itemIdx, imgIdx);
 
-            // Wallpaper의 경우 책상과 WindowFrame도 동일한 테마로 변경
+            // ✅ Wallpaper의 경우 책상과 WindowFrame도 함께 변경
             if (category == "Wallpaper")
             {
-                foreach (var relatedCategory in new[] { "Wood", "WindowFrame" })     // Pad를 책상으로 바꾸기
+                foreach (var relatedCategory in new[] { "Wood", "WindowFrame" })
                 {
                     var relatedItem = interiorDataManager.dataList.FirstOrDefault(item =>
                         CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == relatedCategory &&
@@ -362,37 +348,31 @@ public class InteriorCategory : MonoBehaviour
                     {
                         int relatedIdx = interiorDataManager.dataList.IndexOf(relatedItem);
                         currentAdjusting[relatedIdx] = true;
-                        interiorDataManager.dataList[relatedIdx].isAdjusting = true;
-                        //UpdateInteriorImage(relatedIdx, imgIdx);
+                        relatedItem.isAdjusting = true;
                     }
                 }
             }
         }
 
-        // UI 업데이트
-        //UpdateButtonAdjusting(itemIdx, imgIdx);
-
-        // 저장
+        // ✅ 데이터 저장
         GameManager.instance.interiorDataManager = interiorDataManager;
         GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
     public void SettingItemHide(int itemIdx)
     {
-        // 아이템의 보유 여부에 따라 검정 이미지를 가리거나 보여주는 함수
         var item = interiorDataManager.dataList[itemIdx];
 
-        // 버튼의 마지막 자식 오브젝트를 검정 이미지로 가정
         Transform buttonTransform = interiorItemArray[itemIdx].transform;
         GameObject blackImage = buttonTransform.GetChild(buttonTransform.childCount - 1).gameObject;
 
         if (item.isHaving)
         {
-            blackImage.SetActive(false); // 보유 중인 경우 검정 이미지를 비활성화
+            blackImage.SetActive(false);
             interiorItemArray[itemIdx].GetComponent<Button>().interactable = true;
         }
         else
         {
-            blackImage.SetActive(true); // 보유하지 않은 경우 검정 이미지를 활성화
+            blackImage.SetActive(true);
             interiorItemArray[itemIdx].GetComponent<Button>().interactable = false;
         }
     }
@@ -405,5 +385,7 @@ public class InteriorCategory : MonoBehaviour
             item.isHaving = true;
         }
     }
+
+
 }
 

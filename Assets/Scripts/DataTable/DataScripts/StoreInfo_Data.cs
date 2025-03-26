@@ -57,11 +57,25 @@ public class StoreInfo_Data : ScriptableObject
 
     public int GetIDByCategoryAndLevel(string category, int level)
     {
-        var result = dataList
-            .Where(storeItem => storeItem.category.ToString() == category && storeItem.level == level)
-            .Select(storeItem => storeItem.id)
-            .FirstOrDefault();
-        return result;
+        var matchingItems = dataList
+            .Where(storeItem => storeItem.category.ToString().Trim().Equals(category.Trim(), StringComparison.OrdinalIgnoreCase)
+                                && storeItem.level == level)
+            .ToList();
+
+        if (matchingItems.Count == 1)
+        {
+            return matchingItems[0].id;
+        }
+        else if (matchingItems.Count > 1)
+        {
+            Debug.LogError($"[ERROR] {category}에 해당하는 여러 개의 아이템이 존재합니다! (레벨 {level})");
+            return matchingItems[0].id;  // 첫 번째 ID 반환 (임시)
+        }
+        else
+        {
+            Debug.LogError($"[ERROR] {category}에 해당하는 아이템을 찾을 수 없음! (레벨 {level})");
+            return 0; // 에러 처리
+        }
     }
 
 

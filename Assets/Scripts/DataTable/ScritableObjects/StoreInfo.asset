@@ -204,7 +204,7 @@ MonoBehaviour:
       \uC5C6\uB294 \uC870\uD654\uC9C0\uB9CC \uC2DC\uB4E4\uC9C0 \uC54A\uAE30\uC5D0
       \uC601\uC6D0\uD788 \uBC14\uB77C\uBCFC \uC218 \uC788\uB2E4."
     effect: null
-    gold: 0
+    gold: 2000
     isButtonActive: 1
   - id: 4021
     name: garland_2
@@ -214,7 +214,7 @@ MonoBehaviour:
     contents: "\uC740\uC740\uD558\uAC8C \uBE5B\uB098\uB294 \uBCC4 \uBAA8\uC591 \uAC00\uB79C\uB4DC.nn\uD06C\uB9AC\uC2A4\uB9C8\uC2A4\uAC00
       \uC0DD\uAC01\uB098\uAE30\uB3C4 \uD55C\uB2E4."
     effect: null
-    gold: 0
+    gold: 2000
     isButtonActive: 1
   - id: 4022
     name: windowframe_0
@@ -234,7 +234,7 @@ MonoBehaviour:
       \uB4EF\uD55C \uCC3D\uD2C0nn\uC0B0\uD638\uB294 \uBAA8\uD615\uC774 \uC544\uB2CC
       \uC9C4\uC9DC\uB77C\uACE0 \uD55C\uB2E4."
     effect: null
-    gold: 0
+    gold: 3000
     isButtonActive: 1
   - id: 4024
     name: windowframe_2
@@ -246,7 +246,7 @@ MonoBehaviour:
       \uC2E4, \uADF8\uB9AC\uACE0 \uBCC4\uC790\uB9AC\uAC00 \uADF8\uB824\uC9C4 \uAC80\uC740
       \uAE4C\uB9C8\uADC0."
     effect: null
-    gold: 0
+    gold: 3000
     isButtonActive: 1
   - id: 4025
     name: pad_0
@@ -266,7 +266,7 @@ MonoBehaviour:
       \uC9C4\uC9DC \uBCF4\uBB3C\uC774 \uC788\uB294\uC9C0\uB294 \uC544\uBB34\uB3C4
       \uBAA8\uB978\uB2E4\uACE0..."
     effect: null
-    gold: 0
+    gold: 3000
     isButtonActive: 1
   - id: 4027
     name: pad_2
@@ -275,7 +275,7 @@ MonoBehaviour:
     level: 0
     contents: "\uBCC4\uC790\uB9AC\uB97C \uD45C\uC2DC\uD574 \uB193\uC740 \uC9C0\uB3C4."
     effect: null
-    gold: 0
+    gold: 3000
     isButtonActive: 1
   - id: 4028
     name: fillpen_0
@@ -323,7 +323,7 @@ MonoBehaviour:
     contents: "\uBC29\uD5A5\uC744 \uC54C\uB824\uC8FC\uB294 \uB098\uCE68\uBC18.nn\uB355\uBD84\uC5D0
       \uAE38\uC744 \uC783\uC9C0 \uC54A\uACE0 \uB098\uC544\uAC08 \uC218 \uC788\uB2E4."
     effect: null
-    gold: 3000
+    gold: 7000
     isButtonActive: 1
   - id: 4033
     name: stardrop
@@ -333,7 +333,7 @@ MonoBehaviour:
     contents: "\uAC01\uC124\uD0D5 \uB9DB\uC774 \uB0A0 \uAC70 \uAC19\uC740 \uBCC4
       \uC870\uAC01nn\uC5B4\uB450\uC6B4 \uACF3\uC5D0\uC11C\uB3C4 \uBC18\uC9DD\uC778\uB2E4."
     effect: null
-    gold: 3000
+    gold: 7000
     isButtonActive: 1
   - id: 4034
     name: crystalball_0
@@ -353,7 +353,7 @@ MonoBehaviour:
       \uAC70 \uAC19\uC740 \uC544\uCFE0\uC544\uBCFCnn\uC9C4\uC9DC \uC9C4\uC8FC\uC77C\uC9C0\uB294
       \uAEBC\uB0B4\uBCF4\uAE30 \uC804\uAE4C\uC9C4 \uBAA8\uB978\uB2E4."
     effect: null
-    gold: 3000
+    gold: 5000
     isButtonActive: 1
   - id: 4036
     name: crystalball_2
@@ -364,7 +364,7 @@ MonoBehaviour:
       \uB4F1\uC7A5\uD558\uB294 \uB2EC \uD1A0\uB07C\uC758 \uADF8\uB9BC\uC790\uAC00
       \uBCF4\uC778\uB2E4."
     effect: null
-    gold: 3000
+    gold: 5000
     isButtonActive: 1
   - id: 4037
     name: telescope_0
@@ -384,7 +384,7 @@ MonoBehaviour:
       \uB9DD\uC6D0\uACBDnn\uC548\uC744 \uBCF4\uBA74 \uC0C8\uB85C\uC6B4 \uC12C\uC744
       \uBC1C\uACAC\uD560 \uAC83\uB9CC \uAC19\uB2E4."
     effect: null
-    gold: 2000
+    gold: 5000
     isButtonActive: 1
   - id: 4039
     name: telescope_2
@@ -395,7 +395,7 @@ MonoBehaviour:
       \uC544\uB798\uC5D0\uC11C \uBCC4\uC790\uB9AC\uB97C \uCC3E\uC544\uBCF4\uB294
       \uB0AD\uB9CC\uC744 \uAFC8\uAFBC\uB2E4."
     effect: null
-    gold: 2000
+    gold: 5000
     isButtonActive: 1
   - id: 4040
     name: object2_default
@@ -415,7 +415,7 @@ MonoBehaviour:
       \uAC16\uB2E4 \uB300\uBA74 \uD30C\uB3C4 \uC18C\uB9AC\uAC00 \uB4E4\uB9AC\uB294
       \uB4EF\uC2F6\uB2E4."
     effect: null
-    gold: 7000
+    gold: 5000
     isButtonActive: 1
   - id: 4042
     name: musicbox

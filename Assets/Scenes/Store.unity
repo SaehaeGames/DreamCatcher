@@ -3690,7 +3690,7 @@ GameObject:
   - component: {fileID: 204045050}
   - component: {fileID: 204045049}
   m_Layer: 5
-  m_Name: StarItems
+  m_Name: SeaItems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16821,7 +16821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMainCategory: 0
-  currentInteriorCategory: 0
+  currentInteriorCategory: 2
   categoryProducts:
   - {fileID: 1092595773}
   - {fileID: 2071572524}
@@ -16851,6 +16851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectGoods: 0
+  selectCategory: 0
   ButtonObj:
   - {fileID: 1422929652}
   - {fileID: 826635098}
@@ -33244,7 +33245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1656041132
 RectTransform:
   m_ObjectHideFlags: 0

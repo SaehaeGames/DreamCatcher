@@ -26,10 +26,6 @@ public class FeedManager : MonoBehaviour
         {
             Debug.LogError($"No data found for category: {Constants.GoodsData_Rack}");
         }
-        foreach (var item in GameManager.instance.goodsDataManager.dataList)
-        {
-            Debug.Log($"GoodsData Item: ID={item.id}, Category={item.category}, Level={item.level}");
-        }
 
         rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
 
