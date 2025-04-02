@@ -6,7 +6,7 @@ public class BuyButtonInfo : MonoBehaviour
     //상품 구매 버튼 정보 클래스
 
     [SerializeField] private int selectGoodsNumber;    // 선택한 상품 번호
-    private StoreItemCategory goodsCategory;  // ✅ 상품 고유 카테고리 추가
+    [SerializeField] private int selectGoddsId;
     private Button buyButton;
 
     private void Awake()
@@ -32,7 +32,7 @@ public class BuyButtonInfo : MonoBehaviour
             var buyCheck = storeManager.GetComponent<BuyCheck>();
             if (buyCheck != null)
             {
-                buyCheck.SelectBuyingGoods(selectGoodsNumber, goodsCategory);  // ✅ 상품 번호와 카테고리 전달
+                buyCheck.SelectBuyingGoods(selectGoodsNumber, selectGoddsId);
             }
             else
             {
@@ -50,9 +50,9 @@ public class BuyButtonInfo : MonoBehaviour
         selectGoodsNumber = number;
     }
 
-    public void SetSelectGoodsCategory(StoreItemCategory category)
+    public void SetSelectGoodsId(int id)
     {
-        goodsCategory = category; // ✅ 상품 카테고리 설정
+        selectGoddsId = id; // ✅ 상품 카테고리 설정
     }
 
     public int GetSelectGoodsNumber()
@@ -60,8 +60,8 @@ public class BuyButtonInfo : MonoBehaviour
         return selectGoodsNumber;
     }
 
-    public StoreItemCategory GetSelectGoodsCategory()
+    public int GetSelectGoodsId()
     {
-        return goodsCategory; // ✅ 카테고리 반환 함수 추가
+        return selectGoddsId; // ✅ 카테고리 반환 함수 추가
     }
 }

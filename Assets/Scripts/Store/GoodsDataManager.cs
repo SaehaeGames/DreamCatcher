@@ -50,15 +50,8 @@ public class GoodsDataManager
 
     public List<GoodsData> GetGoodsDataList(string category)
     {
-        string cleanedCategory = category.Trim(); // ✅ `\r` 제거
-        UnityEngine.Debug.Log($"[DEBUG] GetGoodsDataList - 찾는 Category: {cleanedCategory}");
-
+        string cleanedCategory = category.Trim();
         var itemList = dataList.Where(x => x.category.Trim().Equals(cleanedCategory, StringComparison.OrdinalIgnoreCase)).ToList();
-
-        if (itemList.Count == 0)
-        {
-            UnityEngine.Debug.LogError($"[ERROR] GetGoodsDataList - {cleanedCategory}에 해당하는 데이터가 없음.");
-        }
 
         return itemList;
     }

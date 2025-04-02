@@ -112,7 +112,8 @@ public class StoreData : MonoBehaviour
         {
             interiorIndex = 0;
         }
-        
+
+        //GetSortedIDsByTheme
 
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
         {
@@ -171,19 +172,16 @@ public class StoreData : MonoBehaviour
         GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
     }
 
-    public void BuyGoods(string categoryStr)
+    public void BuyGoods(int id)
     {
         JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
         if (curCategory == StoreType.Development)   // ✅ 보조도구 상품이라면
         {
-            categoryStr = categoryStr.Trim();
-            Debug.Log($"구매한 아이템 카테고리: {categoryStr}");
-
-            if (categoryStr.Equals("Rack", StringComparison.OrdinalIgnoreCase)) // ✅ 횃대는 두 개 동시에 레벨업
+            if (id >= 4000 && id <= 4002) // ✅ 횃대는 두 개 동시에 레벨업
             {
-                List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(categoryStr);
+                List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(curCategory.ToString());
                 if (rackList != null && rackList.Count == 2)
                 {
                     rackList[0].level++;
@@ -193,50 +191,29 @@ public class StoreData : MonoBehaviour
                     jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
                 }
             }
-            else  // ✅ 일반 아이템 레벨업
+            else  //일반 아이템 레벨업
             {
-                GoodsData item = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(categoryStr);
+                GoodsData item = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(curCategory.ToString());
                 if (item != null)
                 {
                     item.level++;
-                    Debug.Log($"[SUCCESS] {categoryStr} 레벨업 완료!");
 
                     jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
-                }
-                else
-                {
-                    Debug.LogError($"[ERROR] {categoryStr}에 해당하는 데이터를 찾을 수 없음.");
                 }
             }
 
             UpdateStoreData(StoreType.Development);
         }
-        else if (curCategory == StoreType.Interior)  // ✅ 인테리어 상품이라면
+        else if (curCategory == StoreType.Interior)  //인테리어 상품이라면
         {
-            categoryStr = categoryStr.Trim();
-            Debug.Log($"구매한 인테리어 아이템 카테고리: {categoryStr}");
 
-            // ✅ 정확한 ID 가져오기 (레벨이 0인 기본 아이템)
-            int itemID = GameManager.instance.storeinfo_data.GetIDByCategoryAndLevel(categoryStr, 0);
-
-            if (itemID == 0)
-            {
-                Debug.LogError($"[ERROR] {categoryStr}에 해당하는 올바른 ID를 찾을 수 없음!");
-                return;
-            }
-
-            // ✅ 해당 ID의 인테리어 아이템 찾기
-            InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(itemID);
+            InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(id);
+            Debug.Log("현재 아이템 보유 상태: " + item.isHaving);
             if (item != null)
             {
-                item.isHaving = true; // ✅ 정확한 아이템 보유 상태 업데이트
-                Debug.Log($"[SUCCESS] {categoryStr}({itemID}) 보유 상태 변경: isHaving = true");
+                item.isHaving = true; //정확한 아이템 보유 상태 업데이트
 
                 jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
-            }
-            else
-            {
-                Debug.LogError($"[ERROR] {categoryStr}에 해당하는 인테리어 아이템을 찾을 수 없음.");
             }
 
             UpdateStoreData(StoreType.Interior);
