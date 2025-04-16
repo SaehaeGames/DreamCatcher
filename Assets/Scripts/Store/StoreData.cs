@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class StoreData : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class StoreData : MonoBehaviour
             if (i >= goodsDataManager.dataList.Count)
             {
                 Debug.LogError($"[ERROR] goodsDataManager.dataList에 {i}번째 인덱스가 없음! (Count: {goodsDataManager.dataList.Count})");
-                continue; // ❌ 잘못된 접근 방지
+                continue; // 잘못된 접근 방지
             }
 
             int goodsLevel = goodsDataManager.dataList[i].level;
@@ -86,7 +87,7 @@ public class StoreData : MonoBehaviour
             if (dataOffset >= storeinfo_data.dataList.Count)
             {
                 Debug.LogError($"[ERROR] storeinfo_data.dataList[{dataOffset}]가 존재하지 않음! (Count: {storeinfo_data.dataList.Count})");
-                continue; // ❌ 잘못된 접근 방지
+                continue; // 잘못된 접근 방지
             }
 
 
@@ -113,8 +114,6 @@ public class StoreData : MonoBehaviour
             interiorIndex = 0;
         }
 
-        //GetSortedIDsByTheme
-
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
         {
             var item = storeinfo_data.dataList[i];
@@ -124,6 +123,34 @@ public class StoreData : MonoBehaviour
                 // UI 업데이트
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
+
+                index++;
+            }
+        }
+
+        // 보유중인 아이템일 경우 soldOut 표시
+        index = 0;
+        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
+        {
+            var item = storeinfo_data.dataList[i];
+
+            if (item.theme.ToString() == curInteriorCategory)
+            {
+                InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorData(item.id);
+
+                if (interiorItem != null && interiorItem.isHaving)
+                {
+                    if (curInteriorCategory == ItemTheme.Sea.ToString())
+                    {
+                        if (SeaSoldOut.Length > index)
+                            SeaSoldOut[index].SetActive(true);
+                    }
+                    else
+                    {
+                        if (StarSoldOut.Length > index)
+                            StarSoldOut[index].SetActive(true);
+                    }
+                }
 
                 index++;
             }
@@ -177,9 +204,9 @@ public class StoreData : MonoBehaviour
         JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
-        if (curCategory == StoreType.Development)   // ✅ 보조도구 상품이라면
+        if (curCategory == StoreType.Development)   // 보조도구 상품이라면
         {
-            if (id >= 4000 && id <= 4002) // ✅ 횃대는 두 개 동시에 레벨업
+            if (id >= 4000 && id <= 4002) // 횃대는 두 개 동시에 레벨업
             {
                 List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(curCategory.ToString());
                 if (rackList != null && rackList.Count == 2)
@@ -221,7 +248,7 @@ public class StoreData : MonoBehaviour
 
         GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
 
-        // ✅ UI 즉시 반영
+        // UI 즉시 반영
         MainProducts mainProducts = FindObjectOfType<MainProducts>();
         if (mainProducts != null)
         {
