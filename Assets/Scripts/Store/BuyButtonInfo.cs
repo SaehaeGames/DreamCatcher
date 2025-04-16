@@ -52,7 +52,7 @@ public class BuyButtonInfo : MonoBehaviour
 
     public void SetSelectGoodsId(int id)
     {
-        selectGoddsId = id; // ✅ 상품 카테고리 설정
+        selectGoddsId = id; // 상품 카테고리 설정
     }
 
     public int GetSelectGoodsNumber()

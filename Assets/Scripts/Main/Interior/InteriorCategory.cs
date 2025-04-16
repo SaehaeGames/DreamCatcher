@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class InteriorCategory : MonoBehaviour
 {
@@ -41,8 +43,8 @@ public class InteriorCategory : MonoBehaviour
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
             if (currentAdjusting[i])
             {
-/*                UpdateInteriorImage(i, interiorDataManager.dataList[i]);
-                UpdateButtonAdjusting(i, interiorDataManager.dataList[i].level); // 적용 중 UI 업데이트*/
+                UpdateInteriorImage(i, i);
+                UpdateButtonAdjusting(i, i); // 적용 중 UI 업데이트
             }
         }
 
@@ -133,7 +135,7 @@ public class InteriorCategory : MonoBehaviour
 
     public void DefineButtonNumber()
     {
-        // 인테리어 버튼들에 에 고유 번호를 부여하는 함수
+        // 인테리어 버튼들에 고유 번호를 부여하는 함수
 
         // storeInfo에서 버튼 id를 가져옴
         StoreInfo_Data storeInfo_data = GameManager.instance.storeinfo_data;
@@ -148,6 +150,12 @@ public class InteriorCategory : MonoBehaviour
         combinedItemIDList.AddRange(StarItemIDList);
 
         int itemNumber = 0;
+
+        /*for (int i = 0; i < Button_InteriorCategory.Length; i++)
+        {
+            Button_InteriorCategory[i].gameObject.GetComponent<InteriorButton>().SetButtonNumber(i);
+        }*/
+
         for (int j = 0; j < Button_InteriorItem.Length; j++)
         {
             //버튼 이벤트 설정
@@ -354,7 +362,7 @@ public class InteriorCategory : MonoBehaviour
             }
         }
 
-        // ✅ 데이터 저장
+        // 데이터 저장
         GameManager.instance.interiorDataManager = interiorDataManager;
         GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
@@ -368,12 +376,12 @@ public class InteriorCategory : MonoBehaviour
         if (item.isHaving)
         {
             blackImage.SetActive(false);
-            interiorItemArray[itemIdx].GetComponent<Button>().interactable = true;
+            interiorItemArray[itemIdx].GetComponent<UnityEngine.UI.Button>().interactable = true;
         }
         else
         {
             blackImage.SetActive(true);
-            interiorItemArray[itemIdx].GetComponent<Button>().interactable = false;
+            interiorItemArray[itemIdx].GetComponent<UnityEngine.UI.Button>().interactable = false;
         }
     }
 

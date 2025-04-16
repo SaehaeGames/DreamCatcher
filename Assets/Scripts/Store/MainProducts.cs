@@ -15,7 +15,7 @@ public class MainProducts : MonoBehaviour
 
     private void Start()
     {
-        // ✅ 데이터 갱신 후 최신 값 반영
+        // 데이터 갱신 후 최신 값 반영
         GameManager.instance.goodsDataManager = GameManager.instance.jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
 
         goodsDataManager = GameManager.instance.goodsDataManager;

@@ -118,7 +118,7 @@
         {
             "id": 4021,
             "isHaving": true,
-            "isAdjusting": false
+            "isAdjusting": true
         },
         {
             "id": 4024,
@@ -147,7 +147,7 @@
         },
         {
             "id": 4039,
-            "isHaving": false,
+            "isHaving": true,
             "isAdjusting": false
         },
         {

@@ -33,7 +33,6 @@ public class BuyCheck : MonoBehaviour
         {
             StarButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
             StarButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsId(StarList[i]);
-            Debug.Log("star id: " + StarList[i]);
 
             SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
             SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsId(SeaList[i]);
@@ -50,7 +49,7 @@ public class BuyCheck : MonoBehaviour
 
     public void SelectYesButton()
     {
-        // ✅ 상품 구매 확인 패널에서 확인 버튼(구매 버튼)을 눌러서 구매하는 함수
+        // 상품 구매 확인 패널에서 확인 버튼(구매 버튼)을 눌러서 구매하는 함수
         this.gameObject.GetComponent<StoreData>().BuyGoods(selectId);
         SetInActiveBuyCheckPanel(); // 상품 구매 확인 팝업 비활성화
 
@@ -62,44 +61,26 @@ public class BuyCheck : MonoBehaviour
         }
     }
 
-    /*public void SelectYesButton_Adjust()
+    public void SelectYesButton_Adjust()
     {
         //상품 적용 확인 패널에서 확인 버튼을 눌러서 가구를 적용하는 함수
 
-        switch (selectGoods)
-        {
-            case 0 :
-                GameManager.instance.wallpaperIndex = 1;
-                break;
-            case 1:
-                GameManager.instance.garlandIndex = 1;
-                break;
-            case 2:
-                GameManager.instance.fillpenIndex = 1;
-                break;
-            case 3:
-                GameManager.instance.telescopeIndex = 1;
-                break;
-            case 4:
-                GameManager.instance.startdropIndex = 1;
-                break;
-            case 5:
-                GameManager.instance.crystalballIndex = 1;
-                break;
-            case 6:
-                GameManager.instance.musicboxIndex = 1;
-                break;
-            case 7:
-                GameManager.instance.mapIndex = 1;
-                break;
-            //책상은 보류
-            default:
-                break;
+        JsonManager jsonManager = GameManager.instance.jsonManager;
+        InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(selectId);
 
-        }
+        item.isAdjusting = true;
+        jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
 
         SetInActiveAdjustCheckPanel();
-    }*/
+    }
+
+    public void SelectNoButton_Adjust()
+    {
+        //상품 적용 확인 패널에서 취소 버튼을 눌러서 가구를 적용하지 않고 구매만 하는 함수
+
+        SetInActiveAdjustCheckPanel();
+    }
+
 
     public void SetActiveBuyCheckPanel()
     {
