@@ -1949,4 +1949,61 @@ MonoBehaviour:
     effectImage: 0
     screenEffect: 0
     speaker: "\uB098\uBE44"
-    line: "<\uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C.>"
+    line: "<\uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C.>\r"
+  - id: 7203
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 1
+    effectImage: 0
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "......\r"
+  - id: 7204
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 11
+    effectImage: 2
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "\uC5EC\uC804\uD788 \uC545\uBABD\uC744 \uAFBC\uB2E4\uACE0...  \uB2F5\uC7A5\uC774
+      \uC654\uC5B4.\r"
+  - id: 7205
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 15
+    effectImage: 2
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "\uC774\uB7F0.... \uBB54\uAC00 \uC798\uBABB \uB9CC\uB4E0\uAC74\uAC00.\r"
+  - id: 7206
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 13
+    effectImage: 0
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "\uC2E4 \uC0C9\uAE54\uC774\uB791 \uD328\uD134 \uB9DE\uAC8C \uB9CC\uB4E0\uAC70\uC57C? 
+      \uAD6C\uC2AC\uC774\uB791 \uAE43\uD138\uB3C4 \uD655\uC778\uD588\uACE0?\r"
+  - id: 7207
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 20
+    effectImage: 0
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "\uCC28\uADFC\uCC28\uADFC \uB2E4\uC2DC \uB9CC\uB4E4\uC5B4\uBCF4\uC790.\r"
+  - id: 7207
+    sceneNum: 0
+    questNum: 0
+    charImage: 1
+    faceImage: 35
+    effectImage: 0
+    screenEffect: 0
+    speaker: "\uB098\uBE44"
+    line: "..... (\uB2E4\uC2DC \uB9CC\uB4E4\uC5B4\uC57C \uD560\uAC70 \uAC19\uC740
+      \uD45C\uC815\uC774\uB2E4.)"
