@@ -114,7 +114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 609, y: -227}
+  m_AnchoredPosition: {x: 594, y: -209}
   m_SizeDelta: {x: 105.4365, y: 105.4363}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1538154151629094989
@@ -1310,6 +1310,7 @@ MonoBehaviour:
   talk: 
   _storyscriptinfo_data: {fileID: 11400000, guid: 9b4f7421e00b866488f5c966d69ee11a, type: 2}
   _storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}
+  _scriptManager: {fileID: 0}
 --- !u!223 &8621151203940707326
 Canvas:
   m_ObjectHideFlags: 0
@@ -1378,7 +1379,7 @@ RectTransform:
   m_GameObject: {fileID: 5867226087705789223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5445, y: 1.5445, z: 1.5445}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2284832625116332769}
@@ -1386,7 +1387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 527, y: 84.89}
+  m_AnchoredPosition: {x: 473, y: 84.89}
   m_SizeDelta: {x: 166.13, y: 56.1825}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8422418913971144224
