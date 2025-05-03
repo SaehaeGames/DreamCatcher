@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class StoreData : MonoBehaviour
 {
@@ -26,13 +27,14 @@ public class StoreData : MonoBehaviour
 
     public string curCategory;
     public string curInteriorCategory;
+
+    public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread};
     
     public void Start()
     {
         goodsDataManager = GameManager.instance.goodsDataManager;
         storeinfo_data = GameManager.instance.storeinfo_data;
 
-        //curCategory = this.GetComponent<StoreItemCategory>()
         UpdateStoreData(StoreType.Development);
     }
 
@@ -40,18 +42,7 @@ public class StoreData : MonoBehaviour
     {
         //상점 데이터를 가져오는 함수
 
-        /*        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
-                {
-                    string category = storeinfo_data.dataList[i].category.ToString();
-
-                    if (!string.IsNullOrEmpty(category))
-                    {
-                        UpdateGoodsInfo(i, category);
-                    }
-                }*/
-
         UpdateDevelopmentGoodsData();
-        //UpdateInteriorGoodsData(curCategory);
     }
 
     public void UpdateStoreInteriorData(ItemTheme theme)
@@ -66,20 +57,32 @@ public class StoreData : MonoBehaviour
     {
         // 보조도구 상품을 업데이트 하는 함수
 
+        /*        for (int i = 0; i < goodsContents.Length; i++)
+                {
+                    int goodsLevel = goodsDataManager.dataList[i].level;
+                    int id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel);
+
+                    Debug.Log(developCategory[i]  + goodsLevel + "ID : " + id);
+
+                    goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
+                    goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetContentsByID(id + 1);
+                    goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
+                    goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
+
+                    if (IsItemSoldOut(developCategory[i], goodsLevel))
+                        soldOut[i].SetActive(true);
+                }*/
+
         for (int i = 0; i < goodsContents.Length; i++)
         {
             int goodsLevel = goodsDataManager.dataList[i].level;
             int dataOffset = goodsLevel + i + 1;
 
-            Debug.Log("goodsLevel : " + i + ", " + goodsLevel + ", " + dataOffset);
 
             goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
+            goodsContents[i].transform.GetChild(3).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
-
-            /*if (IsItemSoldOut(i))
-                soldOut[i].SetActive(true);*/
         }
     }
 
@@ -87,14 +90,16 @@ public class StoreData : MonoBehaviour
     {
         // 인테리어 상품을 업데이트 하는 함수
 
-        //this.GetComponent<CategorySelect>().SetStarInteriorSelect();
-
         int index = 0;
         int interiorIndex = 0;
         Debug.Log(curInteriorCategory);
         if (curInteriorCategory == ItemTheme.Sea.ToString())
         {
             interiorIndex = 1;
+        }
+        else
+        {
+            interiorIndex = 0;
         }
 
         for (int i = 0; i < storeinfo_data.dataList.Count; i++)
@@ -107,78 +112,142 @@ public class StoreData : MonoBehaviour
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
                 interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
 
-                // 품절 여부 확인 (Optional)
-                /*
-                if (IsItemSoldOut(i))
+                index++;
+            }
+        }
+
+        // 보유중인 아이템일 경우 soldOut 표시
+        index = 0;
+        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
+        {
+            var item = storeinfo_data.dataList[i];
+
+            if (item.theme.ToString() == curInteriorCategory)
+            {
+                InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorData(item.id);
+
+                if (interiorItem != null && interiorItem.isHaving)
                 {
-                    soldOut[index].SetActive(true);
+                    if (curInteriorCategory == ItemTheme.Sea.ToString())
+                    {
+                        if (SeaSoldOut.Length > index)
+                            SeaSoldOut[index].SetActive(true);
+                    }
+                    else
+                    {
+                        if (StarSoldOut.Length > index)
+                            StarSoldOut[index].SetActive(true);
+                    }
                 }
-                */
 
                 index++;
             }
         }
     }
 
-    private bool IsItemSoldOut(int index)
+    private bool IsItemSoldOut(string category, int level)
     {
         // 각 카테고리별 다음 상품이 있는지 확인하는 함수
 
-        int nextItemIndex = index + 1;
-        return nextItemIndex < storeinfo_data.dataList.Count && storeinfo_data.dataList[nextItemIndex].category == storeinfo_data.dataList[index].category;
+        bool result = false;
+
+        switch (category)
+        {
+            case Constants.GoodsData_Rack :
+                if (level == Constants.GoodsData_Rack_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Vase:
+                if (level == Constants.GoodsData_Vase_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Box:
+                if (level == Constants.GoodsData_Box_MaxLevel)
+                    result = true;
+                break;
+            case Constants.GoodsData_Thread:
+                if (level == Constants.GoodsData_Thread_MaxLevel)
+                    result = true;
+                break;
+            default: result = false; break;
+
+        }
+
+        return result;
     }
 
-    /*
-        public void AddGoodsLevel(int goodsIndex)
-        {
-            curGoodsData.goodsList[goodsIndex].goodsLevel++;    //상품 레벨 증가
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GoodsJSON>().DataSaveText(curGoodsData);   //변경사항 json으로 저장
-        }
 
-        public void SpendGold(int cost)
-        {
-            curPlayerData.dataList[1].dataNumber -= cost;   //보유 골드 감소
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<PlayerDataJSON>().DataSaveText(curPlayerData);   //변경사항 json으로 저장
-        }
-    */
-    public void BuyGoods(int goodsNumber)
+    public void AddGoodsLevel(int goodsIndex)
     {
+        goodsDataManager.dataList[goodsIndex].level++;    //상품 레벨 증가
+    }
+
+    public void SpendGold(int cost)
+    {
+        GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
+    }
+
+    public void BuyGoods(int id)
+    {
+        JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
         if (curCategory == StoreType.Development)   // 보조도구 상품이라면
         {
-            int goodsLevel = goodsDataManager.dataList[goodsNumber].level;    // 플레이어의 상품 레벨
-            int dataOffset = goodsLevel + goodsNumber + 1;
-            int goodsCost = storeinfo_data.dataList[dataOffset].gold;
-
-            if (GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber >= goodsCost)    // 구매 가능하다면(돈이 충분하다면)
+            if (id >= 4000 && id <= 4002) // 횃대는 두 개 동시에 레벨업
             {
-                Debug.Log(GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
-                GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= goodsCost;    // 골드 감소
-                Debug.Log(GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
+                List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(curCategory.ToString());
+                if (rackList != null && rackList.Count == 2)
+                {
+                    rackList[0].level++;
+                    rackList[1].level++;
+                    Debug.Log($"[SUCCESS] RackFront & RackBack 레벨업 완료!");
 
-                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);  // 변동된 플레이어 데이터 저장
-
-                goodsDataManager.dataList[goodsNumber].level++;
-                //GameManager.instance.GetComponent<GoodsJSON>().DataSaveText(curGoodsData);
-                UpdateStoreData(StoreType.Development);
+                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                }
             }
+            else  //일반 아이템 레벨업
+            {
+                GoodsData item = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(curCategory.ToString());
+                if (item != null)
+                {
+                    item.level++;
+
+                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                }
+            }
+
+            UpdateStoreData(StoreType.Development);
         }
-        else if (curCategory == StoreType.Interior)  // 인테리어 상품이라면
+        else if (curCategory == StoreType.Interior)  //인테리어 상품이라면
         {
-            int goodsCost = GetCostForSpecialGoods(goodsNumber);
 
-            if (GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber >= goodsCost)
+            InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(id);
+            Debug.Log("현재 아이템 보유 상태: " + item.isHaving);
+            if (item != null)
             {
-                GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= goodsCost;
-                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, GameManager.instance.playerDataManager);  // 변동된 플레이어 데이터 저장
+                item.isHaving = true; //정확한 아이템 보유 상태 업데이트
 
-                //GameManager.instance.GetComponent<GoodsJSON>().DataSaveText(curGoodsData);
-                UpdateStoreData(StoreType.Interior);
+                jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
             }
+
+            UpdateStoreData(StoreType.Interior);
         }
 
         GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
+
+        // UI 즉시 반영
+        MainProducts mainProducts = FindObjectOfType<MainProducts>();
+        if (mainProducts != null)
+        {
+            mainProducts.ResetMainProducts();
+        }
+    }
+
+    public List<GoodsData> GetGoodsDataListByIndex(int goodsNumber)
+    {
+        string category = GameManager.instance.storeinfo_data.dataList[goodsNumber].category.ToString();
+        return GameManager.instance.goodsDataManager.GetGoodsDataList(category);
     }
 
     public int GetCategoryStartNumber(StoreItemCategory category)

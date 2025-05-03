@@ -73,7 +73,7 @@ public class SpecialFeed : MonoBehaviour
             // rackIndex에 사용되도록 구현하기
 
             float decrease = selectCount * decreaseTime;     // 특제 먹이 사용으로 감소하는 시간 계산
-            int rackLevel = GameManager.instance.goodsDataManager.GetGoodsData(Constants.GoodsData_Rack).level;
+            int rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;
 
             GetComponent<FeedTimer>().DecreaseFeedingTime(rackIndex, decrease);     // 선택한 횃대에 특제 먹이 사용(남은 시간 감소)
             feedCount -= selectCount;    //특제 먹이 개수 갱신

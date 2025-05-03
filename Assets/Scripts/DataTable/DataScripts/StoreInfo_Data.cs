@@ -55,11 +55,65 @@ public class StoreInfo_Data : ScriptableObject
         return result;
     }
 
+    public int GetIDByCategoryAndLevel(string category, int level)
+    {
+        var matchingItems = dataList
+            .Where(storeItem => storeItem.category.ToString().Trim().Equals(category.Trim(), StringComparison.OrdinalIgnoreCase)
+                                && storeItem.level == level)
+            .ToList();
+
+        if (matchingItems.Count == 1)
+        {
+            return matchingItems[0].id;
+        }
+        else if (matchingItems.Count > 1)
+        {
+            Debug.LogError($"[ERROR] {category}에 해당하는 여러 개의 아이템이 존재합니다! (레벨 {level})");
+            return matchingItems[0].id;  // 첫 번째 ID 반환 (임시)
+        }
+        else
+        {
+            Debug.LogError($"[ERROR] {category}에 해당하는 아이템을 찾을 수 없음! (레벨 {level})");
+            return 0; // 에러 처리
+        }
+    }
+
+
     public ItemTheme GetThemeByID(int id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)
             .Select(storeItem => storeItem.theme)
+            .FirstOrDefault();
+
+        return result;
+    }
+
+    public string GetContentsByID(int id)
+    {
+        var result = dataList
+            .Where(storeItem => storeItem.id == id)
+            .Select(storeItem => storeItem.contents)
+            .FirstOrDefault();
+
+        return result;
+    }
+
+    public string GetEffectByID(int id)
+    {
+        var result = dataList
+            .Where(storeItem => storeItem.id == id)
+            .Select(storeItem => storeItem.effect)
+            .FirstOrDefault();
+
+        return result;
+    }
+
+    public int GetGoldByID(int id)
+    {
+        var result = dataList
+            .Where(storeItem => storeItem.id == id)
+            .Select(storeItem => storeItem.gold)
             .FirstOrDefault();
 
         return result;

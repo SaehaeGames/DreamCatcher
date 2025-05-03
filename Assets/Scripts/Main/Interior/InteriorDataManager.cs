@@ -9,14 +9,12 @@ public class InteriorData
 {
 
     public int id;           //인테리어 아이템 id
-    public int level;       // 인테리어 아이템 레벨
     public bool isHaving;         //인테리어 아이템 보유중 여부
     public bool isAdjusting;      //인테리어 아이템 적용중 여부
 
-    public InteriorData(int id, int level, bool isHaving, bool isAdjusting)
+    public InteriorData(int id, bool isHaving, bool isAdjusting)
     {
         this.id = id;
-        this.level = level;
         this.isHaving = isHaving;
         this.isAdjusting = isAdjusting;
     }
@@ -52,15 +50,15 @@ public class InteriorDataManager
         for (int j = 0; j < defaultItemIDList.Count; j++)
         {
             int level = GameManager.instance.storeinfo_data.GetLevelByID(defaultItemIDList[j]);
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], level, false, false));
+            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
         }
         for (int j = 0; j < SeaItemIDList.Count; j++)
         {
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], 1, false, false));
+            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
         }
         for (int j = 0; j < StarItemIDList.Count; j++)
         {
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], 2, false, false));
+            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
         }
 
 

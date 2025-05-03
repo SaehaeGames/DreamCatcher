@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
 
+
     void Awake()
     {
         // 게임 시작과 동시에 싱글톤 구성
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         instance = this;    //유일한 인스턴스
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
 
-        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
     }
 

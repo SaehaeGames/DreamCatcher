@@ -34,8 +34,13 @@ public static class Constants
     // goodsData 내부 데이터
     public const string GoodsData_Rack = "Rack";
     public const string GoodsData_Vase = "Vase";
-    public const string GoodsData_Pocket = "Pocket";
+    public const string GoodsData_Box = "Box";
     public const string GoodsData_Thread = "Thread";
+    public const int GoodsData_Rack_MaxLevel = 2;
+    public const int GoodsData_Vase_MaxLevel = 3;
+    public const int GoodsData_Box_MaxLevel = 3;
+    public const int GoodsData_Thread_MaxLevel = 4;
+
 
     // storeData 관련 데이터
     //public const int DevelopmentItemMaxLevel = 2;
