@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InteractiveSequenceClick : InteractiveSequenceBase
 {
+    public GameObject DebugText;
     private GameObject canvas;
 
     private ScriptBox scriptBox;
@@ -61,24 +62,37 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
         // 해당 버튼을 누르면
+        if(clickBtn==null)
+        {
+            DebugText.GetComponent<Text>().text += "clickBtn == null";
+        }
         if (clickBtn.GetComponent<InteractiveButton>() != null)
         {
+            //DebugText.GetComponent<Text>().text += "버튼 존재";
+            //Debug.Log("버튼 존재");
             if (doClickButnDuplicate && duplicatedClickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
-                Debug.Log("클릭버튼 위치 이후 : " + clickBtn.transform.position);
+                DebugText.GetComponent<Text>().text += "복제된 버튼 눌림 인식";
+                Debug.Log("복제된 버튼 눌림 인식");
                 Destroy(duplicatedClickBtn);
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            else if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
+                DebugText.GetComponent<Text>().text += "화살표 강조 버튼 눌림 인식";
+                Debug.Log("화살표 강조 버튼 눌림 인식");
                 clickBtn.transform.SetParent(startParent);
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            else if(clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            if(clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
+                DebugText.GetComponent<Text>().text += "일반 버튼 눌림 인식";
+                Debug.Log("일반 버튼 눌림 인식");
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
         }
+        //DebugText.GetComponent<Text>().text += "Execute 끝";
+        //Debug.Log("Execute 끝");
     }
 
     public override void Execute(QuestActionPipeline questActionPipeline)

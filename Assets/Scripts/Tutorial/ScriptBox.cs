@@ -137,7 +137,7 @@ public class ScriptBox : MonoBehaviour
 
         talk = _storyscriptinfo_data.dataList[lineNum].line; // 대사
         _scriptManager.AddLog(talk); // 로그 업데이트
-        Debug.Log("로그 추가: " + talk);
+        //Debug.Log("로그 추가: " + talk);
 
         // 타이핑 효과
         typingCoroutine = Typing();
