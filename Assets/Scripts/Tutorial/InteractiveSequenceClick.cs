@@ -66,6 +66,11 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
         {
             DebugText.GetComponent<Text>().text += "clickBtn == null";
         }
+
+        if(clickBtn.GetComponent<InteractiveButton>() == null)
+        {
+            DebugText.GetComponent<Text>().text += "InteractiveButton == null";
+        }
         if (clickBtn.GetComponent<InteractiveButton>() != null)
         {
             //DebugText.GetComponent<Text>().text += "버튼 존재";
