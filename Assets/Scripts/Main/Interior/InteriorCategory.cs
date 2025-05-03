@@ -282,12 +282,12 @@ public class InteriorCategory : MonoBehaviour
         string category = CheckItemCategory2(itemIdx);
         ItemTheme selectedTheme = GameManager.instance.storeinfo_data.GetThemeByID(selectedItem.id);
 
-        // ✅ 적용 해제 로직 개선
+        // 적용 해제 로직 개선
         if (currentAdjusting[itemIdx])
         {
             int defaultIdx = -1;
 
-            // ✅ 특정 카테고리 (꽃병, 상자, 실, 벽지)의 기본 아이템 찾기
+            // 특정 카테고리 (꽃병, 상자, 실, 벽지)의 기본 아이템 찾기
             if (category == "Vase" || category == "Box" || category == "Thread" || category == "Wallpaper")
             {
                 var defaultItem = interiorDataManager.dataList.FirstOrDefault(item =>

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MainProducts : MonoBehaviour
 {
     [Header("[Good Objects]")]
-    public Image[] goodsContents;   //상품 오브젝트 배열
+    public GameObject[] goodsContents;   //상품 오브젝트 배열
     // 효과 있는 아이템 (횃대, 꽃병, 주머니, 실)
     // 인테리어 아이템 ((벽지, 책상),  가랜드, (창틀1, 창틀2, 창틀 인테리어), 패드, 깃펜, 오브젝트1, 수정구슬, 망원경, 오브젝트2)
     public SpriteArray[] goodsImages; //상품 이미지 배열
@@ -41,7 +41,7 @@ public class MainProducts : MonoBehaviour
     {
         // 상품 이미지를 인덱스로 설정하는 함수
 
-        goodsContents[index].sprite = goodsImages[index].imageList[level];
+        goodsContents[index].GetComponent<Image>().sprite = goodsImages[index].imageList[level];
     }
 }
 
