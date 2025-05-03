@@ -35,7 +35,6 @@ public class MainProducts : MonoBehaviour
         if (index >= 0 && index < goodsDataManager.dataList.Count)
             return goodsDataManager.dataList[index].level;
 
-        Debug.LogError($"[ERROR] goodsDataManager.dataList에서 {index} 번째 데이터를 찾을 수 없음.");
         return 0; // 기본값 반환
     }
     private void SetGoodsImageToIndex(int index, int level)

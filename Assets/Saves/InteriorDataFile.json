@@ -127,8 +127,8 @@
         },
         {
             "id": 4027,
-            "isHaving": false,
-            "isAdjusting": false
+            "isHaving": true,
+            "isAdjusting": true
         },
         {
             "id": 4030,

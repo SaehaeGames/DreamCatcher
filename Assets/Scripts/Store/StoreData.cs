@@ -75,24 +75,12 @@ public class StoreData : MonoBehaviour
 
         for (int i = 0; i < goodsContents.Length; i++)
         {
-            if (i >= goodsDataManager.dataList.Count)
-            {
-                Debug.LogError($"[ERROR] goodsDataManager.dataList에 {i}번째 인덱스가 없음! (Count: {goodsDataManager.dataList.Count})");
-                continue; // 잘못된 접근 방지
-            }
-
             int goodsLevel = goodsDataManager.dataList[i].level;
             int dataOffset = goodsLevel + i + 1;
 
-            if (dataOffset >= storeinfo_data.dataList.Count)
-            {
-                Debug.LogError($"[ERROR] storeinfo_data.dataList[{dataOffset}]가 존재하지 않음! (Count: {storeinfo_data.dataList.Count})");
-                continue; // 잘못된 접근 방지
-            }
-
 
             goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-            goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
+            goodsContents[i].transform.GetChild(3).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
             goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
             goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
         }
