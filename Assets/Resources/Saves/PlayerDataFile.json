@@ -6,7 +6,7 @@
         },
         {
             "dataName": "Gold",
-            "dataNumber": 30000.0
+            "dataNumber": 754000.0
         },
         {
             "dataName": "SpecialFeed",
@@ -26,7 +26,7 @@
         },
         {
             "dataName": "EffectMute",
-            "dataNumber": 0.0
+            "dataNumber": 1.0
         },
         {
             "dataName": "nowSceneNum",
@@ -34,11 +34,11 @@
         },
         {
             "dataName": "nowQuestNum",
-            "dataNumber": 1.0
+            "dataNumber": 3.0
         },
         {
             "dataName": "questAccepted",
-            "dataNumber": 0.0
+            "dataNumber": 1.0
         }
     ]
 }

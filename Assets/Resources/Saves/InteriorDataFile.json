@@ -112,13 +112,13 @@
         },
         {
             "id": 4018,
-            "isHaving": false,
+            "isHaving": true,
             "isAdjusting": false
         },
         {
             "id": 4021,
-            "isHaving": false,
-            "isAdjusting": false
+            "isHaving": true,
+            "isAdjusting": true
         },
         {
             "id": 4024,
@@ -127,8 +127,8 @@
         },
         {
             "id": 4027,
-            "isHaving": false,
-            "isAdjusting": false
+            "isHaving": true,
+            "isAdjusting": true
         },
         {
             "id": 4030,
@@ -142,12 +142,12 @@
         },
         {
             "id": 4036,
-            "isHaving": false,
+            "isHaving": true,
             "isAdjusting": false
         },
         {
             "id": 4039,
-            "isHaving": false,
+            "isHaving": true,
             "isAdjusting": false
         },
         {
