@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,26 +15,42 @@ public class QuestActionManager : MonoBehaviour
 
     private void Awake()
     {
-        // Äù½ºÆ® ¾×¼Ç °¹¼ö ÆÄ¾Ç
+        // í€˜ìŠ¤íŠ¸ ì•¡ì…˜ ê°¯ìˆ˜ íŒŒì•…
         int questCount = this.transform.childCount;
         quests = new Transform[questCount];
 
-        // ¸ğµç Äù½ºÆ® ¾×¼Ç ºñÈ°¼ºÈ­
+        // ëª¨ë“  í€˜ìŠ¤íŠ¸ ì•¡ì…˜ ë¹„í™œì„±í™”
         for(int i=0; i<this.transform.childCount; i++)
         {
-            quests[i] = this.transform.GetChild(i); // Äù½ºÆ® ¾×¼Ç ÀúÀå
-            quests[i].GetChild(1).gameObject.SetActive(false); // End ºñÈ°¼ºÈ­
-            quests[i].GetChild(0).gameObject.SetActive(false); // Start ºñÈ°¼ºÈ­
+            quests[i] = this.transform.GetChild(i); // í€˜ìŠ¤íŠ¸ ì•¡ì…˜ ì €ì¥
+            quests[i].GetChild(1).gameObject.SetActive(false); // End ë¹„í™œì„±í™”
+            quests[i].GetChild(0).gameObject.SetActive(false); // Start ë¹„í™œì„±í™”
         }
     }
 
     void Start()
     {
-        // ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ(PlayerDataFile) ·Îµå
+        // í”Œë ˆì´ì–´ ë°ì´í„°(PlayerDataFile) ë¡œë“œ
         _playerDataContainer = GameManager.instance.playerDataManager;
+        if(_playerDataContainer == null)
+        {
+            Debug.LogError("_playerDataContainer instance is null");
+        }
+        else
+        {
+            Debug.Log("_playerDataContainer instance is not null");
+        }
 
-        // ÇöÀç Äù½ºÆ® ¹øÈ£ ºÒ·¯¿À±â
-        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // ÇöÀçÀÇ Äù½ºÆ® ¹øÈ£ ºÒ·¯¿À±â
+        // í˜„ì¬ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ ë¶ˆëŸ¬ì˜¤ê¸°
+        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // í˜„ì¬ì˜ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ ë¶ˆëŸ¬ì˜¤ê¸°
+        Debug.LogError("currentQuestNum is here");
+
+        if (this == null)
+        { Debug.LogError("QuestActionManager instance is null"); }
+
+        if (_playerDataContainer == null)
+        { Debug.LogError("_playerDataContainer is null"); }
+
     }
 
     private void OnEnable()
@@ -51,42 +67,42 @@ public class QuestActionManager : MonoBehaviour
 
     public void HandleSetQuestStartActive()
     {
-        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // ÇöÀçÀÇ Äù½ºÆ® ¹øÈ£ ºÒ·¯¿À±â
-        int questAccepted = (int)_playerDataContainer.dataList[9].dataNumber; // ÇöÀç Äù½ºÆ® ¼ö¶ô »óÅÂÀÎÁö ºÒ·¯¿À±â
+        Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
+        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // í˜„ì¬ì˜ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ ë¶ˆëŸ¬ì˜¤ê¸°
+        int questAccepted = (int)_playerDataContainer.dataList[9].dataNumber; // í˜„ì¬ í€˜ìŠ¤íŠ¸ ìˆ˜ë½ ìƒíƒœì¸ì§€ ë¶ˆëŸ¬ì˜¤ê¸°
         if (currentQuestNum >= 3 && currentQuestNum < quests.Length + 3 && questAccepted == 0)
         {
             Transform startObject = quests[currentQuestNum - 3].GetChild(0);
             
             if (startObject != null)
             {
-                Debug.Log("<color=cyan>Start QuestAction È°¼ºÈ­</color>");
-                startObject.gameObject.SetActive(true); // Start È°¼ºÈ­
+                Debug.Log("<color=cyan>Start QuestAction í™œì„±í™”</color>");
+                startObject.gameObject.SetActive(true); // Start í™œì„±í™”
 
-                // Äù½ºÆ® ¼ö¶ô »óÅÂ ¾÷µ¥ÀÌÆ®
-                _playerDataContainer.dataList[9].dataNumber = 1; // [Äù½ºÆ® Áß]À¸·Î ¼öÁ¤
+                // í€˜ìŠ¤íŠ¸ ìˆ˜ë½ ìƒíƒœ ì—…ë°ì´íŠ¸
+                _playerDataContainer.dataList[9].dataNumber = 1; // [í€˜ìŠ¤íŠ¸ ì¤‘]ìœ¼ë¡œ ìˆ˜ì •
                 GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, _playerDataContainer);
             }
         }
+        Debug.Log("<color=cyan>Handle Set Quest Start Active ----- End</color>");
     }
 
     public void HandleSetQuestEndActive()
     {
-        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // ÇöÀçÀÇ Äù½ºÆ® ¹øÈ£ ºÒ·¯¿À±â
-        int questAccepted = (int)_playerDataContainer.dataList[9].dataNumber; // ÇöÀç Äù½ºÆ® ¼ö¶ô »óÅÂÀÎÁö ºÒ·¯¿À±â
+        currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // í˜„ì¬ì˜ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ ë¶ˆëŸ¬ì˜¤ê¸°
+        int questAccepted = (int)_playerDataContainer.dataList[9].dataNumber; // í˜„ì¬ í€˜ìŠ¤íŠ¸ ìˆ˜ë½ ìƒíƒœì¸ì§€ ë¶ˆëŸ¬ì˜¤ê¸°
         if (currentQuestNum >= 3 && currentQuestNum < quests.Length + 3 && questAccepted == 1)
         {
             Transform endObject = quests[currentQuestNum - 3].GetChild(1);
             if (endObject != null)
             {
-                Debug.Log("<color=cyan>Start QuestAction ºñÈ°¼ºÈ­</color>");
-                endObject.gameObject.SetActive(true); // End È°¼ºÈ­ 
+                Debug.Log("<color=cyan>Start QuestAction ë¹„í™œì„±í™”</color>");
+                endObject.gameObject.SetActive(true); // End í™œì„±í™” 
 
-                // Äù½ºÆ® ¼ö¶ô »óÅÂ ¾÷µ¥ÀÌÆ®
-                _playerDataContainer.dataList[9].dataNumber = 0; // [Äù½ºÆ® ¾øÀ½]À¸·Î ¼öÁ¤
-                GameManager.instance.GetComponent<JsonManager>().SaveData(Constants.PlayerDataFile, _playerDataContainer);
+                // í€˜ìŠ¤íŠ¸ ìˆ˜ë½ ìƒíƒœ ì—…ë°ì´íŠ¸
+                _playerDataContainer.dataList[9].dataNumber = 0; // [í€˜ìŠ¤íŠ¸ ì—†ìŒ]ìœ¼ë¡œ ìˆ˜ì •
+                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, _playerDataContainer);
             }
         }
     }
-
-
 }

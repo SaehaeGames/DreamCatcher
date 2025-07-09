@@ -63,6 +63,8 @@ public class ScriptBox : MonoBehaviour
         scriptLogBox.gameObject.SetActive(false); // 스크립트로그 박스 닫기
         speed = 0.1f; // 스크립트 재생 속도
         highlightChar = false;
+
+        Debug.Log("dataList Count : " + _storyscriptinfo_data.dataList.Count);
     }
 
     // 대사창 시작

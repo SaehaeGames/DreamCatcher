@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 
 public class InteractiveLimitDragPoint : MonoBehaviour
 {
-    // ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ 
-    private PlayerDataManager curPlayerData;   //ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ Á¤º¸
+    // í”Œë ˆì´ì–´ ë°ì´í„° 
+    private PlayerDataManager curPlayerData;   //í”Œë ˆì´ì–´ ë°ì´í„° ì •ë³´
     private int curScene;
 
-    // Æ÷ÀÎÆ® µ¥ÀÌÅÍ
+    // í¬ì¸íŠ¸ ë°ì´í„°
     public int targetEndPoint1, targetEndPoint2;
     private int startPoint, endPoint;
 
@@ -20,14 +20,14 @@ public class InteractiveLimitDragPoint : MonoBehaviour
     void Start()
     {
         _tutorialConnectLine=GameObject.FindFirstObjectByType<InteractiveSequenceConnectLine>();
-        // Æ©Åä¸®¾ó ¾À »óÈ² È®ÀÎ
-        curPlayerData = GameManager.instance.playerDataManager;    //ÇÃ·¹ÀÌ¾îÀÇ »ó´Ü¹Ù µ¥ÀÌÅÍ Á¤º¸¸¦ °¡Á®¿È
+        // íŠœí† ë¦¬ì–¼ ì”¬ ìƒí™© í™•ì¸
+        curPlayerData = GameManager.instance.playerDataManager;    //í”Œë ˆì´ì–´ì˜ ìƒë‹¨ë°” ë°ì´í„° ì •ë³´ë¥¼ ê°€ì ¸ì˜´
         curScene = (int)curPlayerData.dataList[7].dataNumber;
 
-        // Æ©Åä¸®¾ó µå·¡±× Æ÷ÀÎÆ® Æ©Åä¸®¾ó °úÁ¤ ¿Ü¿£ ºñÈ°¼ºÈ­
+        // íŠœí† ë¦¬ì–¼ ë“œë˜ê·¸ í¬ì¸íŠ¸ íŠœí† ë¦¬ì–¼ ê³¼ì • ì™¸ì—” ë¹„í™œì„±í™”
         if (curScene != 8) this.GetComponent<InteractiveLimitDragPoint>().enabled = false;
 
-        // startPoint µ¥ÀÌÅÍ °¡Á®¿À±â
+        // startPoint ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
         startPoint = this.gameObject.GetComponent<DragPoint>().PointNumber;
     }
 
@@ -44,15 +44,15 @@ public class InteractiveLimitDragPoint : MonoBehaviour
             {
                 if(_tutorialConnectLine==null)
                 {
-                    Debug.LogError("_tutorialConnectLineÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+                    Debug.LogError("_tutorialConnectLineì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
                 }
                 _tutorialConnectLine.PlusNumberOfTimesCorrect();
-                Debug.Log("¿¬°á ¼º°ø Å¸°Ù °°À½");
+                Debug.Log("ì—°ê²° ì„±ê³µ íƒ€ê²Ÿ ê°™ìŒ");
                 return true;
             }
             else
             {
-                Debug.Log("¿¬°á ½ÇÆĞ Å¸°Ù °°À½");
+                Debug.Log("ì—°ê²° ì‹¤íŒ¨ íƒ€ê²Ÿ ê°™ìŒ");
                 return false;
             }
         }
@@ -62,15 +62,15 @@ public class InteractiveLimitDragPoint : MonoBehaviour
             {
                 if (_tutorialConnectLine == null)
                 {
-                    Debug.LogError("_tutorialConnectLineÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+                    Debug.LogError("_tutorialConnectLineì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
                 }
                 _tutorialConnectLine.PlusNumberOfTimesCorrect();
-                Debug.Log("¿¬°á ¼º°ø Å¸°Ù ´Ù¸§");
+                Debug.Log("ì—°ê²° ì„±ê³µ íƒ€ê²Ÿ ë‹¤ë¦„");
                 return true;
             }
             else
             {
-                Debug.Log("¿¬°á ¼º°ø Å¸°Ù ´Ù¸§");
+                Debug.Log("ì—°ê²° ì„±ê³µ íƒ€ê²Ÿ ë‹¤ë¦„");
                 return false;
             }
         }

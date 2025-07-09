@@ -30,6 +30,8 @@ public static class Constants
     public const string PlayerData_BGMMute = "BGMMute";
     public const string PlayerData_EffectMute = "EffectMute";
     public const string PlayerData_NowSceneNum = "nowSceneNum";
+    public const string PlayerData_NowQuestNum = "nowQuestNum";
+    public const string PlayerData_QuestAccepted = "questAccepted";
 
     // goodsData 내부 데이터
     public const string GoodsData_Rack = "Rack";

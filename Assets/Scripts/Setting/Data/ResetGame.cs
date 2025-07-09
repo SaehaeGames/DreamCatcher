@@ -21,6 +21,7 @@ public class ResetGame : MonoBehaviour
 
     public void ResettingGame()
     {
+        playerDataManager.ResetData();
         //리셋 버튼 이벤트
 /*
         //1. 플레이어 데이터 리셋(꿈구슬, 특제먹이, 골드, 볼륨)

@@ -50,7 +50,9 @@ public class PlayerDataManager
             new PlayerData(Constants.PlayerData_Effect, 1f),
             new PlayerData(Constants.PlayerData_BGMMute, 0),
             new PlayerData(Constants.PlayerData_EffectMute, 0),
-            new PlayerData(Constants.PlayerData_NowSceneNum, 0)
+            new PlayerData(Constants.PlayerData_NowSceneNum, 0),
+            new PlayerData(Constants.PlayerData_NowQuestNum, 1),
+            new PlayerData(Constants.PlayerData_QuestAccepted, 0)
         };
     }
 

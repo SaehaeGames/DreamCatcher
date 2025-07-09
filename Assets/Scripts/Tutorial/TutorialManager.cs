@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    private PlayerDataManager curPlayerData;   //ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ Á¤º¸
+    private PlayerDataManager curPlayerData;   //í”Œë ˆì´ì–´ ë°ì´í„° ì •ë³´
     private int curScene;
     private int curTutorial;
     [SerializeField] private GameObject tutorialFadePanal;
@@ -22,56 +22,57 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        // ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ(PlayerDataFile) ·Îµå
+        // í”Œë ˆì´ì–´ ë°ì´í„°(PlayerDataFile) ë¡œë“œ
         curPlayerData = GameManager.instance.playerDataManager;
 
-        // ÇöÀç Æ©Åä¸®¾ó ¾À ¼³Á¤
-        curScene = (int)curPlayerData.dataList[7].dataNumber; // ÇöÀç Æ©Åä¸®¾ó ¾À ºÒ·¯¿À±â
+        // í˜„ì¬ íŠœí† ë¦¬ì–¼ ì”¬ ì„¤ì •
+        curScene = (int)curPlayerData.dataList[7].dataNumber; // í˜„ì¬ íŠœí† ë¦¬ì–¼ ì”¬ ë¶ˆëŸ¬ì˜¤ê¸°
 
-        if(curScene > 11) // Æ©Åä¸®¾óÀÌ ¾Æ´Ñ ¾ÀºÎÅÍ´Â È°¼ºÈ­ÇÏÁö ¾ÊÀ½
+        if(curScene > 11) // íŠœí† ë¦¬ì–¼ì´ ì•„ë‹Œ ì”¬ë¶€í„°ëŠ” í™œì„±í™”í•˜ì§€ ì•ŠìŒ
         {
             scriptBox.ScriptBoxOnOff(false);
-            if (tutorialFadePanal != null)  tutorialFadePanal.SetActive(false); // ÆäÀÌ´õ ÆĞ³Î(°ËÀº ÆĞ³Î) ºñÈ°¼ºÈ­
+            if (tutorialFadePanal != null)  tutorialFadePanal.SetActive(false); // í˜ì´ë” íŒ¨ë„(ê²€ì€ íŒ¨ë„) ë¹„í™œì„±í™”
             return;
         }
 
-        this.transform.GetChild(curScene).gameObject.SetActive(true); // Æ©Åä¸®¾ó ¾À È°¼ºÈ­
-        // Ã¹ Æ©Åä¸®¾ó ¾ÀÀÏ °æ¿ì ÆäÀÌµå ÆĞ³Î ¼³Á¤
+        this.transform.GetChild(curScene).gameObject.SetActive(true); // íŠœí† ë¦¬ì–¼ ì”¬ í™œì„±í™”
+
+        // ì²« íŠœí† ë¦¬ì–¼ ì”¬ì¼ ê²½ìš° í˜ì´ë“œ íŒ¨ë„ ì„¤ì •
         if (tutorialFadePanal!=null)
         {
-            if ((curScene == 0)) // Ã¹ Æ©Åä¸®¾ó ¾ÀÀÌ ½ÃÀÛÀÏ °æ¿ì
+            if ((curScene == 0)) // ì²« íŠœí† ë¦¬ì–¼ ì”¬ì´ ì‹œì‘ì¼ ê²½ìš°
             {
-                tutorialFadePanal.SetActive(true); // ÆäÀÌ´õ ÆĞ³Î(°ËÀº ÆĞ³Î) È°¼ºÈ­
+                tutorialFadePanal.SetActive(true); // í˜ì´ë” íŒ¨ë„(ê²€ì€ íŒ¨ë„) í™œì„±í™”
             }
-            else // ±× ¿ÜÀÇ Æ©Åä¸®¾ó ¾ÀÀ¸·Î ½ÃÀÛÇÏ´Â °æ¿ì
+            else // ê·¸ ì™¸ì˜ íŠœí† ë¦¬ì–¼ ì”¬ìœ¼ë¡œ ì‹œì‘í•˜ëŠ” ê²½ìš°
             {
-                tutorialFadePanal.SetActive(false); // ÆäÀÌ´õ ÆĞ³Î(°ËÀº ÆĞ³Î) ºñÈ°¼ºÈ­
+                tutorialFadePanal.SetActive(false); // í˜ì´ë” íŒ¨ë„(ê²€ì€ íŒ¨ë„) ë¹„í™œì„±í™”
             }
         }
     }
 
-    // ¾À ³Ñ¹ö º¯°æ ¹× ¾À ¿ÀºêÁ§Æ® ¾÷µ¥ÀÌÆ® ÇÔ¼ö
-    // : ¾À ³Ñ¹ö°¡ º¯°æµÉ ¶§ ½ÇÇàµÈ´Ù.
+    // ì”¬ ë„˜ë²„ ë³€ê²½ ë° ì”¬ ì˜¤ë¸Œì íŠ¸ ì—…ë°ì´íŠ¸ í•¨ìˆ˜
+    // : ì”¬ ë„˜ë²„ê°€ ë³€ê²½ë  ë•Œ ì‹¤í–‰ëœë‹¤.
     public void ChangeScene()
     {
-        Debug.Log(curScene);       
+        Debug.Log("currentScene = " + curScene);
 
-        // ¸¶Áö¸· ÀÚ½ÄÀÎÁö È®ÀÎ
+        // ë§ˆì§€ë§‰ ìì‹ì¸ì§€ í™•ì¸
         if (this.transform.GetChild(curScene) == this.transform.GetChild(this.transform.childCount - 1))
         {
-            // ÀÌÀü ¾À ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            // ì´ì „ ì”¬ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
             this.transform.GetChild(curScene).gameObject.SetActive(false);
 
-            // ÇöÀç ¾À µ¥ÀÌÅÍ Áõ°¡
+            // í˜„ì¬ ì”¬ ë°ì´í„° ì¦ê°€
             curScene++;
         }
         else
         {
 
-            // ÀÌÀü ¾À ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            // ì´ì „ ì”¬ ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
             this.transform.GetChild(curScene).gameObject.SetActive(false);
 
-            // ´ÙÀ½ ¾À ¿ÀºêÁ§Æ® È°¼ºÈ­
+            // ë‹¤ìŒ ì”¬ ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
             curScene++;
             if (this.transform.GetChild(curScene).gameObject != null)
             {
@@ -80,7 +81,7 @@ public class TutorialManager : MonoBehaviour
         }
         
         
-        // ¾À µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+        // ì”¬ ë°ì´í„° ì—…ë°ì´íŠ¸
         curPlayerData.dataList[7].dataNumber = curScene;
         GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, curPlayerData);
     }

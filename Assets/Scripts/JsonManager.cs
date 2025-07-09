@@ -9,10 +9,14 @@ public class JsonManager
     public T LoadData<T>(string fileName) where T : new()
     {
         // 데이터를 로드하는 함수
-
         string savedPath = GetPath(fileName);
         if (!File.Exists(savedPath))              // 파일이 존재하지 않는다면 생성
         {
+            TextAsset defulatJson = Resources.Load<TextAsset>(savedPath);
+            if(defulatJson != null)
+            {
+
+            }
             T data = new T();
             SaveData<T>(fileName, data);
             return data;
@@ -89,5 +93,25 @@ public class JsonManager
     private class Wrapper<T>
     {
         public List<T> datalist;
+    }
+
+    public static void ClearSavedData()
+    {
+        string folderPath = Application.persistentDataPath + "/Saves/";
+
+        if (Directory.Exists(folderPath))
+        {
+            string[] files = Directory.GetFiles(folderPath);
+            foreach (string file in files)
+            {
+                File.Delete(file);
+            }
+
+            Debug.Log("모든 저장 데이터를 초기화했습니다.");
+        }
+        else
+        {
+            Debug.Log("저장 폴더가 존재하지 않습니다.");
+        }
     }
 }
