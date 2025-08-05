@@ -30,7 +30,7 @@
         },
         {
             "dataName": "nowSceneNum",
-            "dataNumber": 10.0
+            "dataNumber": 0.0
         },
         {
             "dataName": "nowQuestNum",
@@ -38,7 +38,7 @@
         },
         {
             "dataName": "questAccepted",
-            "dataNumber": 1.0
+            "dataNumber": 0.0
         }
     ]
 }

@@ -10,40 +10,104 @@ public class JsonManager
     {
         // 데이터를 로드하는 함수
         string savedPath = GetPath(fileName);
-        if (!File.Exists(savedPath))              // 파일이 존재하지 않는다면 생성
-        {
-            TextAsset defulatJson = Resources.Load<TextAsset>(savedPath);
-            if(defulatJson != null)
-            {
 
-            }
+#if DEVELOPMENT_BUILD // 개발 빌드일 땐 무조건 리소스에서 로드
+        Debug.Log("Json : Development Build - 강제로 Resource에서 불러옵니다.");
+        TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
+        if (defaultJson != null)
+        {
+            T data = JsonUtility.FromJson<T>(defaultJson.text);
+            SaveData<T>(fileName, data);
+            return data;
+        }
+        else
+        {
             T data = new T();
             SaveData<T>(fileName, data);
             return data;
         }
-        else                                     // 파일이 존재한다면 로드
+#else // 릴리즈 빌드일 때만 기존 저장 파일 우선
+        if (!File.Exists(savedPath))
         {
+            Debug.Log("Json : playerData can't find in savePath");
+            TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
+            if (defaultJson != null)
+            {
+                Debug.Log("Json : defaultJson find in Resource");
+                T data = JsonUtility.FromJson<T>(defaultJson.text);
+                SaveData<T>(fileName, data);
+                return data;
+            }
+            else
+            {
+                Debug.Log("Json : defaultJson can't find in Resource");
+                T data = new T();
+                SaveData<T>(fileName, data);
+                return data;
+            }
+        }
+        else
+        {
+            Debug.Log("Json : playerData find in savePath");
+            Debug.Log("Json : Application.persistentDataPath: " + Application.persistentDataPath);
+            Debug.Log("Json : GetPath: " + GetPath(fileName));
             string data = File.ReadAllText(savedPath);
             return JsonUtility.FromJson<T>(data);
         }
+#endif
     }
 
     public List<T> LoadDataList<T> (string fileName) where T : new()
     {
         // 데이터 리스트를 로드하는 함수
+        string savedPath = GetPath(fileName);
 
-        string savedPath = GetPath(fileName); 
-        if (!File.Exists(savedPath))             // 파일이 존재하지 않는다면 생성
+#if DEVELOPMENT_BUILD // 개발 빌드일 땐 항상 Resource에서 강제 초기화
+            Debug.Log("Json List : Development Build - 강제로 Resource에서 불러옵니다.");
+        TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
+        if (defaultJson != null)
+        {
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(defaultJson.text);
+            List<T> dataList = wrapper.datalist;
+            SaveDataList(fileName, dataList);
+            return dataList;
+        }
+        else
         {
             List<T> dataList = new List<T>();
             SaveDataList(fileName, dataList);
             return dataList;
         }
-        else                                     // 파일이 존재한다면 로드
+#else // 릴리즈 빌드일 경우 저장된 데이터 우선
+        if (!File.Exists(savedPath))
         {
+            Debug.Log("Json List : playerData can't find in savePath");
+            TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
+            if (defaultJson != null)
+            {
+                Debug.Log("Json List : defaultJson find in Resource");
+                Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(defaultJson.text);
+                List<T> dataList = wrapper.datalist;
+                SaveDataList(fileName, dataList);
+                return dataList;
+            }
+            else
+            {
+                Debug.Log("Json List : defaultJson can't find in Resource");
+                List<T> dataList = new List<T>();
+                SaveDataList(fileName, dataList);
+                return dataList;
+            }
+        }
+        else
+        {
+            Debug.Log("Json List : playerData find in savePath");
+            Debug.Log("Json List : Application.persistentDataPath: " + Application.persistentDataPath);
+            Debug.Log("Json List : GetPath: " + GetPath(fileName));
             string data = File.ReadAllText(savedPath);
             return JsonUtility.FromJson<Wrapper<T>>(data).datalist;
         }
+#endif
     }
 
     public void SaveData<T>(string fileName, T data)
