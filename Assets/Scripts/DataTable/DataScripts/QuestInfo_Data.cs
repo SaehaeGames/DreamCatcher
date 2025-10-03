@@ -12,7 +12,7 @@ public class QuestInfo_Data : ScriptableObject
 {
     private static string spreadSheetAddress = "1W0ML_fkdwZLb9MR4dElftbOhuofJutOvdotkpdRijQQ";
     private static long spreadSheetWorksheet = 0;
-    private static string spreadSheetRange = "A2:D";
+    private static string spreadSheetRange = "A2:F";
     private static string objectName = "QuestInfo";
     
     public List<QuestInfo_Object> dataList = new List<QuestInfo_Object>();

@@ -9,18 +9,22 @@ public class QuestInfo_Object
     public string title;
     public string contents;
     public string from;
+    public int questDreamCatcher;
+    public int questDreamCatcherNum;
 
     public QuestInfo_Object()
     {
-        id = 0;
+        id = questDreamCatcher = questDreamCatcherNum = 0;
         title = contents = from = "";
     }
 
-    public QuestInfo_Object(int _id, string _title, string _contents, string _from)
+    public QuestInfo_Object(int _id, string _title, string _contents, string _from, int _questDreamCatcher, int _questDreamCatcherNum)
     {
         id = _id;
         title = _title;
         contents = _contents;
         from = _from;
+        questDreamCatcher = _questDreamCatcher;
+        questDreamCatcherNum = _questDreamCatcherNum;
     }
 }
