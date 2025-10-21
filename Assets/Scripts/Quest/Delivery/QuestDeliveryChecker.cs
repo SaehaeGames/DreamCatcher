@@ -15,21 +15,44 @@ public class QuestDeliveryChecker : MonoBehaviour
         Debug.Log("questDreamCatcherInfoDatalist : " + questDreamCatcehrInfoDatalist[0].lines[4]);
 
         dreamCatcherListData = GameManager.instance.dreamCatcherDataManager.dreamCatcherList;
-        TryDeliveryDreamCatcher();
+
+        // 테스트 용 (나중에 이 함수를 UI 버튼 클릭 부분에서 호출)
+        TryDeliveryDreamCatcher(1000);
     }
 
-    public void TryDeliveryDreamCatcher()
+    public void TryDeliveryDreamCatcher(int selectedDreamCatcherId)
     {
+        // 현재 퀘스트에서 요구하는 드림캐쳐 불러오기
         DreamCatcher questDreamCatcher = DreamCatcherFactory.ConvertToDreamCatcher(questDreamCatcehrInfoDatalist[0]);
-        bool testResult=IsSameDreamCatcher(questDreamCatcher, dreamCatcherListData[0]);
+
+        // 선택한 드림캐쳐 불러오기
+        DreamCatcher selectedDreamCatcher = GameManager.instance.dreamCatcherDataManager.GetDreamCatcherById(selectedDreamCatcherId);
+
+        // 드림캐쳐 비교 및 처리
+        bool testResult = IsSameDreamCatcher(questDreamCatcher, selectedDreamCatcher);
         if(testResult)
         {
             Debug.Log("dreamCatcher is Same");
+            DeliverySuccess();
         }
         else
         {
             Debug.Log("dreamCatcher is not Same");
+            DeliveryFailed();
         }
+    }
+
+    public void DeliverySuccess()
+    {
+        // 해당 드림캐쳐 삭제
+        // 퀘스트 완료 처리
+        // 현재 퀘스트 데이터 업데이트
+
+    }
+
+    public void DeliveryFailed()
+    {
+
     }
 
     private bool IsSameDreamCatcher(DreamCatcher dreamCatcher1, DreamCatcher dreamCatcher2)
