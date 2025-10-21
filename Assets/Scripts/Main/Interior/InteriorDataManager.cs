@@ -83,4 +83,11 @@ public class InteriorDataManager
         else
             return null;
     }
+
+    public InteriorData GetGoodsDataByID(int id)
+    {
+        var item = dataList.FirstOrDefault(x => x.id == id);
+
+        return item;
+    }
 }

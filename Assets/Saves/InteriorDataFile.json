@@ -3,12 +3,12 @@
         {
             "id": 4003,
             "isHaving": true,
-            "isAdjusting": true
+            "isAdjusting": false
         },
         {
             "id": 4004,
             "isHaving": false,
-            "isAdjusting": false
+            "isAdjusting": true
         },
         {
             "id": 4005,
@@ -23,12 +23,12 @@
         {
             "id": 4007,
             "isHaving": true,
-            "isAdjusting": true
+            "isAdjusting": false
         },
         {
             "id": 4008,
             "isHaving": false,
-            "isAdjusting": false
+            "isAdjusting": true
         },
         {
             "id": 4009,
@@ -43,12 +43,12 @@
         {
             "id": 4011,
             "isHaving": true,
-            "isAdjusting": true
+            "isAdjusting": false
         },
         {
             "id": 4012,
             "isHaving": false,
-            "isAdjusting": false
+            "isAdjusting": true
         },
         {
             "id": 4013,
@@ -112,13 +112,13 @@
         },
         {
             "id": 4018,
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false
         },
         {
             "id": 4021,
-            "isHaving": true,
-            "isAdjusting": true
+            "isHaving": false,
+            "isAdjusting": false
         },
         {
             "id": 4024,
@@ -127,8 +127,8 @@
         },
         {
             "id": 4027,
-            "isHaving": true,
-            "isAdjusting": true
+            "isHaving": false,
+            "isAdjusting": false
         },
         {
             "id": 4030,
@@ -142,12 +142,12 @@
         },
         {
             "id": 4036,
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false
         },
         {
             "id": 4039,
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false
         },
         {

@@ -4,396 +4,378 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class InteriorCategory : MonoBehaviour
 {
-    // ì¸í…Œë¦¬ì–´ ì¹´í…Œê³ ë¦¬ ìŠ¤í¬ë¦½íŠ¸
+    public GameObject Panel_Interior;    GameObject ScrollViewPort;
+    public GameObject[] Button_InteriorCategory;
+    public GameObject[] Button_InteriorItem;
+    public GameObject[] horLines;
 
-    public GameObject Panel_Interior; // ì¸í…Œë¦¬ì–´ íŒ¨ë„
-    GameObject ScrollViewPort;  // ì¹´í…Œê³ ë¦¬ ë·° í¬íŠ¸
-    public GameObject[] Button_InteriorCategory;   //ì¸í…Œë¦¬ì–´ íŒ¨ë„ ë²„íŠ¼
-    public GameObject[] Button_InteriorItem;    //ì¸í…Œë¦¬ì–´ ì•„ì´í…œ ë²„íŠ¼
+    private List<GameObject> interiorItemArray;
+    private bool[] currentAdjusting;
+    public int currentCategoryIndex;
+    private InteriorDataManager interiorDataManager;
+    private GoodsDataManager goodsDataManager;
+    private StoreInfo_Data storeInfoData;
 
-    public GameObject[] horLines;   //ì¸í…Œë¦¬ì–´ UIì˜ ì¹´í…Œê³ ë¦¬ ì„¸ë¡œì„  ë°°ì—´
-
-    private List<GameObject> interiorItemArray; //ì¸í…Œë¦¬ì–´ ì•„ì´í…œ ë²„íŠ¼ ëª©ë¡
-    private bool[] currentAdjusting;  //í˜„ì¬ ì ìš©ì¤‘ì¸ ì•„ì´í…œ ì—¬ë¶€
-    public int currentCategoryIndex;   //í˜„ì¬ í™œì„±í™”ì¤‘ì¸ ì¸í…Œë¦¬ì–´ ì¹´í…Œê³ ë¦¬
-
-    private InteriorDataManager interiorDataManager;  //í˜„ì¬ í”Œë ˆì´ì–´ ì¸í…Œë¦¬ì–´ ë°ì´í„° ì •ë³´
-
-    public void Start()
+    void Start()
     {
         currentCategoryIndex = 0;
-        ScrollViewPort = Panel_Interior.gameObject.transform.GetChild(2).GetChild(0).gameObject;  
+        ScrollViewPort = Panel_Interior.transform.GetChild(2).GetChild(0).gameObject;
         for (int i = 0; i < Button_InteriorCategory.Length; i++)
-        {
             Button_InteriorCategory[i].GetComponent<InteriorButton>().buttonNumber = i;
-        }
 
         interiorDataManager = GameManager.instance.interiorDataManager;
-        currentAdjusting = new bool[GetBtnItemCount()];
+        goodsDataManager = GameManager.instance.goodsDataManager;
+        storeInfoData = GameManager.instance.storeinfo_data;
 
-        //SetAllItemsHavingTrue();
-        // isAdjusting ìƒíƒœë¥¼ ì´ˆê¸°í™”í•˜ê³  UI ì—…ë°ì´íŠ¸
+        GetBtnItemCount();
+        currentAdjusting = new bool[interiorItemArray.Count];
+
+        // ÃÊ±âÈ­ & Àû¿ë ÁßÀÎ ¾ÆÀÌÅÛ UI ¹İ¿µ
         for (int i = 0; i < interiorItemArray.Count; i++)
         {
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
             if (currentAdjusting[i])
             {
-                UpdateInteriorImage(i, i);
-                UpdateButtonAdjusting(i, i); // ì ìš© ì¤‘ UI ì—…ë°ì´íŠ¸
+                int id = interiorDataManager.dataList[i].id;
+                UpdateInteriorImage(i, id);
+                UpdateButtonAdjusting();
             }
         }
 
+        // º¸À¯/ºñº¸À¯ »óÅÂ ¹İ¿µ
         for (int i = 0; i < interiorItemArray.Count; i++)
-        {
             SettingItemHide(i);
-        }
 
-        DefineButtonNumber();   //ì¹´í…Œê³ ë¦¬ ë²„íŠ¼ ê³ ìœ  ë²ˆí˜¸ ì§€ì •
-        LoadSaveData(); // ì €ì¥ ë°ì´í„° ê°€ì ¸ì˜´
-        UpdateCatrgoryPanel(currentCategoryIndex); //ì¹´í…Œê³ ë¦¬ ë²ˆí˜¸ì— ë§ê²Œ ë…¸ì¶œë˜ëŠ” íŒ¨ë„ ì—…ë°ì´íŠ¸
-
+        //DefineButtonNumber();
+        LoadSaveData();
+        UpdateCatrgoryPanel(currentCategoryIndex);
     }
 
     public void UpdateCatrgoryPanel(int panelIdx)
     {
-        //ì¸í…Œë¦¬ì–´ ì¹´í…Œê³ ë¦¬ ë²„íŠ¼ ì—…ë°ì´íŠ¸ í•¨ìˆ˜)
-
         OpenIndexPanel(panelIdx);
         SetHorLine(panelIdx);
+        DefineButtonNumberAndID();
     }
 
-    public void OpenIndexPanel(int idx)
+    void OpenIndexPanel(int idx)
     {
-        //í•´ë‹¹í•˜ëŠ” ì¸ë±ìŠ¤ì˜ ì¸í…Œë¦¬ì–´ íŒ¨ë„ì„ í™œì„±í™”í•˜ëŠ” í•¨ìˆ˜
-
-        int panelCnt = ScrollViewPort.gameObject.transform.childCount;   //íŒ¨ë„ ì˜¤ë¸Œì íŠ¸ ê°œìˆ˜
-        for (int i = 0; i < panelCnt; i++)  //íŒ¨ë„ ì˜¤ë¸Œì íŠ¸ ê°œìˆ˜ë§Œí¼ ë°˜ë³µ
-        {
-            if (i == idx)
-            {
-                ScrollViewPort.gameObject.transform.GetChild(i).gameObject.SetActive(true);    //í•´ë‹¹í•˜ëŠ” ì¸ë±ìŠ¤ì˜ íŒ¨ë„ í™œì„±í™”
-            }
-            else
-            {
-                ScrollViewPort.gameObject.transform.GetChild(i).gameObject.SetActive(false);    //íŒ¨ë„ ë¹„í™œì„±í™”
-            }
-        }
+        int panelCnt = ScrollViewPort.transform.childCount;
+        for (int i = 0; i < panelCnt; i++)
+            ScrollViewPort.transform.GetChild(i).gameObject.SetActive(i == idx);
     }
 
-    public void SetHorLine(int curCateNum)
+    void SetHorLine(int curCateNum)
     {
-        //í˜„ì¬ ì‹¤í–‰ì¤‘ì¸ íƒ­ì— ë”°ë¼ ì„¸ë¡œì„  ë°°ì¹˜í•˜ëŠ” í•¨ìˆ˜
-        //ë‚˜ì¤‘ì—” ì´ì°¨ì› ë°°ì—´ë¡œ í•œ ë²ˆì— ì ìš©ë˜ê²Œ í•´ì•¼í•˜ë‚˜?
-
-        switch (curCateNum)
-        {
-            case 0:
-                horLines[0].SetActive(false);
-                horLines[1].SetActive(true);
-                horLines[2].SetActive(true);
-                break;
-            case 1:
-                horLines[0].SetActive(true);
-                horLines[1].SetActive(false);
-                horLines[2].SetActive(true);
-                break;
-            case 2:
-                horLines[0].SetActive(true);
-                horLines[1].SetActive(true);
-                horLines[2].SetActive(false);
-                break;
-            default:
-                horLines[0].SetActive(false);
-                horLines[1].SetActive(true);
-                horLines[2].SetActive(true);
-                break;
-        }
+        horLines[0].SetActive(curCateNum != 0);
+        horLines[1].SetActive(curCateNum != 1);
+        horLines[2].SetActive(curCateNum != 2);
     }
 
-    public int GetBtnItemCount()
+    int GetBtnItemCount()
     {
         interiorItemArray = new List<GameObject>();
-        for (int i = 0; i < Button_InteriorItem.Length; i++)
+        foreach (var cat in Button_InteriorItem)
         {
-            for (int j = 0; j < Button_InteriorItem[i].transform.GetChild(1).childCount; j++)
+            Transform parent = cat.transform.GetChild(1);
+            for (int j = 0; j < parent.childCount; j++)
             {
-                var child = Button_InteriorItem[i].transform.GetChild(1).GetChild(j).gameObject;
-                if (child.GetComponent<InteriorButton>() != null)
-                {
-                    interiorItemArray.Add(child);
-                }
+                var go = parent.GetChild(j).gameObject;
+                if (go.GetComponent<InteriorButton>() != null)
+                    interiorItemArray.Add(go);
             }
         }
-
         return interiorItemArray.Count;
     }
 
-    public void DefineButtonNumber()
-    {
-        // ì¸í…Œë¦¬ì–´ ë²„íŠ¼ë“¤ì— ê³ ìœ  ë²ˆí˜¸ë¥¼ ë¶€ì—¬í•˜ëŠ” í•¨ìˆ˜
-
-        // storeInfoì—ì„œ ë²„íŠ¼ idë¥¼ ê°€ì ¸ì˜´
-        StoreInfo_Data storeInfo_data = GameManager.instance.storeinfo_data;
-
-        List<int> defaultItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Default);
-        List<int> SeaItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
-        List<int> StarItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Star);
-
-        List<int> combinedItemIDList = new List<int>();
-        combinedItemIDList.AddRange(defaultItemIDList);
-        combinedItemIDList.AddRange(SeaItemIDList);
-        combinedItemIDList.AddRange(StarItemIDList);
-
-        int itemNumber = 0;
-
-        /*for (int i = 0; i < Button_InteriorCategory.Length; i++)
+    /*    void DefineButtonNumber()
         {
-            Button_InteriorCategory[i].gameObject.GetComponent<InteriorButton>().SetButtonNumber(i);
+            List<int> combinedIDs = new List<int>();
+            combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Default));
+            combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Sea));
+            combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Star));
+
+            int idx = 0;
+            foreach (var cat in Button_InteriorItem)
+            {
+                var parent = cat.transform.GetChild(cat.transform.childCount - 1);
+                for (int j = 0; j < parent.childCount; j++)
+                {
+                    var btn = parent.GetChild(j).GetComponent<InteriorButton>();
+                    btn.SetButtonNumber(idx);
+                    btn.SetButtonItemID(combinedIDs[idx]);
+                    idx++;
+                }
+            }
         }*/
 
-        for (int j = 0; j < Button_InteriorItem.Length; j++)
-        {
-            //ë²„íŠ¼ ì´ë²¤íŠ¸ ì„¤ì •
+    /* void DefineButtonNumber()
+     {
+         List<int> combinedIDs = new List<int>();
+         combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Default));
+         combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Sea));
+         combinedIDs.AddRange(storeInfoData.GetSortedIDsByTheme(ItemTheme.Star));
 
-            int itemsIndex = Button_InteriorItem[j].transform.childCount;
-            for (int k = 0; k < Button_InteriorItem[j].transform.GetChild(itemsIndex - 1).childCount; k++)
+         int idx = 0;
+         foreach (var cat in Button_InteriorItem)
+         {
+             var parent = cat.transform.GetChild(cat.transform.childCount - 1);
+             for (int j = 0; j < parent.childCount; j++)
+             {
+                 var btn = parent.GetChild(j).GetComponent<InteriorButton>();
+
+                 if (idx >= combinedIDs.Count)
+                 {
+                     btn.SetButtonNumber(idx);
+                     btn.SetButtonItemID(1);
+                 }
+                 else
+                 {
+                     btn.SetButtonNumber(idx);
+                     btn.SetButtonItemID(combinedIDs[idx]);
+                 }
+                 idx++;
+             }
+         }
+     }*/
+
+    void DefineButtonNumberAndID()
+    {
+        // °¢ ÅÇ¿¡ ´ëÀÀµÇ´Â Theme¿Í ÆĞ³Î
+        var tabMappings = new (ItemTheme theme1, StoreItemCategory theme2, Transform tab)[]
+        {
+            (ItemTheme.Default, StoreItemCategory.Vase, Button_InteriorItem[0].transform.GetChild(1)), // Default ÅÇÀÇ ¹öÆ° ÄÁÅ×ÀÌ³Ê
+            (ItemTheme.Default, StoreItemCategory.Box, Button_InteriorItem[1].transform.GetChild(1)), // Sea ÅÇÀÇ ¹öÆ° ÄÁÅ×ÀÌ³Ê
+            (ItemTheme.Default, StoreItemCategory.Thread, Button_InteriorItem[2].transform.GetChild(1)), // Star ÅÇÀÇ ¹öÆ° ÄÁÅ×ÀÌ³Ê
+        };
+
+
+        foreach (var (theme1, theme2, parent) in tabMappings)
+        {
+            List<int> themeIDs = storeInfoData.GetSortedIDsByTheme(theme1, theme2);
+            int loopCount = Mathf.Min(parent.childCount, themeIDs.Count);
+
+            for (int i = 0; i < loopCount; i++)
             {
-                var button = Button_InteriorItem[j].transform.GetChild(itemsIndex - 1).GetChild(k).gameObject.GetComponent<InteriorButton>();
-                button.SetButtonNumber(itemNumber);
-                button.SetButtonItemID(combinedItemIDList[itemNumber]);
-                itemNumber++;
+                var btn = parent.GetChild(i).GetComponent<InteriorButton>();
+                btn.SetButtonNumber(i);
+                btn.SetButtonItemID(themeIDs[i]);
             }
         }
     }
 
-
-    public string CheckItemCategory2(int itemIdx)
-    {
-        // ë°ì´í„° í…Œì´ë¸”ì—ì„œ ì•„ì´í…œì˜ ì¹´í…Œê³ ë¦¬2ë¥¼ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
-
-        int itemId = interiorDataManager.dataList[itemIdx].id;
-        var matchedItem = GameManager.instance.storeinfo_data.dataList.FirstOrDefault(data => data.id == itemId);
-        return matchedItem != null ? matchedItem.category.ToString() : string.Empty;
-    }
-
-    public void UpdateButtonAdjusting(int itemIdx, int imgIdx)
-    {
-        // í˜„ì¬ ì ìš©ì¤‘ì¸ ì•„ì´í…œì— ì ìš©ì¤‘ í‘œì‹œí•˜ëŠ” í•¨ìˆ˜
-
-        for (int j = 0; j < currentAdjusting.Length; j++)
+    /*    public void UpdateButtonAdjusting(int itemIdx)
         {
-            //ì ìš©ì¤‘ì¸ ì•„ì´í…œë§Œ ì ìš©ì¤‘ í‘œì‹œ
-            bool curAdjusting = currentAdjusting[j];
-            int itemsIndex = interiorItemArray[j].transform.childCount;
-            if (curAdjusting)
+            // Àû¿ë Áß UI Åä±Û
+            for (int i = 0; i < currentAdjusting.Length; i++)
             {
-                interiorItemArray[j].transform.GetChild(1).gameObject.SetActive(true);
+                interiorItemArray[i].transform.GetChild(1).gameObject
+                    .SetActive(currentAdjusting[i]);
             }
-            else
-            {
-                interiorItemArray[j].transform.GetChild(1).gameObject.SetActive(false);
-            }
+        }*/
+
+    public void UpdateButtonAdjusting()
+    {
+        for (int i = 0; i < interiorItemArray.Count; i++)
+        {
+            bool uiState = interiorItemArray[i].transform.GetChild(1).gameObject.activeSelf;
+            bool dataState = interiorDataManager.dataList[i].isAdjusting;
+
+            if (uiState != dataState)
+                interiorItemArray[i].transform.GetChild(1).gameObject.SetActive(dataState);
         }
     }
 
-    public void LoadSaveData()
+
+
+    void LoadSaveData()
     {
         interiorDataManager = GameManager.instance.interiorDataManager;
-        StoreInfo_Data storeInfo_Data = GameManager.instance.storeinfo_data;
-
         for (int i = 0; i < currentAdjusting.Length; i++)
         {
-            if (i >= interiorDataManager.dataList.Count)
-            {
-                Debug.LogError($"[ERROR] ì¸ë±ìŠ¤ {i}ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ.");
-                break;
-            }
-
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
-
-            if (currentAdjusting[i])
-            {
-                SettingItemHide(i); // âœ… ë³´ìœ  ìƒíƒœ ë°˜ì˜
-            }
+            if (currentAdjusting[i]) SettingItemHide(i);
         }
     }
 
-    public void UpdateInteriorImage(int itemIdx, int imgIdx)
+    /// <summary>
+    /// itemIdx: ¹öÆ° ¹è¿­ ³» ¼ø¼­
+    /// itemID: ½ÇÁ¦ ¾ÆÀÌÅÛ °íÀ¯ ID
+    /// </summary>
+    public void UpdateInteriorImage(int itemIdx, int itemID)
     {
-        // ê°€êµ¬ ì´ë¯¸ì§€ë¥¼ ì—…ë°ì´íŠ¸í•˜ëŠ” í•¨ìˆ˜
 
-        int objectNum = ChangeItemIdxToObjectNum(itemIdx);  // ì•„ì´í…œ ì¸ë±ìŠ¤ë¥¼ ì¹´í…Œê³ ë¦¬ ë²ˆí˜¸ë¡œ ë³€ê²½
-        var goodsImages = this.GetComponent<MainProducts>().goodsImages;
+        int objectNum = ChangeItemIDToObjectNum(itemID);
+        Debug.Log("objectNum : " + objectNum + ", itemID : " + itemID);
+        var goodsImages = GetComponent<MainProducts>().goodsImages;
         var imageList = goodsImages[objectNum].imageList;
+        Sprite spr = null;
 
-        // ê¸°ë³¸ ì´ë¯¸ì§€ ì„¤ì •
-        GameObject itemObj = this.GetComponent<MainProducts>().goodsContents[objectNum].gameObject;
-        itemObj.GetComponent<Image>().sprite = imageList[imgIdx];
-
-        // Wallpaperì˜ ê²½ìš°
-        if (objectNum == 5) // Wallpaperì˜ objectNumì´ 5ë¼ê³  ì§€ì •
+        // 0~4 º¸Á¶µµ±¸
+        if (objectNum <= 4)
         {
-            UpdateRelatedWallpaperImages(imgIdx);
-        }
-    }
-
-    private void UpdateRelatedWallpaperImages(int imgIdx)
-    {
-        var mainProducts = this.GetComponent<MainProducts>();
-        for (int j = 5; j < 9; j++) // Wallpaper ê´€ë ¨ ì˜¤ë¸Œì íŠ¸ë“¤
-        {
-            var relatedImageList = mainProducts.goodsImages[j].imageList;
-            if (imgIdx >= 0 && imgIdx < relatedImageList.Length)
+            if (itemIdx < imageList.Length)
             {
-                mainProducts.goodsContents[j].GetComponent<Image>().sprite = relatedImageList[imgIdx];
-            }
-        }
-    }
-
-    public int ChangeItemIdxToObjectNum(int itemIdx)
-    {
-        // ì•„ì´í…œ ì¸ë±ìŠ¤ ì •ë³´ë¡œ ì˜¤ë¸Œì íŠ¸ ì •ë³´ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
-        Debug.Log("ì¸ë±ìŠ¤ " + itemIdx + "ë¥¼ ë³€ê²½í•¨");
-
-        if (itemIdx >= 0 && itemIdx < 4) return 2;  // ê½ƒë³‘
-        if (itemIdx >= 4 && itemIdx < 8) return 3;  // ì¸ë²¤í† ë¦¬
-        if (itemIdx >= 8 && itemIdx < 13) return 4; // ì‹¤
-        if (itemIdx == 13 || itemIdx == 22) return 5; // ë²½ì§€
-        if (itemIdx == 14 || itemIdx == 23) return 9; // ê°€ëœë“œ
-        if (itemIdx == 15 || itemIdx == 24) return 10; // ì°½í‹€
-        if (itemIdx == 16 || itemIdx == 25) return 11; // íŒ¨ë“œ
-        if (itemIdx == 17 || itemIdx == 26) return 12; // ê¹ƒíœ
-        if (itemIdx == 18 || itemIdx == 27) return 13; // ìŠ¤íƒ€ë“œë¡­
-        if (itemIdx == 19 || itemIdx == 28) return 14; // ìˆ˜ì •êµ¬ìŠ¬
-        if (itemIdx == 20 || itemIdx == 29) return 15; // ë§ì›ê²½
-        if (itemIdx == 21 || itemIdx == 30) return 16; // ì˜¤ë¥´ê³¨
-        return -1; // ìœ íš¨í•˜ì§€ ì•Šì€ ê²½ìš°
-    }
-
-    public void SelectInteriorItem(int itemIdx, int itemID)
-    {
-        interiorDataManager = GameManager.instance.interiorDataManager;
-        var selectedItem = interiorDataManager.dataList[itemIdx];
-        string category = CheckItemCategory2(itemIdx);
-        ItemTheme selectedTheme = GameManager.instance.storeinfo_data.GetThemeByID(selectedItem.id);
-
-        // ì ìš© í•´ì œ ë¡œì§ ê°œì„ 
-        if (currentAdjusting[itemIdx])
-        {
-            int defaultIdx = -1;
-
-            // íŠ¹ì • ì¹´í…Œê³ ë¦¬ (ê½ƒë³‘, ìƒì, ì‹¤, ë²½ì§€)ì˜ ê¸°ë³¸ ì•„ì´í…œ ì°¾ê¸°
-            if (category == "Vase" || category == "Box" || category == "Thread" || category == "Wallpaper")
-            {
-                var defaultItem = interiorDataManager.dataList.FirstOrDefault(item =>
-                     CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category &&
-                     GameManager.instance.storeinfo_data.GetThemeByID(item.id) == ItemTheme.Default);
-
-                if (defaultItem != null)
-                {
-                    defaultIdx = interiorDataManager.dataList.IndexOf(defaultItem);
-
-                    if (itemIdx == defaultIdx)
-                    {
-                        return; // ê¸°ë³¸ ì•„ì´í…œì´ë©´ í•´ì œí•˜ì§€ ì•ŠìŒ
-                    }
-
-                    UpdateInteriorImage(itemIdx, defaultIdx);
-                }
-
-                // âœ… ê°™ì€ ì¹´í…Œê³ ë¦¬ì˜ ëª¨ë“  ì•„ì´í…œì„ í•´ì œ
-                foreach (var item in interiorDataManager.dataList)
-                {
-                    int index = interiorDataManager.dataList.IndexOf(item);
-                    if (CheckItemCategory2(index) == category && index != defaultIdx)
-                    {
-                        currentAdjusting[index] = false;
-                        item.isAdjusting = false;
-                    }
-                }
+                Debug.Log("¿©±â µé¾î°¨");
+                spr = imageList[itemIdx];
             }
             else
             {
-                // âœ… ì¼ë°˜ ì•„ì´í…œ í•´ì œ ë¡œì§
-                currentAdjusting[itemIdx] = false;
-                selectedItem.isAdjusting = false;
-                UpdateInteriorImage(itemIdx, 0);
+                Debug.Log("ÀÎµ¦½º ¹üÀ§¸¦ ¹ş¾î³² : " + itemIdx + ", " + imageList.Length);
             }
+        }
+        else // ÀÎÅ×¸®¾î ¾ÆÀÌÅÛ
+        {
+            ItemTheme theme = storeInfoData.GetThemeByID(itemID);
+            int ti = ThemeToIndex(theme);
+            if (ti >= 0 && ti < imageList.Length)
+                spr = imageList[ti];
+        }
+
+        if (spr != null)
+        {
+            var go = GetComponent<MainProducts>().goodsContents[objectNum];
+            go.GetComponent<Image>().sprite = spr;
+
+            // º®Áö(5¹ø) ÀÏ ¶§¸¸ Ãß°¡ Ã³¸®
+            if (objectNum == 5)
+                UpdateRelatedWallpaperImages(
+                    storeInfoData.GetThemeByID(itemID));
+        }
+    }
+
+    int ThemeToIndex(ItemTheme theme)
+    {
+        switch (theme)
+        {
+            case ItemTheme.Default: return 0;
+            case ItemTheme.Sea: return 1;
+            case ItemTheme.Star: return 2;
+            default: return 0;
+        }
+    }
+
+    void UpdateRelatedWallpaperImages(ItemTheme theme)
+    {
+        int ti = ThemeToIndex(theme);
+        var mp = GetComponent<MainProducts>();
+        for (int j = 5; j < 9; j++)
+        {
+            var imgs = mp.goodsImages[j].imageList;
+            if (ti >= 0 && ti < imgs.Length)
+                mp.goodsContents[j].GetComponent<Image>().sprite = imgs[ti];
+        }
+    }
+
+    public int ChangeItemIDToObjectNum(int itemID)
+    {
+        if (itemID < 4007) return 2;  // ²Éº´
+        if (itemID < 4011) return 3;  // ÀÎº¥Åä¸®
+        if (itemID < 4016) return 4;  // ½Ç
+        if (itemID < 4019) return 5;  // º®Áö
+        if (itemID < 4022) return 9;  // °¡·£µå
+        if (itemID < 4025) return 10; // Ã¢Æ²
+        if (itemID < 4028) return 11; // ÆĞµå
+        if (itemID < 4031) return 12; // ±êÆæ
+        if (itemID < 4034) return 13; // ½ºÅ¸µå·Ó
+        if (itemID < 4037) return 14; // ¼öÁ¤±¸½½
+        if (itemID < 4040) return 15; // ¸Á¿ø°æ
+        if (itemID < 4042) return 16; // ¿À¸£°ñ
+        return -1;
+    }
+
+    public void SelectInteriorDafaultItem(int itemIdx, int itemID)
+    {
+        // ÀÌ ÇÔ¼ö´Â ÀÏ´Ü ±âº» ¾ÆÀÌÅÛÀ» Å¬¸¯ÇÏ¸é ÀÛµ¿ÇÏ´Â ¹öÆ° ÀÌº¥Æ®....
+        // Å¬¸¯ÇÑ ¾ÆÀÌÅÛÀ» ÀÎ½ÄÇØ¼­ ÀÌ¹ÌÁö ¹Ù²Ù±â¸¦ ½ÇÇàÇÏ´Â °÷
+
+        interiorDataManager = GameManager.instance.interiorDataManager;
+        StoreItemCategory currentCategory = storeInfoData.GetCategoryByItemID(itemID);    // ¾ÆÀÌÅÛ ID·Î ¼±ÅÃÇÑ ¾ÆÀÌÅÛ Ä«Å×°í¸® Á¶È¸
+
+        // ¼±ÅÃÇÑ ¾ÆÀÌÅÛ Ã£±â
+        var categoryItems = interiorDataManager.dataList
+        .Where(d =>
+        {
+            var storeInfo = storeInfoData.dataList.FirstOrDefault(s => s.id == d.id);
+            return storeInfo != null && storeInfo.category == currentCategory;
+        })
+        .ToList();
+        
+
+        var selectedData = categoryItems[itemIdx];
+        int selectedIdx = 0;
+
+
+        if (selectedData.isAdjusting)
+        {
+            // ÀÌ¹Ì Àû¿ë ÁßÀÎ ¾ÆÀÌÅÛÀ» ´Ù½Ã Å¬¸¯ ¡æ Ä«Å×°í¸®ÀÇ Ã¹ ¾ÆÀÌÅÛÀ¸·Î µÇµ¹¸®±â
+            foreach (var d in categoryItems) d.isAdjusting = false;
+            categoryItems[0].isAdjusting = true;
+
+            selectedIdx = interiorDataManager.dataList.IndexOf(categoryItems[0]);
+            itemID = categoryItems[0].id;
+            itemIdx = 0; // ÀÌ¹ÌÁöµµ Ã¹ ¹øÂ°·Î º¯°æ
         }
         else
         {
-            // âœ… ê°™ì€ ì¹´í…Œê³ ë¦¬ì˜ ê¸°ì¡´ ì•„ì´í…œì„ í•´ì œí•˜ê³  ìƒˆë¡œìš´ ì•„ì´í…œ ì ìš©
-            var sameCategoryItem = interiorDataManager.dataList.FirstOrDefault(item =>
-                CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == category &&
-                currentAdjusting[interiorDataManager.dataList.IndexOf(item)]);
-
-            if (sameCategoryItem != null)
-            {
-                int sameCategoryItemIdx = interiorDataManager.dataList.IndexOf(sameCategoryItem);
-                currentAdjusting[sameCategoryItemIdx] = false;
-                sameCategoryItem.isAdjusting = false;
-            }
-
-            // âœ… ìƒˆ ì•„ì´í…œ ì ìš©
-            currentAdjusting[itemIdx] = true;
-            selectedItem.isAdjusting = true;
-
-            // âœ… Wallpaperì˜ ê²½ìš° ì±…ìƒê³¼ WindowFrameë„ í•¨ê»˜ ë³€ê²½
-            if (category == "Wallpaper")
-            {
-                foreach (var relatedCategory in new[] { "Wood", "WindowFrame" })
-                {
-                    var relatedItem = interiorDataManager.dataList.FirstOrDefault(item =>
-                        CheckItemCategory2(interiorDataManager.dataList.IndexOf(item)) == relatedCategory &&
-                        GameManager.instance.storeinfo_data.GetThemeByID(item.id) == selectedTheme);
-
-                    if (relatedItem != null)
-                    {
-                        int relatedIdx = interiorDataManager.dataList.IndexOf(relatedItem);
-                        currentAdjusting[relatedIdx] = true;
-                        relatedItem.isAdjusting = true;
-                    }
-                }
-            }
+            // °°Àº Ä«Å×°í¸®ÀÇ ´Ù¸¥ ¾ÆÀÌÅÛ ÇØÁ¦
+            foreach (var d in categoryItems) d.isAdjusting = false;
+            selectedData.isAdjusting = true;
+            selectedIdx = itemIdx;
         }
 
-        // ë°ì´í„° ì €ì¥
-        GameManager.instance.interiorDataManager = interiorDataManager;
-        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
+        // UI & ÀÌ¹ÌÁö °»½Å
+        currentAdjusting = interiorDataManager.dataList
+            .Select(d => d.isAdjusting).ToArray();
+
+        // id´Â ¸Â°Ô µé¾î°¨. idx ¼öÁ¤ ÇÊ¿ä
+        UpdateInteriorImage(selectedIdx, itemID);
+        UpdateButtonAdjusting();
+        SettingItemHide(selectedIdx);
+
+        // ÀúÀå
+        GameManager.instance.jsonManager
+            .SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
+
     public void SettingItemHide(int itemIdx)
     {
-        var item = interiorDataManager.dataList[itemIdx];
-
-        Transform buttonTransform = interiorItemArray[itemIdx].transform;
-        GameObject blackImage = buttonTransform.GetChild(buttonTransform.childCount - 1).gameObject;
-
-        if (item.isHaving)
-        {
-            blackImage.SetActive(false);
-            interiorItemArray[itemIdx].GetComponent<UnityEngine.UI.Button>().interactable = true;
-        }
-        else
-        {
-            blackImage.SetActive(true);
-            interiorItemArray[itemIdx].GetComponent<UnityEngine.UI.Button>().interactable = false;
-        }
+        var it = interiorDataManager.dataList[itemIdx];
+        var bt = interiorItemArray[itemIdx].transform;
+        var black = bt.Find("BlackImage")?.gameObject;
+        if (black != null) black.SetActive(!it.isHaving);
     }
 
-    // í…ŒìŠ¤íŠ¸ìš©: ëª¨ë“  ì•„ì´í…œì˜ isHaving ê°’ì„ trueë¡œ ì„¤ì •í•˜ëŠ” í•¨ìˆ˜
-    public void SetAllItemsHavingTrue()
+    /*    public string GetItemCategory(int itemIdx)
+        {
+            int itemId = interiorDataManager.dataList[itemIdx].id;
+            var matchedItem = GameManager.instance.storeinfo_data.dataList.FirstOrDefault(data => data.id == itemId);
+            return matchedItem != null ? matchedItem.category.ToString() : string.Empty;
+        }*/
+
+    public StoreItemCategory GetItemCategory(int itemIdx)
     {
-        foreach (var item in interiorDataManager.dataList)
+        if (itemIdx < 0 || itemIdx >= interiorDataManager.dataList.Count)
         {
-            item.isHaving = true;
+            Debug.LogWarning($"[GetItemCategory] Àß¸øµÈ itemIdx: {itemIdx}");
+            return StoreItemCategory.Rack;
         }
+
+        int itemId = interiorDataManager.dataList[itemIdx].id;
+
+        var matchedItem = GameManager.instance.storeinfo_data.dataList
+            .FirstOrDefault(data => data.id == itemId);
+
+        if (matchedItem == null)
+        {
+            Debug.LogWarning($"[GetItemCategory] itemId {itemId}¿¡ ÇØ´çÇÏ´Â storeInfo µ¥ÀÌÅÍ¸¦ Ã£À» ¼ö ¾øÀ½");
+            return StoreItemCategory.Rack;
+        }
+
+        return matchedItem.category; // enum ±×´ë·Î ¹İÈ¯
     }
-
-
 }
-

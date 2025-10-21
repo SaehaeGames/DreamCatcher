@@ -15,7 +15,7 @@ MonoBehaviour:
   dataList:
   - id: 4000
     name: Rack_1
-    category: 0
+    category: 1
     theme: 0
     level: 0
     contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
@@ -24,7 +24,7 @@ MonoBehaviour:
     isButtonActive: 0
   - id: 4001
     name: Rack_2
-    category: 0
+    category: 1
     theme: 0
     level: 1
     contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"

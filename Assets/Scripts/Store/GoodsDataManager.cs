@@ -44,8 +44,11 @@ public class GoodsDataManager
             dataList.Clear();
 
         List<InteriorInfo_Object> infoDataList = GameManager.instance.interiorinfo_data.dataList;
-        for (int i = 0; i < 5; i++)
-            dataList.Add(new GoodsData(infoDataList[i].id, infoDataList[i].name, infoDataList[i].category, 0));
+
+        foreach (var info in infoDataList)
+        {
+            dataList.Add(new GoodsData(info.id, info.name, info.category, 0));
+        }
     }
 
     public List<GoodsData> GetGoodsDataList(string category)
@@ -58,32 +61,37 @@ public class GoodsDataManager
 
     public GoodsData GetGoodsDataByIndex(int goodsNumber)
     {
-        var storeItem = GameManager.instance.storeinfo_data.dataList[goodsNumber];
+        var storeDataList = GameManager.instance.storeinfo_data.dataList;
+
+        if (goodsNumber < 0 || goodsNumber >= storeDataList.Count)
+        {
+            UnityEngine.Debug.LogError($"[ERROR] goodsNumber {goodsNumber}가 storeinfo_data 범위를 벗어났습니다. Count: {storeDataList.Count}");
+            return null;
+        }
+
+        var storeItem = storeDataList[goodsNumber];
+
         if (storeItem == null)
         {
             UnityEngine.Debug.LogError($"[ERROR] StoreInfo_Data에 goodsNumber {goodsNumber}에 해당하는 데이터가 없음");
             return null;
         }
 
-        // ✅ Trim()을 추가하여 `\r` 제거 후 비교 정확도 향상
         string category = storeItem.category.ToString().Trim();
         UnityEngine.Debug.Log($"[DEBUG] GetGoodsDataByIndex - 찾는 Category: {category}");
 
-        // ✅ `RackFront`, `RackBack`을 개별적으로 처리
         if (category == "Rack")
         {
             var racks = dataList.Where(x => x.category.Trim() == category).ToList();
             if (racks.Count == 2)
             {
-                // ✅ 두 개의 Rack이 존재하면 둘 다 레벨업
                 UnityEngine.Debug.Log($"[SUCCESS] RackFront & RackBack 레벨업!");
                 racks[0].level++;
                 racks[1].level++;
-                return racks[0]; // 둘 중 하나 반환
+                return racks[0];
             }
         }
 
-        // ✅ 정확한 데이터만 가져오도록 category 비교 방식 개선
         var item = dataList.FirstOrDefault(x => x.category.Trim().Equals(category, StringComparison.OrdinalIgnoreCase));
 
         if (item == null)
@@ -124,4 +132,12 @@ public class GoodsDataManager
             }
         }
     }
+
+    public GoodsData GetGoodsDataByID(int id)
+    {
+        var item = dataList.FirstOrDefault(x => x.id == id);
+
+        return item;
+    }
+
 }
