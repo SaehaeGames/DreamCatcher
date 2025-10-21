@@ -44,6 +44,34 @@ public class StoreInfo_Data : ScriptableObject
             .Select(storeItem => storeItem.id)
             .ToList();
     }
+    public List<int> GetSortedIDsByTheme(StoreItemCategory keyword)
+    {
+        // theme 키워드를 검색해서 id 리스트를 반환하는 함수
+
+        return dataList
+            .Where(storeItem => storeItem.category == keyword && storeItem.isButtonActive == true)
+            .Select(storeItem => storeItem.id)
+            .ToList();
+    }
+
+    public List<int> GetSortedIDsByTheme(ItemTheme keyword1, StoreItemCategory keyword2)
+    {
+        // theme 키워드를 검색해서 id 리스트를 반환하는 함수
+
+        Debug.Log("keyword1 : " + keyword1 + "keyword2: " +  keyword2);
+
+        return dataList
+            .Where(storeItem => storeItem.theme == keyword1 && storeItem.category == keyword2 && storeItem.isButtonActive == true)
+            .Select(storeItem => storeItem.id)
+            .ToList();
+    }
+
+    public StoreItemCategory GetCategoryByItemID(int itemID)
+    {
+        var matchedItem = dataList.FirstOrDefault(storeItem => storeItem.id == itemID);
+        Debug.Log(matchedItem.category);
+        return matchedItem.category;
+    }
 
     public int GetLevelByID(int id)
     {
