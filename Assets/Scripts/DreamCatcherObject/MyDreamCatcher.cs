@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MyDreamCatcher
@@ -16,13 +17,32 @@ public class MyDreamCatcher
         //ResetDreamCatcherData();
     }
 
-    public DreamCatcher GetDreamCatcherData(int index)
+    // Index로 드림캐쳐 찾기
+    public DreamCatcher GetDreamCatcherDatabyIndex(int index)
     {
-        Debug.Log("arrange test: "+dreamCatcherList[index]);
+        if (index < 0 || index >= dreamCatcherList.Count)
+        {
+            Debug.LogError($"[MyDreamCatcher] Index {index} is out of range.");
+            return null;
+        }
+
         return dreamCatcherList[index];
     }
 
+    // ID로 드림캐쳐 찾기
+    public DreamCatcher GetDreamCatcherById(int id)
+    {
+        DreamCatcher result = dreamCatcherList.FirstOrDefault(dc => dc.DCid == id);
 
+        if(result == null)
+        {
+            Debug.LogWarning($"[MyDreamCatcher] DreamCatcher with ID {id} not found!");
+        }
+
+        return result;
+    }
+
+    // 드림캐쳐 데이터 리셋
     public void ResetDreamCatcherData()
     {
         dreamCatcherCnt = 1000;
