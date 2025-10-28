@@ -10,21 +10,21 @@ public class QuestData
     public int id;     //퀘스트 id
     public bool isChecked;   //퀘스트 확인 여부
     public bool isClear;  //퀘스트 클리어 여부
-    public DreamCatcher questDreamCatcher;  //퀘스트 드림캐쳐
+    public int questInfoId;
 
     public QuestData()
     {
         id = 0;
         isChecked = isClear = false;
-        questDreamCatcher = null;
+        questInfoId = 0;
     }
 
-    public QuestData(int id, bool isChecked, bool isClear, DreamCatcher questDreamCatcher)
+    public QuestData(int _id, bool _isChecked, bool _isClear, int _questInfoId)
     {
-        this.id = id;
-        this.isChecked = isChecked;
-        this.isClear = isClear;
-        this.questDreamCatcher = questDreamCatcher;
+        this.id = _id;
+        this.isChecked = _isChecked;
+        this.isClear = _isClear;
+        this.questInfoId = _questInfoId;
     }
 }
 
@@ -42,10 +42,13 @@ public class QuestDataManager
     {
         if (dataList != null)
             dataList.Clear();
-
+        int questDataManagerId = 6000;
         List<QuestInfo_Object> infoDataList = GameManager.instance.questinfo_data.dataList;
         for (int i = 0; i < infoDataList.Count; i++)
-            dataList.Add(new QuestData(infoDataList[i].id, false, false, null)); // ** 여기 null 부분에 퀘스트 드림캐쳐 정보 넣기
+        {
+            dataList.Add(new QuestData(questDataManagerId, false, false, infoDataList[i].id)); // ** 여기 null 부분에 퀘스트 드림캐쳐 정보 넣기
+            questDataManagerId++;
+        }
     }
 
     public QuestData GetQuestData(int id)
