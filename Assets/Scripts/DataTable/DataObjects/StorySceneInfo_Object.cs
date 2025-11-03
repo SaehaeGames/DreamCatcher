@@ -6,17 +6,18 @@ using UnityEngine;
 [Serializable]
 public class StorySceneInfo_Object
 {
-    public int id;
+    public string id;
     public int sceneNum;
     public int startId;
     public int endId;
 
     public StorySceneInfo_Object()
     {
-        id = sceneNum = startId = endId = 0;
+        id = "SO_0000";
+        sceneNum = startId = endId = 0;
     }
 
-    public StorySceneInfo_Object(int _id, int _sceneNum, int _startId, int _endId)
+    public StorySceneInfo_Object(string _id, int _sceneNum, int _startId, int _endId)
     {
         this.id = _id;
         this.sceneNum = _sceneNum;

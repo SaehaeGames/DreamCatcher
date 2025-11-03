@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         //ResetGameManager();
     }
 

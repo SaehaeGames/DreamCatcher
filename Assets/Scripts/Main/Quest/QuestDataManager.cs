@@ -10,16 +10,16 @@ public class QuestData
     public int id;     //퀘스트 id
     public bool isChecked;   //퀘스트 확인 여부
     public bool isClear;  //퀘스트 클리어 여부
-    public int questInfoId;
+    public string questInfoId;
 
     public QuestData()
     {
         id = 0;
         isChecked = isClear = false;
-        questInfoId = 0;
+        questInfoId = "SO_0000";
     }
 
-    public QuestData(int _id, bool _isChecked, bool _isClear, int _questInfoId)
+    public QuestData(int _id, bool _isChecked, bool _isClear, string _questInfoId)
     {
         this.id = _id;
         this.isChecked = _isChecked;

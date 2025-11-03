@@ -40,7 +40,7 @@ public class InteriorCategory : MonoBehaviour
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
             if (currentAdjusting[i])
             {
-                int id = interiorDataManager.dataList[i].id;
+                string id = interiorDataManager.dataList[i].id;
                 UpdateInteriorImage(i, id);
                 UpdateButtonAdjusting();
             }
@@ -156,7 +156,7 @@ public class InteriorCategory : MonoBehaviour
 
         foreach (var (theme1, theme2, parent) in tabMappings)
         {
-            List<int> themeIDs = storeInfoData.GetSortedIDsByTheme(theme1, theme2);
+            List<string> themeIDs = storeInfoData.GetSortedIDsByTheme(theme1, theme2);
             int loopCount = Mathf.Min(parent.childCount, themeIDs.Count);
 
             for (int i = 0; i < loopCount; i++)
@@ -206,7 +206,7 @@ public class InteriorCategory : MonoBehaviour
     /// itemIdx: 버튼 배열 내 순서
     /// itemID: 실제 아이템 고유 ID
     /// </summary>
-    public void UpdateInteriorImage(int itemIdx, int itemID)
+    public void UpdateInteriorImage(int itemIdx, string itemID)
     {
 
         int objectNum = ChangeItemIDToObjectNum(itemID);
@@ -271,24 +271,27 @@ public class InteriorCategory : MonoBehaviour
         }
     }
 
-    public int ChangeItemIDToObjectNum(int itemID)
+    public int ChangeItemIDToObjectNum(string itemID)
     {
-        if (itemID < 4007) return 2;  // 꽃병
-        if (itemID < 4011) return 3;  // 인벤토리
-        if (itemID < 4016) return 4;  // 실
-        if (itemID < 4019) return 5;  // 벽지
-        if (itemID < 4022) return 9;  // 가랜드
-        if (itemID < 4025) return 10; // 창틀
-        if (itemID < 4028) return 11; // 패드
-        if (itemID < 4031) return 12; // 깃펜
-        if (itemID < 4034) return 13; // 스타드롭
-        if (itemID < 4037) return 14; // 수정구슬
-        if (itemID < 4040) return 15; // 망원경
-        if (itemID < 4042) return 16; // 오르골
+        // 아이디의 숫자 부분만 추출
+        int itemIDNum = int.Parse(itemID.Split('_')[1]);
+
+        if (itemIDNum < 4007) return 2;  // 꽃병
+        if (itemIDNum < 4011) return 3;  // 인벤토리
+        if (itemIDNum < 4016) return 4;  // 실
+        if (itemIDNum < 4019) return 5;  // 벽지
+        if (itemIDNum < 4022) return 9;  // 가랜드
+        if (itemIDNum < 4025) return 10; // 창틀
+        if (itemIDNum < 4028) return 11; // 패드
+        if (itemIDNum < 4031) return 12; // 깃펜
+        if (itemIDNum < 4034) return 13; // 스타드롭
+        if (itemIDNum < 4037) return 14; // 수정구슬
+        if (itemIDNum < 4040) return 15; // 망원경
+        if (itemIDNum < 4042) return 16; // 오르골
         return -1;
     }
 
-    public void SelectInteriorDafaultItem(int itemIdx, int itemID)
+    public void SelectInteriorDafaultItem(int itemIdx, string itemID)
     {
         // 이 함수는 일단 기본 아이템을 클릭하면 작동하는 버튼 이벤트....
         // 클릭한 아이템을 인식해서 이미지 바꾸기를 실행하는 곳
@@ -359,13 +362,13 @@ public class InteriorCategory : MonoBehaviour
 
     public StoreItemCategory GetItemCategory(int itemIdx)
     {
-        if (itemIdx < 0 || itemIdx >= interiorDataManager.dataList.Count)
-        {
-            Debug.LogWarning($"[GetItemCategory] 잘못된 itemIdx: {itemIdx}");
-            return StoreItemCategory.Rack;
-        }
+        //if (itemIdx < 0 || itemIdx >= interiorDataManager.dataList.Count)
+        //{
+        //    Debug.LogWarning($"[GetItemCategory] 잘못된 itemIdx: {itemIdx}");
+        //    return StoreItemCategory.Rack;
+        //}
 
-        int itemId = interiorDataManager.dataList[itemIdx].id;
+        string itemId = interiorDataManager.dataList[itemIdx].id;
 
         var matchedItem = GameManager.instance.storeinfo_data.dataList
             .FirstOrDefault(data => data.id == itemId);

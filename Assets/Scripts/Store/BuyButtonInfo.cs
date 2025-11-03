@@ -6,7 +6,7 @@ public class BuyButtonInfo : MonoBehaviour
     //상품 구매 버튼 정보 클래스
 
     [SerializeField] private int selectGoodsNumber;    // 선택한 상품 번호
-    [SerializeField] private int selectGoddsId;
+    [SerializeField] private string selectGoddsId;
     private Button buyButton;
 
     private void Awake()
@@ -50,7 +50,7 @@ public class BuyButtonInfo : MonoBehaviour
         selectGoodsNumber = number;
     }
 
-    public void SetSelectGoodsId(int id)
+    public void SetSelectGoodsId(string id)
     {
         selectGoddsId = id; // 상품 카테고리 설정
     }
@@ -60,7 +60,7 @@ public class BuyButtonInfo : MonoBehaviour
         return selectGoodsNumber;
     }
 
-    public int GetSelectGoodsId()
+    public string GetSelectGoodsId()
     {
         return selectGoddsId; // ✅ 카테고리 반환 함수 추가
     }

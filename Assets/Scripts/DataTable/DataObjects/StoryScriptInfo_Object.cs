@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class StoryScriptInfo_Object
 {
-    public int id;
+    public string id;
     public int sceneNum;
     public int questNum;
     public int charImage;
@@ -17,11 +17,12 @@ public class StoryScriptInfo_Object
 
     public StoryScriptInfo_Object()
     {
-        id = sceneNum = questNum = charImage = faceImage = effectImage = screenEffect = 0;
+        id = "SO_0000";
+        sceneNum = questNum = charImage = faceImage = effectImage = screenEffect = 0;
         speaker = line = "";
     }
 
-    public StoryScriptInfo_Object(int _id, int _sceneNum, int _questNum, int _charImage, int _faceImage, int _effectImage, int _screenEffect, string _speaker, string _line)
+    public StoryScriptInfo_Object(string _id, int _sceneNum, int _questNum, int _charImage, int _faceImage, int _effectImage, int _screenEffect, string _speaker, string _line)
     {
         this.id = _id;
         this.sceneNum = _sceneNum;

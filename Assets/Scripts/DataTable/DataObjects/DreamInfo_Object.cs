@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class DreamInfo_Object
 {
-    public int id;
+    public string id;
     public string name;
     public string kind;
     public string line;
@@ -17,11 +17,12 @@ public class DreamInfo_Object
 
     public DreamInfo_Object()
     {
-        id = bead = 0;
+        id = "SO_0000";
+        bead = 0;
         name = kind = line = feather1 = feather2 = feather3 = "";
     }
 
-    public DreamInfo_Object(int _id, string _name, string _kind, string _line, string _feather1, string _feather2, string _feather3, int _bead)
+    public DreamInfo_Object(string _id, string _name, string _kind, string _line, string _feather1, string _feather2, string _feather3, int _bead)
     {
         id = _id;
         name = _name;

@@ -8,11 +8,11 @@ using System.Linq;
 public class InteriorData
 {
 
-    public int id;           //인테리어 아이템 id
+    public string id;           //인테리어 아이템 id
     public bool isHaving;         //인테리어 아이템 보유중 여부
     public bool isAdjusting;      //인테리어 아이템 적용중 여부
 
-    public InteriorData(int id, bool isHaving, bool isAdjusting)
+    public InteriorData(string id, bool isHaving, bool isAdjusting)
     {
         this.id = id;
         this.isHaving = isHaving;
@@ -37,11 +37,11 @@ public class InteriorDataManager
 
         StoreInfo_Data storeInfo_data = GameManager.instance.storeinfo_data;
 
-        List<int> defaultItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Default);
-        List<int> SeaItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
-        List<int> StarItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Star);
+        List<string> defaultItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Default);
+        List<string> SeaItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
+        List<string> StarItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Star);
 
-        List<int> combinedItemIDList = new List<int>();
+        List<string> combinedItemIDList = new List<string>();
         combinedItemIDList.AddRange(defaultItemIDList);
         combinedItemIDList.AddRange(SeaItemIDList);
         combinedItemIDList.AddRange(StarItemIDList);
@@ -75,7 +75,7 @@ public class InteriorDataManager
                     dataList.Add(new InteriorData(infoDataList[i].id, false, false));*/
     }
 
-    public InteriorData GetInteriorData(int id)
+    public InteriorData GetInteriorData(string id)
     {
         InteriorData getData = dataList.FirstOrDefault(x => x.id == id);
         if (getData != null)
@@ -84,7 +84,7 @@ public class InteriorDataManager
             return null;
     }
 
-    public InteriorData GetGoodsDataByID(int id)
+    public InteriorData GetGoodsDataByID(string id)
     {
         var item = dataList.FirstOrDefault(x => x.id == id);
 

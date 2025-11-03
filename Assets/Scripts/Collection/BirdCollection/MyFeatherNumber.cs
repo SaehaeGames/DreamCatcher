@@ -31,11 +31,11 @@ public class MyFeatherNumber
 [Serializable]
 public class FeatherData
 {
-    public int bird_id;
+    public string bird_id;
     public int feather_number;
     public int appear;
 
-    public FeatherData(int _birdID, int _featherNumber, int _appear)
+    public FeatherData(string _birdID, int _featherNumber, int _appear)
     {
         bird_id = _birdID;
         feather_number = _featherNumber;
@@ -59,7 +59,7 @@ public class MyFeatherNumber
 
         for (int i = 0; i < birdCnt; i++)
         {
-            featherList[i] = new FeatherData((1000 + i + 1), 0, 0);
+            featherList[i] = new FeatherData("JS_"+(1000 + i + 1), 0, 0);
         }
     }
 

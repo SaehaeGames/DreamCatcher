@@ -5,13 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class DreamCatcher
 {
-    public int DCid;
+    public string DCid;
     public int[] DCline = new int[64];
     public bool[] DCbead = new bool[48];
     public int DCcolor;
     public int DCfeather1, DCfeather2, DCfeather3;
 
-    public DreamCatcher(int _DCid, int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3)
+    public DreamCatcher(string _DCid, int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3)
     {
         DCid = _DCid;
         DCline = _DCline;
@@ -47,7 +47,7 @@ public class DreamCatcher
 
     // 드림캐쳐 id GET 함수
     // : 드림캐쳐 id를 가져오는 함수
-    public int GetId()
+    public string GetId()
     {
         return DCid;
     }

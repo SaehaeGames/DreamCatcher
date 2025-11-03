@@ -9,18 +9,19 @@ using UnityEngine;
 [Serializable]
 public class GoodsData
 {
-    public int id;
+    public string id;
     public string name;      //상품 이름
     public string category;
     public int level;   //상품 레벨
 
     public GoodsData()
     {
+        id = "JS_0000";
         name = category = "";
-        id = level = 0;
+        level = 0;
     }
 
-    public GoodsData(int _id, string _name, string _category, int _level)
+    public GoodsData(string _id, string _name, string _category, int _level)
     {
         id = _id;
         name = _name;
@@ -133,7 +134,7 @@ public class GoodsDataManager
         }
     }
 
-    public GoodsData GetGoodsDataByID(int id)
+    public GoodsData GetGoodsDataByID(string id)
     {
         var item = dataList.FirstOrDefault(x => x.id == id);
 

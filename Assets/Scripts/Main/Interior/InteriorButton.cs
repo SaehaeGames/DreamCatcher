@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InteriorButton : MonoBehaviour
 {
     public int buttonNumber;   // 패널 번호 또는 아이템 번호
-    public int itemID;         // 해당 버튼의 아이템 ID
+    public string itemID;         // 해당 버튼의 아이템 ID
 
     private Button buttonComponent;
 
@@ -27,7 +27,7 @@ public class InteriorButton : MonoBehaviour
     /// <summary>
     /// 인테리어 아이템 버튼 설정
     /// </summary>
-    public void SetupItemButton(int number, int id)
+    public void SetupItemButton(int number, string id)
     {
         buttonNumber = number;
         itemID = id;
@@ -55,7 +55,7 @@ public class InteriorButton : MonoBehaviour
         buttonNumber = num;
     }
 
-    public void SetButtonItemID(int num)
+    public void SetButtonItemID(string num)
     {
         itemID = num;
     }

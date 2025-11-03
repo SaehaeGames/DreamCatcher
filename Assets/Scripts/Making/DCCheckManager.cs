@@ -333,7 +333,7 @@ public class DCCheckManager : MonoBehaviour
             // 드림 캐쳐 정보 전달
             //Debug.Log(myDreamCatcher);
 
-            int dreamCatcherId = dreamCatcherData.dreamCatcherCnt; // 드림캐쳐 아이디 가져오기
+            string dreamCatcherId = "JS_" + dreamCatcherData.dreamCatcherCnt; // 드림캐쳐 아이디 가져오기
             myDreamCatcher = new DreamCatcher(dreamCatcherId, ConvertLineArrayTo1D(DreamCatcherMap), BeadMap, colorMap, featherMap[0], featherMap[1], featherMap[2]);
             //Debug.Log("CheckComplete myDreamCatcher : " + myDreamCatcher.GetLine()[0, 4]);
             completeDCImg.GetComponent<MakeDreamCatcher>().MakeDreamCatcherImg(myDreamCatcher);

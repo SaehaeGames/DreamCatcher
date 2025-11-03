@@ -25,9 +25,9 @@ public class ImgLoadTest : MonoBehaviour
         }
     }
 
-    public void deleteDreamCatcherFile(int id)
+    public void deleteDreamCatcherFile(string idToDelete)
     {
-        DreamCatcherInfoLoad.Instance.ImageDelete(id);
-        DreamCatcherInfoLoad.Instance.DataDelete(id);
+        DreamCatcherInfoLoad.Instance.ImageDelete(idToDelete);
+        DreamCatcherInfoLoad.Instance.DataDelete(idToDelete);
     }
 }

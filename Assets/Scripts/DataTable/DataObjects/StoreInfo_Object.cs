@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class StoreInfo_Object
 {
-    public int id;
+    public string id;
     public string name;
     public StoreItemCategory category;
     public ItemTheme theme;
@@ -18,12 +18,13 @@ public class StoreInfo_Object
     
     public StoreInfo_Object()
     {
-        id = level = gold = 0;
+        id = "SO_0000";
+        level = gold = 0;
         name = contents = effect = "";
         isButtonActive = false;
     }
 
-    public StoreInfo_Object(int _id, string _name, StoreItemCategory _category, ItemTheme _theme, int _level, string _contents, string _effect, int _gold, bool _isButtonActive)
+    public StoreInfo_Object(string _id, string _name, StoreItemCategory _category, ItemTheme _theme, int _level, string _contents, string _effect, int _gold, bool _isButtonActive)
     {
         id = _id;
         name = _name;

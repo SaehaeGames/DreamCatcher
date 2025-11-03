@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class BirdInfo_Object
 {
-    public int id;
+    public string id;
     public string name;
     public string exp;
     public FeedType feed;
@@ -17,12 +17,13 @@ public class BirdInfo_Object
 
     public BirdInfo_Object()
     {
-        id = price = startTime = endTime = maxNum = probability = 0;
+        id = "SO_0000";
+        price = startTime = endTime = maxNum = probability = 0;
         feed = FeedType.PigeonBeans;
         name = exp = "";
     }
 
-    public BirdInfo_Object(int _id, string _name, string _exp, FeedType _feed, int _price, 
+    public BirdInfo_Object(string _id, string _name, string _exp, FeedType _feed, int _price, 
         int _startTime, int _endTime, int _maxNum, int _probability)
     {
         id = _id;

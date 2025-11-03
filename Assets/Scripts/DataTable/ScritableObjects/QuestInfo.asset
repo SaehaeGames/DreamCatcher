@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuestInfo
   m_EditorClassIdentifier: 
   dataList:
-  - id: 6000
+  - id: SO_6000
     title: "\uB538\uC758 \uC545\uBABD"
     contents: "\uC800\uB294 \uB18D\uBD80 \uB370\uC774\uC9C0\uB77C\uACE0 \uD569\uB2C8\uB2E4.nn
       nn\uC8FC\uC220\uC0AC\uB2D8\uC5D0 \uB300\uD55C \uC18C\uBB38\uC744 \uB4E4\uC5C8\uC5B4\uC694.nn\uC545\uBABD
@@ -33,7 +33,7 @@ MonoBehaviour:
     from: "-\uB370\uC774\uC9C0 \uB4DC\uB9BC"
     questDreamCatcher: 9000
     questDreamCatcherNum: 1
-  - id: 6001
+  - id: SO_6001
     title: "\uB538\uC758 \uC545\uBABD - \uC644\uB8CC"
     contents: "\uB3C4\uC640\uC8FC\uC154\uC11C \uC815\uB9D0 \uAC10\uC0AC\uD569\uB2C8\uB2E4.nn\uBCF4\uB0B4\uC8FC\uC2E0
       \uBB3C\uAC74\uACFC \uD3B8\uC9C0\uB97C \uBC1B\uC558\uC2B5\uB2C8\uB2E4.nn nn\uB9D0\uC500\uB300\uB85C
@@ -49,7 +49,7 @@ MonoBehaviour:
       \uB4DC\uB9BC"
     questDreamCatcher: 9001
     questDreamCatcherNum: 1
-  - id: 6002
+  - id: SO_6002
     title: "\uB9F9\uACAC"
     contents: "\uC548\uB155? \uB09C \uBAA8\uAC74\uC774\uC57C. \uC2DD\uC7AC\uB8CC
       \uBC30\uB2EC\uC6D0\uC774\uC9C0.nn nn\uBB34\uC11C\uC6B4 \uAFC8\uC744 \uC5C6\uC560\uC900\uB2E4\uACE0
@@ -68,7 +68,7 @@ MonoBehaviour:
     from: "-\uBAA8\uAC74"
     questDreamCatcher: 9002
     questDreamCatcherNum: 1
-  - id: 6003
+  - id: SO_6003
     title: "\uB9F9\uACAC - \uC644\uB8CC"
     contents: "\uC774\uC81C \uAC1C \uB098\uC624\uB294 \uAFC8\uC740 \uC548 \uAFD4!.nn
       nn\uD604\uC2E4\uC5D0\uC11C\uB294 \uBCC0\uD568\uC774 \uC5C6\uB2E4\uB294 \uAC8C
@@ -84,7 +84,7 @@ MonoBehaviour:
     from: "-\uBAA8\uAC74"
     questDreamCatcher: 9003
     questDreamCatcherNum: 1
-  - id: 6004
+  - id: SO_6004
     title: "\uC0C1\uC778\uACFC \uAC70\uB798"
     contents: "\uC548\uB155\uD558\uC2ED\uB2C8\uAE4C.nn\uC804 \uC5EC\uD589\uD558\uBA70
       \uBB3C\uAC74\uC744 \uD30C\uB294 \uC0C1\uC778 \uC140\uB9B0\uC774\uB77C \uD569\uB2C8\uB2E4.nn
@@ -104,7 +104,7 @@ MonoBehaviour:
     from: "-\uC0C1\uC778 \uC140\uB9B0 \uB4DC\uB9BC"
     questDreamCatcher: 9004
     questDreamCatcherNum: 1
-  - id: 6005
+  - id: SO_6005
     title: "\uC0C1\uC778\uACFC \uAC70\uB798 - \uC644\uB8CC"
     contents: "\uAC10\uC0AC\uD569\uB2C8\uB2E4.nn\uB355\uBD84\uC5D0 \uC545\uBABD\uC744
       \uAFB8\uC9C0 \uC54A\uAC8C \uB410\uC2B5\uB2C8\uB2E4.nn nn\uB354 \uC774\uC0C1
@@ -118,7 +118,7 @@ MonoBehaviour:
     from: "-\uC0C1\uC778 \uC140\uB9B0 \uB4DC\uB9BC"
     questDreamCatcher: 9005
     questDreamCatcherNum: 1
-  - id: 6006
+  - id: SO_6006
     title: "\uCE68\uB300\uBC11 \uAD34\uBB3C"
     contents: "\uC548\uB155\uD558\uC138\uC694. \uC81C \uC774\uB984\uC740 \uCF00\uBE48\uC774\uC5D0\uC694.nn
       nn\uC624\uB298 \uACF5\uC6D0\uC5D0\uC11C \uB180\uB2E4\uAC00 \uCE5C\uAD6C\uAC00
@@ -141,7 +141,7 @@ MonoBehaviour:
     from: "-\uCF00\uBE48"
     questDreamCatcher: 9006
     questDreamCatcherNum: 1
-  - id: 6007
+  - id: SO_6007
     title: "\uCE68\uB300\uBC11 \uAD34\uBB3C - \uC644\uB8CC"
     contents: "\uC8FC\uC220\uC0AC\uB2D8\uC774 \uC900 \uC7A5\uC2E0\uAD6C\uB97C \uCC3D\uBB38\uC5D0
       \uB9E4\uB2EC\uC558\uB354\uB2C8nn\uC5B4\uC81C \uBC24\uC5D0 \uAD34\uBB3C \uAFC8\uC744
@@ -158,7 +158,7 @@ MonoBehaviour:
     from: "-\uD589\uBCF5\uD55C \uCF00\uBE48"
     questDreamCatcher: 9007
     questDreamCatcherNum: 1
-  - id: 6008
+  - id: SO_6008
     title: "\uC0C1\uD07C \uACFC\uC218\uC6D0"
     contents: "\uC548\uB155\uD558\uC138\uC694!!nn70\uB144 \uC804\uD1B5\uC774 \uC788\uB294
       \u2018\uC0C1\uD07C \uACFC\uC218\uC6D0\u2019\uC744 \uC18C\uAC1C\uD569\uB2C8\uB2E4!nn
@@ -182,7 +182,7 @@ MonoBehaviour:
     from: "-\uACFC\uC218\uC6D0 \uD64D\uBCF4\uB300\uC0AC \uBCA0\uB77C\uAC00"
     questDreamCatcher: 9008
     questDreamCatcherNum: 1
-  - id: 6009
+  - id: SO_6009
     title: "\uC0C1\uD07C \uACFC\uC218\uC6D0 - \uC644\uB8CC"
     contents: "\uC640\uC544\uC544\uC544\uC544\uC544~~!!!nn\uD560\uC544\uBC84\uC9C0\uAC00
       \uC88B\uC544\uC9C0\uC168\uC5B4\uC694! \uC8FC\uC220\uC0AC\uB2D8 \uB355\uBD84\uC774\uC5D0\uC694!nn
@@ -199,7 +199,7 @@ MonoBehaviour:
     from: "-\uC0C1\uD07C\uBC1C\uB784 \uBCA0\uB77C\uAC00"
     questDreamCatcher: 9009
     questDreamCatcherNum: 1
-  - id: 6010
+  - id: SO_6010
     title: "\uB291\uB300\uC640 \uC591\uCE58\uAE30"
     contents: "\uC548\uB155, \uB09C \uC591\uCE58\uAE30 \uB9AC\uC2A4\uB77C\uACE0 \uD574.nn
       nn\uC591\uB4E4\uC744 \uB3CC\uBCF4\uB294 \uAC74 \uC9C0\uB8E8\uD558\uAE30 \uC9DD\uC774
@@ -223,7 +223,7 @@ MonoBehaviour:
     from: "-\uC591\uCE58\uAE30 \uB9AC\uC2A4."
     questDreamCatcher: 9010
     questDreamCatcherNum: 1
-  - id: 6011
+  - id: SO_6011
     title: "\uB291\uB300\uC640 \uC591\uCE58\uAE30 - \uC644\uB8CC"
     contents: "\uC624~ \uB108 \uB2A5\uB825\uC774 \uC88B\uAD6C\uB098.nn\uC774\uC81C
       \uB291\uB300\uAC00 \uB098\uC624\uB294 \uAFC8\uC744 \uC548 \uAFD4.nn nn\uC9C0\uAE08
@@ -239,7 +239,7 @@ MonoBehaviour:
     from: "-\uC591\uCE58\uAE30 \uC18C\uB144 \uB9AC\uC2A4"
     questDreamCatcher: 9011
     questDreamCatcherNum: 1
-  - id: 6012
+  - id: SO_6012
     title: "\uB099\uD558"
     contents: "\uCC98\uC74C \uBD59\uACA0\uC2B5\uB2C8\uB2E4. \uC800\uB294 \uC720\uC9C4\uC785\uB2C8\uB2E4.nn
       nn\uC81C\uAC8C\uB294 \uC791\uC740 \uBCC4\uC7A5\uC774 \uD55C \uCC44 \uC788\uC2B5\uB2C8\uB2E4.nn\uBCC4\uC7A5
@@ -259,7 +259,7 @@ MonoBehaviour:
     from: "-\uC720\uC9C4 \uC11C\uB10C"
     questDreamCatcher: 9012
     questDreamCatcherNum: 1
-  - id: 6013
+  - id: SO_6013
     title: "\uB099\uD558 - \uC644\uB8CC"
     contents: "\uAD6C\uD574\uC8FC\uC154\uC11C \uAC10\uC0AC\uD569\uB2C8\uB2E4.nn nn\uB2F9\uC2E0\uC774
       \uC808\uBCBD \uB05D\uC5D0 \uB9E4\uB2EC\uB9B0 \uC808 \uAD6C\uD574 \uC8FC\uC168\uC2B5\uB2C8\uB2E4.nn\uC545\uBABD\uC73C\uB85C
@@ -273,7 +273,7 @@ MonoBehaviour:
     from: 
     questDreamCatcher: 9013
     questDreamCatcherNum: 1
-  - id: 6014
+  - id: SO_6014
     title: "\uCC9C\uC7AC \uC608\uC220\uAC00"
     contents: "\uB0B4 \uC774\uB984\uC740 J.nn nn\uACE7 \uC720\uBA85\uD574\uC9C8 \uBAB8\uC774\uB77C
       \uC774\uB2C8\uC15C\uB9CC \uB9D0\uD574\uC8FC\uB294 \uC810 \uC774\uD574\uD574
@@ -292,7 +292,7 @@ MonoBehaviour:
     from: '- J'
     questDreamCatcher: 9014
     questDreamCatcherNum: 1
-  - id: 6015
+  - id: SO_6015
     title: "\uCC9C\uC7AC \uC608\uC220\uAC00 - \uC644\uB8CC"
     contents: "\uADF8\uB9AC\uC6E0\uC5B4. \uAFC8\uC774 \uADF8\uB9AC\uC6E0\uB2E4\uACE0!!nn
       nn\uC9C4\uC9DC \uC815\uC2E0\uC5D0 \uBB38\uC81C\uAC00 \uC0DD\uAE30\uB294 \uC904
@@ -307,7 +307,7 @@ MonoBehaviour:
     from: '- J'
     questDreamCatcher: 9015
     questDreamCatcherNum: 1
-  - id: 6016
+  - id: SO_6016
     title: "\uC30D\uB465\uC774"
     contents: "\uC548\uB155\uD558\uC138\uC694. \uC804 \uB808\uC77C\uB2E4 \uC81C \uC30D\uB465\uC774
       \uB3D9\uC0DD\uC740 \uBE0C\uB79C\uC774\uC5D0\uC694.nn nn\uC800\uD76C\uB294 \uCDE8\uBBF8\uB3C4
@@ -330,7 +330,7 @@ MonoBehaviour:
     from: "-\uB808\uC77C\uB2E4&\uBE0C\uB79C"
     questDreamCatcher: 9016
     questDreamCatcherNum: 1
-  - id: 6017
+  - id: SO_6017
     title: "\uC30D\uB465\uC774 - \uC644\uB8CC"
     contents: "\uC548\uB155\uD558\uC138\uC694. nn\uBE0C\uB79C\uC774\uC5D0\uC694.nn
       nn\uB4DC\uB9BC\uCE90\uCCD0\uC758 \uD6A8\uB2A5\uC774 \uC544\uC8FC \uB6F0\uC5B4\uB098\uC11C
@@ -352,7 +352,7 @@ MonoBehaviour:
     from: "-\uBE0C\uB79C"
     questDreamCatcher: 9017
     questDreamCatcherNum: 1
-  - id: 6018
+  - id: SO_6018
     title: "\uBC14\uB2E4\uC640 \uC544\uB4E4"
     contents: "\uC548\uB155\uD558\uC2ED\uB2C8\uAE4C. nn\uADF8\uCABD\uC774 \uADF8..
       \uADF8 \uBB50\uB0D0 \uC545\uBABD \uD574\uACB0\uC0AC\uC785\uB2C8\uAE4C?nn nn\uC721\uC9C0
@@ -377,7 +377,7 @@ MonoBehaviour:
     from: "-\uC5B4\uBD80 \uC288\uC774\uBCA8\uCE20"
     questDreamCatcher: 9018
     questDreamCatcherNum: 1
-  - id: 6019
+  - id: SO_6019
     title: "\uBC14\uB2E4\uC640 \uC544\uB4E4 - \uC644\uB8CC"
     contents: "\uACE0\uB9D9\uC2B5\uB2C8\uB2E4.nn nn\uAC1C\uC6B4\uD55C \uAE30\uC9C0\uAC1C\uB97C
       \uCF1C\uBA70 \uC544\uCE68\uD587\uC0B4\uC744 \uB9CC\uB07D\uD55C \uAC8C \uC5BC\uB9C8
@@ -394,7 +394,7 @@ MonoBehaviour:
     from: "-\uC5B4\uBD80 \uC288\uC774\uBCA8\uCE20"
     questDreamCatcher: 9019
     questDreamCatcherNum: 1
-  - id: 6020
+  - id: SO_6020
     title: "\uD398\uB974\uC0E4\uC758 \uC800\uC8FC"
     contents: "\uC790\uB124\uAC00 \uC8FC\uC220\uC0AC \uAD6C\uB9CCnn\uB09C \uC601\uC9C0\uC5D0\uC11C
       \uC81C\uC77C\uAC00\uB294 \uBD80\uC790 \uBBF8\uB2E4\uB808\uC2A4\uB77C\uB124.
@@ -416,7 +416,7 @@ MonoBehaviour:
     from: "-\uBBF8\uB2E4\uB808\uC2A4"
     questDreamCatcher: 9020
     questDreamCatcherNum: 1
-  - id: 6021
+  - id: SO_6021
     title: "\uD398\uB974\uC0E4\uC758 \uC800\uC8FC - \uC644\uB8CC"
     contents: "\uC624\uC624\uC624~ \uB9D0\uB85C\uB9CC \uB4E3\uB358 \u2018\uB4DC\uB9BC\uCE90\uCCD0\u2019\uAD70.nn
       nn\uC0C1\uB2E8\uC5D0\uC11C\uB3C4 \uB4DC\uB9BC\uCE90\uCCD0\uB97C \uD314\uC9C0\uB9CCnn
@@ -435,7 +435,7 @@ MonoBehaviour:
     from: "-\uB9C8\uB2E4\uB808\uC2A4"
     questDreamCatcher: 9021
     questDreamCatcherNum: 1
-  - id: 6022
+  - id: SO_6022
     title: "\uBB34\uB69D\uB69D\uD55C \uB098\uBB34\uAFBC"
     contents: "\uC548\uB155\uD558\uC2DC\uC624. nn\uB09C \uB098\uBB34\uAFBC \uD504\uB7AD\uCCB8\uC774\uC624.nn
       nn\uC545\uBABD\uC744 \uD574\uACB0\uD560 \uBB3C\uAC74\uC744 \uC900\uB2E4 \uB4E4\uC5C8\uB124\uB9CC
@@ -453,13 +453,13 @@ MonoBehaviour:
     from: "-\uD504\uB7AD\uCCB8"
     questDreamCatcher: 9022
     questDreamCatcherNum: 1
-  - id: 6023
+  - id: SO_6023
     title: "\uBB34\uB69D\uB69D\uD55C \uB098\uBB34\uAFBC - \uC644\uB8CC"
     contents: "\uC815\uB9D0 \uACE0\uB9D9\uC18C."
     from: "-\uD504\uB7AD\uCCB8"
     questDreamCatcher: 9023
     questDreamCatcherNum: 1
-  - id: 6024
+  - id: SO_6024
     title: "\uBD88\uD0C0\uB294 \uC9D1"
     contents: "\uC548\uB155\uD558\uC138\uC694.nn\uBCF4\uC721\uC6D0 \uC6D0\uC7A5 \uC218\uC794\uC785\uB2C8\uB2E4.nn
       nn\uC800\uD76C \uC2DC\uC124\uC740 50\uBA85\uC774 \uB118\uB294 \uC544\uC774\uB4E4\uC774
@@ -482,7 +482,7 @@ MonoBehaviour:
     from: "-\uBCF4\uC721\uC6D0 \uC6D0\uC7A5 \uC218\uC794 \uB4DC\uB9BC"
     questDreamCatcher: 9024
     questDreamCatcherNum: 1
-  - id: 6025
+  - id: SO_6025
     title: "\uBD88\uD0C0\uB294 \uC9D1 - \uC644\uB8CC"
     contents: "\uB2F9\uC2E0\uC758 \uCE5C\uC808\uC5D0 \uD070 \uAC10\uC0AC\uB97C \uB4DC\uB9BD\uB2C8\uB2E4.nn
       nn\uADF8 \uC560\uB4E4\uC740 \uC774\uC81C \uC7A0\uB4DC\uB294 \uAC78 \uBB34\uC11C\uC6CC\uD558\uC9C0
@@ -498,7 +498,7 @@ MonoBehaviour:
     from: "-\uBCF4\uC721\uC6D0 \uC6D0\uC7A5 \uC218\uC794 \uB4DC\uB9BC"
     questDreamCatcher: 9025
     questDreamCatcherNum: 1
-  - id: 6026
+  - id: SO_6026
     title: "\uADC0\uACE1"
     contents: "\uC548\uB155\uD558\uC138\uC694.nn\uC804 30\uBA85 \uC815\uB3C4\uC758
       \uAD6C\uC131\uC6D0\uC774 \uC788\uB294 \uC678\uC9C4 \uB9C8\uC744\uC5D0 \uC0B4\uACE0
@@ -517,7 +517,7 @@ MonoBehaviour:
     from: "-\uB0B8\uC2DC"
     questDreamCatcher: 9026
     questDreamCatcherNum: 1
-  - id: 6027
+  - id: SO_6027
     title: "\uADC0\uACE1 - \uC644\uB8CC"
     contents: "\uAC10\uC0AC\uD574\uC694. \uC800 \uC815\uB9D0 \uBB34\uC11C\uC6E0\uAC70\uB4E0\uC694.nn
       nn\uC0AC\uB77C\uC84C\uB358 \uB9C8\uC744 \uC0AC\uB78C\uB4E4\uC774 \uBAA8\uB450
@@ -533,7 +533,7 @@ MonoBehaviour:
     from: "-\uB0B8\uC2DC"
     questDreamCatcher: 9027
     questDreamCatcherNum: 1
-  - id: 6028
+  - id: SO_6028
     title: "\uBA39\uC774\uC0AC\uC2AC"
     contents: "\uC548\uB155\uD558\uC138\uC694. nn\uC9D1\uC0AC \uC870\uC149\uC785\uB2C8\uB2E4.nn
       nn\uC601\uC8FC\uB2D8\uAED8\uC11C \uCD5C\uADFC \uC88B\uC9C0 \uBABB\uD55C \uAFC8\uC744
@@ -554,7 +554,7 @@ MonoBehaviour:
     from: "-\uC9D1\uC0AC \uC870\uC149"
     questDreamCatcher: 9028
     questDreamCatcherNum: 1
-  - id: 6029
+  - id: SO_6029
     title: "\uBA39\uC774\uC0AC\uC2AC - \uC644\uB8CC"
     contents: "\uC601\uC8FC\uB2D8\uC758 \uC0C1\uD0DC\uAC00 \uB9CE\uC774 \uD638\uC804\uB410\uC2B5\uB2C8\uB2E4.nn
       nn\uADF8 \uAFC8\uC744 \uACC4\uAE30\uB85C \uB9CE\uC740 \uAC83\uB4E4\uC774 \uBCC0\uD588\uC2B5\uB2C8\uB2E4.nn\uBA3C\uC800
@@ -573,7 +573,7 @@ MonoBehaviour:
     from: "-\uC9D1\uC0AC \uC870\uC149"
     questDreamCatcher: 9029
     questDreamCatcherNum: 1
-  - id: 6030
+  - id: SO_6030
     title: "\uBD88\uB098\uBC29"
     contents: "\uBC8C\uB808\uAC00 \uB0B4\uBAB8\uC744 \uB4A4\uB36E\uACE0 \uC788\uC5B4.nn\uB3C4\uC640\uC918.
       \uAE09\uD574.nn(\u092C\u0917 \u092E\u0947\u0930\u0947 \u0936\u0930\u0940\u0930
@@ -582,7 +582,7 @@ MonoBehaviour:
     from: 
     questDreamCatcher: 9030
     questDreamCatcherNum: 1
-  - id: 6031
+  - id: SO_6031
     title: "\uBD88\uB098\uBC29 - \uC644\uB8CC"
     contents: "\uACE0\uB9C8\uC6CC. nn\uD3B8\uC548\uD55C \uBC24 \uB418\uAE30\uB97C
       nn(\u0927\u0928\u094D\u092F\u0935\u093E\u0926. \u092E\u0941\u091D\u0947 \u0909\u092E\u094D\u092E\u0940\u0926
@@ -591,7 +591,7 @@ MonoBehaviour:
     from: 
     questDreamCatcher: 9031
     questDreamCatcherNum: 1
-  - id: 6032
+  - id: SO_6032
     title: "\uCEE4\uD2BC\uCF5C"
     contents: "\uC548\uB155. \uB09C \uC791\uC740 \uADF9\uB2E8\uC758 \uC5F0\uADF9
       \uBC30\uC6B0\uC57C.nn nn\uC774\uBC88 \uBC30\uC5ED\uC740 \uC0AC\uB791\uC5D0
@@ -615,7 +615,7 @@ MonoBehaviour:
     from: "- \uBC30\uC6B0 \uCE7C"
     questDreamCatcher: 9032
     questDreamCatcherNum: 1
-  - id: 6033
+  - id: SO_6033
     title: "\uCEE4\uD2BC\uCF5C - \uC644\uB8CC"
     contents: "\uACE0\uB9C8\uC6CC \uB355\uBD84\uC5D0 \uC5F0\uADF9\uC744 \uBB34\uC0AC\uD788
       \uB9C8\uCCE4\uC5B4.nn nn\uADF8 \uC8FC\uC778\uACF5\uC744 \uC8FD\uC774\uB358
@@ -632,7 +632,7 @@ MonoBehaviour:
     from: "- \uBC30\uC6B0 \uCE7C"
     questDreamCatcher: 9033
     questDreamCatcherNum: 1
-  - id: 6034
+  - id: SO_6034
     title: "\uCD94\uC5B5\uC758 \uC794\uD574"
     contents: "\uC804 \uBC14\uB2F7\uAC00\uC5D0 \uC0AC\uB294 \uB178\uC778\uC785\uB2C8\uB2E4.nn
       nn\uD754\uB4E4 \uC758\uC790\uC5D0 \uBAB8\uC744 \uB258\uBA70 \uBC14\uB2F7\uC18C\uB9AC\uC5D0
@@ -650,7 +650,7 @@ MonoBehaviour:
     from: "-\uB85C\uC81C \uC5E0\uBE14\uB81D"
     questDreamCatcher: 9034
     questDreamCatcherNum: 1
-  - id: 6035
+  - id: SO_6035
     title: "\uCD94\uC5B5\uC758 \uC794\uD574 - \uC644\uB8CC"
     contents: "\uBCF4\uB0B4\uC8FC\uC2E0 \uB4DC\uB9BC\uCE90\uCCD0\uAC00 \uB3C4\uC6C0\uC774
       \uB410\uC5B4\uC694.nn nn\uAE30\uC5B5\uC774\uB780 \uCC38 \uC544\uC774\uB7EC\uB2C8\uD558\uC8E0.nn\uD798\uB4E0
@@ -668,7 +668,7 @@ MonoBehaviour:
     from: "-\uB85C\uC81C \uC5E0\uBE14\uB81D"
     questDreamCatcher: 9035
     questDreamCatcherNum: 1
-  - id: 6036
+  - id: SO_6036
     title: "\uB9C8\uC9C0\uB9C9 \uD2F0\uD0C0\uC784"
     contents: "\uC548\uB155\uD558\uC138\uC694. \uC0AC\uC774\uBA3C\uC785\uB2C8\uB2E4.nn
       nn\uBD80\uC720\uD55C \uC9D1\uC548\uC5D0 \uC0AC\uC0DD\uC544\uC774\uAE30\uB3C4
@@ -691,7 +691,7 @@ MonoBehaviour:
     from: "-\uC0AC\uC774\uBA3C \uC5D0\uACE0\uD544\uB4DC"
     questDreamCatcher: 9036
     questDreamCatcherNum: 1
-  - id: 6037
+  - id: SO_6037
     title: "\uB9C8\uC9C0\uB9C9 \uD2F0\uD0C0\uC784 - \uC644\uB8CC"
     contents: "\uC624\uB298\uC740 \uD5A5 \uC88B\uC740 \uD64D\uCC28\uB97C \uB9C8\uC168\uC2B5\uB2C8\uB2E4.nn\uAFC8\uC5D0\uC11C\uB9CC\uD07C\uC740
       \uB9D0\uC785\uB2C8\uB2E4. nn nn\uC0AC\uC2E4\uC740 \uC5B4\uB834\uD48B\uC774

@@ -35,7 +35,7 @@ public class StoreInfo_Data : ScriptableObject
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<StoreInfo_Data>(CreateInstance<StoreInfo_Data>(), objectName);
     }
 
-    public List<int> GetSortedIDsByTheme(ItemTheme keyword)
+    public List<string> GetSortedIDsByTheme(ItemTheme keyword)
     {
         // theme 키워드를 검색해서 id 리스트를 반환하는 함수
 
@@ -44,7 +44,7 @@ public class StoreInfo_Data : ScriptableObject
             .Select(storeItem => storeItem.id)
             .ToList();
     }
-    public List<int> GetSortedIDsByTheme(StoreItemCategory keyword)
+    public List<string> GetSortedIDsByTheme(StoreItemCategory keyword)
     {
         // theme 키워드를 검색해서 id 리스트를 반환하는 함수
 
@@ -54,7 +54,7 @@ public class StoreInfo_Data : ScriptableObject
             .ToList();
     }
 
-    public List<int> GetSortedIDsByTheme(ItemTheme keyword1, StoreItemCategory keyword2)
+    public List<string> GetSortedIDsByTheme(ItemTheme keyword1, StoreItemCategory keyword2)
     {
         // theme 키워드를 검색해서 id 리스트를 반환하는 함수
 
@@ -66,14 +66,14 @@ public class StoreInfo_Data : ScriptableObject
             .ToList();
     }
 
-    public StoreItemCategory GetCategoryByItemID(int itemID)
+    public StoreItemCategory GetCategoryByItemID(string itemID)
     {
         var matchedItem = dataList.FirstOrDefault(storeItem => storeItem.id == itemID);
         Debug.Log(matchedItem.category);
         return matchedItem.category;
     }
 
-    public int GetLevelByID(int id)
+    public int GetLevelByID(string id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)
@@ -83,7 +83,7 @@ public class StoreInfo_Data : ScriptableObject
         return result;
     }
 
-    public int GetIDByCategoryAndLevel(string category, int level)
+    public string GetIDByCategoryAndLevel(string category, int level)
     {
         var matchingItems = dataList
             .Where(storeItem => storeItem.category.ToString().Trim().Equals(category.Trim(), StringComparison.OrdinalIgnoreCase)
@@ -102,12 +102,12 @@ public class StoreInfo_Data : ScriptableObject
         else
         {
             Debug.LogError($"[ERROR] {category}에 해당하는 아이템을 찾을 수 없음! (레벨 {level})");
-            return 0; // 에러 처리
+            return ""; // 에러 처리
         }
     }
 
 
-    public ItemTheme GetThemeByID(int id)
+    public ItemTheme GetThemeByID(string id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)
@@ -117,7 +117,7 @@ public class StoreInfo_Data : ScriptableObject
         return result;
     }
 
-    public string GetContentsByID(int id)
+    public string GetContentsByID(string id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)
@@ -127,7 +127,7 @@ public class StoreInfo_Data : ScriptableObject
         return result;
     }
 
-    public string GetEffectByID(int id)
+    public string GetEffectByID(string id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)
@@ -137,7 +137,7 @@ public class StoreInfo_Data : ScriptableObject
         return result;
     }
 
-    public int GetGoldByID(int id)
+    public int GetGoldByID(string id)
     {
         var result = dataList
             .Where(storeItem => storeItem.id == id)

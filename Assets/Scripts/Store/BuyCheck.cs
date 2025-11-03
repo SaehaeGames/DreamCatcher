@@ -6,7 +6,7 @@ public class BuyCheck : MonoBehaviour
 {
     [Header("[Buy Check]")]
     [SerializeField] private int selectGoods;  //구매하려고 선택한 상품 번호
-    [SerializeField] private int selectId;
+    [SerializeField] private string selectId;
 
     public GameObject[] ButtonObj;  //상품 구매 오브젝트 배열(순서대로 횃대, 꽃병, 상자, 실, 벽지, 특제먹이, 벽지 순)
     public GameObject[] StarButtonObj;  //별 가구 구매
@@ -18,9 +18,9 @@ public class BuyCheck : MonoBehaviour
 
     private void Start()
     {
-        List<int> defaultList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Default);
-        List<int> StarList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Star);
-        List<int> SeaList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
+        List<string> defaultList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Default);
+        List<string> StarList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Star);
+        List<string> SeaList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
 
         int numberOfGoods = ButtonObj.Length;   //상품 총 개수
         for (int i = 0; i < numberOfGoods; i++)
@@ -39,7 +39,7 @@ public class BuyCheck : MonoBehaviour
         }
     }
 
-    public void SelectBuyingGoods(int buttonNumber, int id)
+    public void SelectBuyingGoods(int buttonNumber, string id)
     {
         // 상품 구매 버튼을 눌러서 버튼 인덱스와 상품 id를 받는 함수
         selectGoods = buttonNumber; // 선택한 상품 번호 갱신

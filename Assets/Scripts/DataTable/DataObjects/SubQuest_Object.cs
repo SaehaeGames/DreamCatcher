@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SubQuest_Object
 {
+    public string id;
     public int thread;
     public int feather1;
     public int feather2;
@@ -14,11 +15,13 @@ public class SubQuest_Object
 
     public SubQuest_Object()
     {
+        id = "SO_0000";
         thread = feather1 = feather2 = feather3 = reward = read = 0;
     }
 
-    public SubQuest_Object(int _thread, int _feather1, int _feather2, int _feather3, int _reward, int _read)
+    public SubQuest_Object(string _id, int _thread, int _feather1, int _feather2, int _feather3, int _reward, int _read)
     {
+        id = _id;
         thread = _thread;
         feather1 = _feather1;
         feather2 = _feather2;

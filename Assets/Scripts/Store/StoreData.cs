@@ -187,14 +187,15 @@ public class StoreData : MonoBehaviour
         GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
     }
 
-    public void BuyGoods(int id)
+    public void BuyGoods(string id)
     {
         JsonManager jsonManager = GameManager.instance.jsonManager;
         StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
 
         if (curCategory == StoreType.Development)   // 보조도구 상품이라면
         {
-            if (id >= 4000 && id <= 4002) // 횃대는 두 개 동시에 레벨업
+            int idNum = int.Parse(id.Split('_')[1]);
+            if (idNum >= 4000 && idNum <= 4002) // 횃대는 두 개 동시에 레벨업
             {
                 List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList(curCategory.ToString());
                 if (rackList != null && rackList.Count == 2)

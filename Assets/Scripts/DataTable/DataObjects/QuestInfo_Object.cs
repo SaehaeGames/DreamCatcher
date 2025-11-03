@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class QuestInfo_Object
 {
-    public int id;
+    public string id;
     public string title;
     public string contents;
     public string from;
@@ -14,11 +14,12 @@ public class QuestInfo_Object
 
     public QuestInfo_Object()
     {
-        id = questDreamCatcher = questDreamCatcherNum = 0;
+        id = "SO_0000";
+        questDreamCatcher = questDreamCatcherNum = 0;
         title = contents = from = "";
     }
 
-    public QuestInfo_Object(int _id, string _title, string _contents, string _from, int _questDreamCatcher, int _questDreamCatcherNum)
+    public QuestInfo_Object(string _id, string _title, string _contents, string _from, int _questDreamCatcher, int _questDreamCatcherNum)
     {
         id = _id;
         title = _title;

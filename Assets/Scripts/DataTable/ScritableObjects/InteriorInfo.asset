@@ -13,54 +13,54 @@ MonoBehaviour:
   m_Name: InteriorInfo
   m_EditorClassIdentifier: 
   dataList:
-  - id: 3000
+  - id: SO_3000
     name: RackFront
     category: "Rack\r"
-  - id: 3001
+  - id: SO_3001
     name: RackBack
     category: "Rack\r"
-  - id: 3002
+  - id: SO_3002
     name: Vase
     category: "Vase\r"
-  - id: 3003
+  - id: SO_3003
     name: Poket
     category: "Box\r"
-  - id: 3004
+  - id: SO_3004
     name: Thread
     category: "Thread\r"
-  - id: 3005
+  - id: SO_3005
     name: Wallpaper
     category: "Wallpaper\r"
-  - id: 3006
+  - id: SO_3006
     name: FrameUpper
     category: "Wallpaper\r"
-  - id: 3007
+  - id: SO_3007
     name: FrameLower
     category: "Wallpaper\r"
-  - id: 3008
+  - id: SO_3008
     name: Desk
     category: "Wallpaper\r"
-  - id: 3009
+  - id: SO_3009
     name: Garland
     category: "Garland\r"
-  - id: 3010
+  - id: SO_3010
     name: WindowFrame
     category: "WindowFrame\r"
-  - id: 3011
+  - id: SO_3011
     name: Pad
     category: "Pad\r"
-  - id: 3012
+  - id: SO_3012
     name: Fillpen
     category: "Fillpen\r"
-  - id: 3013
+  - id: SO_3013
     name: Prob1
     category: "Prob1\r"
-  - id: 3014
+  - id: SO_3014
     name: CrystalBall
     category: "CrystalBall\r"
-  - id: 3015
+  - id: SO_3015
     name: Telescope
     category: "Telescope\r"
-  - id: 3016
+  - id: SO_3016
     name: Prob2
     category: Prob2

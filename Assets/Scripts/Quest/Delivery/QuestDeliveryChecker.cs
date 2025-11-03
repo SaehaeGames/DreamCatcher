@@ -17,10 +17,10 @@ public class QuestDeliveryChecker : MonoBehaviour
         dreamCatcherListData = GameManager.instance.dreamCatcherDataManager.dreamCatcherList;
 
         // 테스트 용 (나중에 이 함수를 UI 버튼 클릭 부분에서 호출)
-        TryDeliveryDreamCatcher(1000);
+        TryDeliveryDreamCatcher("JS_1000");
     }
 
-    public void TryDeliveryDreamCatcher(int selectedDreamCatcherId)
+    public void TryDeliveryDreamCatcher(string selectedDreamCatcherId)
     {
         // 현재 퀘스트에서 요구하는 드림캐쳐 불러오기
         DreamCatcher questDreamCatcher = DreamCatcherFactory.ConvertToDreamCatcher(questDreamCatcehrInfoDatalist[0]);

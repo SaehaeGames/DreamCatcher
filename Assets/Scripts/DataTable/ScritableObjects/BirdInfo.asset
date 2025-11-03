@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BirdInfo
   m_EditorClassIdentifier: 
   dataList:
-  - id: 1000
+  - id: SO_1000
     name: "\uBA67\uBE44\uB458\uAE30"
     exp: "\uC232\uC5D0\uC11C \uAC00\uC7A5 \uD754\uD558\uAC8C \uBCF4\uB294 \uBA67\uBE44\uB458\uAE30.
       \uBAA9\uC758 \uBB34\uB2AC\uAC00 \uD2B9\uC774\uD558\uB2E4.nn\uBE44\uB458\uAE30
@@ -28,7 +28,7 @@ MonoBehaviour:
     endTime: 300
     maxNum: 30
     probability: 0
-  - id: 1001
+  - id: SO_1001
     name: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     exp: "\uC628\uC21C\uD558\uACE0 \uC870\uC6A9\uD55C \uBE44\uB458\uAE30. \uBCF4\uACE0
       \uC788\uC73C\uBA74 \uD3C9\uC628\uD574\uC9C4\uB2E4.nn\uC2F8\uC6B0\uB294 \uAC78
@@ -44,7 +44,7 @@ MonoBehaviour:
     endTime: 600
     maxNum: 30
     probability: 0
-  - id: 1002
+  - id: SO_1002
     name: "\uACF5\uC791\uBE44\uB458\uAE30"
     exp: "\uD488\uACA9 \uC788\uACE0 \uB3C4\uB3C4\uD55C \uACF5\uC791\uBE44\uB458\uAE30.
       \uC774\uAC8C \uBC14\uB85C \uADC0\uC871 \uC0C8\uAD6C\uB098!nn\uCD5C\uADFC \uCF69
@@ -59,7 +59,7 @@ MonoBehaviour:
     endTime: 600
     maxNum: 30
     probability: 0
-  - id: 1003
+  - id: SO_1003
     name: "\uC591\uBE44\uB458\uAE30"
     exp: "\uB3C4\uC2EC\uC5D0 \uC0AC\uB294 \uBE44\uB458\uAE30\uAC00 \uC65C \uC5EC\uAE30
       \uC788\uC9C0..?nn\uC678\uC9C4 \uACF3\uC774\uB77C \uC8FC\uBCC0\uC5D0 \uB9C8\uC744\uC740
@@ -70,7 +70,7 @@ MonoBehaviour:
     endTime: 600
     maxNum: 1
     probability: 0
-  - id: 1004
+  - id: SO_1004
     name: "\uB531\uC0C8(\uC218\uCEF7)"
     exp: "\uC791\uACE0 \uC544\uC8FC \uADC0\uC5EC\uC6B4 \uB531\uC0C8. \uD2B9\uD788
       \uC790\uC2E0\uC774 \uADC0\uC5EC\uC6B4 \uAC78 \uC54C\uACE0 \uC788\uB2E4.nn\uC5F4\uB9E4\uB97C
@@ -85,7 +85,7 @@ MonoBehaviour:
     endTime: 900
     maxNum: 20
     probability: 0
-  - id: 1005
+  - id: SO_1005
     name: "\uB3D9\uACE0\uBE44"
     exp: "\uC0AC\uAD50\uC131\uC774 \uC88B\uC544 \uB2E4\uB978 \uC0C8\uBB34\uB9AC\uC5D0\uC11C\uB3C4
       \uC790\uC8FC \uBCF4\uC778\uB2E4.nn\uC5B8\uC81C \uC5B4\uB514\uC11C \uAC11\uC790\uAE30
@@ -99,7 +99,7 @@ MonoBehaviour:
     endTime: 1800
     maxNum: 20
     probability: 0
-  - id: 1006
+  - id: SO_1006
     name: "\uC720\uB9AC\uB531\uC0C8(\uC218\uCEF7)"
     exp: "\uC2E0\uBE44\uB85C\uC6B4 \uBD84\uC704\uAE30\uB97C \uD48D\uAE30\uB294 \uC544\uB984\uB2E4\uC6B4
       \uC720\uB9AC\uB531\uC0C8.nn\uB3D9\uD654\uCC45\uC5D0 \uB098\uC624\uB294 \uADF8
@@ -113,7 +113,7 @@ MonoBehaviour:
     endTime: 1800
     maxNum: 20
     probability: 0
-  - id: 1007
+  - id: SO_1007
     name: "\uC194\uB531\uC0C8"
     exp: "\uC874\uC7AC\uAC10\uC774 \uC5C6\uC5B4 \uB0A0\uC544\uAC08 \uB54C\uAC00 \uB418\uC5B4\uC57C
       \uC54C\uC544\uCC28\uB9B0\uB2E4.nn\uC791\uACE0 \uC870\uC6A9\uD574\uC11C \uADF8\uB7F0
@@ -127,7 +127,7 @@ MonoBehaviour:
     endTime: 1800
     maxNum: 1
     probability: 0
-  - id: 1008
+  - id: SO_1008
     name: "\uCCAD\uB531\uB530\uAD6C\uB9AC(\uC218\uCEF7)"
     exp: "\uD480\uC78E\uACFC \uB2EE\uC740 \uD478\uB978 \uAE43\uD138\uC774 \uD2B9\uC9D5\uC774\uB2E4.nn\uBA39\uC774
       \uC55E\uC5D0\uC11C \uC9C8\uC11C\uC815\uC5F0\uD55C \uBAA8\uC2B5\uC744 \uBCF4\uC774\uBA70
@@ -141,7 +141,7 @@ MonoBehaviour:
     endTime: 3600
     maxNum: 10
     probability: 0
-  - id: 1009
+  - id: SO_1009
     name: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     exp: "\uC5BC\uD54F \uBCF4\uBA74 \uAE4C\uB9C8\uADC0\uCC98\uB7FC \uBCF4\uC774\uB294
       \uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC.nn\uC81C\uBA4B\uB300\uB85C\uC758 \uC9DC\uC99D\uB3C4
@@ -156,7 +156,7 @@ MonoBehaviour:
     endTime: 7200
     maxNum: 10
     probability: 0
-  - id: 1010
+  - id: SO_1010
     name: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     exp: "\uD638\uAE30\uC2EC\uACFC \uD0D0\uAD6C\uB825\uC774 \uAC15\uD55C \uC624\uC0C9\uB531\uB530\uAD6C\uB9AC.nn\uB098\uC5D0\uAC8C
       \uD765\uBBF8\uAC00 \uBCF4\uC5EC \uB0B4 \uC5B4\uAE68\uC5D0 \uC62C\uB77C\uD0C0\uAE30\uB3C4
@@ -170,7 +170,7 @@ MonoBehaviour:
     endTime: 10800
     maxNum: 10
     probability: 0
-  - id: 1011
+  - id: SO_1011
     name: "\uAE4C\uB9C8\uADC0"
     exp: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC....\uAC00 \uC544\uB2C8\uB77C \uC9C4\uC9DC
       \uAE4C\uB9C8\uADC0.nn\uACFC\uAC70\uC5D0\uB294 \uBD88\uD589\uC758 \uC0C1\uC9D5\uC774\uC5C8\uC9C0\uB9CC
@@ -184,7 +184,7 @@ MonoBehaviour:
     endTime: 10800
     maxNum: 1
     probability: 0
-  - id: 1012
+  - id: SO_1012
     name: "\uC62C\uBE7C\uBBF8"
     exp: "\uB098\uC774\uC758 \uC5F0\uB95C\uACFC \uC9C0\uD61C\uAC00 \uB290\uAEF4\uC9C0\uB294
       \uCD1D\uBA85\uD55C \uC62C\uBE7C\uBBF8.nn\uBAA8\uB4E0 \uAC78 \uD758\uB7EC\uAC00\uB294
@@ -197,7 +197,7 @@ MonoBehaviour:
     endTime: 14400
     maxNum: 3
     probability: 0
-  - id: 1013
+  - id: SO_1013
     name: "\uB9E4"
     exp: "\uC7A5\uB09C\uAE30 \uAC00\uB4DD\uD55C \uCC9C\uBC29\uC9C0\uCD95 \uB9E4.
       \uC2DC\uB825\uC774 \uC88B\uC740 \uAC8C \uD2B9\uC9D5\uC774\uB2E4.nn\uD56D\uC0C1
@@ -212,7 +212,7 @@ MonoBehaviour:
     endTime: 21600
     maxNum: 3
     probability: 0
-  - id: 1014
+  - id: SO_1014
     name: "\uD770\uBA38\uB9AC \uC218\uB9AC"
     exp: "\uADFC\uC5C4\uD558\uACE0 \uC6A9\uB9F9\uD55C \uBAA8\uC2B5\uC758 \uD770\uBA38\uB9AC
       \uC218\uB9AC.nn\uC0C8\uB4E4\uC744 \uD1B5\uC194\uD558\uACE0 \uB098\uC544\uAC00
@@ -227,7 +227,7 @@ MonoBehaviour:
     endTime: 21600
     maxNum: 3
     probability: 0
-  - id: 1015
+  - id: SO_1015
     name: "\uD770\uC62C\uBE7C\uBBF8"
     exp: "\uB0B4\uAC8C \uB4DC\uB9BC\uCE90\uCCD0\uB97C \uC804\uD574 \uC900 \uC0C8\uD558\uC580
       \uD770 \uC62C\uBE7C\uBBF8.nn\uB098\uC640 \uAC19\uC740 \uC8FC\uC220\uC0AC\uAC00

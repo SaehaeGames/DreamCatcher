@@ -29,7 +29,7 @@ public class DCJsonTest : MonoBehaviour
         //드림캐쳐 임의 데이터 불러오기
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
         dreamCatcherData = GameManager.instance.dreamCatcherDataManager;
-        mytext.text += "로드 : " + dreamCatcherData.GetDreamCatcherDatabyIndex(0).GetLine()[3] + '\n'; //텍스트 확인용
+        mytext.text += "로드 : " + dreamCatcherData.GetDreamCatcherDataByIndex(0).GetLine()[3] + '\n'; //텍스트 확인용
     }
 
     // Update is called once per frame

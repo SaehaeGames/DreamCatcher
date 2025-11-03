@@ -18,7 +18,7 @@ public class MyDreamCatcher
     }
 
     // Index로 드림캐쳐 찾기
-    public DreamCatcher GetDreamCatcherDatabyIndex(int index)
+    public DreamCatcher GetDreamCatcherDataByIndex(int index)
     {
         if (index < 0 || index >= dreamCatcherList.Count)
         {
@@ -30,7 +30,7 @@ public class MyDreamCatcher
     }
 
     // ID로 드림캐쳐 찾기
-    public DreamCatcher GetDreamCatcherById(int id)
+    public DreamCatcher GetDreamCatcherById(string id)
     {
         DreamCatcher result = dreamCatcherList.FirstOrDefault(dc => dc.DCid == id);
 

@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: StoreInfo
   m_EditorClassIdentifier: 
   dataList:
-  - id: 4000
+  - id: SO_4000
     name: Rack_1
-    category: 1
+    category: 0
     theme: 0
     level: 0
     contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
     effect: 1
     gold: 0
     isButtonActive: 0
-  - id: 4001
+  - id: SO_4001
     name: Rack_2
-    category: 1
+    category: 0
     theme: 0
     level: 1
     contents: "\uC0C8 \uB9C8\uB9AC\uC218 \uC99D\uAC00"
     effect: 2
     gold: 5000
     isButtonActive: 0
-  - id: 4002
+  - id: SO_4002
     name: Rack_3
     category: 0
     theme: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     effect: 3
     gold: 10000
     isButtonActive: 0
-  - id: 4003
+  - id: SO_4003
     name: Vase_1
     category: 1
     theme: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
     effect: 0
     gold: 0
     isButtonActive: 1
-  - id: 4004
+  - id: SO_4004
     name: Vase_2
     category: 1
     theme: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     effect: 5
     gold: 4000
     isButtonActive: 1
-  - id: 4005
+  - id: SO_4005
     name: Vase_3
     category: 1
     theme: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     effect: 10
     gold: 7000
     isButtonActive: 1
-  - id: 4006
+  - id: SO_4006
     name: Vase_4
     category: 1
     theme: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
     effect: 15
     gold: 10000
     isButtonActive: 1
-  - id: 4007
+  - id: SO_4007
     name: Box_1
     category: 2
     theme: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
     effect: 5
     gold: 0
     isButtonActive: 1
-  - id: 4008
+  - id: SO_4008
     name: Box_2
     category: 2
     theme: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
     effect: 8
     gold: 2000
     isButtonActive: 1
-  - id: 4009
+  - id: SO_4009
     name: Box_3
     category: 2
     theme: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
     effect: 12
     gold: 5000
     isButtonActive: 1
-  - id: 4010
+  - id: SO_4010
     name: Box_4
     category: 2
     theme: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
     effect: 16
     gold: 10000
     isButtonActive: 1
-  - id: 4011
+  - id: SO_4011
     name: Thread_1
     category: 3
     theme: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     effect: "\uD770\uC0C9"
     gold: 0
     isButtonActive: 1
-  - id: 4012
+  - id: SO_4012
     name: Thread_2
     category: 3
     theme: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
     effect: "\uB178\uB780\uC0C9"
     gold: 1000
     isButtonActive: 1
-  - id: 4013
+  - id: SO_4013
     name: Thread_3
     category: 3
     theme: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     effect: "\uD30C\uB780\uC0C9"
     gold: 2000
     isButtonActive: 1
-  - id: 4014
+  - id: SO_4014
     name: Thread_4
     category: 3
     theme: 0
@@ -148,7 +148,7 @@ MonoBehaviour:
     effect: "\uBE68\uAC04\uC0C9"
     gold: 3000
     isButtonActive: 1
-  - id: 4015
+  - id: SO_4015
     name: Thread_5
     category: 3
     theme: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     effect: "\uAC80\uC815\uC0C9"
     gold: 4000
     isButtonActive: 1
-  - id: 4016
+  - id: SO_4016
     name: wallpaper_0
     category: 4
     theme: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4017
+  - id: SO_4017
     name: wallpaper_1
     category: 4
     theme: 1
@@ -176,7 +176,7 @@ MonoBehaviour:
     effect: null
     gold: 1000
     isButtonActive: 1
-  - id: 4018
+  - id: SO_4018
     name: wallpaper_2
     category: 4
     theme: 2
@@ -185,7 +185,7 @@ MonoBehaviour:
     effect: null
     gold: 1000
     isButtonActive: 1
-  - id: 4019
+  - id: SO_4019
     name: garland_0
     category: 5
     theme: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4020
+  - id: SO_4020
     name: garland_1
     category: 5
     theme: 1
@@ -206,7 +206,7 @@ MonoBehaviour:
     effect: null
     gold: 2000
     isButtonActive: 1
-  - id: 4021
+  - id: SO_4021
     name: garland_2
     category: 5
     theme: 2
@@ -216,7 +216,7 @@ MonoBehaviour:
     effect: null
     gold: 2000
     isButtonActive: 1
-  - id: 4022
+  - id: SO_4022
     name: windowframe_0
     category: 6
     theme: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4023
+  - id: SO_4023
     name: windowframe_1
     category: 6
     theme: 1
@@ -236,7 +236,7 @@ MonoBehaviour:
     effect: null
     gold: 3000
     isButtonActive: 1
-  - id: 4024
+  - id: SO_4024
     name: windowframe_2
     category: 6
     theme: 2
@@ -248,7 +248,7 @@ MonoBehaviour:
     effect: null
     gold: 3000
     isButtonActive: 1
-  - id: 4025
+  - id: SO_4025
     name: pad_0
     category: 7
     theme: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4026
+  - id: SO_4026
     name: pad_1
     category: 7
     theme: 1
@@ -268,7 +268,7 @@ MonoBehaviour:
     effect: null
     gold: 3000
     isButtonActive: 1
-  - id: 4027
+  - id: SO_4027
     name: pad_2
     category: 7
     theme: 2
@@ -277,7 +277,7 @@ MonoBehaviour:
     effect: null
     gold: 3000
     isButtonActive: 1
-  - id: 4028
+  - id: SO_4028
     name: fillpen_0
     category: 8
     theme: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4029
+  - id: SO_4029
     name: fillpen_1
     category: 8
     theme: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
     effect: null
     gold: 2000
     isButtonActive: 1
-  - id: 4030
+  - id: SO_4030
     name: fillpen_2
     category: 8
     theme: 2
@@ -306,7 +306,7 @@ MonoBehaviour:
     effect: null
     gold: 2000
     isButtonActive: 1
-  - id: 4031
+  - id: SO_4031
     name: object1_default
     category: 9
     theme: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4032
+  - id: SO_4032
     name: pocketwatch
     category: 9
     theme: 1
@@ -325,7 +325,7 @@ MonoBehaviour:
     effect: null
     gold: 7000
     isButtonActive: 1
-  - id: 4033
+  - id: SO_4033
     name: stardrop
     category: 9
     theme: 2
@@ -335,7 +335,7 @@ MonoBehaviour:
     effect: null
     gold: 7000
     isButtonActive: 1
-  - id: 4034
+  - id: SO_4034
     name: crystalball_0
     category: 10
     theme: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4035
+  - id: SO_4035
     name: crystalball_1
     category: 10
     theme: 1
@@ -355,7 +355,7 @@ MonoBehaviour:
     effect: null
     gold: 5000
     isButtonActive: 1
-  - id: 4036
+  - id: SO_4036
     name: crystalball_2
     category: 10
     theme: 2
@@ -366,7 +366,7 @@ MonoBehaviour:
     effect: null
     gold: 5000
     isButtonActive: 1
-  - id: 4037
+  - id: SO_4037
     name: telescope_0
     category: 11
     theme: 0
@@ -375,7 +375,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4038
+  - id: SO_4038
     name: telescope_1
     category: 11
     theme: 1
@@ -386,7 +386,7 @@ MonoBehaviour:
     effect: null
     gold: 5000
     isButtonActive: 1
-  - id: 4039
+  - id: SO_4039
     name: telescope_2
     category: 11
     theme: 2
@@ -397,7 +397,7 @@ MonoBehaviour:
     effect: null
     gold: 5000
     isButtonActive: 1
-  - id: 4040
+  - id: SO_4040
     name: object2_default
     category: 12
     theme: 0
@@ -406,7 +406,7 @@ MonoBehaviour:
     effect: null
     gold: 0
     isButtonActive: 0
-  - id: 4041
+  - id: SO_4041
     name: conch
     category: 12
     theme: 1
@@ -417,7 +417,7 @@ MonoBehaviour:
     effect: null
     gold: 5000
     isButtonActive: 1
-  - id: 4042
+  - id: SO_4042
     name: musicbox
     category: 12
     theme: 2

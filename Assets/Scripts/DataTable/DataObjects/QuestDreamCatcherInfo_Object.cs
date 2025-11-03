@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class QuestDreamCatcherInfo_Object
 {
-    public int id;
+    public string id;
     [HideInInspector] [SerializeField] private string linesRaw;
     [HideInInspector] [SerializeField] private string beadsRaw;
     public int[] lines;
@@ -18,7 +18,7 @@ public class QuestDreamCatcherInfo_Object
 
     public QuestDreamCatcherInfo_Object()
     {
-        this.id = 0;
+        this.id = "SO_0000";
         this.lines = new int[64];
         this.beads = new bool[48];
         this.color = 0;
@@ -27,7 +27,7 @@ public class QuestDreamCatcherInfo_Object
         this.feather3 = 0;
     }
 
-    public QuestDreamCatcherInfo_Object(int _id, int[] _lines, bool[] _beads, int _color, int _feather1, int _feather2, int _feather3)
+    public QuestDreamCatcherInfo_Object(string _id, int[] _lines, bool[] _beads, int _color, int _feather1, int _feather2, int _feather3)
     {
         this.id = _id;
         this.lines = _lines;

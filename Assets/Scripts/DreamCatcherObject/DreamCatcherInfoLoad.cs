@@ -52,28 +52,34 @@ public class DreamCatcherInfoLoad : MonoBehaviour
     // 드림 캐쳐 삭제
     // 데이터 삭제
     // : 저장되어 있는 json 데이터를 삭제합니다.
-    public void DataDelete(int index)
+    public void DataDelete(string idToDelete)
     {
         // 아이디 json 삭제
         // Json파일 로드
         dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
         GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
-        if(index>=1000)
+        for (int i = 0; i < dreamCatcherData.nDreamCatcher; i++)
         {
-            for (int i = 0; i < dreamCatcherData.nDreamCatcher; i++)
+            string id = dreamCatcherData.dreamCatcherList[i].GetId();
+            if (id == idToDelete)
             {
-                int id = dreamCatcherData.dreamCatcherList[i].GetId();
-                if (id == index)
-                {
-                    dreamCatcherData.dreamCatcherList.RemoveAt(i); // 삭제
-                }
+                dreamCatcherData.dreamCatcherList.RemoveAt(i); // 삭제
             }
         }
-        else
-        {
-            dreamCatcherData.dreamCatcherList.RemoveAt(index); // 삭제
-        }
+
+        // 드림캐쳐 개수 업데이트
+        dreamCatcherData.nDreamCatcher = dreamCatcherData.nDreamCatcher - 1;
+        // 드림캐쳐 json 세이브
+        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataSaveText(dreamCatcherData); // json 세이브
+    }
+
+    public void DataDelete(int indexToDelete)
+    {
+        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
+        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
+
+        dreamCatcherData.dreamCatcherList.RemoveAt(indexToDelete); // 삭제
 
         // 드림캐쳐 개수 업데이트
         dreamCatcherData.nDreamCatcher = dreamCatcherData.nDreamCatcher - 1;
@@ -83,7 +89,7 @@ public class DreamCatcherInfoLoad : MonoBehaviour
 
     // 이미지 삭제
     // : 드림캐쳐 Id에 해당하는 이미지를 삭제합니다.
-    public void ImageDelete(int dcId) 
+    public void ImageDelete(string dcId) 
     {
         // 아이디 이미지 삭제
         string fileName = dcId + ".png"; // 파일이름(Id)
