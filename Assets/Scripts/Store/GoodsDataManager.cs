@@ -13,20 +13,23 @@ public class GoodsData
     public string name;      //상품 이름
     public string category;
     public int level;   //상품 레벨
+    public string interior_id;
 
     public GoodsData()
     {
         id = "JS_0000";
         name = category = "";
         level = 0;
+        interior_id = "SO_0000";
     }
 
-    public GoodsData(string _id, string _name, string _category, int _level)
+    public GoodsData(string _id, string _name, string _category, int _level, string _interior_id)
     {
         id = _id;
         name = _name;
         category = _category;
         level = _level;
+        interior_id = _interior_id;
     }
 }
 public class GoodsDataManager
@@ -46,9 +49,13 @@ public class GoodsDataManager
 
         List<InteriorInfo_Object> infoDataList = GameManager.instance.interiorinfo_data.dataList;
 
+        // 아이디 초기값
+        int startId = 3000;
+
         foreach (var info in infoDataList)
         {
-            dataList.Add(new GoodsData(info.id, info.name, info.category, 0));
+            dataList.Add(new GoodsData("JS_" + startId, info.name, info.category, 0, info.id));
+            startId++;
         }
     }
 
