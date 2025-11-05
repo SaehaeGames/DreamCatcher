@@ -59,7 +59,7 @@ public class MyFeatherNumber
 
         for (int i = 0; i < birdCnt; i++)
         {
-            featherList[i] = new FeatherData("JS_"+(1000 + i + 1), 0, 0);
+            featherList[i] = new FeatherData("JS_"+(2000 + i), 0, 0);
         }
     }
 

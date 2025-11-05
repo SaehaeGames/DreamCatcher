@@ -3,7 +3,7 @@
     "nDreamCatcher": 1,
     "dreamCatcherList": [
         {
-            "DCid": 1000,
+            "DCid": "JS_1000",
             "DCline": [
                 0,
                 0,
@@ -87,7 +87,7 @@
                 false,
                 false,
                 false,
-                true,
+                false,
                 false,
                 false,
                 false,

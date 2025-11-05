@@ -2,82 +2,82 @@
     "birdCnt": 16,
     "featherList": [
         {
-            "bird_id": 1001,
+            "bird_id": "JS_2000",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1002,
+            "bird_id": "JS_2001",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1003,
+            "bird_id": "JS_2002",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1004,
+            "bird_id": "JS_2003",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1005,
+            "bird_id": "JS_2004",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1006,
+            "bird_id": "JS_2005",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1007,
+            "bird_id": "JS_2006",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1008,
+            "bird_id": "JS_2007",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1009,
+            "bird_id": "JS_2008",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1010,
+            "bird_id": "JS_2009",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1011,
+            "bird_id": "JS_2010",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1012,
+            "bird_id": "JS_2011",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1013,
+            "bird_id": "JS_2012",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1014,
+            "bird_id": "JS_2013",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1015,
+            "bird_id": "JS_2014",
             "feather_number": 0,
             "appear": 0
         },
         {
-            "bird_id": 1016,
+            "bird_id": "JS_2015",
             "feather_number": 0,
             "appear": 0
         }
