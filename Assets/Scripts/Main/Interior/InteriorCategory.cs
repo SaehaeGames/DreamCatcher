@@ -40,7 +40,7 @@ public class InteriorCategory : MonoBehaviour
             currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
             if (currentAdjusting[i])
             {
-                string id = interiorDataManager.dataList[i].id;
+                string id = interiorDataManager.dataList[i].storeinfo_id;
                 UpdateInteriorImage(i, id);
                 UpdateButtonAdjusting();
             }
@@ -303,7 +303,7 @@ public class InteriorCategory : MonoBehaviour
         var categoryItems = interiorDataManager.dataList
         .Where(d =>
         {
-            var storeInfo = storeInfoData.dataList.FirstOrDefault(s => s.id == d.id);
+            var storeInfo = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
             return storeInfo != null && storeInfo.category == currentCategory;
         })
         .ToList();
@@ -320,7 +320,7 @@ public class InteriorCategory : MonoBehaviour
             categoryItems[0].isAdjusting = true;
 
             selectedIdx = interiorDataManager.dataList.IndexOf(categoryItems[0]);
-            itemID = categoryItems[0].id;
+            itemID = categoryItems[0].storeinfo_id;
             itemIdx = 0; // 이미지도 첫 번째로 변경
         }
         else
@@ -368,7 +368,7 @@ public class InteriorCategory : MonoBehaviour
         //    return StoreItemCategory.Rack;
         //}
 
-        string itemId = interiorDataManager.dataList[itemIdx].id;
+        string itemId = interiorDataManager.dataList[itemIdx].storeinfo_id;
 
         var matchedItem = GameManager.instance.storeinfo_data.dataList
             .FirstOrDefault(data => data.id == itemId);
