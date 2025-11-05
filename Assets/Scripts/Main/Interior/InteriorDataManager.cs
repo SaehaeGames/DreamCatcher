@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 [Serializable]
 public class InteriorData
@@ -11,12 +12,14 @@ public class InteriorData
     public string id;           //인테리어 아이템 id
     public bool isHaving;         //인테리어 아이템 보유중 여부
     public bool isAdjusting;      //인테리어 아이템 적용중 여부
+    public string storeinfo_id; //storeinfo_data의 아이디를 참조
 
-    public InteriorData(string id, bool isHaving, bool isAdjusting)
+    public InteriorData(string _id, bool _isHaving, bool _isAdjusting, string _storeinfo_id)
     {
-        this.id = id;
-        this.isHaving = isHaving;
-        this.isAdjusting = isAdjusting;
+        this.id = _id;
+        this.isHaving = _isHaving;
+        this.isAdjusting = _isAdjusting;
+        this.storeinfo_id = _storeinfo_id;
     }
 }
 
@@ -46,19 +49,23 @@ public class InteriorDataManager
         combinedItemIDList.AddRange(SeaItemIDList);
         combinedItemIDList.AddRange(StarItemIDList);
 
+        int startId = 4000;
         int cnt = 0;
         for (int j = 0; j < defaultItemIDList.Count; j++)
         {
             int level = GameManager.instance.storeinfo_data.GetLevelByID(defaultItemIDList[j]);
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
+            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
+            startId++;
         }
         for (int j = 0; j < SeaItemIDList.Count; j++)
         {
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
+            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
+            startId++;
         }
         for (int j = 0; j < StarItemIDList.Count; j++)
         {
-            dataList.Add(new InteriorData(combinedItemIDList[cnt++], false, false));
+            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
+            startId++;
         }
 
 
@@ -75,19 +82,21 @@ public class InteriorDataManager
                     dataList.Add(new InteriorData(infoDataList[i].id, false, false));*/
     }
 
-    public InteriorData GetInteriorData(string id)
+    public InteriorData GetInteriorDataByStoreInfoId(string _storeinfo_id)
     {
-        InteriorData getData = dataList.FirstOrDefault(x => x.id == id);
+        InteriorData getData = dataList.FirstOrDefault(x => x.storeinfo_id == _storeinfo_id);
         if (getData != null)
             return getData;
         else
             return null;
     }
 
-    public InteriorData GetGoodsDataByID(string id)
+    public InteriorData GetInteriorDataById(string _id)
     {
-        var item = dataList.FirstOrDefault(x => x.id == id);
-
-        return item;
+        InteriorData getData = dataList.FirstOrDefault(x => x.id == _id);
+        if (getData != null)
+            return getData;
+        else
+            return null;
     }
 }

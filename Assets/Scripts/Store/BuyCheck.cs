@@ -66,7 +66,7 @@ public class BuyCheck : MonoBehaviour
         //상품 적용 확인 패널에서 확인 버튼을 눌러서 가구를 적용하는 함수
 
         JsonManager jsonManager = GameManager.instance.jsonManager;
-        InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(selectId);
+        InteriorData item = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(selectId);
 
         item.isAdjusting = true;
         jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);

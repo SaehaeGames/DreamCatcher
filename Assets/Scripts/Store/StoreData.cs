@@ -124,7 +124,7 @@ public class StoreData : MonoBehaviour
 
             if (item.theme.ToString() == curInteriorCategory)
             {
-                InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorData(item.id);
+                InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(item.id);
 
                 if (interiorItem != null && interiorItem.isHaving)
                 {
@@ -223,7 +223,7 @@ public class StoreData : MonoBehaviour
         else if (curCategory == StoreType.Interior)  //인테리어 상품이라면
         {
 
-            InteriorData item = GameManager.instance.interiorDataManager.GetInteriorData(id);
+            InteriorData item = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(id);
             Debug.Log("현재 아이템 보유 상태: " + item.isHaving);
             if (item != null)
             {
