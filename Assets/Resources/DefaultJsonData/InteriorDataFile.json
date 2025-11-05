@@ -1,0 +1,190 @@
+{
+    "dataList": [
+        {
+            "id": "JS_4000",
+            "isHaving": true,
+            "isAdjusting": true,
+            "storeinfo_id": "SO_4003"
+        },
+        {
+            "id": "JS_4001",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4004"
+        },
+        {
+            "id": "JS_4002",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4005"
+        },
+        {
+            "id": "JS_4003",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4006"
+        },
+        {
+            "id": "JS_4004",
+            "isHaving": true,
+            "isAdjusting": true,
+            "storeinfo_id": "SO_4007"
+        },
+        {
+            "id": "JS_4005",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4008"
+        },
+        {
+            "id": "JS_4006",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4009"
+        },
+        {
+            "id": "JS_4007",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4010"
+        },
+        {
+            "id": "JS_4008",
+            "isHaving": true,
+            "isAdjusting": true,
+            "storeinfo_id": "SO_4011"
+        },
+        {
+            "id": "JS_4009",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4012"
+        },
+        {
+            "id": "JS_4010",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4013"
+        },
+        {
+            "id": "JS_4011",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4014"
+        },
+        {
+            "id": "JS_4012",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4015"
+        },
+        {
+            "id": "JS_4013",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4017"
+        },
+        {
+            "id": "JS_4014",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4020"
+        },
+        {
+            "id": "JS_4015",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4023"
+        },
+        {
+            "id": "JS_4016",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4026"
+        },
+        {
+            "id": "JS_4017",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4029"
+        },
+        {
+            "id": "JS_4018",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4032"
+        },
+        {
+            "id": "JS_4019",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4035"
+        },
+        {
+            "id": "JS_4020",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4038"
+        },
+        {
+            "id": "JS_4021",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4041"
+        },
+        {
+            "id": "JS_4022",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4018"
+        },
+        {
+            "id": "JS_4023",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4021"
+        },
+        {
+            "id": "JS_4024",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4024"
+        },
+        {
+            "id": "JS_4025",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4027"
+        },
+        {
+            "id": "JS_4026",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4030"
+        },
+        {
+            "id": "JS_4027",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4033"
+        },
+        {
+            "id": "JS_4028",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4036"
+        },
+        {
+            "id": "JS_4029",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4039"
+        },
+        {
+            "id": "JS_4030",
+            "isHaving": false,
+            "isAdjusting": false,
+            "storeinfo_id": "SO_4042"
+        }
+    ]
+}

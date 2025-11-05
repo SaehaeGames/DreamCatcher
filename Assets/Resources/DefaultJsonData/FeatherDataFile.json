@@ -1,0 +1,85 @@
+{
+    "birdCnt": 16,
+    "featherList": [
+        {
+            "bird_id": "JS_2000",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2001",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2002",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2003",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2004",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2005",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2006",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2007",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2008",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2009",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2010",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2011",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2012",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2013",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2014",
+            "feather_number": 0,
+            "appear": 0
+        },
+        {
+            "bird_id": "JS_2015",
+            "feather_number": 0,
+            "appear": 0
+        }
+    ]
+}
