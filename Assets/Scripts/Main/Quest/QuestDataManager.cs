@@ -7,24 +7,24 @@ using System.Linq;
 [Serializable]
 public class QuestData
 {
-    public int id;     //퀘스트 id
+    public string id;     //퀘스트 id
     public bool isChecked;   //퀘스트 확인 여부
     public bool isClear;  //퀘스트 클리어 여부
-    public string questInfoId;
+    public string questInfo_Id;
 
     public QuestData()
     {
-        id = 0;
+        id = "JS_0000";
         isChecked = isClear = false;
-        questInfoId = "SO_0000";
+        questInfo_Id = "SO_0000";
     }
 
-    public QuestData(int _id, bool _isChecked, bool _isClear, string _questInfoId)
+    public QuestData(string _id, bool _isChecked, bool _isClear, string _questInfoId)
     {
         this.id = _id;
         this.isChecked = _isChecked;
         this.isClear = _isClear;
-        this.questInfoId = _questInfoId;
+        this.questInfo_Id = _questInfoId;
     }
 }
 
@@ -42,18 +42,23 @@ public class QuestDataManager
     {
         if (dataList != null)
             dataList.Clear();
-        int questDataManagerId = 6000;
+        int startId = 6000;
         List<QuestInfo_Object> infoDataList = GameManager.instance.questinfo_data.dataList;
         for (int i = 0; i < infoDataList.Count; i++)
         {
-            dataList.Add(new QuestData(questDataManagerId, false, false, infoDataList[i].id)); // ** 여기 null 부분에 퀘스트 드림캐쳐 정보 넣기
-            questDataManagerId++;
+            dataList.Add(new QuestData("JS_" + startId, false, false, infoDataList[i].id));
+            startId++;
+        }
+
+        foreach (var q in dataList)
+        {
+            Debug.Log(q.id);
         }
     }
 
-    public QuestData GetQuestData(int id)
+    public QuestData GetQuestData(string _id)
     {
-        QuestData getData = dataList.FirstOrDefault(x => x.id == id);
+        QuestData getData = dataList.FirstOrDefault(x => x.id == _id);
         if (getData != null)
             return getData;
         else

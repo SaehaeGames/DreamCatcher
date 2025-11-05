@@ -11,7 +11,7 @@ public class JsonManager
         // 데이터를 로드하는 함수
         string savedPath = GetPath(fileName);
 
-#if DEVELOPMENT_BUILD // 개발 빌드일 땐 무조건 리소스에서 로드
+#if DEVELOPMENT_BUILD && !UNITY_EDITOR// 개발 빌드일 땐 무조건 리소스에서 로드
         Debug.Log("Json : Development Build - 강제로 Resource에서 불러옵니다.");
         TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
         if (defaultJson != null)

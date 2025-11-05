@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoryScriptInfo
   m_EditorClassIdentifier: 
   dataList:
-  - id: 7000
+  - id: SO_7000
     sceneNum: 0
     questNum: 0
     charImage: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: ???
     line: "\uC544\uC9C1\uB3C4 \uC790\uACE0 \uC788\uC5B4?\r"
-  - id: 7001
+  - id: SO_7001
     sceneNum: 0
     questNum: 0
     charImage: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: ???
     line: ".....\r"
-  - id: 7002
+  - id: SO_7002
     sceneNum: 0
     questNum: 0
     charImage: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: ???
     line: "\uC5B8\uC81C \uC77C\uC5B4\uB0A0 \uAC70\uC57C.\r"
-  - id: 7003
+  - id: SO_7003
     sceneNum: 0
     questNum: 0
     charImage: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: ???
     line: ".....\r"
-  - id: 7004
+  - id: SO_7004
     sceneNum: 0
     questNum: 0
     charImage: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     screenEffect: 1
     speaker: ???
     line: "\uB208 \uB5A0!!  \uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C!!\r"
-  - id: 7005
+  - id: SO_7005
     sceneNum: 1
     questNum: 1
     charImage: 1
@@ -67,7 +67,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: ".....\r"
-  - id: 7006
+  - id: SO_7006
     sceneNum: 1
     questNum: 1
     charImage: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC77C\uC5B4\uB0AC\uC5B4?\r"
-  - id: 7007
+  - id: SO_7007
     sceneNum: 1
     questNum: 1
     charImage: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5B8\uC81C\uAE4C\uC9C0 \uC798\uAC70\uC57C.  \uD574\uAC00 \uBC8C\uC368
       \uC911\uCC9C\uC774\uB77C\uACE0.\r"
-  - id: 7008
+  - id: SO_7008
     sceneNum: 1
     questNum: 1
     charImage: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC138\uC218\uD558\uACE0 \uC640.  \uC758\uB8B0\uC628 \uD3B8\uC9C0\uB97C
       \uD655\uC778\uD574\uC57C\uC9C0.\r"
-  - id: 7009
+  - id: SO_7009
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -106,7 +106,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uAFC8\uC744 \uD655\uC778\uD588\uC73C\uB2C8.  \uC774\uC81C <\uB4DC\uB9BC\uCE90\uCCD0>\uB97C
       \uB9CC\uB4E4\uC5B4 \uBCFC\uAE4C.\r"
-  - id: 7010
+  - id: SO_7010
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -115,7 +115,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7011
+  - id: SO_7011
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB50\uD574?   \uC548 \uB9CC\uB4E4\uACE0?\r"
-  - id: 7012
+  - id: SO_7012
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -133,7 +133,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC5B4\uB5BB\uAC8C \uD558\uB294\uC9C0 \uAE4C\uBA39\uC5C8\uB2E4\uACE0?\r"
-  - id: 7013
+  - id: SO_7013
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7014
+  - id: SO_7014
     sceneNum: 2
     questNum: 1
     charImage: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "....\uC54C\uC558\uC5B4.  \uB2E4\uC2DC \uC124\uBA85\uD574 \uC904\uAC8C.\r"
-  - id: 7015
+  - id: SO_7015
     sceneNum: 3
     questNum: 1
     charImage: 1
@@ -161,7 +161,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC81C\uC791 \uBC29\uBC95\uB3C4 \uAE4C\uBA39\uC5C8\uC744 \uD14C\uB2C8. 
       \uBA3C\uC800 \uB3C4\uAC10\uC744 \uBD10\uBD10.\r"
-  - id: 7016
+  - id: SO_7016
     sceneNum: 4
     questNum: 1
     charImage: 1
@@ -171,7 +171,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC758\uB8B0\uB294 <\uC232>\uC5D0 \uAD00\uB828\uB41C \uAFC8\uC774\uB2C8\uAE4C.. 
       \uC5EC\uAE30 \uCCAB \uD398\uC774\uC9C0\uC5D0 \uC788\uB124.\r"
-  - id: 7017
+  - id: SO_7017
     sceneNum: 4
     questNum: 1
     charImage: 1
@@ -181,7 +181,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC7AC\uB8CC\uB294 \uD770\uC0C9 \uC2E4, \uBA67\uBE44\uB458\uAE30 \uAE43\uD138
       2\uAC1C, \uB9E4\uB4ED\uC740...\r"
-  - id: 7018
+  - id: SO_7018
     sceneNum: 5
     questNum: 1
     charImage: 1
@@ -192,7 +192,7 @@ MonoBehaviour:
     line: "\uC800\uBC88\uC5D0 \uAE43\uD138 \uD558\uB098\uAC00 \uB0A8\uC558\uB358
       \uAC70 \uAC19\uC740\uB370...  \uC8FC\uBA38\uB2C8 \uC880 \uD655\uC778\uD574
       \uBD10.\r"
-  - id: 7019
+  - id: SO_7019
     sceneNum: 5
     questNum: 1
     charImage: 1
@@ -202,7 +202,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC88B\uC544, \uADF8\uB7FC \uAE43\uD138 \uD558\uB098\uB9CC \uB354 \uBAA8\uC73C\uBA74
       \uB3FC.\r"
-  - id: 7020
+  - id: SO_7020
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBE44\uB458\uAE30 \uCF69\uC740 \uB109\uB109\uD558\uC9C0?\r"
-  - id: 7021
+  - id: SO_7021
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uC81C \uAE30\uB2E4\uB9AC\uC790.\r"
-  - id: 7022
+  - id: SO_7022
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -229,7 +229,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7023
+  - id: SO_7023
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -238,7 +238,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "............\r"
-  - id: 7024
+  - id: SO_7024
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -248,7 +248,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5BC\uB9C8 \uC804\uC5D0.  \uBE44\uB458\uAE30\uB4E4\uC774 \uB2E8\uCCB4\uB85C
       \uBAB0\uB824\uC640\uC11C\uB294\r"
-  - id: 7025
+  - id: SO_7025
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uAE43\uD138 \uCF69 \uAC00\uACA9 \uC880 \uC62C\uB824 \uB2EC\uB77C \uC544\uC6B0\uC131\uC774\uC5C8\uC796\uC544.\r"
-  - id: 7026
+  - id: SO_7026
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uD138\uAC08\uC774 \uB54C \uBE60\uC9C4 \uAE43\uD138\uB85C \uAC70\uB798\uD558\uBA74\uC11C  
       \uC6B0\uB9AC\uAC00 \uBB34\uC2A8 \uBC30\uC2DD\uC18C \uC778 \uC904 \uC54C\uC544.\r"
-  - id: 7027
+  - id: SO_7027
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -277,7 +277,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uC0AC \uC624\uAE30 \uC804\uC5D0\uB294 \uADF8\uB0E5 \uB5A8\uC5B4\uC9C4
       \uAE43\uD138\uC744 \uC8FC\uC6E0\uB294\uB370    \uADF8 \uB54C\uAC00 \uC88B\uC558\uC9C0...\r"
-  - id: 7028
+  - id: SO_7028
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC232\uC5D0 \uC0C8\uB4E4\uC774 \uB9CE\uC9C0\uB9CC \uC544\uC8FC \uB2E4
       \uB0A0\uAC15\uB3C4\uB77C\uB2C8\uAE4C.\r"
-  - id: 7029
+  - id: SO_7029
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uB7F0 <\uD143\uC0C8>\uB97C \uBD80\uB9AC\uB2E4\uB2C8.\r"
-  - id: 7030
+  - id: SO_7030
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -305,7 +305,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7031
+  - id: SO_7031
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -314,7 +314,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "............\r"
-  - id: 7032
+  - id: SO_7032
     sceneNum: 6
     questNum: 1
     charImage: 1
@@ -323,7 +323,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\uC544! \uC654\uB2E4.\r"
-  - id: 7033
+  - id: SO_7033
     sceneNum: 7
     questNum: 1
     charImage: 1
@@ -333,7 +333,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uC81C \uC7AC\uB8CC\uB294 \uCDA9\uBD84\uD558\uB2C8 \uC81C\uC791\uC2E4\uB85C
       \uAC00\uC790.\r"
-  - id: 7034
+  - id: SO_7034
     sceneNum: 8
     questNum: 1
     charImage: 1
@@ -342,7 +342,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB3C4\uAC10\uC5D0\uC11C \uBCF8 \uAC70 \uAE30\uC5B5\uB098?\r"
-  - id: 7035
+  - id: SO_7035
     sceneNum: 8
     questNum: 1
     charImage: 1
@@ -351,7 +351,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB9AC\uACE0 \uAD6C\uC2AC \uC704\uCE58\uB294?\r"
-  - id: 7036
+  - id: SO_7036
     sceneNum: 8
     questNum: 1
     charImage: 1
@@ -360,7 +360,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB2E4\uC74C\uC740 \uC544\uAE4C \uAD6C\uD55C \uAE43\uD138.\r"
-  - id: 7037
+  - id: SO_7037
     sceneNum: 9
     questNum: 1
     charImage: 1
@@ -369,7 +369,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB410\uB2E4. \uC774\uC81C \uBCF4\uB0B4\uBA74 \uB418\uACA0\uC5B4.\r"
-  - id: 7038
+  - id: SO_7038
     sceneNum: 10
     questNum: 1
     charImage: 1
@@ -380,7 +380,7 @@ MonoBehaviour:
     line: "\uC6B0\uB9AC\uAC00 \uC54C\uB9DE\uAC8C \uB9CC\uB4E4\uC5C8\uB2E4\uBA74  
       \uB4DC\uB9BC\uCE90\uCCD0\uAC00 \uC545\uBABD\uC744 \uC9C0\uC6CC \uC92C\uC744
       \uAC70\uC57C.\r"
-  - id: 7039
+  - id: SO_7039
     sceneNum: 10
     questNum: 1
     charImage: 1
@@ -390,7 +390,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uAFC8 \uAD6C\uC2AC\uC744 \uBC1B\uC558\uB2E4\uB294 \uAC74   \uC758\uB8B0\uC778\uC774
       \uC545\uBABD\uC744 \uD574\uACB0\uD588\uB2E4\uB294 \uAC70\uB2C8\uAE4C.\r"
-  - id: 7040
+  - id: SO_7040
     sceneNum: 10
     questNum: 1
     charImage: 1
@@ -400,7 +400,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBC1B\uC740 \uD3B8\uC9C0\uB294 \uD3B8\uC9C0\uD568\uC5D0 \uB123\uC5B4\uB480\uC5B4
       \uB098\uC911\uC5D0 \uBD10.\r"
-  - id: 7041
+  - id: SO_7041
     sceneNum: 10
     questNum: 1
     charImage: 1
@@ -409,7 +409,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB2E4\uC74C \uC758\uB8B0\uB294...\r"
-  - id: 7042
+  - id: SO_7042
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -418,7 +418,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uAC74 \uB3D9\uBB3C\uACFC \uAD00\uB828\uB41C \uAFC8\uC774\uB124.\r"
-  - id: 7043
+  - id: SO_7043
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -428,7 +428,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uD760... <\uC5FC\uC8FC\uBE44\uB458\uAE30> \uAE43\uD138\uB3C4 \uD544\uC694\uD55C\uB370  
       \uC0C8 \uB3C4\uAC10\uC5D0 \uC801\uD600\uC788\uB098 \uBCF4\uC790.\r"
-  - id: 7044
+  - id: SO_7044
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -439,7 +439,7 @@ MonoBehaviour:
     line: "\uC5FC\uC8FC\uBE44\uB458\uAE30\uB294 \uC544\uC9C1 \uB9CC\uB09C \uC801
       \uC5C6\uC5B4.  \uBE44\uB458\uAE30\uB2C8\uAE4C \uAC19\uC740 \uBE44\uB458\uAE30
       \uCF69\uC774\uBA74 \uB418\uC9C0 \uC54A\uC744\uAE4C?\r"
-  - id: 7045
+  - id: SO_7045
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -449,7 +449,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB0B4\uAC00 \uACE0\uC591\uC774\uB77C \uADF8\uB7F0\uC9C0  \uAC1C\uB294
       \uC815\uB9D0 \uC131\uACA9\uC774 \uC548 \uB9DE\uB354\uB77C.\r"
-  - id: 7046
+  - id: SO_7046
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -458,7 +458,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB108\uB3C4 \uC5ED\uC2DC \uACE0\uC591\uC774\uAC00 \uB354 \uC88B\uC9C0?\r"
-  - id: 7047
+  - id: SO_7047
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -467,7 +467,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7048
+  - id: SO_7048
     sceneNum: 11
     questNum: 2
     charImage: 1
@@ -476,7 +476,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC65C \uB300\uB2F5\uC774 \uC5C6\uC5B4?\r"
-  - id: 7049
+  - id: SO_7049
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -485,7 +485,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uD63C\uC790 \uD560 \uC218 \uC788\uC9C0?\r"
-  - id: 7050
+  - id: SO_7050
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -496,7 +496,7 @@ MonoBehaviour:
     line: "\uD3B8\uC9C0\uC5D0\uC11C \uAFC8\uC5D0 \uAD00\uD55C \uD575\uC2EC\uB9CC
       \uC798 \uC7A1\uC73C\uBA74   \uB098\uBA38\uC9C0\uB294 \uB3C4\uAC10 \uBCF4\uACE0
       \uC27D\uAC8C \uD560 \uC218 \uC788\uC744 \uAC70\uC57C.\r"
-  - id: 7051
+  - id: SO_7051
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -505,7 +505,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC0C1\uB2E8??\r"
-  - id: 7052
+  - id: SO_7052
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -515,7 +515,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC6B0\uB9AC\uB791 \uB4DC\uB9BC\uCE90\uCCD0 \uAC00\uC9C0\uACE0  \uC7A5\uC0AC\uB97C
       \uD558\uC790\uB294 \uAC70\uC57C?\r"
-  - id: 7053
+  - id: SO_7053
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -526,7 +526,7 @@ MonoBehaviour:
     line: "\uC800\uB7F0 \uC790\uBCF8\uC8FC\uC758 \uB140\uC11D\uB4E4\uC740 \uC870\uC2EC\uD574\uC57C
       \uD574!   \uAFC0 \uBC14\uB978 \uB9D0\uC744 \uD574\uB3C4 \uC18D\uC740 \uB2E4
       \uB2A5\uAD6C\uB801\uC774 \uAC19\uC740 \uB188\uB4E4\uC774\uB2C8\uAE4C.\r"
-  - id: 7054
+  - id: SO_7054
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -535,7 +535,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB50\uB77C\uACE0 \uD558\uB4E0 \uC815\uC2E0 \uBC14\uC9DD \uCC28\uB824.\r"
-  - id: 7055
+  - id: SO_7055
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -544,7 +544,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC640!!! \uC774\uAC70 \uBD10!!  <\uD2B9\uC81C \uBA39\uC774>\uB97C \uD314\uC544?\r"
-  - id: 7056
+  - id: SO_7056
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -554,7 +554,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBA39\uC774\uC5D0 \uC11E\uC73C\uBA74 \uC0C8\uB4E4\uC774 \uD658\uC7A5\uD574\uC11C 
       \uB354 \uBE68\uB9AC \uCC3E\uC544\uC628\uB2E4\uACE0!\r"
-  - id: 7057
+  - id: SO_7057
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -565,7 +565,7 @@ MonoBehaviour:
     line: "\uADF8\uB9AC\uACE0 \uD310\uB9E4\uD558\uB294 \uBB3C\uD488\uB4E4 \uBCF4\uB2C8\uAE4C. 
       \uC6B0\uB9AC\uAC00 \uC791\uC5C5\uD558\uB294 \uB370 \uB3C4\uC6C0\uC774 \uB418\uB294
       \uAC83\uB4E4\uC774...\r"
-  - id: 7058
+  - id: SO_7058
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -574,7 +574,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7059
+  - id: SO_7059
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -583,7 +583,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uD07C\uD07C... \uADF8\uB0E5 \uADF8\uB807\uB2E4\uB294 \uAC70\uC57C...\r"
-  - id: 7060
+  - id: SO_7060
     sceneNum: 12
     questNum: 3
     charImage: 1
@@ -593,7 +593,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBB50, \uC758\uBB34\uB294 \uC544\uB2C8\uB77C\uB2C8\uAE4C.  \uB124\uAC00
       \uB0B4\uD0A4\uBA74 \uD574.\r"
-  - id: 7061
+  - id: SO_7061
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -603,7 +603,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADFC\uB370 \uD3B8\uC9C0\uC5D0 '\uC9C0\uB3C4'\uB294 \uBB58 \uB9D0\uD558\uB294
       \uAC70\uC57C?\r"
-  - id: 7062
+  - id: SO_7062
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -612,7 +612,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7063
+  - id: SO_7063
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -622,7 +622,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC624, \uC778\uAC04\uB4E4\uC758 \uC740\uC5B4\uAD6C\uB098.  \uB9D0\uD558\uC9C0
       \uB9C8. \uBAA8\uB974\uB294 \uAC8C \uB0AB\uACA0\uC5B4.\r"
-  - id: 7064
+  - id: SO_7064
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -631,7 +631,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC544\uAE4C \uC5BB\uC740 \uD2B9\uC81C \uBA39\uC774 \uC368\uBCF4\uC790!\r"
-  - id: 7065
+  - id: SO_7065
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -641,7 +641,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uAC70 \uD558\uB098\uC5D0 \uC5BC\uB9C8\uB098 \uBE68\uB9AC \uC624\uB294
       \uAC70\uC9C0?\r"
-  - id: 7066
+  - id: SO_7066
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -650,7 +650,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC815\uB9D0 \uBC14\uB85C \uC624\uB124?\r"
-  - id: 7067
+  - id: SO_7067
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -660,7 +660,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBB50, \uAFC8 \uAD6C\uC2AC\uC740 \uC545\uBABD\uC758 \uACB0\uC815\uCCB4\uB2C8 
       \uD2C0\uB9B0 \uB9D0\uB3C4 \uC544\uB2C8\uC9C0.\r"
-  - id: 7068
+  - id: SO_7068
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -669,7 +669,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB124 \uB3D9\uC0DD \uC0DD\uAC01\uC774\uB77C\uB3C4 \uB098?\r"
-  - id: 7069
+  - id: SO_7069
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -678,7 +678,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7070
+  - id: SO_7070
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -687,7 +687,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uCE5C\uC808\uD55C \uCE5C\uAD6C?  \uB3C4\uC6C0??\r"
-  - id: 7071
+  - id: SO_7071
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -697,7 +697,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uD558, \uB204\uAD6C \uB54C\uBB38\uC5D0 \uAC70\uAE38 \uB5A0\uB0AC\uB294\uB370! 
       \uC6B0\uB9AC\uB294 \uB610 \uC5B4\uB5BB\uAC8C \uCC3E\uC544\uB0B8 \uAC70\uC57C?!\r"
-  - id: 7072
+  - id: SO_7072
     sceneNum: 13
     questNum: 4
     charImage: 1
@@ -707,7 +707,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB108, \uB108 \uC800\uB188\uD55C\uD14C \uB2F5\uC7A5 \uC4F8\uAC70 \uC544\uB2C8\uC9C0?  
       \uD3B8\uC9C0 \uC918\uBD10. \uBD88\uD0DC\uC6CC\uBC84\uB824\uC57C\uACA0\uC5B4!\r"
-  - id: 7073
+  - id: SO_7073
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBB34\uC2A8 \uAD11\uACE0\uAC00 \uC808\uBC18\uC774\uC57C?  \uD3B8\uC9C0\uAC00
       \uC2DC\uB044\uB7EC\uC6B8 \uC218 \uC788\uB2E4\uB2C8. \uC2E0\uAE30\uD558\uB124.\r"
-  - id: 7074
+  - id: SO_7074
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -727,7 +727,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC74C? \uD3B8\uC9C0\uC9C0\uC5D0\uC11C \uBB34\uC2A8 \uB0C4\uC0C8\uAC00
       \uB098\uB294\uB370.  \uD081\uD081...\r"
-  - id: 7075
+  - id: SO_7075
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -736,7 +736,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "... \uC624\uB80C\uC9C0? \uC73D...\r"
-  - id: 7076
+  - id: SO_7076
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -746,7 +746,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBB34\uC2A8 \uC0AC\uB2F4\uC774 \uC774\uB807\uAC8C \uAE38\uC5B4!  \uC815\uC2E0\uC5C6\uB294
       \uD3B8\uC9C0\uC796\uC544.\r"
-  - id: 7077
+  - id: SO_7077
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -755,7 +755,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB0E0.  \uADF8\uB798\uB3C4 \uC774 \uBE68\uAC04 \uACFC\uC77C\uC740 \uB9DB\uC788\uB124.\r"
-  - id: 7078
+  - id: SO_7078
     sceneNum: 14
     questNum: 5
     charImage: 1
@@ -765,7 +765,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5F4\uB9E4\uB97C \uC8FC\uB85C \uBA39\uB294 \uC0C8\uB4E4\uB3C4 \uC788\uC73C\uB2C8\uAE4C.
       \uC774\uAC78 \uBA39\uC774\uB85C \uC0AC\uC6A9\uD574 \uBCFC\uAE4C?\r"
-  - id: 7079
+  - id: SO_7079
     sceneNum: 15
     questNum: 6
     charImage: 1
@@ -775,7 +775,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB291\uB300 \uD558\uB2C8\uAE4C  \uC608\uC804 \uC9D1 \uB4A4\uD3B8\uC5D0
       \uB3D9\uAD74\uC774 \uC788\uC5C8\uC796\uC544.\r"
-  - id: 7080
+  - id: SO_7080
     sceneNum: 15
     questNum: 6
     charImage: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB291\uB300 \uC601\uC5ED\uC778 \uC904 \uBAA8\uB974\uACE0 \uAC14\uB2E4\uAC00 
       \uADF8\uB188\uB4E4 \uBA39\uC774\uAC00 \uB420 \uBED4\uD588\uC5C8\uC9C0.\r"
-  - id: 7081
+  - id: SO_7081
     sceneNum: 15
     questNum: 6
     charImage: 1
@@ -795,7 +795,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB124\uAC00 \uB0A0 \uC548\uACE0 \uC6B8\uBA70\uBD88\uBA70 \uB3C4\uB9DD\uCE58\uB358
       \uAC8C \uC0DD\uAC01\uB098\uB124.\r"
-  - id: 7082
+  - id: SO_7082
     sceneNum: 15
     questNum: 6
     charImage: 1
@@ -804,7 +804,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC815\uB9D0 \uBB34\uC11C\uC6E0\uC5B4...\r"
-  - id: 7083
+  - id: SO_7083
     sceneNum: 15
     questNum: 6
     charImage: 1
@@ -813,7 +813,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB2E4\uC2DC \uAC8C\uC73C\uB984\uBC45\uC774\uB85C \uB3CC\uC544\uC654\uC796\uC544!\r"
-  - id: 7084
+  - id: SO_7084
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -823,7 +823,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC608\uC804\uC5D0 \uCC9C\uC7A5\uC5D0\uC11C \uBE44\uAC00 \uC0C8\uC11C 
       \uC9D1\uC774 \uC628\uD1B5 \uBB3C\uBC14\uB2E4\uC600\uC796\uC544.\r"
-  - id: 7085
+  - id: SO_7085
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -833,7 +833,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC0AC\uB2E4\uB9AC \uD0C0\uACE0 \uC62C\uB77C\uAC00\uB2E4  \uC6B0\uB9AC
       \uB458 \uB2E4 \uB5A8\uC5B4\uC84C\uB294\uB370\r"
-  - id: 7086
+  - id: SO_7086
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -843,7 +843,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB09C \uACE0\uC591\uC774\uB77C \uAD1C\uCC2E\uC558\uC9C0\uB9CC  \uB10C
       \uD5C8\uB9AC\uB97C \uB2E4\uCCE4\uC5C8\uC9C0.\r"
-  - id: 7087
+  - id: SO_7087
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -853,7 +853,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBE44 \uC62C \uB54C\uBA74 \uC9C0\uAE08\uB3C4 \uC544\uD30C?  \uC548\uB9C8
       \uD574\uC904\uAE4C?\r"
-  - id: 7088
+  - id: SO_7088
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -863,7 +863,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5EC\uAE34 \uBE44\uB3C4 \uC548 \uC0C8\uACE0  \uB098\uB984 \uC9C0\uB0B4\uAE30
       \uC88B\uC740 \uACF3\uC774\uC57C.\r"
-  - id: 7089
+  - id: SO_7089
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -873,7 +873,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uD558\uC9C0\uB9CC \uAC00\uB054\uC740  \uADF8 \uC9D1\uC774 \uB5A0\uC624\uB97C
       \uB54C\uAC00 \uC788\uC5B4.\r"
-  - id: 7090
+  - id: SO_7090
     sceneNum: 16
     questNum: 7
     charImage: 1
@@ -882,7 +882,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC9D1\uC774\uB780 \uB2E4 \uADF8\uB7F0 \uAC78\uAE4C?\r"
-  - id: 7091
+  - id: SO_7091
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -892,7 +892,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uAFC8 \uB0B4\uC6A9\uC774 \uD558\uB098\uB3C4 \uC548 \uBCF4\uC5EC!  \uC774\uB807\uAC8C
       \uB354\uB7EC\uC6B4 \uD3B8\uC9C0\uAC00 \uB2E4 \uC788\uC5B4?!\r"
-  - id: 7092
+  - id: SO_7092
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -902,7 +902,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uB7F0 \uC758\uB8B0\uB97C \uC6B0\uB9AC\uAC00 \uBC1B\uC544\uC57C
       \uD558\uB098.\r"
-  - id: 7093
+  - id: SO_7093
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -911,7 +911,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7094
+  - id: SO_7094
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -921,7 +921,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC788\uC796\uC544... \uB108 \uD639\uC2DC  \uCE74\uB860\uC774 \uD55C \uC9D3,
       \uAE30\uC5B5 \uC548 \uB098?\r"
-  - id: 7095
+  - id: SO_7095
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -930,7 +930,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7096
+  - id: SO_7096
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -940,7 +940,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB798... \uADF8\uAC83\uB3C4 \uC78A\uC5C8\uAD6C\uB098.  \uC5B4\uCA50\uC9C0
       \uC800\uBC88\uC5D0 \uBC18\uC751\uC774 \uC5C6\uB2E4 \uD588\uC5B4.\r"
-  - id: 7097
+  - id: SO_7097
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -949,7 +949,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC77C\uB2E8 \uC758\uB8B0\uBD80\uD130 \uB05D\uB0B4\uACE0 \uB300\uD654\uD558\uC790.\r"
-  - id: 7098
+  - id: SO_7098
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -960,7 +960,7 @@ MonoBehaviour:
     line: "\uC9C0\uAE08 \uBCF8\uC778 \uC0C1\uD0DC\uB97C \uC5B4\uB290 \uC815\uB3C4
       \uC54C \uAC70\uC57C.  \uC544\uB2C8\uBA74 \uADF8\uAC83\uB3C4 \uAE30\uC5B5\uD558\uC9C0
       \uBABB\uD558\uB824\uB098.\r"
-  - id: 7099
+  - id: SO_7099
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -971,7 +971,7 @@ MonoBehaviour:
     line: "\uB10C \uC9C0\uAE08 \uAE30\uC5B5\uC774 \uC810\uC810 \uC9C0\uC6CC\uC9C0\uACE0
       \uC788\uC5B4.  \uADF8 \uC8FC\uAE30\uB3C4 \uACC4\uC18D \uC9E7\uC544\uC9C0\uACE0
       \uC788\uC9C0.\r"
-  - id: 7100
+  - id: SO_7100
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -981,7 +981,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB798\uC11C \uC9C0\uAE08 \uAE30\uC5B5\uC744 \uB354 \uC783\uAE30
       \uC804\uC5D0  \uAFC8 \uAD6C\uC2AC\uC744 \uBAA8\uC73C\uB294 \uAC70\uC57C.\r"
-  - id: 7101
+  - id: SO_7101
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -990,7 +990,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC9D1\uC5D0 \uB3CC\uC544\uAC00\uC57C\uC9C0.\r"
-  - id: 7102
+  - id: SO_7102
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -999,7 +999,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB124 \uB3D9\uC0DD\uAE4C\uC9C0 \uC78A\uC5B4\uBC84\uB9AC\uAE30 \uC804\uC5D0...\r"
-  - id: 7103
+  - id: SO_7103
     sceneNum: 17
     questNum: 8
     charImage: 1
@@ -1008,7 +1008,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7104
+  - id: SO_7104
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1018,7 +1018,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB450 \uC778\uAC04\uC774 \uB611\uAC19\uC740 \uC545\uBABD\uC744 \uAFB8\uB294
       \uAC70  \uC774\uB7F0 \uACBD\uC6B0\uAC00 \uAC00\uB054 \uC788\uAE34 \uD55C\uB370...\r"
-  - id: 7105
+  - id: SO_7105
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1029,7 +1029,7 @@ MonoBehaviour:
     line: "\uB10C \uC544\uC9C1 \uC8FC\uC220\uC758 \uD798\uC774 \uC57D\uD558\uB2C8\uAE4C 
       \uC778\uC6D0\uC218\uB9CC\uD07C \uB4DC\uB9BC\uCE90\uCCD0\uB97C \uB9CC\uB4E4\uC5B4\uC57C
       \uD574.\r"
-  - id: 7106
+  - id: SO_7106
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1038,7 +1038,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uAC19\uC740 \uAC70 2\uAC1C \uB9CC\uB4E4\uB77C\uB294 \uB9D0\uC774\uC9C0.\r"
-  - id: 7107
+  - id: SO_7107
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1047,7 +1047,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB108\uB3C4 \uB124 \uB3D9\uC0DD\uC774\uB791 \uD568\uAED8 \uC7A4\uC5B4?\r"
-  - id: 7108
+  - id: SO_7108
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1057,7 +1057,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB798? \uAF64 \uD754\uD55C \uC77C\uC774\uAD6C\uB098.  \uB09C \uC0DD\uC18C\uD55C
       \uACBD\uD5D8\uC774\uC5C8\uB294\uB370.\r"
-  - id: 7109
+  - id: SO_7109
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1066,7 +1066,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB110 \uB9CC\uB098\uAE30 \uC804\uAE4C\uC9C0 \uD63C\uC790\uC600\uC73C\uB2C8.\r"
-  - id: 7110
+  - id: SO_7110
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1075,7 +1075,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB108\uB791 \uD55C \uC774\uBD88 \uC4F0\uB294 \uAC70?\r"
-  - id: 7111
+  - id: SO_7111
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1085,7 +1085,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB0A0 \uAEF4\uC548\uACE0 \uC790\uBA74\uC11C  \uC7A0\uAF2C\uB300\uB85C
       \uC774 \uAC00\uB294 \uAC70 \uBE7C\uBA74.\r"
-  - id: 7112
+  - id: SO_7112
     sceneNum: 18
     questNum: 9
     charImage: 1
@@ -1094,7 +1094,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBB50 \uC2EB\uC9C0\uB294 \uC54A\uC544.\r"
-  - id: 7113
+  - id: SO_7113
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1104,7 +1104,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBC14\uB2E4\uC5D0 \uAC00\uBCF8 \uC801 \uC5C6\uC9C0\uB9CC  \uBB3C\uC744
       \uC2EB\uC5B4\uD574\uC11C \uB531\uD788 \uAD81\uAE08\uD558\uC9C0\uB294 \uC54A\uC544.\r"
-  - id: 7114
+  - id: SO_7114
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1113,7 +1113,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB10C \uC218\uC601\uD560 \uC904 \uC54C\uC544?\r"
-  - id: 7115
+  - id: SO_7115
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1122,7 +1122,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7116
+  - id: SO_7116
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1132,7 +1132,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC6B0\uB9AC \uB458 \uB2E4 \uC218\uC601 \uBABB\uD574\uC11C \uC5B4\uB5A1\uD558\uB0D0. 
       \uC808\uB300 \uBB3C \uC8FC\uBCC0\uC5D0 \uAC00\uC9C0 \uB9D0\uC544\uC57C\uC9C0.\r"
-  - id: 7117
+  - id: SO_7117
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1141,7 +1141,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC73C\uC544\uC544\uC544\uC544\uC544\uC544\uC544!!\r"
-  - id: 7118
+  - id: SO_7118
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1150,7 +1150,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uCE58\uC6CC! \uCE58\uC6CC! \uCE58\uC6CC!!!!!\r"
-  - id: 7119
+  - id: SO_7119
     sceneNum: 19
     questNum: 10
     charImage: 1
@@ -1160,7 +1160,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC73C\uC73C\uC73C...  \uC0C8 \uBA39\uC774\uB85C \uC4F8 \uAC70\uBA74 \uB9C8\uC74C\uB300\uB85C
       \uD574.\r"
-  - id: 7120
+  - id: SO_7120
     sceneNum: 20
     questNum: 11
     charImage: 1
@@ -1171,7 +1171,7 @@ MonoBehaviour:
     line: "\uC624\uB798\uB41C \uBB3C\uAC74\uC744 \uC0AC\uACE0 \uC545\uBABD\uC744
       \uAFBC\uB2E4\uB294 \uAC74  \uB300\uBD80\uBD84 \uC800\uC8FC\uC640 \uC5F0\uAD00
       \uC788\uC9C0.\r"
-  - id: 7121
+  - id: SO_7121
     sceneNum: 20
     questNum: 11
     charImage: 1
@@ -1181,7 +1181,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC544\uB9C8 \uAF43\uBCD1\uC774 \uADF8 \uB9E4\uAC1C\uCCB4\uC77C \uAC70\uC57C. 
       \uC545\uBABD\uC740 \uC2DC\uC791\uC5D0 \uBD88\uACFC\uD560 \uC218\uB3C4 \uC788\uC5B4.\r"
-  - id: 7122
+  - id: SO_7122
     sceneNum: 20
     questNum: 11
     charImage: 1
@@ -1191,7 +1191,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC6B0\uB9AC \uC601\uC5ED\uC744 \uB118\uC5B4\uC120 \uAC70 \uAC19\uC740\uB370... 
       \uB4DC\uB9BC\uCE90\uCCD0\uB85C \uD574\uACB0\uB418\uB294 \uAC70\uBA74 \uC88B\uACA0\uB2E4\uB9CC.\r"
-  - id: 7123
+  - id: SO_7123
     sceneNum: 20
     questNum: 11
     charImage: 1
@@ -1200,7 +1200,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7124
+  - id: SO_7124
     sceneNum: 20
     questNum: 11
     charImage: 1
@@ -1209,7 +1209,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "............\r"
-  - id: 7125
+  - id: SO_7125
     sceneNum: 21
     questNum: 12
     charImage: 1
@@ -1218,7 +1218,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC5B4\uB51C \uAC00\uB098.  \uBC40\uC740 \uC870\uC2EC\uD574\uC57C \uD574.\r"
-  - id: 7126
+  - id: SO_7126
     sceneNum: 21
     questNum: 12
     charImage: 1
@@ -1227,7 +1227,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uAC8C \uB05D\uC774\uC57C?\r"
-  - id: 7127
+  - id: SO_7127
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1237,7 +1237,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC6B0\uB9AC\uB3C4 \uC608\uC804\uC5D0 \uC9D1\uC5D0 \uBD88\uB09C \uC801
       \uC788\uC5C8\uC796\uC544.\r"
-  - id: 7128
+  - id: SO_7128
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1247,7 +1247,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC9D1 \uC808\uBC18\uC744 \uD640\uB77C\uB2F9 \uD0DC\uC6CC \uBA39\uACE0 
       \uD55C\uB3D9\uC548 \uC218\uB9AC\uB9CC \uD588\uC5C8\uC9C0.\r"
-  - id: 7129
+  - id: SO_7129
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1256,7 +1256,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7130
+  - id: SO_7130
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1265,7 +1265,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB3D9\uC548 \uCC38 \uB2E4\uC0AC\uB2E4\uB09C\uD588\uAD6C\uB098.\r"
-  - id: 7131
+  - id: SO_7131
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1274,7 +1274,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB108\uB3C4 \uB0B4\uAC00 \uC788\uC5B4 \uB2E4\uD589\uC774\uC9C0?\r"
-  - id: 7132
+  - id: SO_7132
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1284,7 +1284,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB4DC\uB9BC\uCE90\uCCD0 \uB9CC\uB4DC\uB294 \uBC95\uB3C4 \uACC4\uC18D
       \uAE4C\uBA39\uC5B4\uC11C  \uC758\uB8B0\uB3C4 \uBABB\uD558\uBA74 \uC5B4\uB5A1\uD560\uBED4\uD588\uC5B4.\r"
-  - id: 7133
+  - id: SO_7133
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1293,7 +1293,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7134
+  - id: SO_7134
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1302,7 +1302,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB2F9\uC5F0\uD788 \uB3C4\uC640\uC57C\uC9C0.\r"
-  - id: 7135
+  - id: SO_7135
     sceneNum: 22
     questNum: 13
     charImage: 1
@@ -1312,7 +1312,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB09C \uB124 \uCE5C\uAD6C\uC774\uC790.  \uB124 \uD558\uB098\uBFD0\uC778
       <\uAE38\uC7A1\uC774> \uACE0\uC591\uC774\uC796\uC544.\r"
-  - id: 7136
+  - id: SO_7136
     sceneNum: 23
     questNum: 14
     charImage: 1
@@ -1322,7 +1322,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBCF4\uD1B5 \uC778\uAC04\uB4E4\uC740 \uADC0\uC2E0\uC774 \uC874\uC7AC\uD55C\uB2E4
       \uBBFF\uC5B4?\r"
-  - id: 7137
+  - id: SO_7137
     sceneNum: 23
     questNum: 14
     charImage: 1
@@ -1332,7 +1332,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC8FD\uC73C\uBA74 \uC0AC\uD6C4\uC138\uACC4\uB85C \uC624\uC796\uC544. 
       \uADC0\uC2E0\uC740 \uC788\uC744 \uC218 \uC5C6\uC5B4.\r"
-  - id: 7138
+  - id: SO_7138
     sceneNum: 23
     questNum: 14
     charImage: 1
@@ -1341,7 +1341,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC778\uAC04\uC758 \uC0C1\uC0C1\uB825\uC740 \uCC38 \uB300\uB2E8\uD574.\r"
-  - id: 7139
+  - id: SO_7139
     sceneNum: 23
     questNum: 14
     charImage: 1
@@ -1352,7 +1352,7 @@ MonoBehaviour:
     line: "\uAFC8\uC740 \uC0C1\uC0C1\uACFC \uBB34\uC758\uC2DD, \uADF8\uB9AC\uACE0
       \uD2B8\uB77C\uC6B0\uB9C8\uC758 \uC9D1\uD569\uCCB4\uC57C.  \uC989, \uADC0\uC2E0\uC758
       \uC874\uC7AC\uB97C \uC99D\uBA85\uD560 \uBC29\uBC95\uC774 \uC5C6\uC5B4.\r"
-  - id: 7140
+  - id: SO_7140
     sceneNum: 23
     questNum: 14
     charImage: 1
@@ -1362,7 +1362,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uBB50, \uBBFF\uACE0 \uC2F6\uC740 \uAC83\uB9CC \uBBFF\uB294\uB2E4\uBA74 
       \uB9D0\uD574 \uBD24\uC790 \uC18C\uC6A9\uC5C6\uACA0\uC9C0.\r"
-  - id: 7141
+  - id: SO_7141
     sceneNum: 24
     questNum: 15
     charImage: 1
@@ -1371,7 +1371,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uD765, \uC778\uACFC\uC751\uBCF4\uC796\uC544.\r"
-  - id: 7142
+  - id: SO_7142
     sceneNum: 24
     questNum: 15
     charImage: 1
@@ -1380,7 +1380,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB9F9\uAE08\uB958\uB77C...\r"
-  - id: 7143
+  - id: SO_7143
     sceneNum: 24
     questNum: 15
     charImage: 1
@@ -1390,7 +1390,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB188\uB4E4\uC740 \uC131\uC9C8\uC774 \uD3EC\uC545\uD574\uC11C 
       \uC6B0\uB9AC\uB97C \uACF5\uACA9\uD560\uC9C0\uB3C4 \uBAB0\uB77C.\r"
-  - id: 7144
+  - id: SO_7144
     sceneNum: 24
     questNum: 15
     charImage: 1
@@ -1400,7 +1400,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uACE0\uAE30 \uB300\uC2E0 \uC6B0\uB9AC\uB97C \uBA39\uC9C0 \uC54A\uAE38
       \uBC14\uB77C\uC57C\uC9C0.\r"
-  - id: 7145
+  - id: SO_7145
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1409,7 +1409,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC678\uAD6D\uC5B4 \uAC19\uC740\uB370...  \uB108 \uC77D\uC744 \uC218 \uC788\uC5B4?\r"
-  - id: 7146
+  - id: SO_7146
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1418,7 +1418,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "............\r"
-  - id: 7147
+  - id: SO_7147
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1427,7 +1427,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC5B8\uC5B4\uC758 \uD55C\uACC4\uC5D0 \uBD80\uB52A\uD600 \uBC84\uB838\uB2E4.\r"
-  - id: 7148
+  - id: SO_7148
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1437,7 +1437,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5B4\uC9F8\uC11C \uADF8 \uC77C\uAE30\uAC00 \uC5EC\uAE30 \uC788\uB294
       \uAC70\uC57C?!\r"
-  - id: 7149
+  - id: SO_7149
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1446,7 +1446,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7150
+  - id: SO_7150
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1456,7 +1456,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB108\uB3C4 \uAE30\uC5B5 \uC548 \uB098\uB294 \uAC78 \uBB3C\uC5B4\uC11C
       \uBB50 \uD558\uACA0\uB0D0.\r"
-  - id: 7151
+  - id: SO_7151
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1466,7 +1466,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC77C\uB2E8 \uC758\uB8B0 \uB05D\uB0A0 \uB54C\uAE4C\uC9C0  \uB0B4\uAC00
       \uAC16\uACE0 \uC788\uC744\uAC8C.\r"
-  - id: 7152
+  - id: SO_7152
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1475,7 +1475,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7153
+  - id: SO_7153
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1484,7 +1484,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC788\uC796\uC544.\r"
-  - id: 7154
+  - id: SO_7154
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1495,7 +1495,7 @@ MonoBehaviour:
     line: "\uB10C \uADF8 \uC0AC\uAC74\uC73C\uB85C \uBB34\uCC99 \uAD34\uB85C\uC6CC\uD588\uC5B4. 
       \uB9E4\uC77C \uC544\uBB34\uAC83\uB3C4 \uC548 \uD558\uACE0 \uC6B8\uAE30\uB9CC
       \uD588\uC9C0.\r"
-  - id: 7155
+  - id: SO_7155
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1505,7 +1505,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC7A0\uB9CC \uC790\uBA74 \uC545\uBABD\uC744 \uAFE8\uC744 \uC815\uB3C4\uB77C\uB2C8\uAE4C. 
       \uC8FC\uC220\uC0AC\uAC00 \uC545\uBABD\uC774\uB77C\uB2C8 \uCC38 \uC6C3\uACA8.\r"
-  - id: 7156
+  - id: SO_7156
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1514,7 +1514,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7157
+  - id: SO_7157
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1524,7 +1524,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC788\uC9C0... \uB09C \uB124\uAC00 \uC774\uAC78 \uC77D\uC9C0 \uC54A\uC558\uC73C\uBA74
       \uD574.  \uC6B0\uB9AC \uC774\uC81C \uC5BC\uB9C8 \uC548 \uB0A8\uC558\uC796\uC544.\r"
-  - id: 7158
+  - id: SO_7158
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1534,7 +1534,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8 \uC545\uBABD\uC744 \uAD73\uC774 \uB5A0\uC62C\uB9B4 \uD544\uC694
       \uC788\uC744\uAE4C..?\r"
-  - id: 7159
+  - id: SO_7159
     sceneNum: 25
     questNum: 16
     charImage: 1
@@ -1544,7 +1544,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774 \uC77C\uAE30\uB294 \uADF8\uB54C \uB3CC\uB824\uC904\uAC8C.  \uB124\uAC00
       \uC900\uBE44\uAC00 \uB2E4 \uB410\uC744 \uB54C.\r"
-  - id: 7160
+  - id: SO_7160
     sceneNum: 26
     questNum: 17
     charImage: 1
@@ -1553,7 +1553,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7161
+  - id: SO_7161
     sceneNum: 26
     questNum: 17
     charImage: 1
@@ -1562,7 +1562,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "............\r"
-  - id: 7162
+  - id: SO_7162
     sceneNum: 26
     questNum: 17
     charImage: 1
@@ -1571,7 +1571,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7163
+  - id: SO_7163
     sceneNum: 26
     questNum: 17
     charImage: 1
@@ -1580,7 +1580,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "2\uAC1C \uB0A8\uC558\uC5B4.\r"
-  - id: 7164
+  - id: SO_7164
     sceneNum: 27
     questNum: 18
     charImage: 1
@@ -1589,7 +1589,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774 \uBAA8\uB4E0 \uAC8C \uBBF8\uB828\uC774\uB77C\uBA74\r"
-  - id: 7165
+  - id: SO_7165
     sceneNum: 27
     questNum: 18
     charImage: 1
@@ -1599,7 +1599,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5BD\uB9E4\uC5EC \uC788\uB294 \uAC74 \uB124\uAC00 \uC544\uB2C8\uB77C
       \uB098\uC77C\uC9C0\uB3C4 \uBAB0\uB77C.\r"
-  - id: 7166
+  - id: SO_7166
     sceneNum: 27
     questNum: 18
     charImage: 1
@@ -1608,7 +1608,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\r"
-  - id: 7167
+  - id: SO_7167
     sceneNum: 27
     questNum: 18
     charImage: 1
@@ -1618,7 +1618,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB108\uB294 \uB098\uC544\uAC08 \uC218 \uC788\uB294\uB370  \uB0B4\uAC00
       \uB9C9\uACE0 \uC788\uB358 \uAC78\uAE4C?\r"
-  - id: 7168
+  - id: SO_7168
     sceneNum: 27
     questNum: 18
     charImage: 1
@@ -1627,7 +1627,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB807\uB2E4\uBA74... \uB098\uB294  \uB0B4 \uC120\uD0DD\uC740...\r"
-  - id: 7169
+  - id: SO_7169
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1636,7 +1636,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774 \uC758\uB8B0\uAC00 \uB05D\uB098\uBA74  \uC77C\uAE30\uC7A5 \uB3CC\uB824\uC904\uAC8C.\r"
-  - id: 7170
+  - id: SO_7170
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1645,7 +1645,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uBBF8\uC548\uD574..\r"
-  - id: 7171
+  - id: SO_7171
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1654,7 +1654,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uC81C\uB294 \uAD1C\uCC2E\uC744\uC9C0\uB3C4 \uBAA8\uB97C \uB110.\r"
-  - id: 7172
+  - id: SO_7172
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1664,7 +1664,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB0B4 \uAC71\uC815\uB9CC\uC73C\uB85C  \uADF8\uC800 \uBD99\uC7A1\uACE0
       \uC788\uC5C8\uB358 \uAC70 \uAC19\uC544...\r"
-  - id: 7173
+  - id: SO_7173
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1674,7 +1674,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5EC\uAE30 \uD310\uB3C4\uB77C\uC758 \uC0C1\uC790\uC57C.  \uB9C8\uC74C\uC758
       \uC900\uBE44\uAC00 \uB05D\uB098\uBA74 \uC77D\uC5B4.\r"
-  - id: 7174
+  - id: SO_7174
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1685,7 +1685,7 @@ MonoBehaviour:
     line: "\uB124\uAC00 \uC5B4\uB514\uAE4C\uC9C0 \uAE30\uC5B5\uD558\uB294\uC9C0 \uC54C\uC9C0
       \uBABB\uD574\uC11C...  \uADF8\uB798\uC11C \uB9D0\uC744 \uAEBC\uB0B4\uAE30\uAC00
       \uB450\uB824\uC6E0\uC5B4.\r"
-  - id: 7175
+  - id: SO_7175
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1695,7 +1695,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC544\uC774\uB97C \uC0B4\uB9AC\uC9C0 \uBABB\uD55C \uAC8C \uCDA9\uACA9\uC774
       \uB420\uAE4C.\r"
-  - id: 7176
+  - id: SO_7176
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1705,7 +1705,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB124\uAC00 \uC8FD\uC5C8\uB2E4\uB294 \uC0AC\uC2E4\uC870\uCC28 \uC78A\uC740
       \uAC78\uAE4C.\r"
-  - id: 7177
+  - id: SO_7177
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1714,7 +1714,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC544\uB2C8\uBA74...\r"
-  - id: 7178
+  - id: SO_7178
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1723,7 +1723,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\r"
-  - id: 7179
+  - id: SO_7179
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1733,7 +1733,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB410\uC5B4, \uC774\uC81C \uB3CC\uC544\uAC00\uBA74 \uB3FC.  \uB3D9\uC0DD\uC744
       \uB9CC\uB098\uC57C\uC9C0.\r"
-  - id: 7180
+  - id: SO_7180
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1743,7 +1743,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uADF8\uB7FC \uC5EC\uAE30 \uC788\uB358 \uBAA8\uB4E0 \uC77C\uC774  \uD750\uB9BF\uD55C
       \uAFC8\uCC98\uB7FC \uB290\uAEF4\uC9C8 \uAC70\uC57C.\r"
-  - id: 7181
+  - id: SO_7181
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1753,7 +1753,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC77C\uAE30\uC758 \uC0AC\uAC74\uB3C4 \uC78A\uAC8C \uB420 \uAC70\uACE0. 
       \uACB0\uAD6D \uB2E4 \uAD1C\uCC2E\uC544\uC9C8 \uAC70\uC57C.\r"
-  - id: 7182
+  - id: SO_7182
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1762,7 +1762,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\uB098?\r"
-  - id: 7183
+  - id: SO_7183
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1771,7 +1771,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB098\uB3C4 \uC78A\uB294 \uAC70\uB0D0\uB2C8.  \uB2F9\uC5F0\uD558\uC796\uC544.\r"
-  - id: 7184
+  - id: SO_7184
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1781,7 +1781,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC0B4\uC544\uB0AC\uB294\uB370 \uC5EC\uAE30 \uC77C\uB4E4\uC744  \uAE30\uC5B5\uD558\uACE0
       \uC788\uC73C\uBA74 \uC548\uB418\uC9C0.\r"
-  - id: 7185
+  - id: SO_7185
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1790,7 +1790,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7186
+  - id: SO_7186
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1799,7 +1799,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "...\uC788\uC796\uC544.  \uB3CC\uB824 \uC904 \uAC8C \uC788\uC5B4.\r"
-  - id: 7187
+  - id: SO_7187
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1808,7 +1808,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uADF8 \uC544\uC774\uC758 \uAFC8 \uAD6C\uC2AC\uC774\uC57C.\r"
-  - id: 7188
+  - id: SO_7188
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1818,7 +1818,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB108\uC758 \uD658\uC790\uC600\uACE0 \uC545\uBABD\uB3C4 \uCE58\uB8CC
       \uD588\uC5C8\uC5B4.\r"
-  - id: 7189
+  - id: SO_7189
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1828,7 +1828,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB10C \uC8C4\uCC45\uAC10\uC5D0 \uBB34\uB108\uC84C\uC9C0\uB9CC...  \uC774
       \uC0AC\uC2E4\uC740 \uBCC0\uD558\uC9C0 \uC54A\uC544.\r"
-  - id: 7190
+  - id: SO_7190
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1838,7 +1838,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uBBF8 \uD55C \uBC88 \uADF8 \uC544\uC774\uB97C \uAD6C\uD588\uB2E4\uB294
       \uAC78.\r"
-  - id: 7191
+  - id: SO_7191
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1848,7 +1848,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB3CC\uC544\uAC00\uC11C\uB3C4 \uAD6C\uC2AC\uC758 \uAC00\uCE58\uB97C \uC548\uACE0
       \uC0B4\uC544\uAC00.  \uB108 \uC790\uC2E0\uC744 \uC704\uD574\uC11C\uB77C\uB3C4.\r"
-  - id: 7192
+  - id: SO_7192
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1857,7 +1857,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB09C \uACC4\uC18D \uC774\uACF3\uC5D0 \uC788\uC744\uAC8C.\r"
-  - id: 7193
+  - id: SO_7193
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1866,7 +1866,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB108\uC758 \uAE38\uC7A1\uC774\uC774\uC790....\r"
-  - id: 7194
+  - id: SO_7194
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1875,7 +1875,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC18C\uC911\uD55C \uB0B4 \uCE5C\uAD6C\uC57C.\r"
-  - id: 7195
+  - id: SO_7195
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1884,7 +1884,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7196
+  - id: SO_7196
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1894,7 +1894,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC2AC\uD508 \uD45C\uC815 \uC9D3\uC9C0 \uB9C8.  \uC6B0\uB9AC \uD3C9\uC0DD
       \uBABB\uBCF4\uB294 \uAC70 \uC544\uB2C8\uC796\uC544!\r"
-  - id: 7197
+  - id: SO_7197
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1904,7 +1904,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB3CC\uC544\uC624\uBA74 \uB124  \uC774\uC57C\uAE30\uB3C4 \uB4E4\uB824
       \uC918.\r"
-  - id: 7198
+  - id: SO_7198
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1913,7 +1913,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB300\uC2E0 \uCC9C\uCC9C\uD788 \uC640\uC57C \uD574.  \uC57D\uC18D\uC774\uC57C.\r"
-  - id: 7199
+  - id: SO_7199
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1922,7 +1922,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7200
+  - id: SO_7200
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1932,7 +1932,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uB2E4\uC2DC \uBCF4\uAC8C \uB420 \uAC70\uB2C8\uAE4C.  \uC791\uBCC4 \uC778\uC0AC\uB294
       \uC548 \uD560\uAC8C.\r"
-  - id: 7201
+  - id: SO_7201
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1941,7 +1941,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uB098\uC911\uC5D0 \uBCF4\uC790.  \uC798 \uAC00\r"
-  - id: 7202
+  - id: SO_7202
     sceneNum: 28
     questNum: 19
     charImage: 1
@@ -1950,7 +1950,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "<\uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C.>\r"
-  - id: 7203
+  - id: SO_7203
     sceneNum: 0
     questNum: 0
     charImage: 1
@@ -1959,7 +1959,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "......\r"
-  - id: 7204
+  - id: SO_7204
     sceneNum: 0
     questNum: 0
     charImage: 1
@@ -1969,7 +1969,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC5EC\uC804\uD788 \uC545\uBABD\uC744 \uAFBC\uB2E4\uACE0...  \uB2F5\uC7A5\uC774
       \uC654\uC5B4.\r"
-  - id: 7205
+  - id: SO_7205
     sceneNum: 0
     questNum: 0
     charImage: 1
@@ -1978,7 +1978,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uC774\uB7F0.... \uBB54\uAC00 \uC798\uBABB \uB9CC\uB4E0\uAC74\uAC00.\r"
-  - id: 7206
+  - id: SO_7206
     sceneNum: 0
     questNum: 0
     charImage: 1
@@ -1988,7 +1988,7 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC2E4 \uC0C9\uAE54\uC774\uB791 \uD328\uD134 \uB9DE\uAC8C \uB9CC\uB4E0\uAC70\uC57C? 
       \uAD6C\uC2AC\uC774\uB791 \uAE43\uD138\uB3C4 \uD655\uC778\uD588\uACE0?\r"
-  - id: 7207
+  - id: SO_7207
     sceneNum: 0
     questNum: 0
     charImage: 1
@@ -1997,7 +1997,7 @@ MonoBehaviour:
     screenEffect: 0
     speaker: "\uB098\uBE44"
     line: "\uCC28\uADFC\uCC28\uADFC \uB2E4\uC2DC \uB9CC\uB4E4\uC5B4\uBCF4\uC790.\r"
-  - id: 7207
+  - id: SO_7208
     sceneNum: 0
     questNum: 0
     charImage: 1
