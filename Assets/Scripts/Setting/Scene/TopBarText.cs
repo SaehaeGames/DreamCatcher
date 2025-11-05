@@ -27,9 +27,9 @@ public class TopBarText : MonoBehaviour
         if (DreamMarbleText.IsActive())
         {
             //만약 텍스트가 숨겨져있지않으면(스타트 화면은 숨겨져있음)
-            SetDreamMarbleText((int)playerDataManager.GetPlayerData(Constants.PlayerData_DreamMarble).dataNumber);
-            SetGoldText((int)playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber);
-            SetSpecialFeedText((int)playerDataManager.GetPlayerData(Constants.PlayerData_SpecialFeed).dataNumber);
+            SetDreamMarbleText((int)playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_DreamMarble).dataNumber);
+            SetGoldText((int)playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Gold).dataNumber);
+            SetSpecialFeedText((int)playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_SpecialFeed).dataNumber);
         }
     }
 

@@ -184,7 +184,7 @@ public class StoreData : MonoBehaviour
 
     public void SpendGold(int cost)
     {
-        GameManager.instance.playerDataManager.GetPlayerData(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
+        GameManager.instance.playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
     }
 
     public void BuyGoods(string id)

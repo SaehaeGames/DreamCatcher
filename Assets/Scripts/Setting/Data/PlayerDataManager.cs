@@ -7,11 +7,13 @@ using System.Linq;
 [Serializable]
 public class PlayerData
 {
+    public string id;
     public string dataName;          //상품 이름
     public float dataNumber;         //상품 레벨 또는 상품 id
 
-    public PlayerData(string name, float number)
+    public PlayerData(string _id, string name, float number)
     {
+        this.id = _id;
         dataName = name;
         dataNumber = number;
     }
@@ -32,33 +34,25 @@ public class PlayerDataManager
         if (dataList != null)
             dataList.Clear();
 
+        int startId = 5000;
         dataList = new List<PlayerData>()
         {
-            /*new PlayerData("DreamMarble", 0),
-            new PlayerData("Gold", 30000),
-            new PlayerData("SpecialFeed", 100),
-            new PlayerData("BGM", 1f),
-            new PlayerData("Effect", 1f),
-            new PlayerData("BGMMute", 0),
-            new PlayerData("EffectMute", 0),
-            new PlayerData("nowSceneNum", 0)*/
-
-            new PlayerData(Constants.PlayerData_DreamMarble, 0),
-            new PlayerData(Constants.PlayerData_Gold, 30000),
-            new PlayerData(Constants.PlayerData_SpecialFeed, 100),
-            new PlayerData(Constants.PlayerData_BGM, 1f),
-            new PlayerData(Constants.PlayerData_Effect, 1f),
-            new PlayerData(Constants.PlayerData_BGMMute, 0),
-            new PlayerData(Constants.PlayerData_EffectMute, 0),
-            new PlayerData(Constants.PlayerData_NowSceneNum, 0),
-            new PlayerData(Constants.PlayerData_NowQuestNum, 1),
-            new PlayerData(Constants.PlayerData_QuestAccepted, 0)
+            new PlayerData("JS_"+startId++, Constants.PlayerData_DreamMarble, 0),
+            new PlayerData("JS_"+startId++, Constants.PlayerData_Gold, 30000),
+            new PlayerData("JS_"+startId++, Constants.PlayerData_SpecialFeed, 100),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_BGM, 1f),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_Effect, 1f),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_BGMMute, 0),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_EffectMute, 0),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_NowSceneNum, 0),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_NowQuestNum, 1),
+            new PlayerData("JS_" + startId ++, Constants.PlayerData_QuestAccepted, 0)
         };
     }
 
-    public PlayerData GetPlayerData(string dataName)
+    public PlayerData GetPlayerDataByDataName(string _dataName)
     {
-        PlayerData getData = dataList.FirstOrDefault(x => x.dataName == dataName);
+        PlayerData getData = dataList.FirstOrDefault(x => x.dataName == _dataName);
 
         if (getData != null) 
         {
@@ -67,5 +61,18 @@ public class PlayerDataManager
         }
         Debug.Log("null이 반환됨");
         return null;
+    }
+
+    public PlayerData GetPlayerDataById(string _id)
+    {
+        PlayerData getData = dataList.FirstOrDefault(x => x.id == _id);
+        if (getData != null)
+        {
+            return getData;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
