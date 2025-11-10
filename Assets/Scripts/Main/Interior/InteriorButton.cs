@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InteriorButton : MonoBehaviour
 {
-    public int buttonNumber;   // 패널 번호 또는 아이템 번호
+    public int buttonNumber;      // 패널 번호 또는 아이템 번호
     public string itemID;         // 해당 버튼의 아이템 ID
 
     private Button buttonComponent;
@@ -15,19 +15,13 @@ public class InteriorButton : MonoBehaviour
         buttonComponent = GetComponent<Button>();
     }
 
-    /// <summary>
-    /// 인테리어 패널 버튼 설정
-    /// </summary>
-    public void SettingInteriorFunction()
+    public void SettingInteriorFunction()   // 인테리어 패널 버튼 설정
     {
         buttonComponent.onClick.RemoveAllListeners();
         buttonComponent.onClick.AddListener(SelectInteriorItemButton);
     }
 
-    /// <summary>
-    /// 인테리어 아이템 버튼 설정
-    /// </summary>
-    public void SetupItemButton(int number, string id)
+    public void SetupItemButton(int number, string id)   // 인테리어 아이템 버튼 설정
     {
         buttonNumber = number;
         itemID = id;
@@ -36,12 +30,12 @@ public class InteriorButton : MonoBehaviour
         buttonComponent.onClick.AddListener(() => SelectInteriorItemButton());
     }
 
-/*    public void SelectInteriorButton()
+    public void SelectInteriorButton()
     {
         GameObject.FindGameObjectWithTag("GoodsManager")
             .GetComponent<InteriorCategory>()
             .UpdateCatrgoryPanel(buttonNumber);
-    }*/
+    }
 
     public void SelectInteriorItemButton()
     {

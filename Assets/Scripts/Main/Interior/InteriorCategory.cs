@@ -8,6 +8,10 @@ using Image = UnityEngine.UI.Image;
 
 public class InteriorCategory : MonoBehaviour
 {
+    /*
+    스크립트 목적 : 인테리어 화면에서 카테고리 선택 및 카테고리 
+    
+    */
     public GameObject Panel_Interior;    GameObject ScrollViewPort;
     public GameObject[] Button_InteriorCategory;
     public GameObject[] Button_InteriorItem;
@@ -22,14 +26,15 @@ public class InteriorCategory : MonoBehaviour
 
     void Start()
     {
-        currentCategoryIndex = 0;
+        currentCategoryIndex = 0;               // 현재 카테고리 인덱스
         ScrollViewPort = Panel_Interior.transform.GetChild(2).GetChild(0).gameObject;
-        for (int i = 0; i < Button_InteriorCategory.Length; i++)
+        for (int i = 0; i < Button_InteriorCategory.Length; i++)        // 버튼 번호 설정
             Button_InteriorCategory[i].GetComponent<InteriorButton>().buttonNumber = i;
 
         interiorDataManager = GameManager.instance.interiorDataManager;
         goodsDataManager = GameManager.instance.goodsDataManager;
         storeInfoData = GameManager.instance.storeinfo_data;
+
 
         GetBtnItemCount();
         currentAdjusting = new bool[interiorItemArray.Count];
