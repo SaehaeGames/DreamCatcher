@@ -37,9 +37,9 @@ public class PlayerDataManager
         int startId = 5000;
         dataList = new List<PlayerData>()
         {
-            new PlayerData("JS_"+startId++, Constants.PlayerData_DreamMarble, 0),
-            new PlayerData("JS_"+startId++, Constants.PlayerData_Gold, 30000),
-            new PlayerData("JS_"+startId++, Constants.PlayerData_SpecialFeed, 100),
+            new PlayerData("JS_" + startId++, Constants.PlayerData_DreamMarble, 0),
+            new PlayerData("JS_" + startId++, Constants.PlayerData_Gold, 30000),
+            new PlayerData("JS_" + startId++, Constants.PlayerData_SpecialFeed, 100),
             new PlayerData("JS_" + startId ++, Constants.PlayerData_BGM, 1f),
             new PlayerData("JS_" + startId ++, Constants.PlayerData_Effect, 1f),
             new PlayerData("JS_" + startId ++, Constants.PlayerData_BGMMute, 0),
