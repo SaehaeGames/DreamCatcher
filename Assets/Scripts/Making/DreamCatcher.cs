@@ -6,6 +6,7 @@ using UnityEngine;
 public class DreamCatcher
 {
     public string DCid;
+    public string TemplateHash;
     public int[] DCline = new int[64];
     public bool[] DCbead = new bool[48];
     public int DCcolor;
@@ -20,9 +21,8 @@ public class DreamCatcher
         DCfeather1 = _DCfeather1;
         DCfeather2 = _DCfeather2;
         DCfeather3 = _DCfeather3;
-    }
-
-    
+        TemplateHash = DreamCatcherHasher.CreateTemplateHash(DCline, DCbead, DCcolor, DCfeather1, DCfeather2, DCfeather3);
+    }    
 
     // 드림캐쳐 배열변형(1D->2D) 함수
     // : 드림캐쳐의 실모양을 나타내는 DCLine1d를 1차원배열에서 2차원배열로 변환하는 함수

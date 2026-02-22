@@ -12,6 +12,7 @@ public static class Constants
     public const string RackDataFile = "RackDataFile";
     public const string InteriorDataFile = "InteriorDataFile";
     public const string QuestDataFile = "QuestDataFile";
+    public const string DreamCatcherInventoryDataFile = "DreamCatcherInventoryDataFile";
 
     public const string FeatherDataFile = "FeatherDataFile";
     public const string DreamCatcherDataFile = "DreamCatcherListData";

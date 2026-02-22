@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public QuestDataManager questDataManager;       // 퀘스트 데이터 리스트
     public MyFeatherNumber featherDataManager;
     public MyDreamCatcher dreamCatcherDataManager;  //드림캐쳐 저장 데이터
+    public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
 
     //데이터 베이스 오브젝트 (스크립터블 오브젝트 객체)
     [Space]
@@ -112,5 +113,6 @@ public class GameManager : MonoBehaviour
         playerDataManager = jsonManager.LoadData<PlayerDataManager>(Constants.PlayerDataFile);
         featherDataManager = jsonManager.LoadData<MyFeatherNumber>(Constants.FeatherDataFile);
         dreamCatcherDataManager = jsonManager.LoadData<MyDreamCatcher>(Constants.DreamCatcherDataFile);
+        dreamCatcherInventoryDataManager = jsonManager.LoadData<DreamCatcherInventoryDataManager>(Constants.DreamCatcherInventoryDataFile);
     }
 }

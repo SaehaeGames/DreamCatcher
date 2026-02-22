@@ -17,6 +17,13 @@ public class MyDreamCatcher
         //ResetDreamCatcherData();
     }
 
+    public void AddDreamCatcher(DreamCatcher dreamCatcher)
+    {
+        if (dreamCatcher == null)
+            return;
+
+        dreamCatcherList.Add(dreamCatcher);
+    }
     // Index로 드림캐쳐 찾기
     public DreamCatcher GetDreamCatcherDataByIndex(int index)
     {
