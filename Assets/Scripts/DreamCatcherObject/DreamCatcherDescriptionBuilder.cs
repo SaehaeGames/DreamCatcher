@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -21,19 +21,19 @@ public static class DreamCatcherDescriptionBuilder
         switch (colorNum)
         {
             case 0:
-                content += "Èò»ö";
+                content += "í°ìƒ‰";
                 break;
             case 1:
-                content += "³ë¶õ»ö";
+                content += "ë…¸ë€ìƒ‰";
                 break;
             case 2:
-                content += "ÆÄ¶õ»ö";
+                content += "íŒŒë€ìƒ‰";
                 break;
             case 3:
-                content += "»¡°£»ö";
+                content += "ë¹¨ê°„ìƒ‰";
                 break;
             case 4:
-                content += "°ËÁ¤»ö";
+                content += "ê²€ì •ìƒ‰";
                 break;
             default:
                 content += "";
@@ -50,23 +50,23 @@ public static class DreamCatcherDescriptionBuilder
 
         if (_feather1 == _feather2 && _feather1 == _feather3)
         {
-            featherTxt = _birdinfo_data.dataList[_feather1].name + " ±êÅĞ X3";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " ê¹ƒí„¸ X3";
         }
         else if (_feather1 == _feather2 && _feather1 != _feather3)
         {
-            featherTxt = _birdinfo_data.dataList[_feather1].name + " ±êÅĞ X2" + "\n" + _birdinfo_data.dataList[_feather3].name + " ±êÅĞ";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " ê¹ƒí„¸ X2" + "\n" + _birdinfo_data.dataList[_feather3].name + " ê¹ƒí„¸";
         }
         else if (_feather1 == _feather3 && _feather1 != _feather2)
         {
-            featherTxt = _birdinfo_data.dataList[_feather1].name + " ±êÅĞ X2" + "\n" + _birdinfo_data.dataList[_feather2].name + " ±êÅĞ";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " ê¹ƒí„¸ X2" + "\n" + _birdinfo_data.dataList[_feather2].name + " ê¹ƒí„¸";
         }
         else if (_feather2 == _feather3 && _feather2 != _feather1)
         {
-            featherTxt = _birdinfo_data.dataList[_feather2].name + " ±êÅĞ X2" + "\n" + _birdinfo_data.dataList[_feather1].name + " ±êÅĞ";
+            featherTxt = _birdinfo_data.dataList[_feather2].name + " ê¹ƒí„¸ X2" + "\n" + _birdinfo_data.dataList[_feather1].name + " ê¹ƒí„¸";
         }
         else
         {
-            featherTxt = _birdinfo_data.dataList[_feather1].name + " ±êÅĞ" + "\n" + _birdinfo_data.dataList[_feather2].name + " ±êÅĞ" + "\n" + _birdinfo_data.dataList[_feather3].name + " ±êÅĞ";
+            featherTxt = _birdinfo_data.dataList[_feather1].name + " ê¹ƒí„¸" + "\n" + _birdinfo_data.dataList[_feather2].name + " ê¹ƒí„¸" + "\n" + _birdinfo_data.dataList[_feather3].name + " ê¹ƒí„¸";
         }
         return featherTxt;
     }
