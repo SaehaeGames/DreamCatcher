@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,7 +10,7 @@ public class DreamCatcherInventoryData
     public string Description;
     public int Number;
 
-    public DreamCatcherInventoryData() 
+    public DreamCatcherInventoryData()
     {
         TemplateHash = "";
         DisplayName = "";
@@ -79,48 +78,4 @@ public class DreamCatcherInventoryData
         return TemplateHash;
     }
     # endregion
-}
-
-public class DreamCatcherInventoryDataManager
-{
-    public List<DreamCatcherInventoryData> dataList;
-    public DreamCatcherInventoryDataManager()
-    {
-        dataList = new List<DreamCatcherInventoryData>();
-        ResetData();
-    }
-
-    public void AddDreamCatcherInventoryData(DreamCatcher dreamCatcher)
-    {
-        if (dreamCatcher == null)
-            return;
-
-        var data = dataList.FirstOrDefault(
-            x => x.TemplateHash == dreamCatcher.TemplateHash
-        );
-
-        if (data != null)
-        {
-            data.Number += 1;
-        }
-        else
-        {
-            dataList.Add(new DreamCatcherInventoryData(dreamCatcher));
-        }
-    }
-
-    public void ResetData()
-    {
-        if (dataList != null)
-            dataList.Clear();
-    }
-
-    public DreamCatcherInventoryData GetDreamCatcherInventoryData(string _templateHash)
-    {
-        DreamCatcherInventoryData getData = dataList.FirstOrDefault(x => x.TemplateHash == _templateHash);
-        if (getData != null)
-            return getData;
-        else
-            return null;
-    }
 }
