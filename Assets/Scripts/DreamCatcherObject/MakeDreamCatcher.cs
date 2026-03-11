@@ -38,7 +38,7 @@ public class MakeDreamCatcher : MonoBehaviour
 
     public int colorNum;
 
-    public MyDreamCatcher dreamCatcherData; //MyDreamCatcher 객체 필요
+    public DreamCatcherDataManager dreamCatcherDataManager;
 
     public void LineDelete()
     {
@@ -177,10 +177,9 @@ public class MakeDreamCatcher : MonoBehaviour
             }
         }
 
-        //Json파일 로드
-        dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
-        DreamCatcher selectDreamCatcher = dreamCatcherData.dreamCatcherList[dreamcatcherIndex];
+        // Json파일 로드
+        dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
+        DreamCatcher selectDreamCatcher = dreamCatcherDataManager.GetDreamCatcherDataByIndex(dreamcatcherIndex);
         
         // 색
         colorNum = selectDreamCatcher.GetColor();

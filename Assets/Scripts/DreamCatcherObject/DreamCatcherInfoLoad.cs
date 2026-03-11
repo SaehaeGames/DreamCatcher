@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DreamCatcherInfoLoad : MonoBehaviour
 {
-    public MyDreamCatcher dreamCatcherData; //MyDreamCatcher 객체 필요
+    public DreamCatcherDataManager dreamCatcherData; //MyDreamCatcher 객체 필요
     private static DreamCatcherInfoLoad _instance;
     public static DreamCatcherInfoLoad Instance
     {
@@ -33,8 +33,7 @@ public class DreamCatcherInfoLoad : MonoBehaviour
         {
             // Json파일 로드
             dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
-            GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
-            DreamCatcher selectDreamCatcher = dreamCatcherData.dreamCatcherList[index];
+            DreamCatcher selectDreamCatcher = dreamCatcherData.GetDreamCatcherDataByIndex(index);
 
             // 이미지 파일 이름
             fileName = selectDreamCatcher.GetId() + ".png"; // 파일이름(Id)
@@ -57,34 +56,21 @@ public class DreamCatcherInfoLoad : MonoBehaviour
         // 아이디 json 삭제
         // Json파일 로드
         dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
-        for (int i = 0; i < dreamCatcherData.nDreamCatcher; i++)
-        {
-            string id = dreamCatcherData.dreamCatcherList[i].GetId();
-            if (id == idToDelete)
-            {
-                dreamCatcherData.dreamCatcherList.RemoveAt(i); // 삭제
-            }
-        }
+        dreamCatcherData.RemoveDreamCatcher(idToDelete);
 
-        // 드림캐쳐 개수 업데이트
-        dreamCatcherData.nDreamCatcher = dreamCatcherData.nDreamCatcher - 1;
         // 드림캐쳐 json 세이브
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataSaveText(dreamCatcherData); // json 세이브
+        GameManager.instance.dreamCatcherDataManager.Save(); // json 세이브
     }
 
     public void DataDelete(int indexToDelete)
     {
         dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
-        dreamCatcherData.dreamCatcherList.RemoveAt(indexToDelete); // 삭제
+        dreamCatcherData.RemoveDreamCatcher(indexToDelete); // 삭제
 
-        // 드림캐쳐 개수 업데이트
-        dreamCatcherData.nDreamCatcher = dreamCatcherData.nDreamCatcher - 1;
         // 드림캐쳐 json 세이브
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataSaveText(dreamCatcherData); // json 세이브
+        GameManager.instance.dreamCatcherDataManager.Save(); // json 세이브
     }
 
     // 이미지 삭제

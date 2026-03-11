@@ -6,7 +6,7 @@ using UnityEngine;
 public class QuestDeliveryChecker : MonoBehaviour
 {
     List<QuestDreamCatcherInfo_Object> questDreamCatcehrInfoDatalist;
-    List<DreamCatcher> dreamCatcherListData;
+    IReadOnlyList<DreamCatcher> dreamCatcherListData;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,7 @@ public class QuestDeliveryChecker : MonoBehaviour
         questDreamCatcehrInfoDatalist = GameManager.instance.questDreamCatcherInfo_data.dataList;
         Debug.Log("questDreamCatcherInfoDatalist : " + questDreamCatcehrInfoDatalist[0].lines[4]);
 
-        dreamCatcherListData = GameManager.instance.dreamCatcherDataManager.dreamCatcherList;
+        dreamCatcherListData = GameManager.instance.dreamCatcherDataManager.dreamCatchersDataList;
 
         // 테스트 용 (나중에 이 함수를 UI 버튼 클릭 부분에서 호출)
         TryDeliveryDreamCatcher("JS_1000");

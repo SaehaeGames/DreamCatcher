@@ -34,7 +34,7 @@ public class DCCheckManager : MonoBehaviour
 
     //json 파일관련
     public MyFeatherNumber FNDManager;
-    public MyDreamCatcher dreamCatcherData; //MyDreamCatcher 객체 필요
+    public DreamCatcherDataManager dreamCatcherData; //MyDreamCatcher 객체 필요
 
     //스프레드시트 관련
     public BirdInfo_Data _birdinfo_data;
@@ -56,7 +56,6 @@ public class DCCheckManager : MonoBehaviour
         gem.SetActive(false);
         hangPoints.SetActive(false);
         ResetDeamCatcher();
-        testTxt.text += "dreamCatcherCnt: " + dreamCatcherData.dreamCatcherCnt;
     }
 
     // 드림캐쳐 배열변형(2D->1D) 함수
@@ -330,12 +329,10 @@ public class DCCheckManager : MonoBehaviour
         //CaptureDreamCatcher();
         if (fNum == 3)
         {
-            // 드림 캐쳐 정보 전달
-            //Debug.Log(myDreamCatcher);
+            // 드림캐쳐 생성
+            myDreamCatcher = new DreamCatcher(ConvertLineArrayTo1D(DreamCatcherMap), BeadMap, colorMap, featherMap[0], featherMap[1], featherMap[2]);
 
-            string dreamCatcherId = "JS_" + dreamCatcherData.dreamCatcherCnt; // 드림캐쳐 아이디 가져오기
-            myDreamCatcher = new DreamCatcher(dreamCatcherId, ConvertLineArrayTo1D(DreamCatcherMap), BeadMap, colorMap, featherMap[0], featherMap[1], featherMap[2]);
-            //Debug.Log("CheckComplete myDreamCatcher : " + myDreamCatcher.GetLine()[0, 4]);
+            // 드림캐쳐 이미지 생성
             completeDCImg.GetComponent<MakeDreamCatcher>().MakeDreamCatcherImg(myDreamCatcher);
         }
     }
@@ -343,35 +340,17 @@ public class DCCheckManager : MonoBehaviour
     // 드림캐쳐 완성
     public void CompleteDreamCatcher()
     {
-        dreamCatcherData.dreamCatcherList.Add(myDreamCatcher); // 드림캐쳐 데이터 추가
-        dreamCatcherData.dreamCatcherCnt = dreamCatcherData.dreamCatcherCnt + 1; // 아이디 업데이트
-        dreamCatcherData.nDreamCatcher = dreamCatcherData.nDreamCatcher + 1; // 드림캐쳐 개수 업데이트
+        dreamCatcherData.AddDreamCatcher(myDreamCatcher);
 
-        // Test
-        Debug.Log("DCCheckManager: " + dreamCatcherData.dreamCatcherCnt);
         try
         {
             // 드림캐쳐 json 세이브
-            GameManager.instance.GetComponent<DreamCatcherDataManager>().DataSaveText(dreamCatcherData); // json 세이브
-            GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
+            GameManager.instance.dreamCatcherDataManager.Save();
         }
         catch (Exception e)
         {
             testTxt.text += "json세이브 로드: " + e + "\n";
         }
-
-        try
-        {
-            // Test
-            testTxt.text = dreamCatcherData.dreamCatcherCnt.ToString(); // + ": " + dreamCatcherData.GetDreamCatcherData(dreamCatcherData.nDreamCatcher).DCcolor.ToString();
-        }
-        catch (Exception e)
-        {
-            testTxt.text += "테스트: " + e + "\n";
-        }
-
-        // Test
-        //testTxt.text = dreamCatcherData.dreamCatcherCnt+": "+dreamCatcherData.GetDreamCatcherData(dreamCatcherData.nDreamCatcher).DCcolor.ToString();
 
         // 깃털 변경사항 저장
         //FNDManager.SaveFeatherJson();

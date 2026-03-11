@@ -54,7 +54,7 @@ public class MakingUIManager : MonoBehaviour
 
     // 데이터 관리
     public static int colorNumber=0;
-    public MyDreamCatcher dreamCatcherData; //MyDreamCatcher 객체 필요
+    public DreamCatcherDataManager dreamCatcherData; //MyDreamCatcher 객체 필요
     //List<MyFeatherNumber> featherData = new List<MyFeatherNumber>();    //플레이어 깃털 정보
     //private static string fileName = "FeatherNumInfo";
 
@@ -438,11 +438,10 @@ public class MakingUIManager : MonoBehaviour
         
         // 아이디 로드
         dreamCatcherData = GameManager.instance.dreamCatcherDataManager; //MyDreamCatcher 객체 GameManager에서 가져옴
-        GameManager.instance.GetComponent<DreamCatcherDataManager>().DataLoadText<MyDreamCatcher>();
 
         // 파일 위치&이름
         string fileLocation = getPath("/DreamCatcherImgs/");// 파일경로
-        string filename = dreamCatcherData.dreamCatcherCnt + ".png"; // 파일 이름
+        string filename = 0000 + ".png"; // Todo: 파일이름 드림캐쳐 아이디와 똑같도록 수정
         string finalLOC = fileLocation + filename; // 파일 경로+이름
 
         // 디렉토리 존재 확인

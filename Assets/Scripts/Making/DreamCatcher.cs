@@ -22,7 +22,20 @@ public class DreamCatcher
         DCfeather2 = _DCfeather2;
         DCfeather3 = _DCfeather3;
         TemplateHash = DreamCatcherHasher.CreateTemplateHash(DCline, DCbead, DCcolor, DCfeather1, DCfeather2, DCfeather3);
-    }    
+    }
+
+    public DreamCatcher(int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3)
+    {
+        DCline = _DCline;
+        DCbead = _DCbead;
+        DCcolor = _DCcolor;
+        DCfeather1 = _DCfeather1;
+        DCfeather2 = _DCfeather2;
+        DCfeather3 = _DCfeather3;
+        TemplateHash = DreamCatcherHasher.CreateTemplateHash(DCline, DCbead, DCcolor, DCfeather1, DCfeather2, DCfeather3);
+    }
+
+
 
     // 드림캐쳐 배열변형(1D->2D) 함수
     // : 드림캐쳐의 실모양을 나타내는 DCLine1d를 1차원배열에서 2차원배열로 변환하는 함수
