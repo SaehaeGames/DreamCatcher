@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public InteriorDataManager interiorDataManager; //플레이어 인테리어 저장 데이터
     public QuestDataManager questDataManager;       // 퀘스트 데이터 리스트
     public MyFeatherNumber featherDataManager;
-    public DreamCatcherDataManager dreamCatcherDataManager = new DreamCatcherDataManager();  //드림캐쳐 저장 데이터
-    public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
+    public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager = new DreamCatcherInventoryDataManager();
+    public DreamCatcherDataManager dreamCatcherDataManager;
 
     //데이터 베이스 오브젝트 (스크립터블 오브젝트 객체)
     [Space]
@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
         instance = this;    //유일한 인스턴스
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
+
+        dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
 
         //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
@@ -113,6 +115,6 @@ public class GameManager : MonoBehaviour
         playerDataManager = jsonManager.LoadData<PlayerDataManager>(Constants.PlayerDataFile);
         featherDataManager = jsonManager.LoadData<MyFeatherNumber>(Constants.FeatherDataFile);
         dreamCatcherDataManager.Load();
-        dreamCatcherInventoryDataManager = jsonManager.LoadData<DreamCatcherInventoryDataManager>(Constants.DreamCatcherInventoryDataFile);
+        dreamCatcherInventoryDataManager.Load();
     }
 }

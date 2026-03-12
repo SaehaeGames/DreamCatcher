@@ -11,8 +11,20 @@ public class DreamCatcherDataManager
     private DreamCatcherDataModel dreamCatcherDataModel = new DreamCatcherDataModel();
     public IReadOnlyList<DreamCatcher> dreamCatchersDataList => dreamCatcherDataModel.dataList;
 
+    private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
+
+    public DreamCatcherDataManager(DreamCatcherInventoryDataManager _dreamCatcherInventoryDataManager)
+    {
+        dreamCatcherInventoryDataManager = _dreamCatcherInventoryDataManager;
+    }
     public DreamCatcher AddDreamCatcher(DreamCatcher dreamCatcher)
     {
+        if (dreamCatcherInventoryDataManager == null)
+        {
+            Debug.LogError("[DreamCatcherDataManager] DreamCatcherInventoryDataManager is null");
+            return null;
+        }
+
         if (dreamCatcher == null)
             return null;
 
@@ -20,11 +32,21 @@ public class DreamCatcherDataManager
         dreamCatcher.DCid = "JS_" + id;
         dreamCatcherDataModel.dataList.Add(dreamCatcher);
 
+        // dreamCatcherInventoryData 동기화
+        dreamCatcherInventoryDataManager.AddDreamCatcherInventoryData(dreamCatcher);
+        dreamCatcherInventoryDataManager.Save();
+
         return dreamCatcher;
     }
 
     public bool RemoveDreamCatcher(int index)
     {
+        if (dreamCatcherInventoryDataManager == null)
+        {
+            Debug.LogError("[DreamCatcherDataManager] DreamCatcherInventoryDataManager is null");
+            return false;
+        }
+
         if (dreamCatcherDataModel == null || dreamCatcherDataModel.dataList == null)
         {
             Debug.LogError("[DreamCatcherDataManager] DataModel is null.");
@@ -37,6 +59,15 @@ public class DreamCatcherDataManager
             return false;
         }
 
+        // dreamCatcherInventoryData 동기화
+        var dreamCatcher = dreamCatcherDataModel.dataList[index];
+
+        dreamCatcherInventoryDataManager.RemoveDreamCatcherInventoryData(
+            dreamCatcher.TemplateHash
+        );
+        dreamCatcherInventoryDataManager.Save();
+
+        // 드림캐쳐 삭제
         dreamCatcherDataModel.dataList.RemoveAt(index);
         return true;
     }
@@ -51,10 +82,13 @@ public class DreamCatcherDataManager
 
         int index = dreamCatcherDataModel.dataList.FindIndex(dc => dc.DCid == id);
 
-        if (index >= 0)
-            dreamCatcherDataModel.dataList.RemoveAt(index);
+        if (index < 0)
+        {
+            Debug.LogWarning($"[DreamCatcherDataManager] DreamCatcher id {id} not found.");
+            return false;
+        }
 
-        return true;
+        return RemoveDreamCatcher(index);
     }
 
     // Index로 드림캐쳐 찾기
