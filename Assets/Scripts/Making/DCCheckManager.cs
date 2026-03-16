@@ -40,7 +40,7 @@ public class DCCheckManager : MonoBehaviour
     public BirdInfo_Data _birdinfo_data;
 
     public GameObject completeDCImg;
-    private DreamCatcher myDreamCatcher;
+    private DreamCatcher myDreamCatcher = null;
 
     //(임시)드림캐쳐 레벨 도감 제작용
     //public DreamCatcher colDreamCatcher;
@@ -248,6 +248,10 @@ public class DCCheckManager : MonoBehaviour
         }
     }
 
+    public DreamCatcher GetMyDreamCatcher()
+    {
+        return myDreamCatcher;
+    }
     // 깃털 정보 가져오기
     public string GetFeather()
     {
@@ -622,18 +626,5 @@ public class DCCheckManager : MonoBehaviour
         //Json 로드하기
         //드림캐쳐 추가하기
         //Json 저장하기
-    }
-
-    private static string getPath(string fileName)
-    {
-#if UNITY_EDITOR
-        return Application.persistentDataPath + "/Saves/" + fileName + ".json";
-#elif UNITY_ANDROID
-        return Application.persistentDataPath+"/Saves/"+ fileName + ".json";
-#elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+ fileName + ".json";
-#else
-        return Application.persistentDataPath +"/"+fileName + ".json";
-#endif
     }
 }

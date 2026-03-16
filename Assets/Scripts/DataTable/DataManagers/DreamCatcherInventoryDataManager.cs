@@ -80,7 +80,7 @@ public class DreamCatcherInventoryDataManager
         else
             return null;
     }
-
+ 
     public void Load()
     {
         dreamCatcherInventoryDataModel = jsonManager.LoadData<DreamCatcherInventoryDataModel>(Constants.DreamCatcherInventoryDataFile);

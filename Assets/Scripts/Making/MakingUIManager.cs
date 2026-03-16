@@ -492,8 +492,8 @@ public class MakingUIManager : MonoBehaviour
         // 완성 팝업창 열기
         PopupWin.SetActive(true);
         PopupWin.transform.GetChild(0).gameObject.SetActive(true);
-        PopupWin.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Text>().text = DCManager.GetColor() + " 실";
-        PopupWin.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Text>().text = DCManager.GetFeather();
+        PopupWin.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Text>().text 
+            = DreamCatcherDescriptionBuilder.Build(DCManager.GetMyDreamCatcher());
     }
 
     // 앱 설정 열기
