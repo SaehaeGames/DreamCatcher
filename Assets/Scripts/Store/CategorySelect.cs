@@ -33,7 +33,9 @@ public class CategorySelect : MonoBehaviour
     public void SetWallpaperSelect()
     {
         SetMainCategory(StoreType.Interior);
-        currentInteriorCategory = ItemTheme.Star; // 기본 인테리어는 별 화면
+        // Sea를 비선택 상태로 만들고 Star를 선택 상태로 활성화
+        // currentInteriorCategory를 Sea로 설정 → DeactivateCategory(Sea) 후 ActivateCategory(Star) 순서로 실행됨
+        currentInteriorCategory = ItemTheme.Sea;
         SetStarInteriorSelect();
     }
     public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
