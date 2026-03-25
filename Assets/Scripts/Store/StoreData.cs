@@ -29,11 +29,18 @@ public class StoreData : MonoBehaviour
     public string curInteriorCategory;
 
     public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread};
-    
+
+
     public void Start()
     {
         goodsDataManager = GameManager.instance.goodsDataManager;
         storeinfo_data = GameManager.instance.storeinfo_data;
+
+        // 👇 이거 추가
+        Debug.Log("goodsDataManager null? " + (goodsDataManager == null));
+        Debug.Log("dataList count: " + goodsDataManager?.dataList?.Count);
+        Debug.Log("storeinfo_data null? " + (storeinfo_data == null));
+        Debug.Log("storeinfo_data.dataList count: " + storeinfo_data?.dataList?.Count);
 
         UpdateStoreData(StoreType.Development);
     }
@@ -55,34 +62,27 @@ public class StoreData : MonoBehaviour
 
     private void UpdateDevelopmentGoodsData()
     {
-        // 보조도구 상품을 업데이트 하는 함수
-
-        /*        for (int i = 0; i < goodsContents.Length; i++)
-                {
-                    int goodsLevel = goodsDataManager.dataList[i].level;
-                    int id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel);
-
-                    Debug.Log(developCategory[i]  + goodsLevel + "ID : " + id);
-
-                    goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-                    goodsContents[i].transform.GetChild(3).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetContentsByID(id + 1);
-                    goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.GetEffectByID(id + 1);
-                    goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.GetGoldByID(id + 1).ToString();
-
-                    if (IsItemSoldOut(developCategory[i], goodsLevel))
-                        soldOut[i].SetActive(true);
-                }*/
-
         for (int i = 0; i < goodsContents.Length; i++)
         {
             int goodsLevel = goodsDataManager.dataList[i].level;
-            int dataOffset = goodsLevel + i + 1;
 
+            // ✅ 현재 레벨 + 1 = 다음 구매할 아이템
+            string id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel + 1);
 
-            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite = goodsImages[i].imageList[goodsLevel + 1];
-            goodsContents[i].transform.GetChild(3).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].contents;
-            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].effect;
-            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text = storeinfo_data.dataList[dataOffset].gold.ToString();
+            if (string.IsNullOrEmpty(id))
+            {
+                soldOut[i].SetActive(true);  // 최고 레벨이면 매진 표시
+                continue;
+            }
+
+            goodsContents[i].transform.GetChild(1).GetComponent<Image>().sprite
+                = goodsImages[i].imageList[goodsLevel + 1];
+            goodsContents[i].transform.GetChild(3).GetComponent<Text>().text
+                = storeinfo_data.GetContentsByID(id);
+            goodsContents[i].transform.GetChild(4).GetChild(0).GetComponent<Text>().text
+                = storeinfo_data.GetEffectByID(id);
+            goodsContents[i].transform.GetChild(6).GetChild(2).GetComponent<Text>().text
+                = storeinfo_data.GetGoldByID(id).ToString();
         }
     }
 

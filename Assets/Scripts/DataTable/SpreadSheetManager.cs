@@ -70,7 +70,7 @@ public class SpreadSheetManager : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogError($"스프레드 시트 파싱 에러 : {e.Message}");
+                Debug.LogError($"스프레드 시트 파싱 에러 : {e.Message} | 필드: {fields[i].Name} | 값: '{datas[i]}'");
             }
         }
 
