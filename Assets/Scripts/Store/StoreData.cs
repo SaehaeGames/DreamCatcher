@@ -247,6 +247,12 @@ public class StoreData : MonoBehaviour
                 }
             }
 
+            // 구매한 storeinfo 아이템 보유 처리
+            InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(id);
+            if (interiorItem != null)
+                interiorItem.isHaving = true;
+            jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
+
             UpdateStoreData(StoreType.Development);
         }
         else if (curCategory == StoreType.Interior)  //인테리어 상품이라면

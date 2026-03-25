@@ -4,21 +4,21 @@
             "id": "JS_3000",
             "name": "RackFront",
             "category": "Rack\r",
-            "level": 1,
+            "level": 0,
             "interior_id": "SO_3000"
         },
         {
             "id": "JS_3001",
             "name": "RackBack",
             "category": "Rack\r",
-            "level": 1,
+            "level": 0,
             "interior_id": "SO_3001"
         },
         {
             "id": "JS_3002",
             "name": "Vase",
             "category": "Vase\r",
-            "level": 3,
+            "level": 1,
             "interior_id": "SO_3002"
         },
         {

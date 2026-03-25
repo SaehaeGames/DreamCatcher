@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuyCheck : MonoBehaviour
@@ -79,11 +80,23 @@ public class BuyCheck : MonoBehaviour
     {
         //상품 적용 확인 패널에서 확인 버튼을 눌러서 가구를 적용하는 함수
 
-        JsonManager jsonManager = GameManager.instance.jsonManager;
-        InteriorData item = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(selectId);
+        var interiorDataManager = GameManager.instance.interiorDataManager;
+        var storeInfoData = GameManager.instance.storeinfo_data;
 
+        // 같은 카테고리 기존 적용 아이템 초기화
+        StoreItemCategory category = storeInfoData.GetCategoryByItemID(selectId);
+        foreach (var d in interiorDataManager.dataList)
+        {
+            var si = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
+            if (si != null && si.category == category)
+                d.isAdjusting = false;
+        }
+
+        // 선택 아이템 적용
+        InteriorData item = interiorDataManager.GetInteriorDataByStoreInfoId(selectId);
         item.isAdjusting = true;
-        jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
+
+        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
 
         SetInActiveAdjustCheckPanel();
     }
