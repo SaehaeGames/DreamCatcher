@@ -80,7 +80,7 @@
         },
         {
             "id": "JS_4013",
-            "isHaving": false,
+            "isHaving": true,
             "isAdjusting": false,
             "storeinfo_id": "SO_4017"
         },
@@ -135,7 +135,7 @@
         {
             "id": "JS_4022",
             "isHaving": true,
-            "isAdjusting": true,
+            "isAdjusting": false,
             "storeinfo_id": "SO_4018"
         },
         {
@@ -183,7 +183,7 @@
         {
             "id": "JS_4030",
             "isHaving": true,
-            "isAdjusting": true,
+            "isAdjusting": false,
             "storeinfo_id": "SO_4042"
         }
     ]

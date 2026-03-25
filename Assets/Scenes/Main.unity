@@ -18872,6 +18872,86 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1909131445}
     - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 2145350872}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 924309020}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[2]
+      value: 
+      objectReference: {fileID: 777585352}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[3]
+      value: 
+      objectReference: {fileID: 1309971389}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[4]
+      value: 
+      objectReference: {fileID: 723299057}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[5]
+      value: 
+      objectReference: {fileID: 1645527673}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[6]
+      value: 
+      objectReference: {fileID: 1760436245}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[7]
+      value: 
+      objectReference: {fileID: 984105245}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_SeaItem.Array.data[8]
+      value: 
+      objectReference: {fileID: 495091409}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[0]
+      value: 
+      objectReference: {fileID: 684850238}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[1]
+      value: 
+      objectReference: {fileID: 105615576}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[2]
+      value: 
+      objectReference: {fileID: 2071231843}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[3]
+      value: 
+      objectReference: {fileID: 2065604776}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[4]
+      value: 
+      objectReference: {fileID: 1296184420}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[5]
+      value: 
+      objectReference: {fileID: 1135031291}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[6]
+      value: 
+      objectReference: {fileID: 50589550}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[7]
+      value: 
+      objectReference: {fileID: 1776251629}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: Button_StarItem.Array.data[8]
+      value: 
+      objectReference: {fileID: 45133207}
+    - target: {fileID: 283986973728896998, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: Button_InteriorItem.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -18975,6 +19055,10 @@ PrefabInstance:
       propertyPath: goodsContents.Array.data[16]
       value: 
       objectReference: {fileID: 798564740}
+    - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
+      propertyPath: goodsImages.Array.data[9].imageList.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 86114047efeaed74c9429ce147e36c04, type: 3}
     - target: {fileID: 4700025106777566809, guid: 2313a6ccea91386478782792f975e53c, type: 3}
       propertyPath: goodsImages.Array.data[11].imageList.Array.data[0]
       value: 
@@ -49547,6 +49631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialOverlay
       objectReference: {fileID: 0}
+    - target: {fileID: 8085696567013516971, guid: 09ca0bf5b5edcbb43829f7523d70e86b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -49637,6 +49725,8 @@ MonoBehaviour:
   - {fileID: 1956241323}
   - {fileID: 495091409}
   - {fileID: 45133207}
+  Button_SeaItem: []
+  Button_StarItem: []
   horLines:
   - {fileID: 1393506283}
   - {fileID: 17512834}

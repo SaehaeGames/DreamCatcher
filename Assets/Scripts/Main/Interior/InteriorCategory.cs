@@ -15,6 +15,8 @@ public class InteriorCategory : MonoBehaviour
     public GameObject Panel_Interior;    GameObject ScrollViewPort;
     public GameObject[] Button_InteriorCategory;
     public GameObject[] Button_InteriorItem;
+    public GameObject[] Button_SeaItem;
+    public GameObject[] Button_StarItem;
     public GameObject[] horLines;
 
     private List<GameObject> interiorItemArray;
@@ -39,19 +41,6 @@ public class InteriorCategory : MonoBehaviour
         GetBtnItemCount();
         currentAdjusting = new bool[interiorItemArray.Count];
 
-        // 초기화 & 적용 중인 아이템 UI 반영
-        for (int i = 0; i < interiorItemArray.Count; i++)
-        {
-            currentAdjusting[i] = interiorDataManager.dataList[i].isAdjusting;
-            if (currentAdjusting[i])
-            {
-                string id = interiorDataManager.dataList[i].storeinfo_id;
-                UpdateInteriorImage(i, id);
-                UpdateButtonAdjusting();
-            }
-        }
-
-        //DefineButtonNumber();
         LoadSaveData();
         UpdateCatrgoryPanel(currentCategoryIndex);  // DefineButtonNumberAndID 호출됨
 
@@ -64,6 +53,9 @@ public class InteriorCategory : MonoBehaviour
 
         // 적용중 표시 반영 (버튼 ID 설정 이후에 호출)
         UpdateButtonAdjusting();
+
+        // 적용중 아이템 메인 화면 이미지 반영 - MainProducts.Start()가 이미지를 리셋하므로 1프레임 뒤에 실행
+        StartCoroutine(ApplyAdjustingImagesDelayed());
     }
 
     private void SyncDevelopmentItemsHaving()
@@ -90,6 +82,25 @@ public class InteriorCategory : MonoBehaviour
                 if (interior != null)
                     interior.isHaving = true;
             }
+        }
+    }
+
+    private IEnumerator ApplyAdjustingImagesDelayed()
+    {
+        yield return null; // MainProducts.Start()가 이미지를 리셋한 뒤에 적용
+        ApplyAdjustingImages();
+    }
+
+    private void ApplyAdjustingImages()
+    {
+        for (int i = 0; i < interiorItemArray.Count; i++)
+        {
+            var btn = interiorItemArray[i].GetComponent<InteriorButton>();
+            if (btn == null || string.IsNullOrEmpty(btn.itemID)) continue;
+
+            InteriorData data = interiorDataManager.GetInteriorDataByStoreInfoId(btn.itemID);
+            if (data != null && data.isAdjusting)
+                UpdateInteriorImage(btn.buttonNumber, btn.itemID);
         }
     }
 
@@ -127,6 +138,12 @@ public class InteriorCategory : MonoBehaviour
                     interiorItemArray.Add(go);
             }
         }
+        foreach (var btn in Button_SeaItem)
+            if (btn != null && btn.GetComponent<InteriorButton>() != null)
+                interiorItemArray.Add(btn);
+        foreach (var btn in Button_StarItem)
+            if (btn != null && btn.GetComponent<InteriorButton>() != null)
+                interiorItemArray.Add(btn);
         return interiorItemArray.Count;
     }
 
@@ -183,26 +200,44 @@ public class InteriorCategory : MonoBehaviour
 
     void DefineButtonNumberAndID()
     {
-        // 각 탭에 대응되는 Theme와 패널
+        // Default 탭: Vase / Box / Thread
         var tabMappings = new (ItemTheme theme1, StoreItemCategory theme2, Transform tab)[]
         {
-            (ItemTheme.Default, StoreItemCategory.Vase, Button_InteriorItem[0].transform.GetChild(1)), // Default 탭의 버튼 컨테이너
-            (ItemTheme.Default, StoreItemCategory.Box, Button_InteriorItem[1].transform.GetChild(1)), // Sea 탭의 버튼 컨테이너
-            (ItemTheme.Default, StoreItemCategory.Thread, Button_InteriorItem[2].transform.GetChild(1)), // Star 탭의 버튼 컨테이너
+            (ItemTheme.Default, StoreItemCategory.Vase,   Button_InteriorItem[0].transform.GetChild(1)),
+            (ItemTheme.Default, StoreItemCategory.Box,    Button_InteriorItem[1].transform.GetChild(1)),
+            (ItemTheme.Default, StoreItemCategory.Thread, Button_InteriorItem[2].transform.GetChild(1)),
         };
-
 
         foreach (var (theme1, theme2, parent) in tabMappings)
         {
             List<string> themeIDs = storeInfoData.GetSortedIDsByTheme(theme1, theme2);
             int loopCount = Mathf.Min(parent.childCount, themeIDs.Count);
-
             for (int i = 0; i < loopCount; i++)
             {
                 var btn = parent.GetChild(i).GetComponent<InteriorButton>();
                 btn.SetButtonNumber(i);
                 btn.SetButtonItemID(themeIDs[i]);
             }
+        }
+
+        // Sea 탭
+        List<string> seaIDs = storeInfoData.GetSortedIDsByTheme(ItemTheme.Sea);
+        for (int i = 0; i < Mathf.Min(Button_SeaItem.Length, seaIDs.Count); i++)
+        {
+            var btn = Button_SeaItem[i]?.GetComponent<InteriorButton>();
+            if (btn == null) continue;
+            btn.SetButtonNumber(i);
+            btn.SetButtonItemID(seaIDs[i]);
+        }
+
+        // Star 탭
+        List<string> starIDs = storeInfoData.GetSortedIDsByTheme(ItemTheme.Star);
+        for (int i = 0; i < Mathf.Min(Button_StarItem.Length, starIDs.Count); i++)
+        {
+            var btn = Button_StarItem[i]?.GetComponent<InteriorButton>();
+            if (btn == null) continue;
+            btn.SetButtonNumber(i);
+            btn.SetButtonItemID(starIDs[i]);
         }
     }
 
@@ -329,59 +364,71 @@ public class InteriorCategory : MonoBehaviour
         if (itemIDNum < 4034) return 13; // 스타드롭
         if (itemIDNum < 4037) return 14; // 수정구슬
         if (itemIDNum < 4040) return 15; // 망원경
-        if (itemIDNum < 4042) return 16; // 오르골
+        if (itemIDNum <= 4042) return 16; // 오르골
         return -1;
     }
 
     public void SelectInteriorDafaultItem(int itemIdx, string itemID)
     {
-        // 이 함수는 일단 기본 아이템을 클릭하면 작동하는 버튼 이벤트....
-        // 클릭한 아이템을 인식해서 이미지 바꾸기를 실행하는 곳
-
         interiorDataManager = GameManager.instance.interiorDataManager;
-        StoreItemCategory currentCategory = storeInfoData.GetCategoryByItemID(itemID);    // 아이템 ID로 선택한 아이템 카테고리 조회
+        StoreItemCategory currentCategory = storeInfoData.GetCategoryByItemID(itemID);
 
-        // 선택한 아이템 찾기
+        // 같은 카테고리의 InteriorData 목록
         var categoryItems = interiorDataManager.dataList
-        .Where(d =>
-        {
-            var storeInfo = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
-            return storeInfo != null && storeInfo.category == currentCategory;
-        })
-        .ToList();
-        
+            .Where(d =>
+            {
+                var si = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
+                return si != null && si.category == currentCategory;
+            })
+            .ToList();
 
-        var selectedData = categoryItems[itemIdx];
-        int selectedIdx = 0;
+        // itemID로 직접 selectedData 조회 (인덱스 불일치 방지)
+        var selectedData = categoryItems.FirstOrDefault(d => d.storeinfo_id == itemID);
+        if (selectedData == null) return;
 
+        int selectedIdx = categoryItems.IndexOf(selectedData);
 
         if (selectedData.isAdjusting)
         {
-            // 이미 적용 중인 아이템을 다시 클릭 → 카테고리의 첫 아이템으로 되돌리기
+            // 이미 적용 중 → 카테고리의 Default 아이템으로 되돌리기
             foreach (var d in categoryItems) d.isAdjusting = false;
-            categoryItems[0].isAdjusting = true;
 
-            itemID = categoryItems[0].storeinfo_id;
-            selectedIdx = 0; // 카테고리 로컬 인덱스 0 = 첫 번째 아이템
+            // Default 테마 아이템이 categoryItems 안에 있으면 첫 번째 사용
+            var defaultItem = categoryItems.FirstOrDefault(d =>
+            {
+                var si = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
+                return si != null && si.theme == ItemTheme.Default;
+            });
+
+            if (defaultItem != null)
+            {
+                defaultItem.isAdjusting = true;
+                itemID = defaultItem.storeinfo_id;
+                selectedIdx = categoryItems.IndexOf(defaultItem);
+            }
+            else
+            {
+                // Star/Sea 전용 카테고리 → storeinfo에서 Default 테마 ID 찾아 이미지 복원
+                var defaultSI = storeInfoData.dataList.FirstOrDefault(s =>
+                    s.category == currentCategory && s.theme == ItemTheme.Default);
+                if (defaultSI != null)
+                {
+                    itemID = defaultSI.id;
+                    selectedIdx = 0;
+                }
+            }
         }
         else
         {
-            // 같은 카테고리의 다른 아이템 해제
+            // 같은 카테고리의 다른 아이템 해제 후 선택
             foreach (var d in categoryItems) d.isAdjusting = false;
             selectedData.isAdjusting = true;
-            selectedIdx = itemIdx;
         }
 
-        // UI & 이미지 갱신
-        currentAdjusting = interiorDataManager.dataList
-            .Select(d => d.isAdjusting).ToArray();
-
+        currentAdjusting = interiorDataManager.dataList.Select(d => d.isAdjusting).ToArray();
         UpdateInteriorImage(selectedIdx, itemID);
         UpdateButtonAdjusting();
-
-        // 저장
-        GameManager.instance.jsonManager
-            .SaveData(Constants.InteriorDataFile, interiorDataManager);
+        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
 
     public void SettingItemHide(int itemIdx)
