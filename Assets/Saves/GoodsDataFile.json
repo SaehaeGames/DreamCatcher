@@ -4,28 +4,28 @@
             "id": "JS_3000",
             "name": "RackFront",
             "category": "Rack\r",
-            "level": 0,
+            "level": 1,
             "interior_id": "SO_3000"
         },
         {
             "id": "JS_3001",
             "name": "RackBack",
             "category": "Rack\r",
-            "level": 0,
+            "level": 1,
             "interior_id": "SO_3001"
         },
         {
             "id": "JS_3002",
             "name": "Vase",
             "category": "Vase\r",
-            "level": 0,
+            "level": 3,
             "interior_id": "SO_3002"
         },
         {
             "id": "JS_3003",
             "name": "Poket",
             "category": "Box\r",
-            "level": 0,
+            "level": 1,
             "interior_id": "SO_3003"
         },
         {

@@ -16,19 +16,27 @@ public class BuyCheck : MonoBehaviour
     public GameObject panel_buyCheck;   //상품 구매 확인 팝업
     public GameObject panel_AdjustCheck;   //상품 적용 확인 팝업
 
+    private string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread };
+
     private void Start()
     {
-        List<string> defaultList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Default);
+        // 보조도구 버튼: 현재 레벨+1 기반으로 ID 설정
+        for (int i = 0; i < ButtonObj.Length && i < developCategory.Length; i++)
+        {
+            BuyButtonInfo buttonInfo = ButtonObj[i].GetComponent<BuyButtonInfo>();
+            buttonInfo.SetSelectGoodsNumber(i);
+
+            GoodsData goodsData = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(developCategory[i]);
+            int level = goodsData != null ? goodsData.level : 0;
+            string nextId = GameManager.instance.storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], level + 1);
+            if (!string.IsNullOrEmpty(nextId))
+                buttonInfo.SetSelectGoodsId(nextId);
+        }
+
+        // 인테리어 버튼 ID 설정
         List<string> StarList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Star);
         List<string> SeaList = GameManager.instance.storeinfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
 
-        int numberOfGoods = ButtonObj.Length;   //상품 총 개수
-        for (int i = 0; i < numberOfGoods; i++)
-        {
-            BuyButtonInfo buttonInfo = ButtonObj[i].GetComponent<BuyButtonInfo>();
-            buttonInfo.SetSelectGoodsNumber(i); //상품 고유 번호 설정
-            buttonInfo.SetSelectGoodsId(defaultList[i]); //상품 ID 설정
-        }
         for (int i = 0; i < 9; i++)
         {
             StarButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
@@ -37,6 +45,12 @@ public class BuyCheck : MonoBehaviour
             SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
             SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsId(SeaList[i]);
         }
+    }
+
+    public void SetDevelopmentButtonId(int index, string id)
+    {
+        if (index >= 0 && index < ButtonObj.Length)
+            ButtonObj[index].GetComponent<BuyButtonInfo>().SetSelectGoodsId(id);
     }
 
     public void SelectBuyingGoods(int buttonNumber, string id)
