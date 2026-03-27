@@ -47,6 +47,9 @@ public class InteriorCategory : MonoBehaviour
         // 보조도구 레벨 기반 isHaving 동기화 (버튼 ID 설정 이후에 호출)
         SyncDevelopmentItemsHaving();
 
+        // 카테고리별 기본 적용 아이템이 없으면 첫 번째 보유 아이템을 자동 설정
+        SyncDefaultAdjusting();
+
         // 보유/비보유 상태 반영
         for (int i = 0; i < interiorItemArray.Count; i++)
             SettingItemHide(i);
@@ -56,6 +59,36 @@ public class InteriorCategory : MonoBehaviour
 
         // 적용중 아이템 메인 화면 이미지 반영 - MainProducts.Start()가 이미지를 리셋하므로 1프레임 뒤에 실행
         StartCoroutine(ApplyAdjustingImagesDelayed());
+    }
+
+    private void SyncDefaultAdjusting()
+    {
+        // 각 Default 카테고리에서 적용중 아이템이 없으면 첫 번째 보유 아이템을 자동으로 적용중으로 설정
+        var cats = new StoreItemCategory[] { StoreItemCategory.Vase, StoreItemCategory.Box, StoreItemCategory.Thread };
+
+        bool changed = false;
+        foreach (var cat in cats)
+        {
+            var categoryItems = interiorDataManager.dataList
+                .Where(d =>
+                {
+                    var si = storeInfoData.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
+                    return si != null && si.category == cat && si.theme == ItemTheme.Default;
+                })
+                .ToList();
+
+            if (categoryItems.Any(d => d.isAdjusting)) continue;
+
+            var firstOwned = categoryItems.FirstOrDefault(d => d.isHaving);
+            if (firstOwned != null)
+            {
+                firstOwned.isAdjusting = true;
+                changed = true;
+            }
+        }
+
+        if (changed)
+            GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
     }
 
     private void SyncDevelopmentItemsHaving()

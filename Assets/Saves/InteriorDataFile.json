@@ -3,13 +3,13 @@
         {
             "id": "JS_4000",
             "isHaving": true,
-            "isAdjusting": false,
+            "isAdjusting": true,
             "storeinfo_id": "SO_4003"
         },
         {
             "id": "JS_4001",
-            "isHaving": true,
-            "isAdjusting": true,
+            "isHaving": false,
+            "isAdjusting": false,
             "storeinfo_id": "SO_4004"
         },
         {
@@ -27,13 +27,13 @@
         {
             "id": "JS_4004",
             "isHaving": true,
-            "isAdjusting": false,
+            "isAdjusting": true,
             "storeinfo_id": "SO_4007"
         },
         {
             "id": "JS_4005",
-            "isHaving": true,
-            "isAdjusting": true,
+            "isHaving": false,
+            "isAdjusting": false,
             "storeinfo_id": "SO_4008"
         },
         {
@@ -80,7 +80,7 @@
         },
         {
             "id": "JS_4013",
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false,
             "storeinfo_id": "SO_4017"
         },
@@ -134,13 +134,13 @@
         },
         {
             "id": "JS_4022",
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false,
             "storeinfo_id": "SO_4018"
         },
         {
             "id": "JS_4023",
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false,
             "storeinfo_id": "SO_4021"
         },
@@ -182,7 +182,7 @@
         },
         {
             "id": "JS_4030",
-            "isHaving": true,
+            "isHaving": false,
             "isAdjusting": false,
             "storeinfo_id": "SO_4042"
         }

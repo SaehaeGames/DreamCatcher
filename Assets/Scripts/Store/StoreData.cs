@@ -1,109 +1,90 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-//using static UnityEditor.Progress;
 
 public class StoreData : MonoBehaviour
 {
-    //상점
-    //파일의 데이터를 가져오는 클래스
-
     [Header("[Store Product]")]
-    public GameObject[] goodsContents;   //보조 도구 상품 배열
-    public GameObject[] interiorContetns;   //인테리어 상품 배열
-    public SpriteArray[] goodsImages; //상품 이미지 배열  
+    public GameObject[] goodsContents;       // 보조도구 상품 UI 오브젝트 배열 (Rack, Vase, Box, Thread 순)
+    public GameObject[] interiorContetns;    // 인테리어 카테고리별 컨테이너 (0: Sea, 1: Star)
+    public SpriteArray[] goodsImages;        // 보조도구별 레벨에 따른 스프라이트 배열
 
-    private GoodsDataManager goodsDataManager;   //상품 정보
-
+    private GoodsDataManager goodsDataManager;
     public StoreInfo_Data storeinfo_data;
 
     [Space]
-    public GameObject[] soldOut;  //판매 완료 이미지 오브젝트 배열
-    public GameObject[] StarSoldOut;
-    public GameObject[] SeaSoldOut;
+    public GameObject[] soldOut;             // 보조도구 품절 오버레이 (최대 레벨 도달 시 활성화)
+    public GameObject[] StarSoldOut;         // Star 인테리어 품절 오버레이 (이미 보유 시 활성화)
+    public GameObject[] SeaSoldOut;          // Sea 인테리어 품절 오버레이 (이미 보유 시 활성화)
 
-    public string curCategory;
-    public string curInteriorCategory;
+    private ItemTheme curInteriorCategory;   // 현재 선택된 인테리어 테마 (Sea / Star)
 
-    public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread};
+    public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread };
 
+    private Text[] effectTexts;      // 보조도구 효과 설명 텍스트 컴포넌트 캐시
+    private Text[] goldTexts;        // 보조도구 가격 텍스트 컴포넌트 캐시
+    private Image[] productImages;   // 보조도구 상품 이미지 컴포넌트 캐시
 
-    private Text[] contentsTexts;
-    private Text[] effectTexts;
-    private Text[] goldTexts;
-    private Image[] productImages;
-
+    /// <summary>
+    /// 데이터 매니저 참조를 초기화하고, 각 상품 UI 컴포넌트(이미지, 가격, 효과 텍스트)를 캐싱한 뒤
+    /// 보조도구 탭의 초기 UI를 갱신
+    /// </summary>
     public void Start()
     {
         goodsDataManager = GameManager.instance.goodsDataManager;
         storeinfo_data = GameManager.instance.storeinfo_data;
 
-        contentsTexts = new Text[goodsContents.Length];
         effectTexts = new Text[goodsContents.Length];
         goldTexts = new Text[goodsContents.Length];
         productImages = new Image[goodsContents.Length];
 
+        // 각 상품 UI의 자식 계층에서 Image / Text 컴포넌트를 인덱스로 가져와 캐싱
         for (int i = 0; i < goodsContents.Length; i++)
         {
             Transform t = goodsContents[i].transform;
+            productImages[i] = t.GetChild(1).GetComponent<Image>();
+            goldTexts[i] = t.GetChild(6).GetChild(2).GetComponent<Text>();
 
-            productImages[i] = t.GetChild(1).GetComponent<Image>();       // Image_Product
-            goldTexts[i] = t.GetChild(6).GetChild(2).GetComponent<Text>(); // Cost
-
-            // Text_EffectNumber (Thread는 없으니 null 허용)
+            // 효과 텍스트 오브젝트가 비활성화 상태라면 null로 처리 (Rack은 효과 텍스트 없음)
             var effectObj = t.GetChild(4);
-            effectTexts[i] = effectObj.gameObject.activeSelf
-                ? effectObj.GetComponent<Text>()
-                : null;
+            effectTexts[i] = effectObj.gameObject.activeSelf ? effectObj.GetComponent<Text>() : null;
         }
-
-        UpdateStoreData(StoreType.Development);
-
-        Debug.Log("=== goodsDataManager.dataList 순서 ===");
-        for (int i = 0; i < goodsDataManager.dataList.Count; i++)
-        {
-            Debug.Log($"[{i}] id: {goodsDataManager.dataList[i].id}, category: {goodsDataManager.dataList[i].category}, level: {goodsDataManager.dataList[i].level}");
-        }
-    }
-
-    public void UpdateStoreData(StoreType category)
-    {
-        //상점 데이터를 가져오는 함수
 
         UpdateDevelopmentGoodsData();
     }
 
+    /// <summary>
+    /// 외부(CategorySelect)에서 인테리어 탭의 테마를 전환할 때 호출됨
+    /// 현재 테마를 저장하고 인테리어 UI를 갱신
+    /// </summary>
     public void UpdateStoreInteriorData(ItemTheme theme)
     {
-        Debug.Log("인테리어 업데이트 함수 호출");
-        curInteriorCategory = theme.ToString();
-        UpdateInteriorGoodsData(curInteriorCategory);
+        curInteriorCategory = theme;
+        UpdateInteriorGoodsData();
     }
 
-
+    /// <summary>
+    /// 보조도구(Rack/Vase/Box/Thread) 탭 UI를 갱신
+    /// 각 카테고리의 현재 레벨을 조회해 다음 구매 가능한 아이템 ID를 storeinfo에서 찾고,
+    /// 최대 레벨이면 SoldOut 오버레이를 표시하고, 아니면 이미지/가격/효과 텍스트를 업데이트
+    /// </summary>
     private void UpdateDevelopmentGoodsData()
     {
-        BuyCheck buyCheck = this.GetComponent<BuyCheck>();
+        BuyCheck buyCheck = GetComponent<BuyCheck>();
 
         for (int i = 0; i < goodsContents.Length; i++)
         {
             GoodsData goodsData = goodsDataManager.GetGoodsDataByCategory(developCategory[i]);
             int goodsLevel = goodsData != null ? goodsData.level : 0;
+            // 현재 레벨 + 1에 해당하는 다음 구매 아이템 ID를 조회
             string id = storeinfo_data.GetIDByCategoryAndLevel(developCategory[i], goodsLevel + 1);
 
-            soldOut[i].SetActive(false);
-
-            if (string.IsNullOrEmpty(id))
-            {
-                soldOut[i].SetActive(true);
-                continue;
-            }
+            // ID가 없으면 최대 레벨 → 품절 표시 후 건너뜀
+            soldOut[i].SetActive(string.IsNullOrEmpty(id));
+            if (string.IsNullOrEmpty(id)) continue;
 
             buyCheck?.SetDevelopmentButtonId(i, id);
-
             productImages[i].sprite = goodsImages[i].imageList[goodsLevel + 1];
             if (effectTexts[i] != null)
                 effectTexts[i].text = storeinfo_data.GetEffectByID(id);
@@ -111,134 +92,89 @@ public class StoreData : MonoBehaviour
         }
     }
 
-    private void UpdateInteriorGoodsData(string curCategory)
+    /// <summary>
+    /// 인테리어(Sea / Star) 탭 UI를 갱신한
+    /// 현재 테마에 해당하는 storeinfo 아이템을 순서대로 순회하며
+    /// 설명/가격 텍스트를 채우고, 이미 보유 중인 아이템은 SoldOut 오버레이를 표시하고
+    /// 구매 버튼을 비활성화
+    /// </summary>
+    private void UpdateInteriorGoodsData()
     {
-        // 인테리어 상품을 업데이트 하는 함수
-
-        int index = 0;
-        int interiorIndex = 0;
-        Debug.Log(curInteriorCategory);
-        if (curInteriorCategory == ItemTheme.Sea.ToString())
-        {
-            interiorIndex = 1;
-        }
-        else
-        {
-            interiorIndex = 0;
-        }
-
-        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
-        {
-            var item = storeinfo_data.dataList[i];
-
-            if (item.theme.ToString() == curInteriorCategory)
-            {
-                // UI 업데이트
-                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
-                interiorContetns[interiorIndex].transform.GetChild(index).GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
-
-                index++;
-            }
-        }
-
-        // 보유중인 아이템일 경우 soldOut 표시 + 버튼 비활성화
-        BuyCheck buyCheck = this.GetComponent<BuyCheck>();
-        bool isSea = curInteriorCategory == ItemTheme.Sea.ToString();
+        BuyCheck buyCheck = GetComponent<BuyCheck>();
+        bool isSea = curInteriorCategory == ItemTheme.Sea;
+        // 테마에 따라 사용할 SoldOut 배열과 버튼 배열을 선택
         GameObject[] soldOutArr = isSea ? SeaSoldOut : StarSoldOut;
         GameObject[] buttonArr = isSea ? buyCheck.SeaButtonObj : buyCheck.StarButtonObj;
+        int interiorIndex = isSea ? 1 : 0;
 
-        index = 0;
-        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
+        int index = 0;
+        foreach (var item in storeinfo_data.dataList.Where(x => x.theme == curInteriorCategory))
         {
-            var item = storeinfo_data.dataList[i];
-
-            if (item.theme.ToString() == curInteriorCategory)
+            // UI 텍스트 갱신 (설명, 가격)
+            if (index < interiorContetns[interiorIndex].transform.childCount)
             {
-                InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(item.id);
-                bool isHaving = interiorItem != null && interiorItem.isHaving;
-
-                if (soldOutArr.Length > index)
-                    soldOutArr[index].SetActive(isHaving);
-
-                if (buttonArr.Length > index)
-                    buttonArr[index].GetComponent<Button>().interactable = !isHaving;
-
-                index++;
+                var child = interiorContetns[interiorIndex].transform.GetChild(index);
+                child.GetChild(3).GetComponent<Text>().text = item.contents.Replace("nn", "\n");
+                child.GetChild(4).GetChild(2).GetComponent<Text>().text = item.gold.ToString();
             }
+
+            // 보유 여부 확인 → 보유 중이면 SoldOut 활성화 + 구매 버튼 비활성화
+            InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(item.id);
+            bool isHaving = interiorItem != null && interiorItem.isHaving;
+
+            if (index < soldOutArr.Length)
+                soldOutArr[index].SetActive(isHaving);
+            if (index < buttonArr.Length)
+                buttonArr[index].GetComponent<Button>().interactable = !isHaving;
+
+            index++;
         }
     }
 
-    private bool IsItemSoldOut(string category, int level)
-    {
-        // 각 카테고리별 다음 상품이 있는지 확인하는 함수
-
-        bool result = false;
-
-        switch (category)
-        {
-            case Constants.GoodsData_Rack :
-                if (level == Constants.GoodsData_Rack_MaxLevel)
-                    result = true;
-                break;
-            case Constants.GoodsData_Vase:
-                if (level == Constants.GoodsData_Vase_MaxLevel)
-                    result = true;
-                break;
-            case Constants.GoodsData_Box:
-                if (level == Constants.GoodsData_Box_MaxLevel)
-                    result = true;
-                break;
-            case Constants.GoodsData_Thread:
-                if (level == Constants.GoodsData_Thread_MaxLevel)
-                    result = true;
-                break;
-            default: result = false; break;
-
-        }
-
-        return result;
-    }
-
-
-    public void AddGoodsLevel(int goodsIndex)
-    {
-        goodsDataManager.dataList[goodsIndex].level++;    //상품 레벨 증가
-    }
-
+    /// <summary>
+    /// PlayerData에서 골드를 차감함
+    /// </summary>
     public void SpendGold(int cost)
     {
-        GameManager.instance.playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Gold).dataNumber -= cost;   //보유 골드 감소
+        GameManager.instance.playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Gold).dataNumber -= cost;
     }
 
+    /// <summary>
+    /// 상품 구매를 처리함
+    /// 1) 골드 차감
+    /// 2) 현재 카테고리(Development/Interior)에 따라 분기
+    ///    - Development: 해당 GoodsData의 level을 1 올리고 JSON 저장, 관련 InteriorData도 isHaving = true
+    ///    - Interior: InteriorData의 isHaving = true로 설정하고 JSON 저장
+    /// 3) UI 갱신 및 상단 바 골드 텍스트 업데이트
+    /// </summary>
     public void BuyGoods(string id)
     {
         JsonManager jsonManager = GameManager.instance.jsonManager;
-        StoreType curCategory = this.GetComponent<CategorySelect>().GetSelectedCategory();
+        StoreType curCategory = GetComponent<CategorySelect>().GetSelectedCategory();
 
-        SpendGold(storeinfo_data.GetGoldByID(id));  // 골드 차감
+        SpendGold(storeinfo_data.GetGoldByID(id));
 
-        if (curCategory == StoreType.Development)   // 보조도구 상품이라면
+        if (curCategory == StoreType.Development)
         {
             StoreItemCategory itemCategory = storeinfo_data.GetCategoryByItemID(id);
 
-            if (itemCategory == StoreItemCategory.Rack)  // 횃대는 두 개 동시에 레벨업
+            // Rack은 두 개의 GoodsData(왼쪽/오른쪽)가 함께 레벨업되어야 함
+            if (itemCategory == StoreItemCategory.Rack)
             {
                 List<GoodsData> rackList = GameManager.instance.goodsDataManager.GetGoodsDataList("Rack");
                 if (rackList != null && rackList.Count == 2)
                 {
                     rackList[0].level++;
                     rackList[1].level++;
-                    Debug.Log($"[SUCCESS] RackFront & RackBack 레벨업 완료!");
                     jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
                 }
             }
-            else  // 일반 아이템 레벨업
+            else
             {
                 GoodsData item = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(itemCategory.ToString());
                 if (item != null)
                 {
                     item.level++;
-                    Debug.Log($"[SUCCESS] {itemCategory} 레벨업 완료! 현재 레벨: {item.level}");
                     jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
                 }
                 else
@@ -247,81 +183,44 @@ public class StoreData : MonoBehaviour
                 }
             }
 
-            // 구매한 storeinfo 아이템 보유 처리
-            InteriorData interiorItem = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(id);
+            // 보조도구 구매 시 연관된 인테리어 아이템 보유 처리 + 자동 적용
+            var interiorDataManager = GameManager.instance.interiorDataManager;
+            // 같은 카테고리의 기존 적용 아이템 해제
+            foreach (var d in interiorDataManager.dataList)
+            {
+                var si = storeinfo_data.dataList.FirstOrDefault(s => s.id == d.storeinfo_id);
+                if (si != null && si.category == itemCategory && si.theme == ItemTheme.Default)
+                    d.isAdjusting = false;
+            }
+            InteriorData interiorItem = interiorDataManager.GetInteriorDataByStoreInfoId(id);
             if (interiorItem != null)
+            {
                 interiorItem.isHaving = true;
-            jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
+                interiorItem.isAdjusting = true;
+            }
+            jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
 
-            UpdateStoreData(StoreType.Development);
+            UpdateDevelopmentGoodsData();
         }
-        else if (curCategory == StoreType.Interior)  //인테리어 상품이라면
+        else if (curCategory == StoreType.Interior)
         {
-
             InteriorData item = GameManager.instance.interiorDataManager.GetInteriorDataByStoreInfoId(id);
-            Debug.Log("현재 아이템 보유 상태: " + item.isHaving);
             if (item != null)
             {
-                item.isHaving = true; //정확한 아이템 보유 상태 업데이트
-
+                item.isHaving = true;
                 jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
             }
 
-            UpdateInteriorGoodsData(curInteriorCategory);
+            UpdateInteriorGoodsData();
         }
 
-        GameObject.FindGameObjectWithTag("TopBar").GetComponent<TopBarText>().UpdateText();
-
-        // UI 즉시 반영
-        MainProducts mainProducts = FindObjectOfType<MainProducts>();
-        if (mainProducts != null)
-        {
-            mainProducts.ResetMainProducts();
-        }
-    }
-
-    public List<GoodsData> GetGoodsDataListByIndex(int goodsNumber)
-    {
-        string category = GameManager.instance.storeinfo_data.dataList[goodsNumber].category.ToString();
-        return GameManager.instance.goodsDataManager.GetGoodsDataList(category);
-    }
-
-    public int GetCategoryStartNumber(StoreItemCategory category)
-    {
-        // 각 카테고리별 시작 번호를 반환하는 함수
-
-        int startNumber = -1;   // 초기값으로 -1을 설정
-
-        for (int i = 0; i < storeinfo_data.dataList.Count; i++)
-        {
-            if (storeinfo_data.dataList[i].category == category)
-            {
-                startNumber = i; 
-                break;             
-            }
-        }
-
-        return startNumber;
-    }
-
-    int GetCostForSpecialGoods(int goodsNumber)
-    {
-        switch (goodsNumber)
-        {
-            case 0: return 1000; // Wallpaper
-            case 1: return 2000; // Garland
-            case 2: return 2000; // Fillpen
-            case 3: return 5000; // Telescope
-            case 4: return 7000; // Stardrop
-            default: return 0;
-        }
+        // 상단 바의 골드 표시 업데이트
+        GameObject.FindGameObjectWithTag(Constants.Tag_TopBar).GetComponent<TopBarText>().UpdateText();
     }
 
     [System.Serializable]
-    public class SpriteArray //상품 이미지 배열의 행
+    public class SpriteArray
     {
-        //하이어라키 화면에 이차원 배열로 보이기 위해 만든 상품 이미지 클래스
-
         public Sprite[] imageList;
     }
 }
