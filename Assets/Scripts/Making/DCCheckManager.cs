@@ -349,7 +349,7 @@ public class DCCheckManager : MonoBehaviour
         try
         {
             // 드림캐쳐 json 세이브
-            GameManager.instance.dreamCatcherDataManager.Save();
+            //GameManager.instance.dreamCatcherDataManager.Save();
         }
         catch (Exception e)
         {
