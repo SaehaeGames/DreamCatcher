@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,27 +20,50 @@ public class InventoryManager : MonoBehaviour
     public int itemCurCnt;  //인벤토리 현재 아이템 수
     public List<GameObject> itemList;   //인벤토리 아이템 리스트    
     MyFeatherNumber featherData;    //플레이어 깃털 정보
+    private DreamCatcherDataManager dreamCatcherDataManager;
+    private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
+    private BirdInfo_Data birdInfo_Data;
 
-    public void SettingInventory()
+    private void Awake()
     {
-        //인벤토리 열 때마다 세팅하는 함수
-
-        AddInventoryList();
-        //UpdateInventory();
+        featherData = GameManager.instance.featherDataManager;
+        birdInfo_Data = GameManager.instance.birdinfo_data;
+        dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
+        dreamCatcherInventoryDataManager = GameManager.instance.dreamCatcherInventoryDataManager;
+    }
+    void Start()
+    {
+        
     }
 
-    public void AddInventoryList()
+    public void OpenInventory()
+    {
+        //인벤토리 열 때마다 세팅하는 함수
+        int maxCount = CheckItemMaximum();
+        FillItemSlotIfNeeded(10);//나중에 매개변수 maxCount로 수정
+        UpdateInventory();
+    }
+
+    public void FillItemSlotIfNeeded(int maxItemCount)
     {
         //상자가 업그레이드되면 용량만큼 인벤토리 리스트 요소를 추가하는 함수
+        int curCnt = itemList.Count; // 현재 아이템 슬롯(빈것 포함) 수
 
-        //itemMaxCnt = CheckItemMaximum();    //인벤토리 용량 갱신
-        itemMaxCnt = 4; //인벤토리 용량 4개로 고정
-        int curCnt = itemList.Count;
-        int addCnt = itemMaxCnt - curCnt;   //추가해야할 요소 수
+        // 최대 갯수보다 현재 아이템 갯수가 많거나 같으면 작동 X
+        if (curCnt >= maxItemCount)
+        {
+            return;
+        }
 
-        Debug.Log("현재 curCnt : " + curCnt + " 추가할 양 : " + addCnt);
+        int addCnt = maxItemCount - curCnt;   //추가해야할 요소 수
 
-        SetItemObject(ItemPrefab, ItemContent, addCnt);  //인벤토리 요소 생성(상자 용량만큼)
+        // 추가 해야하는 요소 수 만큼 빈 아이템 슬롯 생성
+        for (int i = 0; i < addCnt; i++)
+        {
+            GameObject obj = Instantiate(ItemPrefab, ItemContent.transform, false);
+            obj.SetActive(false);
+            itemList.Add(obj);
+        }
     }
 
     public int CheckItemMaximum()
@@ -51,7 +75,6 @@ public class InventoryManager : MonoBehaviour
         StoreInfo_Data _storeinfo_data = GameManager.instance.storeinfo_data;  
         int boxEffect = int.Parse(_storeinfo_data.dataList[PocketLevel + 8].effect);    //상자 효과를 가져옴(12는 상점 데이터의 박스 시작 인덱스)
         //위 이거 말고 그냥 플레이어 데이터 저장할 때 상품 레벨(0,1,2,3)이 아니라 아이템 id로 저장하기.. 그래서 아이템 id 바로 가져와서 그걸로 조회하기?
-
 
         int maxCnt = boxEffect;
 
@@ -74,111 +97,42 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        //드림캐쳐 개수도 추가?
+        //드림캐쳐 개수도 추가
+        DreamCatcherDataManager dreamCatcherDataManager=GameManager.instance.dreamCatcherDataManager;
+        int dreamCatcherCnt = dreamCatcherDataManager.GetDreamCatcherCount();
+        itemCurCnt += dreamCatcherCnt;
 
         return itemCurCnt;
     }
 
-    public void SetItemObject(GameObject _prefab, GameObject _parent, int _cnt)
-    {
-        //인벤토리 아이템 오브젝트를 생성하는 함수
-
-        for (int i = 0; i < _cnt; i++)
-        {
-            GameObject obj = (GameObject)Instantiate(_prefab, new Vector3(0f, 0f, 0), Quaternion.identity); //아이템 오브젝트 생성
-            obj.transform.SetParent(_parent.transform, false);   //아이템 모음 오브젝트의 자식 오브젝트로 설정
-            itemList.Add(obj);  //리스트에 저장
-        }
-    }
-
     public void UpdateInventory()
     {
-        //인벤토리 데이터를 기준으로 인벤토리 업데이트
+        List<BirdInfo_Object> birdInfoDatalist = birdInfo_Data.dataList;
 
-        //InventoryInfo_Data _inventoryinfo_data = GameManager.instance.inventoryinfo_data;
-        //featherData = GameManager.instance.loadFeatherData;   //깃털 정보를 가져옴
+        int listCnt = 0;
 
-        //int birdCnt = 0;    //새 번호를 카운트하는 변수(특별새 깃털은 넘어가기 위해)
-        //int listCnt = 0;    //인벤토리 리스트의 인덱스
-        //for (int i = 0; i < _inventoryinfo_data.datalist.Count; i++)     //인벤토리 아이템들의 총 개수만큼 반복
-        //{
-        //    if (i <= 15 && birdCnt == 3)   //만약 특별새라면
-        //    {
-        //        birdCnt = 0;    //특별새 카운트 번호 초기화
-        //        continue;   //인벤토리에 추가하지 않고 넘어감
-        //    }
-        //    else    //만약 특별새가 아니라면
-        //    {
-        //        birdCnt++;  //새 번호 증가
+        // 깃털
+        for (int i = 0; i < featherData.featherList.Count(); i++)
+        {
+            int count = featherData.featherList[i].feather_number;
 
-        //        //int isAcquireed = _inventoryinfo_data.datalist[i].appear;  //해당 새의 획득 여부 가져옴
-        //        int appearNumber = featherData.featherList[i].feather_number;   //깃털의 수를 가져옴
-        //        if (appearNumber != 0)   //획득 하였다면
-        //        {
-        //            GameObject Item = itemList[listCnt];  //아이템 리스트 한 요소 가져옴
-        //            GameObject itemImage = Item.transform.GetChild(0).GetChild(0).GetChild(0).gameObject;   //아이템 이미지
-        //            GameObject itemContentsText = Item.transform.GetChild(1).gameObject;    //아이템 이름, 내용 텍스트
-        //            GameObject itemCntText = Item.transform.GetChild(2).gameObject; //아이템 개수 텍스트
+            if (count > 0)
+            {
+                GameObject slot=itemList[listCnt];
+                slot.SetActive(true);
+                slot.GetComponent<InventoryItemSlot>().SetSlotFeather(ItemImages[i], birdInfoDatalist[i].name, "", count);
+                listCnt++;
+            }
+        }
 
-        //            itemImage.SetActive(true);  //아이템 이미지 활성화
-        //            itemImage.transform.GetChild(0).gameObject.SetActive(false);  //아이템 이미지 안의 드림캐쳐 모양 비활성화
-        //            itemContentsText.SetActive(true);  //아이템 이름, 내용 텍스트 활성화
-        //            itemCntText.SetActive(true);  //아이템 개수 텍스트 활성화
-
-        //            itemImage.GetComponent<Image>().sprite = ItemImages[i];    //아이템 이미지 변경   (깃털만 해당)
-
-        //            itemContentsText.transform.GetChild(0).gameObject.GetComponent<Text>().text = _inventoryinfo_data.datalist[i].name; //아이템 이름 변경
-        //            string contents = _inventoryinfo_data.datalist[i].contents; //아이템 내용 변경
-        //            itemContentsText.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents.Replace("nn", "\n");
-        //            itemCntText.transform.GetChild(1).gameObject.GetComponent<Text>().text = featherData.featherList[i].feather_number.ToString();   //아이템 획득 개수 변경
-
-        //            listCnt++;  //리스트 번호 증가
-        //        }
-        //    }
-        //}                                                                                                                               //obj.transform.SetParent(_parent.transform, false);   //아이템 모음 오브젝트의 자식 오브젝트로 설정
-
-        ////인벤토리 데이터를 다 추가했다면 드림캐쳐 데이터도 추가
-        //List<DreamCatcher> dreamCatcherdataList = new List<DreamCatcher>();
-        //MyDreamCatcher dreamCatcherData; //MyDreamCatcher 객체 필요
-        //dreamCatcherData = GameManager.instance.loadDreamCatcherData; //MyDreamCatcher 객체 GameManager에서 가져옴
-        //int nDreamCatcher = dreamCatcherData.nDreamCatcher;
-        //Debug.Log("만든 드림캐쳐 개수 : " + nDreamCatcher);
-        //if (nDreamCatcher != 0)    //저장된 드림캐쳐가 있다면
-        //{
-        //    for (int i = 0; i < nDreamCatcher; i++)   //드림캐쳐 개수만큼 반복
-        //    {
-        //        GameObject Item = itemList[listCnt];  //아이템 리스트 한 요소 가져옴
-        //        GameObject itemImage = Item.transform.GetChild(0).GetChild(0).GetChild(1).gameObject;   //아이템 이미지
-        //        Debug.Log(itemImage);
-        //        GameObject itemContentsText = Item.transform.GetChild(1).gameObject;    //아이템 이름, 내용 텍스트
-        //        GameObject itemCntText = Item.transform.GetChild(2).gameObject; //아이템 개수 텍스트
-
-        //        itemImage.SetActive(true); //아이템 이미지 안의 드림캐쳐 모양 활성화
-        //        itemContentsText.SetActive(true);  //아이템 이름, 내용 텍스트 활성화
-        //        itemCntText.SetActive(false);  //아이템 개수 텍스트 비활성화
-
-        //        //GameObject dreamCatcherObj = (GameObject)Instantiate(dreamCatcherPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity); //드림캐쳐 오브젝트 생성
-        //        //dreamCatcherObj.transform.SetParent(itemImage.transform, false);   //아이템 모음 오브젝트의 자식 오브젝트로 설정
-
-        //        // TODO: 아이템 이미지 드림캐쳐 이미지로 변경
-        //        itemImage.GetComponent<Image>().sprite = DreamCatcherInfoLoad.Instance.ImageLoad(i);
-        //        // TODO: 이전 코드 삭제, 게임 오브젝트가 아닌 이미지 스프라이트 변경
-        //        //GameObject dreamCatcherObj = itemImage.transform.GetChild(0).gameObject;
-        //        //    dreamCatcherObj.GetComponent<MakeDreamCatcher>().LoadJson();
-        //        // TODO: 삭제(스샷으로 대체)
-        //        //dreamCatcherObj.GetComponent<MakeDreamCatcher>().MakeDreamCatcherImg(i);    //드림캐쳐 생성 
-
-        //        //itemImage.GetComponent<Image>().sprite = ItemImages[16];    //아이템 이미지 변경(드림캐쳐 이미지)
-        //        itemContentsText.transform.GetChild(0).gameObject.GetComponent<Text>().text = "드림캐쳐"; //아이템 이름 변경
-        //                                                                                              //itemContentsText.transform.GetChild(1).gameObject.GetComponent<Text>().text = "드림캐쳐 내용";    //아이템 설명 변경
-        //        string contents = WriteDreamCatcherContents(dreamCatcherData.dreamCatcherList[i]); //아이템 내용 변경
-        //        itemContentsText.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents;
-        //        //itemContentsText.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents.Replace("nn", "\n");
-        //        //itemCntText.transform.GetChild(1).gameObject.GetComponent<Text>().text = curInventoryDreamCatcher_data.dataList[i].number.ToString();   //아이템 획득 개수 변경
-
-        //        listCnt++;  //리스트 번호 증가
-        //    }
-        //}
+        //드림캐쳐
+        for(int i = 0; i<dreamCatcherInventoryDataManager.GetDreamCatcherInventoryDataCount(); i++)
+        {
+            GameObject slot = itemList[listCnt];
+            slot.SetActive(true);
+            slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(null, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
+            listCnt ++;
+        }
     }
 
     public void AddInventory(int itemNumber)
