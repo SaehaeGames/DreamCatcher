@@ -66,6 +66,11 @@ public class DreamCatcherInventoryDataManager
         return true;
     }
 
+    public int GetDreamCatcherInventoryDataCount()
+    {
+        return dreamCatcherInventoryDataModel.dataList.Count;
+    }
+
     public void ResetData()
     {
         if (dreamCatcherInventoryDataModel.dataList != null)
