@@ -66,7 +66,7 @@ public class DreamCatcherInventoryDataManager
         return true;
     }
 
-    public int GetDreamCatcherInventoryDataCount()
+    public int GetDreamCatcherInventoryDataListCount()
     {
         return dreamCatcherInventoryDataModel.dataList.Count;
     }

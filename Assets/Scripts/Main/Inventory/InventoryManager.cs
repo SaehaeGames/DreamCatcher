@@ -19,7 +19,7 @@ public class InventoryManager : MonoBehaviour
     public int itemMaxCnt;  //인벤토리 최대 용량
     public int itemCurCnt;  //인벤토리 현재 아이템 수
     public List<GameObject> itemList;   //인벤토리 아이템 리스트    
-    MyFeatherNumber featherData;    //플레이어 깃털 정보
+    FeatherDataManager featherData;    //플레이어 깃털 정보
     private DreamCatcherDataManager dreamCatcherDataManager;
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
@@ -85,13 +85,13 @@ public class InventoryManager : MonoBehaviour
     {
         //현재 인벤토리의 요소 개수를 반환하는 함수
 
-        MyFeatherNumber featherData = GameManager.instance.featherDataManager;
+        FeatherDataManager featherData = GameManager.instance.featherDataManager;
         int itemCurCnt = 0;
-        int featherCnt = featherData.birdCnt;
+        int featherCnt = featherData.GetFeatherDataListCount();
         Debug.Log("featherData.Count : " + featherCnt);
         for (int i = 0; i < featherCnt; i++)     //깃털 개수만큼 반복(**나중에 드림캐쳐 개수도 추가해야함)
         {
-            if (featherData.featherList[i].feather_number > 0)
+            if (featherData.GetFeatherCount(i) > 0)
             {
                 itemCurCnt++;   //인벤토리 요소 카운트 증가
             }
@@ -112,9 +112,9 @@ public class InventoryManager : MonoBehaviour
         int listCnt = 0;
 
         // 깃털
-        for (int i = 0; i < featherData.featherList.Count(); i++)
+        for (int i = 0; i < featherData.GetFeatherDataListCount(); i++)
         {
-            int count = featherData.featherList[i].feather_number;
+            int count = featherData.GetFeatherCount(i);
 
             if (count > 0)
             {
@@ -126,7 +126,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         //드림캐쳐
-        for(int i = 0; i<dreamCatcherInventoryDataManager.GetDreamCatcherInventoryDataCount(); i++)
+        for(int i = 0; i<dreamCatcherInventoryDataManager.GetDreamCatcherInventoryDataListCount(); i++)
         {
             GameObject slot = itemList[listCnt];
             slot.SetActive(true);
@@ -140,15 +140,12 @@ public class InventoryManager : MonoBehaviour
         //증가할 아이템 번호로 해당 인덱스의 깃털을 개수를 추가하는 함수
         featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        int featherCnt = featherData.featherList[itemNumber].feather_number;    //현재 깃털 가져옴
-        featherData.featherList[itemNumber].feather_number = featherCnt + 1;   //깃털 개수 증가
-        if(featherData.featherList[itemNumber].appear==0)
+        featherData.AddFeather(itemNumber, 1); //깃털 개수 증가
+        if(!featherData.IsFeatherAppeared(itemNumber))
         {
-            featherData.featherList[itemNumber].appear = 1;
+            featherData.UnlockFeather(itemNumber);
         }
         Debug.Log("인벤토리에 추가됨");
-
-        GameManager.instance.GetComponent<FeatherNumDataManager>().DataSaveText(featherData);
     }
 
     public void DeleteInventory(int itemNumber, int cnt)
@@ -156,10 +153,7 @@ public class InventoryManager : MonoBehaviour
         //인벤토리 아이템을 삭제하는(사용&판매하는) 함수
         featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        int featherCnt = featherData.featherList[itemNumber].feather_number;    //현재 깃털 가져옴
-        featherData.featherList[itemNumber].feather_number = (featherCnt - cnt);   //깃털 개수 감소
+        featherData.RemoveFeather(itemNumber, cnt);
         Debug.Log("인벤토리에서 삭제됨");
-
-        GameManager.instance.GetComponent<FeatherNumDataManager>().DataSaveText(featherData);
     }
 }

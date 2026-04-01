@@ -13,7 +13,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     // 매니저
     private DCCheckManager DCManager;
     //public FeatherNumDataManager FNDManager;
-    MyFeatherNumber featherData;
+    FeatherDataManager featherData;
 
     // 제작시작여부 판단
     private MakingUIManager makingUiManager;
@@ -36,7 +36,7 @@ public class FeatherDrag : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginD
     public void FeatherCntReset()
     {
         //InventoryInfo_Data _inventoryinfo_data = GameManager.instance.inventoryinfo_data;   //플레이어의 인벤토리 정보를 가져옴    
-        itemcnt = featherData.featherList[this.featherNum].feather_number;   //깃털의 수를 가져옴
+        itemcnt = featherData.GetFeatherCount(this.featherNum); //깃털의 수를 가져옴
         //Debug.Log("featherNum("+this.featherNum+") : " + itemcnt + "-itemcnt(FeatherCntReset)");
     }
 

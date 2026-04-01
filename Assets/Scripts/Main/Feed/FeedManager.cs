@@ -150,19 +150,18 @@ public class FeedManager : MonoBehaviour
         int inventoryMax = inventoryData.CheckItemMaximum();   // 인벤토리 최대 개수
         int inventoryCnt = inventoryData.GetInventoryItemCnt();   // 인벤토리 현재 아이템 개수
 
-        MyFeatherNumber featherData = GameManager.instance.featherDataManager; // 깃털 데이터를 가져옴
-        int featherCnt = featherData.featherList[birdNumber].feather_number;  // 해당 새의 현재 깃털 개수 가져옴
+        FeatherDataManager featherData = GameManager.instance.featherDataManager; // 깃털 데이터를 가져옴
+        int featherCnt = featherData.GetFeatherCount(birdNumber); // 해당 새의 현재 깃털 개수 가져옴
 
 
         if (featherCnt != 0 || inventoryCnt < inventoryMax)    // 이미 인벤토리에 가지고 있는 깃털이거나, 인벤토리가 꽉차지 않았다면 깃털 추가
         {
-            if (featherData.featherList[birdNumber].appear == 0)     // 한 번도 나타나지 않은 새라면
+            if (!featherData.IsFeatherAppeared(birdNumber))     // 한 번도 나타나지 않은 새라면
             {
-                featherData.featherList[birdNumber].appear = 1; // 도감에 증가한 등장 여부 수정
+                featherData.UnlockFeather(birdNumber); // 도감에 증가한 등장 여부 수정
             }
 
-            featherData.featherList[birdNumber].feather_number += 1;   // 얻은 깃털 개수 증가
-            GameManager.instance.GetComponent<FeatherNumDataManager>().DataSaveText(featherData);   // 증가한 깃털 개수 저장
+            featherData.AddFeather(birdNumber, 1); // 얻은 깃털 개수 증가
             inventoryData.AddInventory(birdNumber);  // 얻은 깃털을 인벤토리에 추가  -> ** 이걸 개수 증가 함수가 아니라 그냥 인벤토리 업데이트하는 걸로 바꿀까?
 
 

@@ -33,7 +33,7 @@ public class DCCheckManager : MonoBehaviour
     public bool hangPntChecker;
 
     //json 파일관련
-    public MyFeatherNumber FNDManager;
+    public FeatherDataManager FNDManager;
     public DreamCatcherDataManager dreamCatcherData; //MyDreamCatcher 객체 필요
 
     //스프레드시트 관련
@@ -377,17 +377,14 @@ public class DCCheckManager : MonoBehaviour
         FNDManager = GameManager.instance.featherDataManager;
 
         //itemNumber에 해당하는 깃털의 갯수 불러서 감소하기
-        int itemCnt = FNDManager.featherList[itemNumber].feather_number - 1;
+        RemoveFeatherResult removeFeatherResult = FNDManager.RemoveFeather(itemNumber, 1);
+        
         // 깃털이 부족하다면 오류메시지 띄우기(오류)
-        if(itemCnt<0)
+        if (removeFeatherResult == RemoveFeatherResult.NotEnough)
         {
             Debug.LogError("깃털 갯수가 부족합니다.");
             return;
         }
-        //FNDManager.GetFeatherIndexData(itemNumber).SetFeatherNumber(itemCnt);
-        FNDManager.featherList[itemNumber].feather_number = itemCnt;
-        //감소한 갯수 FeatherNumberData에 저장하기
-        GameManager.instance.GetComponent<FeatherNumDataManager>().DataSaveText(FNDManager);
     }
 
 

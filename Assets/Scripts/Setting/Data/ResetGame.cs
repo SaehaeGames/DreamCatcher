@@ -10,7 +10,7 @@ public class ResetGame : MonoBehaviour
     private PlayerDataManager playerDataManager;   //플레이어 데이터 정보
     //private GoodsContainer curGoodsData;   //상품 정보
     //private BirdContainer curBirdData;  //먹이둔 새 데이터 정보
-    private MyFeatherNumber featherData;
+    private FeatherDataManager featherData;
     //List<MyFeatherNumber> featherData;    //인벤토리 깃털 정보
     //private List<InventoryDreamCatcherData> curInventoryDreamCatherData;    //인벤토리 드림캐쳐 데이터 정보
 

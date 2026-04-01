@@ -27,7 +27,7 @@ public class BirdSelect : MonoBehaviour
         // 먹이를 통해 랜덤으로 새 종류를 정하는 함수
 
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;   // 새 도감 데이터를 가져옴
-        MyFeatherNumber featherData = GameManager.instance.featherDataManager; // 깃털 데이터를 가져옴
+        FeatherDataManager featherData = GameManager.instance.featherDataManager; // 깃털 데이터를 가져옴
 
         int categoryCnt = SettingCategoryCnt((int)feed); //카테고리(새 종류, 먹이) 시작 번호를 설정함
         bool specialBirdAppear = CheckSpecialBirdAppear(categoryCnt);    //특별새가 등장하였는지 여부 (** 수정 필요)
@@ -40,8 +40,16 @@ public class BirdSelect : MonoBehaviour
             List<int> specialBirdCheck = new List<int>();   //특별 새 특정 조건 달성을 확인할 리스트
             for (int i = 0; i < 3; i++)
             {
-                int appearNumber = featherData.featherList[categoryCnt + i].appear; //등장 횟수를 가져옴
-                specialBirdCheck.Add(appearNumber);    //등장 횟수를 저장함
+                bool appearNumber = featherData.IsFeatherAppeared(categoryCnt + i); //등장 횟수를 가져옴
+                if (appearNumber)
+                {
+                    specialBirdCheck.Add(1);
+                }
+                else
+                {
+                    specialBirdCheck.Add(0);
+                }
+                
             }
 
             if (!specialBirdCheck.Contains(0))
@@ -50,7 +58,7 @@ public class BirdSelect : MonoBehaviour
 
                 specialBirdAppear = true;   //특별 새 등장
                 selectedBirdNum = categoryCnt + 3;  //특별 새로 설정
-                featherData.featherList[selectedBirdNum].appear = 1; //도감에 특별새 등장 횟수 입력
+                featherData.UnlockFeather(selectedBirdNum); //도감에 특별새 등장 횟수 입력
                 //birdinfo_data.DataSaveText(birdinfo_data.datalist); //도감 저장
 
                 return selectedBirdNum; //특별 새 반환

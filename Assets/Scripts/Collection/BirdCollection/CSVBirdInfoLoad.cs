@@ -25,7 +25,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
 
     //json 관련
     private static string fileName = "FeatherNumInfo";
-    MyFeatherNumber featherDataManager;
+    FeatherDataManager featherDataManager;
 
     //데이터 테이블 관련
     public BirdInfo_Data _birdinfo_data;
@@ -44,7 +44,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
         {
             birdColImg[i].GetComponent<Image>().sprite = birdImgs[i];
             // 새가 등장한 적 없다면
-            if (featherDataManager.featherList[i].appear==0)
+            if (!featherDataManager.IsFeatherAppeared(i))
             {
                 birdColImg[i].GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.5f); // 회색 처리
                 birdColImg[i].GetComponent<Button>().interactable = false; // 버튼 비활성화 처리
@@ -62,7 +62,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
     public void LoadBirdInfo(int index)
     {
         // 텍스트 설정
-        numberTxt.text = "획득 수 "+ featherDataManager.featherList[index].feather_number+"마리";
+        numberTxt.text = "획득 수 " + featherDataManager.GetFeatherCount(index) + "마리";
         nameTxt.text = _birdinfo_data.dataList[index].name;
         int startTime = _birdinfo_data.dataList[index].startTime;
         int endTime = _birdinfo_data.dataList[index].endTime;
@@ -98,7 +98,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
 
         // 슬라이더 설정
         numberSlide.maxValue = _birdinfo_data.dataList[index].maxNum;
-        numberSlide.value = featherDataManager.featherList[index].feather_number;
+        numberSlide.value = featherDataManager.GetFeatherCount(index);
 
         // 이미지 설정
         foodImg.sprite = foodImgs[index/4];

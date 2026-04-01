@@ -1,84 +1,83 @@
 {
-    "birdCnt": 16,
-    "featherList": [
+    "datalist": [
         {
-            "bird_id": "JS_2000",
-            "feather_number": 2,
+            "id": "JS_2000",
+            "count": 4,
+            "appear": 1
+        },
+        {
+            "id": "JS_2001",
+            "count": 4,
+            "appear": 1
+        },
+        {
+            "id": "JS_2002",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2001",
-            "feather_number": 10,
+            "id": "JS_2003",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2002",
-            "feather_number": 8,
+            "id": "JS_2004",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2003",
-            "feather_number": 0,
+            "id": "JS_2005",
+            "count": 5,
+            "appear": 1
+        },
+        {
+            "id": "JS_2006",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2004",
-            "feather_number": 0,
+            "id": "JS_2007",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2005",
-            "feather_number": 0,
+            "id": "JS_2008",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2006",
-            "feather_number": 0,
+            "id": "JS_2009",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2007",
-            "feather_number": 0,
+            "id": "JS_2010",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2008",
-            "feather_number": 0,
+            "id": "JS_2011",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2009",
-            "feather_number": 0,
+            "id": "JS_2012",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2010",
-            "feather_number": 0,
+            "id": "JS_2013",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2011",
-            "feather_number": 0,
+            "id": "JS_2014",
+            "count": 0,
             "appear": 0
         },
         {
-            "bird_id": "JS_2012",
-            "feather_number": 0,
-            "appear": 0
-        },
-        {
-            "bird_id": "JS_2013",
-            "feather_number": 0,
-            "appear": 0
-        },
-        {
-            "bird_id": "JS_2014",
-            "feather_number": 0,
-            "appear": 0
-        },
-        {
-            "bird_id": "JS_2015",
-            "feather_number": 0,
+            "id": "JS_2015",
+            "count": 0,
             "appear": 0
         }
     ]
