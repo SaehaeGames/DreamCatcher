@@ -162,7 +162,7 @@ public class FeedManager : MonoBehaviour
             }
 
             featherData.AddFeather(birdNumber, 1); // 얻은 깃털 개수 증가
-            inventoryData.AddInventory(birdNumber);  // 얻은 깃털을 인벤토리에 추가  -> ** 이걸 개수 증가 함수가 아니라 그냥 인벤토리 업데이트하는 걸로 바꿀까?
+            inventoryData.AddFeatherInventory(birdNumber);  // 얻은 깃털을 인벤토리에 추가  -> ** 이걸 개수 증가 함수가 아니라 그냥 인벤토리 업데이트하는 걸로 바꿀까?
 
 
             RackBirdObjects[rackLevel].gameObject.transform.GetChild(rackNumber).gameObject.SetActive(false);       // 새 오브젝트 비활성화

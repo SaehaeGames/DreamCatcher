@@ -141,25 +141,25 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddInventory(int itemNumber)
+    public void AddFeatherInventory(int featherIndexNumber, int cnt = 1)
     {
         //증가할 아이템 번호로 해당 인덱스의 깃털을 개수를 추가하는 함수
         featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        featherData.AddFeather(itemNumber, 1); //깃털 개수 증가
-        if(!featherData.IsFeatherAppeared(itemNumber))
+        featherData.AddFeather(featherIndexNumber, cnt); //깃털 개수 증가
+        if (!featherData.IsFeatherAppeared(featherIndexNumber))
         {
-            featherData.UnlockFeather(itemNumber);
+            featherData.UnlockFeather(featherIndexNumber);
         }
         Debug.Log("인벤토리에 추가됨");
     }
 
-    public void DeleteInventory(int itemNumber, int cnt)
+    public void DeleteFeatherInventory(int featherIndexNumber, int cnt)
     {
         //인벤토리 아이템을 삭제하는(사용&판매하는) 함수
         featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        featherData.RemoveFeather(itemNumber, cnt);
+        featherData.RemoveFeather(featherIndexNumber, cnt);
         Debug.Log("인벤토리에서 삭제됨");
     }
 }
