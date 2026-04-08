@@ -114,6 +114,12 @@ public class InventoryManager : MonoBehaviour
         // 깃털
         for (int i = 0; i < featherData.GetFeatherDataListCount(); i++)
         {
+            // 특별새라면 스킵
+            if (birdInfoDatalist[i].isSpecial)
+            {
+                continue;
+            }
+
             int count = featherData.GetFeatherCount(i);
 
             if (count > 0)
