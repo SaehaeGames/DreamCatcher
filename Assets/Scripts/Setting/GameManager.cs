@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GoodsDataManager goodsDataManager;       // 상점 아이템 레벨 데이터
     public InteriorDataManager interiorDataManager; //플레이어 인테리어 저장 데이터
     public QuestDataManager questDataManager;       // 퀘스트 데이터 리스트
-    public MyFeatherNumber featherDataManager;
+    public FeatherDataManager featherDataManager = new FeatherDataManager();
     public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager = new DreamCatcherInventoryDataManager();
     public DreamCatcherDataManager dreamCatcherDataManager;
 
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         //ResetGameManager();
     }
 
@@ -113,7 +113,8 @@ public class GameManager : MonoBehaviour
         interiorDataManager = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
         questDataManager = jsonManager.LoadData<QuestDataManager>(Constants.QuestDataFile);
         playerDataManager = jsonManager.LoadData<PlayerDataManager>(Constants.PlayerDataFile);
-        featherDataManager = jsonManager.LoadData<MyFeatherNumber>(Constants.FeatherDataFile);
+        featherDataManager.Load();
+        //featherDataManager.ResetData();
         dreamCatcherDataManager.Load();
         dreamCatcherInventoryDataManager.Load();
     }

@@ -14,6 +14,7 @@ public class BirdInfo_Object
     public int endTime;
     public int maxNum;
     public int probability;
+    public bool isSpecial;
 
     public BirdInfo_Object()
     {
@@ -21,10 +22,11 @@ public class BirdInfo_Object
         price = startTime = endTime = maxNum = probability = 0;
         feed = FeedType.PigeonBeans;
         name = exp = "";
+        isSpecial = false;
     }
 
     public BirdInfo_Object(string _id, string _name, string _exp, FeedType _feed, int _price, 
-        int _startTime, int _endTime, int _maxNum, int _probability)
+        int _startTime, int _endTime, int _maxNum, int _probability, bool _isSpecial)
     {
         id = _id;
         name = _name;
@@ -35,6 +37,7 @@ public class BirdInfo_Object
         endTime = _endTime;
         maxNum = _maxNum;
         probability = _probability;
+        isSpecial = _isSpecial;
     }
 }
 

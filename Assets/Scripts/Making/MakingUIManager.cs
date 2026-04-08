@@ -12,7 +12,7 @@ public class MakingUIManager : MonoBehaviour
 {
     // 매니저
     private DCCheckManager DCManager;
-    public MyFeatherNumber FNDManager;
+    public FeatherDataManager FNDManager;
 
     // 창 관리
     public GameObject StringWindow, FeatherWindow;
@@ -179,8 +179,8 @@ public class MakingUIManager : MonoBehaviour
     // 깃털창에 깃털 갯수를 FeatherNumInfo.json을 불러와 적용시키는 함수
     public void FeatherInventory()
     {
-        Debug.Log("FNDManager.SizeFeatherJson() : " + FNDManager.birdCnt);
-        for (int i = 0; i < FNDManager.birdCnt; i++)
+        Debug.Log("FNDManager.SizeFeatherJson() : " + FNDManager.GetFeatherDataListCount());
+        for (int i = 0; i < FNDManager.GetFeatherDataListCount(); i++)
         {
             if (i==3 || i==7 || i==11 || i==15) //만약 특별 새라면
             {
@@ -189,10 +189,8 @@ public class MakingUIManager : MonoBehaviour
             }
             else //특별새가 아니라면
             {
-                //birdCnt++;
                 //해당 깃털 갯수 업데이트
-                int itemcnt = FNDManager.featherList[i].feather_number;   //깃털의 수를 가져옴
-                //Debug.Log("itemcnt : " + itemcnt);
+                int itemcnt = FNDManager.GetFeatherCount(i);    //깃털의 수를 가져옴
                 if (itemcnt > 0)
                 {
                     Feathers[i].SetActive(true);

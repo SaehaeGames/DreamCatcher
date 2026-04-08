@@ -31,11 +31,12 @@ public class DreamCatcherDataManager
         int id = GetNextAvailableId();
         dreamCatcher.DCid = "JS_" + id;
         dreamCatcherDataModel.dataList.Add(dreamCatcher);
+        Save();
 
         // dreamCatcherInventoryData 동기화
         dreamCatcherInventoryDataManager.AddDreamCatcherInventoryData(dreamCatcher);
         dreamCatcherInventoryDataManager.Save();
-
+        
         return dreamCatcher;
     }
 
@@ -69,6 +70,7 @@ public class DreamCatcherDataManager
 
         // 드림캐쳐 삭제
         dreamCatcherDataModel.dataList.RemoveAt(index);
+        Save();
         return true;
     }
 
@@ -116,6 +118,10 @@ public class DreamCatcherDataManager
         return result;
     }
 
+    public int GetDreamCatcherCount()
+    {
+        return dreamCatcherDataModel.dataList.Count;
+    }
     // 드림캐쳐 데이터 리셋
     public void ResetDreamCatcherData()
     {
