@@ -58,10 +58,13 @@ public class BirdSelect : MonoBehaviour
         }
 
         //특별 새가 나올 차례가 아니라면(이미 해당 먹이의 특별 새가 등장했거나, 다른 세 마리의 새가 다 등장하지 않았다면)
+        // isSpecial=false인 같은 feed 새들의 probability를 사용
         List<int> birdRandom = new List<int>(); //새 등장 확률을 추첨할 리스트
         for (int i = 0; i < 3; i++)
         {
-            int appearCnt = birdinfo_data.dataList[categoryCnt + i].probability;   //도감에 저장된 해당 먹이의 i번째 새의 등장 확률을 가져옴
+            BirdInfo_Object bird = birdinfo_data.dataList[categoryCnt + i];
+            if (bird.isSpecial) continue;   // isSpecial=true인 새는 제외
+            int appearCnt = bird.probability;   //도감에 저장된 해당 먹이의 i번째 새의 등장 확률을 가져옴
             Debug.Log("확률 : " + appearCnt);
             for (int j = 0; j < appearCnt; j++)
             {
@@ -69,7 +72,13 @@ public class BirdSelect : MonoBehaviour
             }
         }
 
-        int randomBird = Random.Range(0, 100);   //랜덤으로 새를 뽑기 위해 난수 생성(0~100 사이의 수 하나)
+        if (birdRandom.Count == 0)
+        {
+            Debug.LogError("birdRandom 리스트가 비어있습니다. BirdInfo 확률이 0인지 확인하세요.");
+            return categoryCnt;
+        }
+
+        int randomBird = Random.Range(0, birdRandom.Count);   //랜덤으로 새를 뽑기 위해 난수 생성
         Debug.Log("이거 뽑음 : " + birdRandom[randomBird] + ", " + randomBird);
         selectedBirdNum = birdRandom[randomBird] + categoryCnt;     //선택된 새 번호
 

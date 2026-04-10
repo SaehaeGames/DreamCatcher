@@ -11,18 +11,18 @@ public class FeedTimer : MonoBehaviour
     public GameObject[] timers;                     // 타이머 오브젝트 배열
 
     [Header("[Timer Data")]
-    private static string fileName = "RackData";    // 타이머 데이터 저장 파일 이름
+    private static string fileName = Constants.RackDataFile;    // 타이머 데이터 저장 파일 이름
     private List<RackData> rackData;                // 저장된 횃대 데이터
     private float[] leftTimes;                      // 먹이 남은 시간 배열 (단위: 초)
     private int rackLevel;                          // 플레이어 횃대 레벨
 
     private void Start()
     {
-        rackData = GameManager.instance.rackDataList;  
+        rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
+        rackData = GameManager.instance.rackDataList;
         leftTimes = new float[timers[rackLevel].transform.childCount];
-        rackLevel = 0;
-        //rackLevel = GameManager.instance.goodsDataList[0].goodsLevel;   // 플레이어의 횃대 레벨
-        //UpdateTimerSetting();   // 타이머 상태 업데이트
+        if (rackData != null && rackData.Count > 0)
+            UpdateTimerSetting();   // 타이머 상태 업데이트
     }
 
     private void Update()
@@ -75,9 +75,9 @@ public class FeedTimer : MonoBehaviour
 
         timers[rackLevel].gameObject.SetActive(true);               // 플레이어의 레벨에 맞는 횃대 타이머 활성화
 
-        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)     
+        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)
         {
-            if (rackData[i].isFed && !rackData[i].isAppeared)       // 먹이를 두었고, 새가 나타나지 않았다면
+            if (i < rackData.Count && rackData[i].isFed && !rackData[i].isAppeared)       // 먹이를 두었고, 새가 나타나지 않았다면
             {
                 leftTimes[i] = CalculateLeftTime(i);                                   // 타이머 남은 시간 계산
                 timers[rackLevel].transform.GetChild(i).gameObject.SetActive(true);    // 타이머 활성화
@@ -126,6 +126,19 @@ public class FeedTimer : MonoBehaviour
         leftTimes[rackNumber] -= decreaseTime;                                 // 남은 시간에 감소 시간 차감
         float curDecreaseTime = rackData[rackNumber].decreaseTime + decreaseTime;   // 누적 감소 시간 계산
         SaveTimerData(rackNumber, curDecreaseTime);         // 변동된 타이머 데이터 저장
+    }
+
+    public void DecreaseAllActiveFeedingTimes(float decreaseTime)
+    {
+        // 진행 중인 모든 타이머에 먹이 시간을 줄이는 함수
+
+        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)
+        {
+            if (i < rackData.Count && rackData[i].isFed && !rackData[i].isAppeared)
+            {
+                DecreaseFeedingTime(i, decreaseTime);
+            }
+        }
     }
 
     public void SaveTimerData(int rackNumber, float feedingTime, float decreaseTime, FeedType feed, int birdNumber)

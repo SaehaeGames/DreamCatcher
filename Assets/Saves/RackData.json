@@ -1,0 +1,31 @@
+{
+    "datalist": [
+        {
+            "isFed": false,
+            "startTime": "2026-04-10 오후 1:31:23",
+            "feedingTime": 171.0,
+            "decreaseTime": 900.0,
+            "isAppeared": false,
+            "feed": 0,
+            "birdNumber": 0
+        },
+        {
+            "isFed": true,
+            "startTime": "2026-04-10 오후 1:31:44",
+            "feedingTime": 107.0,
+            "decreaseTime": 0.0,
+            "isAppeared": false,
+            "feed": 0,
+            "birdNumber": 0
+        },
+        {
+            "isFed": false,
+            "startTime": "2026-04-10 오후 1:31:30",
+            "feedingTime": 1800.0,
+            "decreaseTime": 1800.0,
+            "isAppeared": false,
+            "feed": 1,
+            "birdNumber": 6
+        }
+    ]
+}

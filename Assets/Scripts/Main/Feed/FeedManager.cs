@@ -32,13 +32,45 @@ public class FeedManager : MonoBehaviour
         InitializeFeedObjects();
         InitializeRackObjects();
         UpdateRackSetting();   // 횃대 정보 업데이트
+        RestoreRackState();    // 저장된 횃대 시각 상태 복원
+    }
+
+    public void RestoreRackState()
+    {
+        // 앱 재시작 시 저장된 데이터로 횃대 먹이·새 시각 상태를 복원하는 함수
+
+        List<RackData> dataList = GameManager.instance.rackDataList;
+        if (dataList == null || dataList.Count == 0) return;
+
+        for (int i = 0; i < dataList.Count; i++)
+        {
+            RackData data = dataList[i];
+
+            if (data.isFed && !data.isAppeared)
+            {
+                // 먹이가 놓여 있고 새가 아직 안 왔음 → 먹이 오브젝트 표시
+                SetActiveRackFeed(i, data.feed);
+            }
+            else if (!data.isFed && data.isAppeared)
+            {
+                // 타이머 만료, 새가 등장했지만 아직 수확 안 됨 → 새 표시
+                ArriveRackBird(i, data.birdNumber);
+            }
+        }
     }
 
     public void InitializeFeedObjects()
     {
         for (int i = 0; i < FeedObjects.Length; i++)
         {
-            FeedObjects[i].GetComponent<FeedDrag>().Feed = (FeedType)i;
+            FeedDrag[] allFeedDrags = FeedObjects[i].GetComponentsInChildren<FeedDrag>(true);
+            if (allFeedDrags.Length == 0)
+            {
+                Debug.LogError($"[FeedManager] FeedObjects[{i}] ({FeedObjects[i].name})에 FeedDrag가 없습니다!");
+                continue;
+            }
+            foreach (var feedDrag in allFeedDrags)
+                feedDrag.Feed = (FeedType)i;
         }
     }
 

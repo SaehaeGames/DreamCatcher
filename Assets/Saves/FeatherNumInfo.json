@@ -3,13 +3,13 @@
     "featherList": [
         {
             "bird_id": "JS_2000",
-            "feather_number": 0,
+            "feather_number": 2,
             "appear": 0
         },
         {
             "bird_id": "JS_2001",
-            "feather_number": 9,
-            "appear": 0
+            "feather_number": 12,
+            "appear": 1
         },
         {
             "bird_id": "JS_2002",
@@ -23,8 +23,8 @@
         },
         {
             "bird_id": "JS_2004",
-            "feather_number": 0,
-            "appear": 0
+            "feather_number": 2,
+            "appear": 1
         },
         {
             "bird_id": "JS_2005",

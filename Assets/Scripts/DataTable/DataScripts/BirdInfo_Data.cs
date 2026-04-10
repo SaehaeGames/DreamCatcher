@@ -9,7 +9,7 @@ public class BirdInfo_Data : ScriptableObject
 
     private static string spreadSheetAddress = "1YOwI5F5kJMbnze0xKXb7rbffva1ZPjqRsKsX5U9wmHE";
     private static long spreadSheetWorksheet = 0;
-    private static string spreadSheetRange = "A2:H";
+    private static string spreadSheetRange = "A2:J";
     private static string objectName = "BirdInfo";
 
     public List<BirdInfo_Object> dataList = new List<BirdInfo_Object>();

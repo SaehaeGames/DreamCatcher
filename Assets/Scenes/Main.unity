@@ -48483,7 +48483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feed: 0
+  feed: 1
   lastRackNumber: 0
 --- !u!114 &254895448101900421
 MonoBehaviour:
@@ -49175,7 +49175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feed: 0
+  feed: 2
   lastRackNumber: 0
 --- !u!1001 &2971994516693520521
 PrefabInstance:
@@ -49784,6 +49784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7787520737359582079, guid: e5fda08ead39f5a478cdaa17e2f0f601, type: 3}
+      propertyPath: birdinfo_data
+      value: 
+      objectReference: {fileID: 11400000, guid: d2db6e65f05fff74aa391e932d963579, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -49801,7 +49805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a5b3e6c8b02754f83123a86832d0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feed: 0
+  feed: 3
   lastRackNumber: 0
 --- !u!1001 &5532427223867986082
 PrefabInstance:

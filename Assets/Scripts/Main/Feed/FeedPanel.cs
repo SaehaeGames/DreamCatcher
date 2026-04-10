@@ -20,10 +20,13 @@ public class FeedPanel : MonoBehaviour
 
         List<RackData> dataList = GameManager.instance.rackDataList;                    // 저장된 새 데이터를 가져옴
 
-        if (dataList.Count == 0 || (!dataList[triggerNumber].isFed && !dataList[triggerNumber].isAppeared))
+        if (dataList.Count <= triggerNumber || (!dataList[triggerNumber].isFed && !dataList[triggerNumber].isAppeared))
             SetFeedPanelActive(true);         // 먹이 선택 패널 오픈
         else if (dataList[triggerNumber].isFed && !dataList[triggerNumber].isAppeared)
+        {
+            GetComponent<SpecialFeed>().SetCurrentRackIndex(triggerNumber);  // 어느 횃대에 사용할지 전달
             SetSpecialFeedPanelActive(true);  // 특제 먹이 패널 오픈
+        }
     }
 
     public void SetFeedPanelActive(bool isActive)

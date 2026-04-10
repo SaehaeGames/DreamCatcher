@@ -35,6 +35,7 @@ public class FeedDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         defaultPosition = rectTransform.anchoredPosition;
+        lastRackNumber = -1;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

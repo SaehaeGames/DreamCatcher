@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
 
-        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
     }
 

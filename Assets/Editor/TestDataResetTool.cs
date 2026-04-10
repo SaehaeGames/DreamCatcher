@@ -6,6 +6,7 @@ public class TestDataResetTool
 {
     private static readonly string GoodsDataPath = Application.dataPath + "/Saves/GoodsDataFile.json";
     private static readonly string InteriorDataPath = Application.dataPath + "/Saves/InteriorDataFile.json";
+    private static readonly string RackDataPath = Application.dataPath + "/Saves/RackDataFile.json";
 
     [MenuItem("DreamCatcher/테스트 데이터 초기화/상점 + 인테리어 전체 초기화")]
     public static void ResetAll()
@@ -34,6 +35,24 @@ public class TestDataResetTool
         ResetInteriorData();
         AssetDatabase.Refresh();
         Debug.Log("[TestDataReset] 인테리어 데이터 초기화 완료");
+    }
+
+    [MenuItem("DreamCatcher/테스트 데이터 초기화/먹이 + 타이머 데이터 초기화")]
+    public static void ResetRackDataOnly()
+    {
+        if (!EditorUtility.DisplayDialog("데이터 초기화",
+            "횃대 먹이 및 타이머 데이터를 초기화합니다.\n계속하시겠습니까?", "초기화", "취소"))
+            return;
+
+        ResetRackData();
+        AssetDatabase.Refresh();
+        Debug.Log("[TestDataReset] 먹이 + 타이머 데이터 초기화 완료");
+    }
+
+    private static void ResetRackData()
+    {
+        string json = "{\n    \"datalist\": []\n}";
+        File.WriteAllText(RackDataPath, json);
     }
 
     private static void ResetGoodsData()
