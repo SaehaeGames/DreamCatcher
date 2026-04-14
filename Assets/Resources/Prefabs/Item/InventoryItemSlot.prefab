@@ -154,6 +154,7 @@ MonoBehaviour:
   descriptionText: {fileID: 379763572588179151}
   countText: {fileID: 8738774005842433820}
   selectedIcon: {fileID: 6490698994855476165}
+  inventoryManager: {fileID: 0}
 --- !u!1 &1934455160616393345
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,8 +573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 180, y: -61.699997}
-  m_SizeDelta: {x: -373.9, y: -220.8}
+  m_AnchoredPosition: {x: 180, y: -37.6189}
+  m_SizeDelta: {x: -373.9, y: -172.638}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5957334044196292828
 CanvasRenderer:
@@ -610,13 +611,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC124\uBA85\uC124\uBA85"
+  m_Text: "\uC124\uBA85\uC124\uBA85\n\uC124\uBA85\n\uC124\uBA85\n\uC124\uBA85"
 --- !u!1 &8324279037735367416
 GameObject:
   m_ObjectHideFlags: 0
