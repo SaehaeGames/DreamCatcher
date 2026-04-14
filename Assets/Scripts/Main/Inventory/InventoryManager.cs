@@ -24,7 +24,11 @@ public class InventoryManager : MonoBehaviour
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
 
-    public InventoryItemSlot selectedSlot;
+    private InventoryItemSlot selectedSlot;
+
+    [Space]
+    [Header("[UI]")]
+    public GameObject disassembleButton;
 
     private void Awake()
     {
@@ -44,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         int maxCount = CheckItemMaximum();
         FillItemSlotIfNeeded(10);//나중에 매개변수 maxCount로 수정
         UpdateInventory();
+        disassembleButton.SetActive(false);
     }
 
     public void FillItemSlotIfNeeded(int maxItemCount)
@@ -190,6 +195,15 @@ public class InventoryManager : MonoBehaviour
         // 새 선택
         selectedSlot = newSlot;
         selectedSlot.SetSelected(true);
+
+        if(newSlot.GetInventoryItemType() == InventoryItemType.DreamCatcher)
+        {
+            disassembleButton.SetActive(true);
+        }
+        else
+        {
+            disassembleButton.SetActive(false);
+        }
     }
 
     public void DisassembleDreamCatcher()
@@ -217,6 +231,7 @@ public class InventoryManager : MonoBehaviour
 
         // UI 초기화
         UpdateInventory();
+        disassembleButton.SetActive(false);
 
         // 선택슬롯 초기화
         ResetSelectedSlot();

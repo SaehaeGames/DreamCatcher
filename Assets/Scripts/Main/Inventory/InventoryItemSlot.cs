@@ -105,6 +105,11 @@ public class InventoryItemSlot : MonoBehaviour
         this.type = _type;
     }
 
+    public InventoryItemType GetInventoryItemType()
+    {
+        return type;
+    }
+
     public void SetSelected(bool value)
     {
         selected = value;
