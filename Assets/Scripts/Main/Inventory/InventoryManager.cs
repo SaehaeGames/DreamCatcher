@@ -24,11 +24,8 @@ public class InventoryManager : MonoBehaviour
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
 
-    private InventoryItemSlot selectedSlot;
-
-    [Space]
-    [Header("[UI]")]
-    public GameObject disassembleButton;
+    private InventoryItemSlot selectedSlot;    
+    private InventoryUIController inventoryUIController;
 
     private void Awake()
     {
@@ -36,10 +33,7 @@ public class InventoryManager : MonoBehaviour
         birdInfo_Data = GameManager.instance.birdinfo_data;
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         dreamCatcherInventoryDataManager = GameManager.instance.dreamCatcherInventoryDataManager;
-    }
-    void Start()
-    {
-        
+        inventoryUIController=GetComponent<InventoryUIController>();
     }
 
     public void OpenInventory()
@@ -48,7 +42,6 @@ public class InventoryManager : MonoBehaviour
         int maxCount = CheckItemMaximum();
         FillItemSlotIfNeeded(10);//나중에 매개변수 maxCount로 수정
         UpdateInventory();
-        disassembleButton.SetActive(false);
     }
 
     public void FillItemSlotIfNeeded(int maxItemCount)
@@ -183,7 +176,7 @@ public class InventoryManager : MonoBehaviour
         {
             selectedSlot.SetSelected(false);
             selectedSlot = null;
-            disassembleButton.SetActive(false);
+            inventoryUIController.RefreshUI();
             return;
         }
 
@@ -197,14 +190,7 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = newSlot;
         selectedSlot.SetSelected(true);
 
-        if(newSlot.GetInventoryItemType() == InventoryItemType.DreamCatcher)
-        {
-            disassembleButton.SetActive(true);
-        }
-        else
-        {
-            disassembleButton.SetActive(false);
-        }
+        inventoryUIController.RefreshUI();
     }
 
     public void DisassembleDreamCatcher()
@@ -232,7 +218,7 @@ public class InventoryManager : MonoBehaviour
 
         // UI 초기화
         UpdateInventory();
-        disassembleButton.SetActive(false);
+        inventoryUIController.RefreshUI();
 
         // 선택슬롯 초기화
         ResetSelectedSlot();

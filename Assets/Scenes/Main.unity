@@ -6128,9 +6128,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1308122762}
-        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
-        m_MethodName: OpenInventory
+      - m_Target: {fileID: 1308122763}
+        m_TargetAssemblyTypeName: InventoryUIController, Assembly-CSharp
+        m_MethodName: OpenNormalInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -29604,6 +29604,7 @@ GameObject:
   - component: {fileID: 1308122760}
   - component: {fileID: 1308122759}
   - component: {fileID: 1308122762}
+  - component: {fileID: 1308122763}
   m_Layer: 5
   m_Name: Panel_Inventory
   m_TagString: Untagged
@@ -29722,7 +29723,20 @@ MonoBehaviour:
   itemMaxCnt: 0
   itemCurCnt: 0
   itemList: []
+--- !u!114 &1308122763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308122757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2801578a7bbab3f449a7df14a0489903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   disassembleButton: {fileID: 26185837}
+  shipmentButton: {fileID: 1373482063}
 --- !u!1 &1309971389
 GameObject:
   m_ObjectHideFlags: 0
@@ -32088,7 +32102,6 @@ MonoBehaviour:
   itemMaxCnt: 0
   itemCurCnt: 0
   itemList: []
-  disassembleButton: {fileID: 0}
 --- !u!114 &1398629693
 MonoBehaviour:
   m_ObjectHideFlags: 0

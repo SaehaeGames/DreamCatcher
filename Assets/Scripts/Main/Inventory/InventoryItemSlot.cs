@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,13 +19,14 @@ public class InventoryItemSlot : MonoBehaviour
     public Text descriptionText;
     public Text countText;
     public GameObject selectedIcon;
+    public GameObject ItemImageInteractableMask;
 
     private DreamCatcherInventoryData dreamCatcherInventoryData;
     private FeatherData featherData;
 
     private InventoryItemType type;
     private bool selected;
-    public InventoryManager inventoryManager;
+    private InventoryManager inventoryManager;
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +71,7 @@ public class InventoryItemSlot : MonoBehaviour
         {
             ItemImage.sprite = itemSprite;
         }
-        itemNameText.text = "�帲 ĳ��";
+        itemNameText.text = "드림 캐쳐";
         descriptionText.text = description;
         countText.text = "X " + count.ToString();
 
@@ -119,5 +120,11 @@ public class InventoryItemSlot : MonoBehaviour
     public void SelectInventoryItem()
     {
         inventoryManager.SelectSlot(this);
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        this.GetComponent<Button>().interactable = interactable;
+        ItemImageInteractableMask.SetActive(!interactable);
     }
 }
