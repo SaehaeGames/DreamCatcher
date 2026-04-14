@@ -183,6 +183,7 @@ public class InventoryManager : MonoBehaviour
         {
             selectedSlot.SetSelected(false);
             selectedSlot = null;
+            disassembleButton.SetActive(false);
             return;
         }
 
