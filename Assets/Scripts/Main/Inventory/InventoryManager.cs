@@ -19,14 +19,16 @@ public class InventoryManager : MonoBehaviour
     public int itemMaxCnt;  //인벤토리 최대 용량
     public int itemCurCnt;  //인벤토리 현재 아이템 수
     public List<GameObject> itemList;   //인벤토리 아이템 리스트    
-    FeatherDataManager featherData;    //플레이어 깃털 정보
+    FeatherDataManager featherDataManager;    //플레이어 깃털 정보
     private DreamCatcherDataManager dreamCatcherDataManager;
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
 
+    public InventoryItemSlot selectedSlot;
+
     private void Awake()
     {
-        featherData = GameManager.instance.featherDataManager;
+        featherDataManager = GameManager.instance.featherDataManager;
         birdInfo_Data = GameManager.instance.birdinfo_data;
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         dreamCatcherInventoryDataManager = GameManager.instance.dreamCatcherInventoryDataManager;
@@ -107,12 +109,18 @@ public class InventoryManager : MonoBehaviour
 
     public void UpdateInventory()
     {
-        List<BirdInfo_Object> birdInfoDatalist = birdInfo_Data.dataList;
+        // 슬롯 초기화
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            itemList[i].SetActive(false);
+        }
 
         int listCnt = 0;
 
+        List<BirdInfo_Object> birdInfoDatalist = birdInfo_Data.dataList;
+
         // 깃털
-        for (int i = 0; i < featherData.GetFeatherDataListCount(); i++)
+        for (int i = 0; i < featherDataManager.GetFeatherDataListCount(); i++)
         {
             // 특별새라면 스킵
             if (birdInfoDatalist[i].isSpecial)
@@ -120,13 +128,13 @@ public class InventoryManager : MonoBehaviour
                 continue;
             }
 
-            int count = featherData.GetFeatherCount(i);
+            int count = featherDataManager.GetFeatherCount(i);
 
             if (count > 0)
             {
                 GameObject slot=itemList[listCnt];
                 slot.SetActive(true);
-                slot.GetComponent<InventoryItemSlot>().SetSlotFeather(ItemImages[i], birdInfoDatalist[i].name, "", count);
+                slot.GetComponent<InventoryItemSlot>().SetSlotFeather(this, featherDataManager.featherDataList[i], ItemImages[i], birdInfoDatalist[i].name, "", count);
                 listCnt++;
             }
         }
@@ -136,7 +144,7 @@ public class InventoryManager : MonoBehaviour
         {
             GameObject slot = itemList[listCnt];
             slot.SetActive(true);
-            slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(null, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
+            slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(this, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i],  null, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
             listCnt ++;
         }
     }
@@ -144,12 +152,12 @@ public class InventoryManager : MonoBehaviour
     public void AddFeatherInventory(int featherIndexNumber, int cnt = 1)
     {
         //증가할 아이템 번호로 해당 인덱스의 깃털을 개수를 추가하는 함수
-        featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
+        featherDataManager = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        featherData.AddFeather(featherIndexNumber, cnt); //깃털 개수 증가
-        if (!featherData.IsFeatherAppeared(featherIndexNumber))
+        featherDataManager.AddFeather(featherIndexNumber, cnt); //깃털 개수 증가
+        if (!featherDataManager.IsFeatherAppeared(featherIndexNumber))
         {
-            featherData.UnlockFeather(featherIndexNumber);
+            featherDataManager.UnlockFeather(featherIndexNumber);
         }
         Debug.Log("인벤토리에 추가됨");
     }
@@ -157,9 +165,71 @@ public class InventoryManager : MonoBehaviour
     public void DeleteFeatherInventory(int featherIndexNumber, int cnt)
     {
         //인벤토리 아이템을 삭제하는(사용&판매하는) 함수
-        featherData = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
+        featherDataManager = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
 
-        featherData.RemoveFeather(featherIndexNumber, cnt);
+        featherDataManager.RemoveFeather(featherIndexNumber, cnt);
         Debug.Log("인벤토리에서 삭제됨");
     }
+
+    public void SelectSlot(InventoryItemSlot newSlot)
+    {
+        // 같은 슬롯 다시 누르면 선택 해제하고 싶다면
+        if (selectedSlot == newSlot)
+        {
+            selectedSlot.SetSelected(false);
+            selectedSlot = null;
+            return;
+        }
+
+        // 이전 선택 해제
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetSelected(false);
+        }
+
+        // 새 선택
+        selectedSlot = newSlot;
+        selectedSlot.SetSelected(true);
+    }
+
+    public void DisassembleDreamCatcher()
+    {
+        if (selectedSlot == null)
+        {
+            return;
+        }
+
+        string selectedDreamCatcherId = selectedSlot.GetSlotDreamCatcherInventoryData().GetDCids()[0];
+        
+        // 깃털 추가
+        DreamCatcher selectedDreamCatcher = dreamCatcherDataManager.GetDreamCatcherById(selectedDreamCatcherId);
+        if (selectedDreamCatcher != null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                int featherIndex = selectedDreamCatcher.GetFeather(i);
+                featherDataManager.AddFeather(featherIndex, 1);
+            }
+        }
+
+        // 드림캐쳐 삭제
+        dreamCatcherDataManager.RemoveDreamCatcher(selectedDreamCatcherId);
+
+        // UI 초기화
+        UpdateInventory();
+
+        // 선택슬롯 초기화
+        ResetSelectedSlot();
+    }
+
+    public InventoryItemSlot GetSelectedSlot()
+    {
+        return selectedSlot;
+    }
+
+    public void ResetSelectedSlot()
+    {
+        selectedSlot = null;
+    }
+
 }

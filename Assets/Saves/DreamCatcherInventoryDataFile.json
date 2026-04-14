@@ -1,22 +1,20 @@
 {
     "dataList": [
         {
-            "TemplateHash": "585077C9C69391637AB2685F452EF118E5887C4256889FDA17591B1E584ABA8A",
+            "TemplateHash": "255D4B16462A7B037BB48D232895565DC289201A960EE6D1E8D2BC5B565BADC9",
             "DisplayName": "드림 캐쳐",
-            "Description": "흰색\r\n염주비둘기 깃털 X3\r\n",
-            "Number": 2
+            "Description": "흰색\r\n멧비둘기 깃털\n염주비둘기 깃털\n동고비 깃털\r\n",
+            "DCids": [
+                "JS_1001"
+            ]
         },
         {
-            "TemplateHash": "529DA02ED81593F2D0A6FB8DFFE63F3EE8C67F90CC526E2C9ACCB92A660944B3",
+            "TemplateHash": "CC58841F1C5E75F1C4A5990F27F34C3D1F7607AEAA4679B2CFF61C7F9A3EFF75",
             "DisplayName": "드림 캐쳐",
-            "Description": "흰색\r\n염주비둘기 깃털 X3\r\n",
-            "Number": 1
-        },
-        {
-            "TemplateHash": "78BEF9F2F595CB54D027AB8398AE3323CB8703CC563751BC2A75CADE5FDE7E74",
-            "DisplayName": "드림 캐쳐",
-            "Description": "흰색\r\n염주비둘기 깃털 X2\n멧비둘기 깃털\r\n",
-            "Number": 1
+            "Description": "흰색\r\n멧비둘기 깃털 X2\n염주비둘기 깃털\r\n",
+            "DCids": [
+                "JS_1000"
+            ]
         }
     ]
 }

@@ -64,7 +64,7 @@ public class DreamCatcherDataManager
         var dreamCatcher = dreamCatcherDataModel.dataList[index];
 
         dreamCatcherInventoryDataManager.RemoveDreamCatcherInventoryData(
-            dreamCatcher.TemplateHash
+            dreamCatcher
         );
         dreamCatcherInventoryDataManager.Save();
 

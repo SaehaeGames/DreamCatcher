@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +20,12 @@ public class InventoryItemSlot : MonoBehaviour
     public Text countText;
     public GameObject selectedIcon;
 
+    private DreamCatcherInventoryData dreamCatcherInventoryData;
+    private FeatherData featherData;
+
     private InventoryItemType type;
     private bool selected;
+    public InventoryManager inventoryManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +33,12 @@ public class InventoryItemSlot : MonoBehaviour
         
     }
 
-    public void SetSlotFeather(Sprite itemSprite, string itemName, string description, int count)
+    public void SetSlotFeather(InventoryManager _inventoryManager, FeatherData _featherData, Sprite itemSprite, string itemName, string description, int count)
     {
+        inventoryManager= _inventoryManager;
+        featherData = _featherData;
+        type = InventoryItemType.Feather;
+
         gameObject.SetActive(true);
         ItemImage.gameObject.SetActive(true);
         countText.gameObject.SetActive(true);
@@ -43,8 +52,12 @@ public class InventoryItemSlot : MonoBehaviour
         selectedIcon.SetActive(selected);
     }
 
-    public void SetSlotDreamCatcher(Sprite itemSprite, string itemName, string description, int count) 
+    public void SetSlotDreamCatcher(InventoryManager _inventoryManager, DreamCatcherInventoryData _dreamCatcherInventoryData, Sprite itemSprite, string itemName, string description, int count) 
     {
+        inventoryManager= _inventoryManager;
+        dreamCatcherInventoryData= _dreamCatcherInventoryData;
+        type = InventoryItemType.DreamCatcher;
+
         gameObject.SetActive(true);
         ItemImage.gameObject.SetActive(true);
         countText.gameObject.SetActive(true);
@@ -65,14 +78,41 @@ public class InventoryItemSlot : MonoBehaviour
         selectedIcon.SetActive(selected);
     }
 
+    public DreamCatcherInventoryData GetSlotDreamCatcherInventoryData()
+    {
+        if (type != InventoryItemType.DreamCatcher)
+        {
+            Debug.LogError($"[InventoryItemSlot] Invalid type: {type}");
+            return null;
+        }
+
+        return dreamCatcherInventoryData;
+    }
+
+    public FeatherData GetSlotFeatherData()
+    {
+        if(type != InventoryItemType.Feather)
+        {
+            Debug.LogError($"[InventoryItemSlot] Invalid type: {type}");
+            return null;
+        }
+
+        return featherData;
+    }
+
     public void SetInventoryItemType(InventoryItemType _type)
     {
         this.type = _type;
     }
 
+    public void SetSelected(bool value)
+    {
+        selected = value;
+        selectedIcon.SetActive(selected);
+    }
+
     public void SelectInventoryItem()
     {
-        selected = !selected;
-        selectedIcon.SetActive(selected);
+        inventoryManager.SelectSlot(this);
     }
 }

@@ -8,14 +8,15 @@ public class DreamCatcherInventoryData
     public string TemplateHash;
     public string DisplayName;
     public string Description;
-    public int Number;
+    public List<string> DCids;
+    public int Number => DCids?.Count ?? 0;
 
     public DreamCatcherInventoryData()
     {
         TemplateHash = "";
         DisplayName = "";
         Description = "";
-        Number = 0;
+        DCids = new List<string>();
     }
 
     public DreamCatcherInventoryData(string _TemplateHash, string _DisplayName, string _Description, int _Number)
@@ -23,7 +24,7 @@ public class DreamCatcherInventoryData
         TemplateHash = _TemplateHash;
         DisplayName = _DisplayName;
         Description = _Description;
-        Number = _Number;
+        DCids = new List<string>();
     }
 
     public DreamCatcherInventoryData(DreamCatcher dreamCatcher)
@@ -31,15 +32,10 @@ public class DreamCatcherInventoryData
         TemplateHash = dreamCatcher.TemplateHash;
         DisplayName = "드림 캐쳐";
         Description = DreamCatcherDescriptionBuilder.Build(dreamCatcher);
-        Number = 1;
+        DCids = new List<string> { dreamCatcher.DCid };
     }
 
     # region Set 함수
-
-    public void SetNumber(int _Number)
-    {
-        Number = _Number;
-    }
 
     public void SetDescription(string _Description)
     {
@@ -76,6 +72,11 @@ public class DreamCatcherInventoryData
     public string GetTemplateHash()
     {
         return TemplateHash;
+    }
+
+    public IReadOnlyList<string> GetDCids()
+    {
+        return DCids;
     }
     # endregion
 }

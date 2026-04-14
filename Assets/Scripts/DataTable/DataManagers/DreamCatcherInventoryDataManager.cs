@@ -26,7 +26,7 @@ public class DreamCatcherInventoryDataManager
 
         if (data != null)
         {
-            data.Number++;
+            data.DCids.Add(dreamCatcher.DCid);
         }
         else
         {
@@ -34,7 +34,7 @@ public class DreamCatcherInventoryDataManager
         }
     }
 
-    public bool RemoveDreamCatcherInventoryData(string templateHash)
+    public bool RemoveDreamCatcherInventoryData(DreamCatcher dreamCatcher)
     {
         if (dreamCatcherInventoryDataModel == null || dreamCatcherInventoryDataModel.dataList == null)
         {
@@ -43,14 +43,14 @@ public class DreamCatcherInventoryDataManager
         }
 
         var data = dreamCatcherInventoryDataModel.dataList.FirstOrDefault(
-            x => x.TemplateHash == templateHash
+            x => x.TemplateHash == dreamCatcher.TemplateHash
         );
 
         if (data != null)
         {
             if (data.Number > 1)
             {
-                data.Number--;
+                data.DCids.Remove(dreamCatcher.GetId());
             }
             else
             {
