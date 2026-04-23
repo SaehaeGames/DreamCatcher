@@ -6,7 +6,7 @@ public enum InventoryMode
 {
     None,
     Normal,
-    Shipment
+    Delivery
 }
 public class InventoryUIController : MonoBehaviour
 {
@@ -14,12 +14,27 @@ public class InventoryUIController : MonoBehaviour
     public GameObject disassembleButton;
     public GameObject shipmentButton;
 
+    [Space]
+    [Header("[Managers]")]
+    public GameObject managers;
     private InventoryManager inventoryManager;
+    private DeliveryManager deliveryManager;
+
+    [Space]
+    [Header("[UIControllers]")]
+    public DeliveryUIController deliveryUIController;
+
     private InventoryMode currentMode;
 
     private void Awake()
     {
-        inventoryManager = GetComponent<InventoryManager>();
+        inventoryManager = managers.GetComponent<InventoryManager>();
+        deliveryManager = managers.GetComponent<DeliveryManager>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void OpenNormalInventory()
@@ -31,7 +46,24 @@ public class InventoryUIController : MonoBehaviour
     public void OpenShipmentInventory()
     {
         inventoryManager.OpenInventory();
-        SetMode(InventoryMode.Shipment);
+        SetMode(InventoryMode.Delivery);
+    }
+
+    public void DeliveryDreamCatcher()
+    {
+        InventoryItemSlot selectedSlot = inventoryManager.GetSelectedSlot();
+
+        if (deliveryManager.HasEnoughDreamCatchers(selectedSlot.GetSlotDreamCatcherInventoryData()))
+        {
+            deliveryUIController.OpenCheckWin(selectedSlot.GetSlotDreamCatcherInventoryData());
+            Debug.Log("DeliveryDreamCatcher-opencheckwin");
+        }
+        else
+        {
+            deliveryUIController.OpenObjectNotEnoughWin();
+            Debug.Log("DeliveryDreamCatcher-openobjectnotenoughwin");
+        }
+
     }
 
     public void SetMode(in InventoryMode mode)
@@ -64,7 +96,7 @@ public class InventoryUIController : MonoBehaviour
                 );
                 break;
 
-            case InventoryMode.Shipment:
+            case InventoryMode.Delivery:
                 disassembleButton.SetActive(false);
                 break;
         }
@@ -78,7 +110,7 @@ public class InventoryUIController : MonoBehaviour
                 shipmentButton.SetActive(false);
                 break;
 
-            case InventoryMode.Shipment:
+            case InventoryMode.Delivery:
                 shipmentButton.SetActive(true);
                 break;
         }
@@ -96,7 +128,7 @@ public class InventoryUIController : MonoBehaviour
 
             switch (currentMode)
             {
-                case InventoryMode.Shipment:
+                case InventoryMode.Delivery:
                     if (slotComp.GetInventoryItemType() == InventoryItemType.Feather)
                     {
                         interactable = false; // 회색 처리

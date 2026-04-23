@@ -101,4 +101,9 @@ public class DreamCatcher
     {
         return DCbead;
     }
+
+    public string GetTemplateHash()
+    {
+        return TemplateHash;
+    }
 }

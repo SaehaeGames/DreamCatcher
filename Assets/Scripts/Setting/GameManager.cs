@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     public StoreInfo_Data storeinfo_data;
     public InteriorInfo_Data interiorinfo_data;
     public QuestInfo_Data questinfo_data;
-    public QuestDreamCatcherInfo_Data questDreamCatcherInfo_data;
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
 
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviour
         storeinfo_data.UpdateStoreInfoData(onUpdateComplete);
         interiorinfo_data.UpdateInteriorInfoData(onUpdateComplete);
         questinfo_data.UpdateQuestInfoData(onUpdateComplete);
-        questDreamCatcherInfo_data.UpdateQuestDreamCatcherInfoData(onUpdateComplete);
         storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
         storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
 #endif

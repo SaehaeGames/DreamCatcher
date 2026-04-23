@@ -19,13 +19,19 @@ public class InventoryManager : MonoBehaviour
     public int itemMaxCnt;  //인벤토리 최대 용량
     public int itemCurCnt;  //인벤토리 현재 아이템 수
     public List<GameObject> itemList;   //인벤토리 아이템 리스트    
-    FeatherDataManager featherDataManager;    //플레이어 깃털 정보
+
+    [Space]
+    [Header("[Managers]")]
+    public InventoryUIController inventoryUIController;
+
+    // 데이터
+    private FeatherDataManager featherDataManager;    //플레이어 깃털 정보
     private DreamCatcherDataManager dreamCatcherDataManager;
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
 
-    private InventoryItemSlot selectedSlot;    
-    private InventoryUIController inventoryUIController;
+    // 선택된 슬롯
+    private InventoryItemSlot selectedSlot;
 
     private void Awake()
     {
@@ -33,7 +39,6 @@ public class InventoryManager : MonoBehaviour
         birdInfo_Data = GameManager.instance.birdinfo_data;
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         dreamCatcherInventoryDataManager = GameManager.instance.dreamCatcherInventoryDataManager;
-        inventoryUIController=GetComponent<InventoryUIController>();
     }
 
     public void OpenInventory()
