@@ -3,26 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestActionManager : MonoBehaviour
+public class QuestActionController : MonoBehaviour
 {
+    public GameObject questActionPipelines;
     private PlayerDataManager _playerDataContainer;
     private int currentQuestNum;
     public Transform[] quests;
 
-    public event Action OnSetQuestStartActive;
-    public event Action OnSetQuestEndActive;
-
-
     private void Awake()
     {
         // 퀘스트 액션 갯수 파악
-        int questCount = this.transform.childCount;
+        int questCount = questActionPipelines.transform.childCount;
         quests = new Transform[questCount];
 
         // 모든 퀘스트 액션 비활성화
-        for(int i=0; i<this.transform.childCount; i++)
+        for(int i=0; i< questCount; i++)
         {
-            quests[i] = this.transform.GetChild(i); // 퀘스트 액션 저장
+            quests[i] = questActionPipelines.transform.GetChild(i); // 퀘스트 액션 저장
             quests[i].GetChild(1).gameObject.SetActive(false); // End 비활성화
             quests[i].GetChild(0).gameObject.SetActive(false); // Start 비활성화
         }
@@ -53,18 +50,6 @@ public class QuestActionManager : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        OnSetQuestStartActive += HandleSetQuestStartActive;
-        OnSetQuestEndActive += HandleSetQuestEndActive;
-    }
-
-    private void OnDisable()
-    {
-        OnSetQuestStartActive -= HandleSetQuestStartActive;
-        OnSetQuestEndActive -= HandleSetQuestEndActive;
-    }
-
     public void HandleSetQuestStartActive()
     {
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
@@ -89,6 +74,7 @@ public class QuestActionManager : MonoBehaviour
 
     public void HandleSetQuestEndActive()
     {
+        Debug.Log("<color=cyan>End QuestAction 활성화===========</color>");
         currentQuestNum = (int)_playerDataContainer.dataList[8].dataNumber; // 현재의 퀘스트 번호 불러오기
         int questAccepted = (int)_playerDataContainer.dataList[9].dataNumber; // 현재 퀘스트 수락 상태인지 불러오기
         if (currentQuestNum >= 3 && currentQuestNum < quests.Length + 3 && questAccepted == 1)
@@ -96,7 +82,7 @@ public class QuestActionManager : MonoBehaviour
             Transform endObject = quests[currentQuestNum - 3].GetChild(1);
             if (endObject != null)
             {
-                Debug.Log("<color=cyan>Start QuestAction 비활성화</color>");
+                Debug.Log("<color=cyan>End QuestAction 활성화</color>");
                 endObject.gameObject.SetActive(true); // End 활성화 
 
                 // 퀘스트 수락 상태 업데이트

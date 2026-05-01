@@ -8,16 +8,25 @@ public class DeliveryUIController : MonoBehaviour
     [Header("[UI Object(CheckWin)]")]
     public Text description;
     public Image dreamcatcherImg;
+    public ScriptBox scriptBox;
 
+    [Space]
+    [Header("[UI Panels]")]
+    public GameObject QuestPanel;
+    public GameObject InventoryPanel;
+
+    [Space]
     [Header("[Managers]")]
     public GameObject managers;
     private DeliveryManager deliveryManager;
+    private QuestActionController questActionManager;
 
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
 
     private void Awake()
     {
         deliveryManager = managers.GetComponent<DeliveryManager>();
+        questActionManager = managers.GetComponent<QuestActionController>();
     }
 
     public void OpenCheckWin(DreamCatcherInventoryData dreamCatcherInventoryData)
@@ -42,6 +51,30 @@ public class DeliveryUIController : MonoBehaviour
 
     public void OnClickDeliveryButton()
     {
-        deliveryManager.TryDeliveryDreamCatcher();
+        // 인벤토리 창 비활성화
+        InventoryPanel.SetActive(false);
+        // 퀘스트 창 비활성화
+        QuestPanel.SetActive(false);
+
+        DeliveryResult deliveryResult = deliveryManager.TryDeliveryDreamCatcher();
+
+        switch (deliveryResult)
+        {
+            case DeliveryResult.Success:
+                // 퀘스트 종료 퀘스트 액션 재생
+                questActionManager.HandleSetQuestEndActive();
+                break;
+            case DeliveryResult.WrongItem:
+                // 잘못된 드림캐쳐 안내 대사창 재생
+                scriptBox.ScriptBoxOnOff(true);
+                scriptBox.SetScriptBox(7203, 7208);
+                break;
+            case DeliveryResult.Error:
+                break;
+        }
+
+        // 납품창 비활성화
+        this.gameObject.SetActive(false);
+
     }
 }

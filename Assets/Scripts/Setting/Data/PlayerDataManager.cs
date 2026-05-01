@@ -4,6 +4,12 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+public enum QuestState
+{
+    Accepted,
+    Clear
+}
+
 [Serializable]
 public class PlayerData
 {
@@ -54,13 +60,12 @@ public class PlayerDataManager
     {
         PlayerData getData = dataList.FirstOrDefault(x => x.dataName == _dataName);
 
-        if (getData != null) 
+        if (getData == null) 
         {
-            Debug.Log(getData.dataName+"이 반환됨");
-            return getData;
+            return null;
         }
-        Debug.Log("null이 반환됨");
-        return null;
+
+        return getData;
     }
 
     public PlayerData GetPlayerDataById(string _id)
