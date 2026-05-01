@@ -107,6 +107,7 @@ public class ScriptBox : MonoBehaviour
         else // endId까지 대화가 끝났을 때
         {
             myreturn = true;
+            ScriptBoxOnOff(false);
             return;
         }
 
