@@ -4,80 +4,206 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public enum QuestState
-{
-    Accepted,
-    Clear
-}
-
-[Serializable]
-public class PlayerData
-{
-    public string id;
-    public string dataName;          //상품 이름
-    public float dataNumber;         //상품 레벨 또는 상품 id
-
-    public PlayerData(string _id, string name, float number)
-    {
-        this.id = _id;
-        dataName = name;
-        dataNumber = number;
-    }
-}
 
 public class PlayerDataManager
 {
-    public List<PlayerData> dataList;
+    private JsonManager jsonManager = new JsonManager();
+    private PlayerData playerData;
+
 
     public PlayerDataManager()
     {
-        dataList = new List<PlayerData>();
         ResetData();
     }
      
     public void ResetData()
     {
-        if (dataList != null)
-            dataList.Clear();
-
-        int startId = 5000;
-        dataList = new List<PlayerData>()
+        playerData = new PlayerData()
         {
-            new PlayerData("JS_" + startId++, Constants.PlayerData_DreamMarble, 0),
-            new PlayerData("JS_" + startId++, Constants.PlayerData_Gold, 30000),
-            new PlayerData("JS_" + startId++, Constants.PlayerData_SpecialFeed, 100),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_BGM, 1f),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_Effect, 1f),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_BGMMute, 0),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_EffectMute, 0),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_NowSceneNum, 0),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_NowQuestNum, 1),
-            new PlayerData("JS_" + startId ++, Constants.PlayerData_QuestAccepted, 0)
+            gold = 30000,
+            dreamMarble = 0,
+            specialFeed = 100,
+
+            bgmVolume = 1f,
+            effectVolume = 1f,
+
+            bgmMute = false,
+            effectMute = false,
+
+            currentScene = 0,
+            currentMainQuestId = 1,
+            isMainQuestAccepted = false
         };
     }
 
-    public PlayerData GetPlayerDataByDataName(string _dataName)
+    #region Currency
+
+    public int GetGold()
     {
-        PlayerData getData = dataList.FirstOrDefault(x => x.dataName == _dataName);
-
-        if (getData == null) 
-        {
-            return null;
-        }
-
-        return getData;
+        return playerData.gold;
     }
 
-    public PlayerData GetPlayerDataById(string _id)
+    public void AddGold(int amount)
     {
-        PlayerData getData = dataList.FirstOrDefault(x => x.id == _id);
-        if (getData != null)
+        playerData.gold += amount;
+        Save();
+    }
+
+    public bool UseGold(int amount)
+    {
+        if (playerData.gold < amount)
         {
-            return getData;
+            Debug.LogWarning("[PlayerDataManager] Not enough gold.");
+            return false;
         }
-        else
+
+        playerData.gold -= amount;
+        Save();
+        return true;
+    }
+
+    public int GetDreamMarble()
+    {
+        return playerData.dreamMarble;
+    }
+
+    public void AddDreamMarble(int amount)
+    {
+        playerData.dreamMarble += amount;
+        Save();
+    }
+
+    public int GetSpecialFeed()
+    {
+        return playerData.specialFeed;
+    }
+
+    public void AddSpecialFeed(int amount)
+    {
+        playerData.specialFeed += amount;
+        Save();
+    }
+
+    public bool UseSpecialFeed(int amount)
+    {
+        if (playerData.specialFeed < amount)
         {
-            return null;
+            Debug.LogWarning("[PlayerDataManager] Not enough specialFeed.");
+            return false;
         }
+
+        playerData.specialFeed -= amount;
+        Save();
+        return true;
+    }
+
+    #endregion
+
+    #region Sound
+
+    public float GetBGMVolume()
+    {
+        return playerData.bgmVolume;
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        playerData.bgmVolume = Mathf.Clamp01(volume);
+        Save();
+    }
+
+    public float GetEffectVolume()
+    {
+        return playerData.effectVolume;
+    }
+
+    public void SetEffectVolume(float volume)
+    {
+        playerData.effectVolume = Mathf.Clamp01(volume);
+        Save();
+    }
+
+    public bool GetBGMMute()
+    {
+        return playerData.bgmMute;
+    }
+
+    public void SetBGMMute(bool mute)
+    {
+        playerData.bgmMute = mute;
+        Save();
+    }
+
+    public bool GetEffectMute()
+    {
+        return playerData.effectMute;
+    }
+
+    public void SetEffectMute(bool mute)
+    {
+        playerData.effectMute = mute;
+        Save();
+    }
+
+    #endregion
+
+    #region Progress
+
+    public int GetCurrentScene()
+    {
+        return playerData.currentScene;
+    }
+
+    public void SetCurrentScene(int sceneIndex)
+    {
+        playerData.currentScene = sceneIndex;
+        Save();
+    }
+
+    public int GetCurrentMainQuestId()
+    {
+        return playerData.currentMainQuestId;
+    }
+
+    public void SetCurrentMainQuestId(int questId)
+    {
+        playerData.currentMainQuestId = questId;
+        Save();
+    }
+
+    public bool GetIsMainQuestAccepted()
+    {
+        return playerData.isMainQuestAccepted;
+    }
+
+    public void SetIsMainQuestAccepted(bool accepted)
+    {
+        playerData.isMainQuestAccepted = accepted;
+        Save();
+    }
+
+    #endregion
+
+    public void Load()
+    {
+        playerData = jsonManager.LoadData<PlayerData>(Constants.PlayerDataFile);
+
+        if (playerData == null)
+        {
+            Debug.Log("[PlayerDataManager] Save file not found. Create default data.");
+            ResetData();
+            Save();
+        }
+    }
+
+    public void Save()
+    {
+        if (playerData == null)
+        {
+            Debug.LogError("[PlayerDataManager] Save failed. playerData is null.");
+            return;
+        }
+
+        jsonManager.SaveData(Constants.PlayerDataFile, playerData);
     }
 }

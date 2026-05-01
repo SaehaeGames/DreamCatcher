@@ -136,7 +136,7 @@ public class StoreData : MonoBehaviour
     /// </summary>
     public void SpendGold(int cost)
     {
-        GameManager.instance.playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Gold).dataNumber -= cost;
+        GameManager.instance.playerDataManager.UseGold(cost);
     }
 
     /// <summary>

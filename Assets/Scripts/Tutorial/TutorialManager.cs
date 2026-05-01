@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
-    private PlayerDataManager curPlayerData;   //플레이어 데이터 정보
+    private PlayerDataManager playerDataManager;   //플레이어 데이터 정보
     private int curScene;
     private int curTutorial;
     [SerializeField] private GameObject tutorialFadePanal;
@@ -24,10 +24,10 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // 플레이어 데이터(PlayerDataFile) 로드
-        curPlayerData = GameManager.instance.playerDataManager;
+        playerDataManager = GameManager.instance.playerDataManager;
 
         // 현재 튜토리얼 씬 설정
-        curScene = (int)curPlayerData.dataList[7].dataNumber; // 현재 튜토리얼 씬 불러오기
+        curScene = playerDataManager.GetCurrentScene(); // 현재 튜토리얼 씬 불러오기
 
         if(curScene > 11) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
         {
@@ -80,10 +80,9 @@ public class TutorialManager : MonoBehaviour
                 this.transform.GetChild(curScene).gameObject.SetActive(true);
             }
         }
-        
-        
+
+
         // 씬 데이터 업데이트
-        curPlayerData.dataList[7].dataNumber = curScene;
-        GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, curPlayerData);
+        playerDataManager.SetCurrentScene(curScene);
     }
 }

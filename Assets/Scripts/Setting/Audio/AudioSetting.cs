@@ -35,15 +35,10 @@ public class AudioSetting : MonoBehaviour
     public void ResetAudio()
     {
         //json에 저장된 값을 가져옴
-        /*BGVol = curPlayerData.dataList[3].dataNumber;
-        EFVol = curPlayerData.dataList[4].dataNumber;
-        BGMute = curPlayerData.dataList[5].dataNumber == 1 ? true : false;
-        EffectMute = curPlayerData.dataList[6].dataNumber == 1 ? true : false;*/
-
-        BGVol = playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_BGM).dataNumber;
-        EFVol = playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_Effect).dataNumber;
-        BGMute = playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_BGMMute).dataNumber == 1f ? true : false;
-        EffectMute = playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_EffectMute).dataNumber == 1 ? true : false;
+        BGVol = playerDataManager.GetBGMVolume();
+        EFVol = playerDataManager.GetEffectVolume();
+        BGMute = playerDataManager.GetBGMMute();
+        EffectMute = playerDataManager.GetEffectMute();
 
         //저장된 값을 슬라이더, 토글에 반영함
         BGSlider.value = BGVol;
@@ -105,15 +100,10 @@ public class AudioSetting : MonoBehaviour
 
         PlayerDataManager saveData = GameManager.instance.playerDataManager;
 
-        /*saveData.dataList[3].dataNumber = BGVol;
-        saveData.dataList[4].dataNumber = EFVol;
-        saveData.dataList[5].dataNumber = BGMute == true ? 1 : 0;
-        saveData.dataList[6].dataNumber = EffectMute == true ? 1 : 0;*/
-
-        saveData.GetPlayerDataByDataName(Constants.PlayerData_BGM).dataNumber = BGVol;
-        saveData.GetPlayerDataByDataName(Constants.PlayerData_Effect).dataNumber = EFVol;
-        saveData.GetPlayerDataByDataName(Constants.PlayerData_BGMMute).dataNumber = BGMute == true ? 1 : 0;
-        saveData.GetPlayerDataByDataName(Constants.PlayerData_EffectMute).dataNumber = EffectMute == true ? 1 : 0;
+        playerDataManager.SetBGMVolume(BGVol);
+        playerDataManager.SetEffectVolume(EFVol);
+        playerDataManager.SetBGMMute(BGMute);
+        playerDataManager.SetEffectMute(EffectMute);
 
         GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, saveData);   //변경사항 json으로 저장
 

@@ -22,7 +22,7 @@ public class InteractiveLimitDragPoint : MonoBehaviour
         _tutorialConnectLine=GameObject.FindFirstObjectByType<InteractiveSequenceConnectLine>();
         // 튜토리얼 씬 상황 확인
         curPlayerData = GameManager.instance.playerDataManager;    //플레이어의 상단바 데이터 정보를 가져옴
-        curScene = (int)curPlayerData.dataList[7].dataNumber;
+        curScene = curPlayerData.GetCurrentScene();
 
         // 튜토리얼 드래그 포인트 튜토리얼 과정 외엔 비활성화
         if (curScene != 8) this.GetComponent<InteractiveLimitDragPoint>().enabled = false;
