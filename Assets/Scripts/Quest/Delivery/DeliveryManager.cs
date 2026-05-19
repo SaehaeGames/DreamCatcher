@@ -16,6 +16,7 @@ public class DeliveryManager : MonoBehaviour
     private DreamCatcherDataManager dreamCatcherDataManager;
     private QuestInfo_Data questInfo_data;
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
+    private PlayerDataManager playerDataManager;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class DeliveryManager : MonoBehaviour
         // 데이터 불러오기
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         questInfo_data = GameManager.instance.questinfo_data;
+        playerDataManager = GameManager.instance.playerDataManager;
     }
 
     public bool HasEnoughDreamCatchers(DreamCatcherInventoryData selectedDreamCatcher)
@@ -66,15 +68,16 @@ public class DeliveryManager : MonoBehaviour
             return DeliveryResult.Error;
         }
 
+        // 드림캐쳐 납품(삭제)
+        DeliveryDreamCatcher();
+
         // 드림캐쳐 비교 및 처리
         if (questDreamCatcher != selectedDreamCatcher)
         {
-            DeliveryFailed();
             return DeliveryResult.WrongItem;
         }
         else
         {
-            DeliverySuccess();
             return DeliveryResult.Success;
         }
     }
@@ -101,22 +104,19 @@ public class DeliveryManager : MonoBehaviour
 
     public void DeliverySuccess()
     {
-        // 드림캐쳐 납품(삭제)
-        DeliveryDreamCatcher();
-
         // 퀘스트 완료 처리
+        playerDataManager.SetIsMainQuestAccepted(false);
 
         // 현재 퀘스트 데이터 업데이트
+        playerDataManager.SetCurrentMainQuestId(playerDataManager.GetCurrentMainQuestId() + 1);
 
-        Debug.Log("dreamCatcher is Same");
+        // 꿈 구슬 지급
+        playerDataManager.AddDreamMarble(1);
     }
 
     public void DeliveryFailed()
     {
-        // 드림캐쳐 납품(삭제)
-        DeliveryDreamCatcher();
-
-        Debug.Log("dreamCatcher is not Same");
+        
     }
 
     public void SetSelectedDreamCatcherInventoryData(DreamCatcherInventoryData _selectedDreamCatcherInventoryData)

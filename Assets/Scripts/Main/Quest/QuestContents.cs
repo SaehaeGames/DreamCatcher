@@ -11,13 +11,23 @@ public class QuestContents : MonoBehaviour
     [Header("[Quest View]")]
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject deliveryView;     //납품 오브젝트
-    public int curQuestNumber = 0;
+    public int curQuestNumber;
+
+    private PlayerDataManager playerDataManager;
+
+    private void Awake()
+    {
+        playerDataManager = GameManager.instance.playerDataManager;
+    }
 
     void OnEnable()
     {
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
 
+        // 현재 퀘스트 번호 가져오기
+        curQuestNumber = playerDataManager.GetCurrentMainQuestId();
+        
         UpdateQuest(curQuestNumber); //테스트로 첫번째 퀘스트 데이터 가져옴
 
                         //bool isReadFirstLetter = System.Convert.ToBoolean(PlayerPrefs.GetInt("RepearFirstLetter", 0)); //첫번째 반복 퀘스트 확인 여부(상단주의 편지)**이부분 꼭 수정하기
@@ -45,8 +55,6 @@ public class QuestContents : MonoBehaviour
     public void UpdateQuest(int questNumber)
     {
         //호출하는 퀘스트 데이터를 가져오는 함수
-
-        //List<Dictionary<string, object>> data_Quest = CSVParser.ReadFromFile("Quest");  //퀘스트 데이터를 가져옴  
         QuestInfo_Data questInfo_data = GameManager.instance.questinfo_data;    //** 스크립터블 오브젝트 말고 저장한 json에서 가져와도 될 듯..
         QuestDataManager questDataManager = GameManager.instance.questDataManager;
 
@@ -67,6 +75,4 @@ public class QuestContents : MonoBehaviour
             deliveryView.SetActive(true);  //납품 오브젝트 활성화
         }
     }
-
-
 }

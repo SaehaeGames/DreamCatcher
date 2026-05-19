@@ -63,13 +63,16 @@ public class DeliveryUIController : MonoBehaviour
             case DeliveryResult.Success:
                 // 퀘스트 종료 퀘스트 액션 재생
                 questActionManager.HandleSetQuestEndActive();
+                deliveryManager.DeliverySuccess();
                 break;
             case DeliveryResult.WrongItem:
                 // 잘못된 드림캐쳐 안내 대사창 재생
                 scriptBox.ScriptBoxOnOff(true);
                 scriptBox.SetScriptBox(7203, 7208);
+                deliveryManager.DeliveryFailed();
                 break;
             case DeliveryResult.Error:
+                Debug.LogError("[DeliveryUIController] DeliveryResult is Error");
                 break;
         }
 
