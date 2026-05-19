@@ -7,7 +7,7 @@ public class StoryScriptInfo_Object
 {
     public string id;
     public int sceneNum;
-    public int questNum;
+    public int questIndex;
     public int charImage;
     public int faceImage;
     public int effectImage;
@@ -18,7 +18,7 @@ public class StoryScriptInfo_Object
     public StoryScriptInfo_Object()
     {
         id = "SO_0000";
-        sceneNum = questNum = charImage = faceImage = effectImage = screenEffect = 0;
+        sceneNum = questIndex = charImage = faceImage = effectImage = screenEffect = 0;
         speaker = line = "";
     }
 
@@ -26,7 +26,7 @@ public class StoryScriptInfo_Object
     {
         this.id = _id;
         this.sceneNum = _sceneNum;
-        this.questNum = _questNum;
+        this.questIndex = _questNum;
         this.charImage = _charImage;
         this.faceImage = _faceImage;
         this.effectImage = _effectImage;

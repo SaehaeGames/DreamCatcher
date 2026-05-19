@@ -31,7 +31,7 @@ public class PlayerDataManager
             effectMute = false,
 
             currentScene = 0,
-            currentMainQuestId = 1,
+            currentMainQuestIndex = 1,
             isMainQuestAccepted = false
         };
     }
@@ -162,12 +162,12 @@ public class PlayerDataManager
 
     public int GetCurrentMainQuestId()
     {
-        return playerData.currentMainQuestId;
+        return playerData.currentMainQuestIndex;
     }
 
     public void SetCurrentMainQuestId(int questId)
     {
-        playerData.currentMainQuestId = questId;
+        playerData.currentMainQuestIndex = questId;
         Save();
     }
 
