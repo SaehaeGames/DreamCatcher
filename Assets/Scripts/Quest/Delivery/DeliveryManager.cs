@@ -17,6 +17,7 @@ public class DeliveryManager : MonoBehaviour
     private QuestInfo_Data questInfo_data;
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
     private PlayerDataManager playerDataManager;
+    private QuestDataManager questDataManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class DeliveryManager : MonoBehaviour
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         questInfo_data = GameManager.instance.questinfo_data;
         playerDataManager = GameManager.instance.playerDataManager;
+        questDataManager = GameManager.instance.questDataManager;
     }
 
     public bool HasEnoughDreamCatchers(DreamCatcherInventoryData selectedDreamCatcher)
@@ -104,11 +106,12 @@ public class DeliveryManager : MonoBehaviour
 
     public void DeliverySuccess()
     {
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
         // 퀘스트 완료 처리
-        playerDataManager.SetIsMainQuestAccepted(false);
+        questDataManager.ClearQuest(currentMainQuestIndex);
 
         // 현재 퀘스트 데이터 업데이트
-        playerDataManager.SetCurrentMainQuestId(playerDataManager.GetCurrentMainQuestId() + 1);
+        playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
 
         // 꿈 구슬 지급
         playerDataManager.AddDreamMarble(1);

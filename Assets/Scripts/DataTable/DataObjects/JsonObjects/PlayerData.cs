@@ -17,7 +17,7 @@ public class PlayerData
 
     public int currentScene;
     public int currentMainQuestIndex;
-    public bool isMainQuestAccepted;
+
     public PlayerData()
     {
         gold = 0;
@@ -29,10 +29,9 @@ public class PlayerData
         effectMute = false;
         currentScene = 0;
         currentMainQuestIndex = 0;
-        isMainQuestAccepted = false;
     }
 
-    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, bool _isMainQuestAccepted) 
+    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex) 
     { 
         gold = _gold;
         dreamMarble = _dreamMarble;
@@ -43,7 +42,6 @@ public class PlayerData
         effectMute = _bgmMute;
         currentScene = _currentScene;
         currentMainQuestIndex = _currentMainQuestIndex;
-        isMainQuestAccepted = _isMainQuestAccepted;
     }
 
     # region Set 함수
@@ -57,7 +55,6 @@ public class PlayerData
     public void SetEffectMute(bool _effectMute) { effectMute = _effectMute; }
     public void SetCurrentScene(int _currentScene) { currentScene = _currentScene; }
     public void SetCurrentMainQuestIndex(int _currentMianQuestIndex) { currentMainQuestIndex = _currentMianQuestIndex; }
-    public void SetIsMainQuestAccepted(bool _isMainQuestAccepted) { isMainQuestAccepted = _isMainQuestAccepted; }
     # endregion
 
     # region Get 함수
@@ -71,7 +68,6 @@ public class PlayerData
     public bool GetEffectMute() { return effectMute; }
     public int GetCurrentScene() { return currentScene; }
     public int GetCurrentMainQuestIndex() { return currentMainQuestIndex; }
-    public bool IsMainQuestAccepted() { return isMainQuestAccepted; }
 
     # endregion
 }

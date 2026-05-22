@@ -6,7 +6,6 @@
     "effectVolume": 0.0,
     "bgmMute": false,
     "effectMute": false,
-    "currentScene": 0,
-    "currentMainQuestIndex": 0,
-    "isMainQuestAccepted": false
+    "currentScene": 3,
+    "currentMainQuestIndex": 0
 }

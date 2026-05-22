@@ -4,65 +4,128 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-[Serializable]
-public class QuestData
-{
-    public string id;     //퀘스트 id
-    public bool isChecked;   //퀘스트 확인 여부
-    public bool isClear;  //퀘스트 클리어 여부
-    public string questInfo_Id;
-
-    public QuestData()
-    {
-        id = "JS_0000";
-        isChecked = isClear = false;
-        questInfo_Id = "SO_0000";
-    }
-
-    public QuestData(string _id, bool _isChecked, bool _isClear, string _questInfoId)
-    {
-        this.id = _id;
-        this.isChecked = _isChecked;
-        this.isClear = _isClear;
-        this.questInfo_Id = _questInfoId;
-    }
-}
-
 public class QuestDataManager
 {
-    public List<QuestData> dataList;
+    private JsonManager jsonManager = new JsonManager();
+    private QuestDataModel questDataModel = new QuestDataModel();
+    public IReadOnlyList<QuestData> questDataList => questDataModel.dataList;
+    private const int IdBase = 6000;
 
-    public QuestDataManager()
+    public void ClearQuest(int questIndex)
     {
-        dataList = new List<QuestData>();
-        ResetData();
+        QuestData questData = GetQuestData(questIndex);
+
+        if (questData == null)
+            return;
+
+        questData.isClear = true;
+        Save();
+    }
+
+    public void CheckQuest(int questIndex)
+    {
+        QuestData questData = GetQuestData(questIndex);
+
+        if (questData == null)
+            return;
+
+        questData.isChecked = true;
+        Save();
     }
 
     public void ResetData()
     {
-        if (dataList != null)
-            dataList.Clear();
-        int startId = 6000;
+        if (questDataModel.dataList != null)
+            questDataModel.dataList.Clear();
+        
         List<QuestInfo_Object> infoDataList = GameManager.instance.questinfo_data.dataList;
         for (int i = 0; i < infoDataList.Count; i++)
         {
-            dataList.Add(new QuestData("JS_" + startId, false, false, infoDataList[i].id));
-            startId++;
+            questDataModel.dataList.Add(new QuestData("JS_" + (IdBase + i), false, false, infoDataList[i].id));
         }
 
-        foreach (var q in dataList)
-        {
-            Debug.Log(q.id);
-        }
+        Save();
     }
 
-    public QuestData GetQuestData(string _id)
+    public QuestData GetQuestData(string questDataId)
     {
-        QuestData getData = dataList.FirstOrDefault(x => x.id == _id);
+        QuestData getData = questDataModel.dataList.FirstOrDefault(x => x.id == questDataId);
         if (getData != null)
             return getData;
         else
             return null;
+    }
+
+    public QuestData GetQuestData(int questIndex)
+    {
+        if (questIndex < 0 || questIndex >= questDataModel.dataList.Count)
+        {
+            Debug.LogError($"Quest Index Out Of Range : {questIndex}");
+            return null;
+        }
+
+        QuestData getData = questDataModel.dataList[questIndex];
+        if (getData != null)
+            return getData;
+        else
+            return null;
+    }
+
+    public QuestInfo_Object GetQuestInfo(int questIndex)
+    {
+        QuestData data = GetQuestData(questIndex);
+
+        if (data == null)
+            return null;
+
+        return GameManager.instance.questinfo_data.GetQuestInfo(data.questInfo_Id);
+    }
+
+    public bool IsQuestChecked(string questDataId)
+    {
+        QuestData questData = GetQuestData(questDataId);
+
+        if (questData == null) return false;
+
+        return questData.isChecked;
+    }
+
+    public bool IsQuestChecked(int questIndex)
+    {
+        QuestData questData = GetQuestData(questIndex);
+        
+        if(questData==null) return false;
+
+        return questData.isChecked;
+    }
+    public bool IsQuestCleared(string questDataId)
+    {
+        QuestData questData = GetQuestData(questDataId);
+
+        if (questData == null) return false;
+
+        return questData.isClear;
+    }
+
+    public bool IsQuestCleared(int questIndex)
+    {
+        QuestData questData = GetQuestData(questIndex);
+
+        if (questData == null) return false;
+
+        return questData.isClear;
+    }
+    public void Load()
+    {
+        questDataModel = jsonManager.LoadData<QuestDataModel>(Constants.QuestDataFile);
+
+        if (questDataModel == null)
+            questDataModel = new QuestDataModel();
+    }
+
+    public void Save()
+    {
+        jsonManager.SaveData(Constants.QuestDataFile, questDataModel);
     }
 }
 

@@ -26,7 +26,7 @@ public class QuestContents : MonoBehaviour
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
 
         // 현재 퀘스트 번호 가져오기
-        curQuestNumber = playerDataManager.GetCurrentMainQuestId();
+        curQuestNumber = playerDataManager.GetCurrentMainQuestIndex();
         
         UpdateQuest(curQuestNumber); //테스트로 첫번째 퀘스트 데이터 가져옴
 
@@ -58,7 +58,7 @@ public class QuestContents : MonoBehaviour
         QuestInfo_Data questInfo_data = GameManager.instance.questinfo_data;    //** 스크립터블 오브젝트 말고 저장한 json에서 가져와도 될 듯..
         QuestDataManager questDataManager = GameManager.instance.questDataManager;
 
-        bool isCheck = questDataManager.dataList[questNumber].isChecked;
+        bool isCheck = questDataManager.IsQuestChecked(questNumber);
         if (!isCheck)   //아직 확인 안 한 퀘스트라면
         {
             contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].title.ToString();    //퀘스트 이름 변경
@@ -66,7 +66,7 @@ public class QuestContents : MonoBehaviour
             contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text = contents.Replace("nn", "\n"); //퀘스트 내용 변경
             contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = questInfo_data.dataList[questNumber].from.ToString();    //퀘스트 발신인 변경
 
-            questDataManager.dataList[questNumber].isChecked = true;
+            questDataManager.IsQuestChecked(questNumber);
             GameManager.instance.questDataManager = questDataManager;
         }
         else

@@ -31,8 +31,7 @@ public class PlayerDataManager
             effectMute = false,
 
             currentScene = 0,
-            currentMainQuestIndex = 1,
-            isMainQuestAccepted = false
+            currentMainQuestIndex = 0
         };
     }
 
@@ -160,25 +159,14 @@ public class PlayerDataManager
         Save();
     }
 
-    public int GetCurrentMainQuestId()
+    public int GetCurrentMainQuestIndex()
     {
         return playerData.currentMainQuestIndex;
     }
 
-    public void SetCurrentMainQuestId(int questId)
+    public void SetCurrentMainQuestIndex(int questId)
     {
         playerData.currentMainQuestIndex = questId;
-        Save();
-    }
-
-    public bool GetIsMainQuestAccepted()
-    {
-        return playerData.isMainQuestAccepted;
-    }
-
-    public void SetIsMainQuestAccepted(bool accepted)
-    {
-        playerData.isMainQuestAccepted = accepted;
         Save();
     }
 

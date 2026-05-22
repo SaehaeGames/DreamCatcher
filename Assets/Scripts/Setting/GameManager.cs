@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public List<RackData> rackDataList;             // 횃대에 놓인 먹이 데이터   ** 이건 횃대 레벨업 하면 리스트에 add해서 저장하도록 하기
     public GoodsDataManager goodsDataManager;       // 상점 아이템 레벨 데이터
     public InteriorDataManager interiorDataManager; //플레이어 인테리어 저장 데이터
-    public QuestDataManager questDataManager;       // 퀘스트 데이터 리스트
+    public QuestDataManager questDataManager = new QuestDataManager();       // 퀘스트 데이터 리스트
     public FeatherDataManager featherDataManager = new FeatherDataManager();
     public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager = new DreamCatcherInventoryDataManager();
     public DreamCatcherDataManager dreamCatcherDataManager;
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         rackDataList = jsonManager.LoadDataList<RackData>(Constants.RackDataFile);
         goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
         interiorDataManager = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
-        questDataManager = jsonManager.LoadData<QuestDataManager>(Constants.QuestDataFile);
+        questDataManager.Load();
         playerDataManager.Load();
         //playerDataManager.ResetData();
         featherDataManager.Load();

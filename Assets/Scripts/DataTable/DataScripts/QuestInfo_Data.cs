@@ -35,4 +35,17 @@ public class QuestInfo_Data : ScriptableObject
 
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<QuestInfo_Data>(CreateInstance<QuestInfo_Data>(), objectName);
     }
+
+    public QuestInfo_Object GetQuestInfo(string id)
+    {
+        QuestInfo_Object data = dataList.Find(x => x.id == id);
+
+        if (data == null)
+        {
+            Debug.LogError($"QuestInfo not found : {id}");
+            return null;
+        }
+
+        return data;
+    }
 }
