@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestUI : MonoBehaviour
+public class QuestUIController : MonoBehaviour
 {
     //퀘스트 배경 이미지를 바꾸는 스크립트
+    [Header("[Letter UI]")]
+    public GameObject letters;
 
     [Header("[Quest UI]")]
     public GameObject wallPaper;    //배경 이미지 오브젝트
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject questPanel;   //퀘스트 패널
+    public GameObject deliveryView;     //납품 오브젝트
 
     [Space]
     [Header("[Quest Resource")]
     public Sprite[] wallPapers;  //배경 이미지들(0: 흰식, 1: 노란색, 2: 검정색)
 
+    [Space]
+    [Header("[Managers]")]
+    public GameObject managers;
+
     public void OpenWhiteWallPaper()
     {
         //퀘스트 창을 흰색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
+        contentTexts.SetActive(true);   //메시지 오브젝트 활성화
+        deliveryView.SetActive(false);  //납품 오브젝트 비활성화
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[0]; //배경 이미지를 바꾼다
 
@@ -29,13 +38,18 @@ public class QuestUI : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        this.GetComponent<QuestNotice>().CloseMainQuestNotice();    //메인퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseMainQuestNotice();    //메인퀘스트 알림 끄기
+
+        UpdateQuestContents();
 
     }
 
     public void OpenYellowWallPaper()
     {
         //퀘스트 창을 노란색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
+
+        contentTexts.SetActive(false);   //메시지 오브젝트 비활성화
+        deliveryView.SetActive(true);  //납품 오브젝트 활성화
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[1]; //배경 이미지를 바꾼다
 
@@ -46,7 +60,7 @@ public class QuestUI : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        this.GetComponent<QuestNotice>().CloseRepeatQuestNotice();    //반복퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseRepeatQuestNotice();    //반복퀘스트 알림 끄기
     }
 
     public void OpenBlackWallPaper()
@@ -62,5 +76,21 @@ public class QuestUI : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
+    }
+
+    public void UpdateQuestContents()
+    {
+        Debug.Log("UpdateQuestContents");
+        // 제목
+        contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
+            = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
+
+        // 내용
+        contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+            = managers.GetComponent<QuestManager>().GetCurrentMainQuestContents();
+
+        // 보낸 사람
+        contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
+            = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
     }
 }

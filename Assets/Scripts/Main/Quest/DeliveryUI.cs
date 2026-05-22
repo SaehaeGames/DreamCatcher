@@ -44,7 +44,7 @@ public class DeliveryUI : MonoBehaviour
 
         // 일치하는지 확인은 나중에 구현
         // 만약 일치한다면 (일단 무조건 일치하게 ㄱㄱ)
-        questObject.GetComponent<QuestContents>().curQuestNumber++;
+        questObject.GetComponent<QuestManager>().curQuestNumber++;
         questObject.gameObject.SetActive(false);
         checkObject.gameObject.SetActive(false);
 

@@ -128,5 +128,3 @@ public class QuestDataManager
         jsonManager.SaveData(Constants.QuestDataFile, questDataModel);
     }
 }
-
-
