@@ -14,6 +14,7 @@ public class QuestUIController : MonoBehaviour
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject questPanel;   //퀘스트 패널
     public GameObject deliveryView;     //납품 오브젝트
+    public GameObject deliveryButton;
 
     [Space]
     [Header("[Quest Resource")]
@@ -39,9 +40,19 @@ public class QuestUIController : MonoBehaviour
 
         questPanel.SetActive(true); //퀘스트창 열기
         letters.GetComponent<QuestNotice>().CloseMainQuestNotice();    //메인퀘스트 알림 끄기
-
         UpdateQuestContents();
 
+        QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetQuestFlowState();
+
+        if (questFlowState == QuestFlowState.CurrentQuestDeliveryCompleted
+            || questFlowState == QuestFlowState.CurrentQuestBeforeStart)
+        {
+            deliveryButton.SetActive(false);
+        }
+        else
+        {
+            deliveryButton.SetActive(true);
+        }
     }
 
     public void OpenYellowWallPaper()
@@ -80,7 +91,6 @@ public class QuestUIController : MonoBehaviour
 
     public void UpdateQuestContents()
     {
-        Debug.Log("UpdateQuestContents");
         // 제목
         contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
             = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
@@ -92,5 +102,24 @@ public class QuestUIController : MonoBehaviour
         // 보낸 사람
         contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
             = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
+    }
+
+    public void PlayQuestActionActive()
+    {
+        QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetQuestFlowState();
+
+        switch (questFlowState)
+        {
+            case QuestFlowState.CurrentQuestBeforeStart:
+                managers.GetComponent<QuestActionController>().HandleSetQuestStartActive();
+                managers.GetComponent<QuestManager>().AcceptMainQuest();
+                break;
+
+            case QuestFlowState.PreviousQuestDeliveryCompleted:
+                int previousQuestIndex = managers.GetComponent<QuestManager>().GetCurrentMainQuestIndex() - 1;
+                managers.GetComponent<QuestActionController>().ActiveQuestEndActionActive(previousQuestIndex);
+                break;
+        }
+
     }
 }

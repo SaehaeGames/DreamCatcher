@@ -22,14 +22,25 @@ public class QuestDataManager
         Save();
     }
 
-    public void CheckQuest(int questIndex)
+    public void CheckStartQuest(int questIndex)
     {
         QuestData questData = GetQuestData(questIndex);
 
         if (questData == null)
             return;
 
-        questData.isChecked = true;
+        questData.isStartChecked = true;
+        Save();
+    }
+
+    public void CheckEndQuest(int questIndex)
+    {
+        QuestData questData = GetQuestData(questIndex);
+
+        if (questData == null)
+            return;
+
+        questData.isEndChecked = true;
         Save();
     }
 
@@ -41,7 +52,7 @@ public class QuestDataManager
         List<QuestInfo_Object> infoDataList = GameManager.instance.questinfo_data.dataList;
         for (int i = 0; i < infoDataList.Count; i++)
         {
-            questDataModel.dataList.Add(new QuestData("JS_" + (IdBase + i), false, false, infoDataList[i].id));
+            questDataModel.dataList.Add(new QuestData("JS_" + (IdBase + i),false, false, false, infoDataList[i].id));
         }
 
         Save();
@@ -87,7 +98,7 @@ public class QuestDataManager
 
         if (questData == null) return false;
 
-        return questData.isChecked;
+        return questData.isStartChecked;
     }
 
     public bool IsQuestChecked(int questIndex)
@@ -96,8 +107,27 @@ public class QuestDataManager
         
         if(questData==null) return false;
 
-        return questData.isChecked;
+        return questData.isStartChecked;
     }
+
+    public bool IsQuestEndChecked(string questDataId)
+    {
+        QuestData questData = GetQuestData(questDataId);
+
+        if (questData == null) return false;
+
+        return questData.isEndChecked;
+    }
+
+    public bool IsQuestEndChecked(int questIndex)
+    {
+        QuestData questData = GetQuestData(questIndex);
+
+        if (questData == null) return false;
+
+        return questData.isEndChecked;
+    }
+
     public bool IsQuestCleared(string questDataId)
     {
         QuestData questData = GetQuestData(questDataId);

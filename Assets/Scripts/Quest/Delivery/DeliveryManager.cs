@@ -54,7 +54,8 @@ public class DeliveryManager : MonoBehaviour
         }
 
         // 현재 퀘스트에서 요구하는 드림캐쳐 불러오기
-        string questDreamCatcher = questInfo_data.dataList[0].questDreamCatcher;
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+        string questDreamCatcher = questInfo_data.dataList[currentMainQuestIndex*2].questDreamCatcher;
 
         // 선택한 드림캐쳐 불러오기
         string selectedDreamCatcher = selectedDreamCatcherInventoryData.GetTemplateHash();
@@ -104,17 +105,23 @@ public class DeliveryManager : MonoBehaviour
         }
     }
 
-    public void DeliverySuccess()
+    public void CompleteCurrentQuest()
     {
         int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
-        // 퀘스트 완료 처리
-        questDataManager.ClearQuest(currentMainQuestIndex);
 
-        // 현재 퀘스트 데이터 업데이트
-        playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
+        // 퀘스트 완료 처리
+        questDataManager.CheckEndQuest(currentMainQuestIndex);
 
         // 꿈 구슬 지급
         playerDataManager.AddDreamMarble(1);
+    }
+
+    public void MoveNextQuest()
+    {
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+
+        // 현재 퀘스트 데이터 업데이트
+        playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
     }
 
     public void DeliveryFailed()

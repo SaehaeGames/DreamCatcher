@@ -16986,6 +16986,7 @@ MonoBehaviour:
   contentTexts: {fileID: 1107003044}
   questPanel: {fileID: 746535976}
   deliveryView: {fileID: 553120850}
+  deliveryButton: {fileID: 167481798}
   wallPapers:
   - {fileID: 21300000, guid: 92f3cf6de522e1c46aaaff580e76efa3, type: 3}
   - {fileID: 21300000, guid: 48011e3fe702a9d45ba3d87bb8b98944, type: 3}
@@ -39870,9 +39871,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: QuestActionManager, Assembly-CSharp
-        m_MethodName: HandleSetQuestStartActive
+      - m_Target: {fileID: 746535981}
+        m_TargetAssemblyTypeName: QuestUIController, Assembly-CSharp
+        m_MethodName: PlayQuestActionActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

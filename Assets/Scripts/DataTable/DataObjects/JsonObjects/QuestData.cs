@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,31 +6,38 @@ using UnityEngine;
 [Serializable]
 public class QuestData
 {
-    public string id;     //Äù½ºÆ® id
-    public bool isChecked;   //Äù½ºÆ® È®ÀÎ ¿©ºÎ
-    public bool isClear;  //Äù½ºÆ® Å¬¸®¾î ¿©ºÎ
+    public string id;     //í€˜ìŠ¤íŠ¸ id
+    public bool isStartChecked;   //í€˜ìŠ¤íŠ¸ í™•ì¸ ì—¬ë¶€
+    public bool isEndChecked; //í€˜ìŠ¤íŠ¸ ë‚©í’ˆ ì—¬ë¶€
+    public bool isClear;  //í€˜ìŠ¤íŠ¸ í´ë¦¬ì–´ ì—¬ë¶€
     public string questInfo_Id;
 
     public QuestData()
     {
         id = "JS_0000";
-        isChecked = isClear = false;
+        isStartChecked = isEndChecked = isClear = false;
         questInfo_Id = "SO_0000";
     }
 
-    public QuestData(string _id, bool _isChecked, bool _isClear, string _questInfoId)
+    public QuestData(string _id, bool _isChecked, bool _isEndChecked, bool _isClear, string _questInfoId)
     {
         this.id = _id;
-        this.isChecked = _isChecked;
+        this.isStartChecked = _isChecked;
         this.isClear = _isClear;
+        this.isEndChecked= _isEndChecked;
         this.questInfo_Id = _questInfoId;
     }
 
-    #region Set ÇÔ¼ö
+    #region Set í•¨ìˆ˜
 
-    public void SetIsChecked(bool _isChecked)
+    public void SetIsStartChecked(bool _isStartChecked)
     {
-        this.isChecked = _isChecked;
+        this.isStartChecked = _isStartChecked;
+    }
+
+    public void SetIsEndChecked(bool _isEndChecked)
+    {
+        this.isEndChecked = _isEndChecked;
     }
 
     public void SetIsClear(bool _isClear)
@@ -45,10 +52,15 @@ public class QuestData
 
     #endregion
 
-    #region Get ÇÔ¼ö
-    public bool GetIsChecked()
+    #region Get í•¨ìˆ˜
+    public bool GetIsStartChecked()
     {
-        return isChecked;
+        return isStartChecked;
+    }
+
+    public bool GetIsEndChecked()
+    {
+        return isEndChecked;
     }
 
     public bool GetIsClear()

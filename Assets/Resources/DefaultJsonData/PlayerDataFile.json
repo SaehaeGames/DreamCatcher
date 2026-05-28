@@ -1,54 +1,11 @@
 {
-    "dataList": [
-        {
-            "id": "JS_5000",
-            "dataName": "DreamMarble",
-            "dataNumber": 0.0
-        },
-        {
-            "id": "JS_5001",
-            "dataName": "Gold",
-            "dataNumber": 754000.0
-        },
-        {
-            "id": "JS_5002",
-            "dataName": "SpecialFeed",
-            "dataNumber": 100.0
-        },
-        {
-            "id": "JS_5003",
-            "dataName": "BGM",
-            "dataNumber": 1.0
-        },
-        {
-            "id": "JS_5004",
-            "dataName": "Effect",
-            "dataNumber": 1.0
-        },
-        {
-            "id": "JS_5005",
-            "dataName": "BGMMute",
-            "dataNumber": 0.0
-        },
-        {
-            "id": "JS_5006",
-            "dataName": "EffectMute",
-            "dataNumber": 1.0
-        },
-        {
-            "id": "JS_5007",
-            "dataName": "nowSceneNum",
-            "dataNumber": 10.0
-        },
-        {
-            "id": "JS_5008",
-            "dataName": "nowQuestNum",
-            "dataNumber": 3.0
-        },
-        {
-            "id": "JS_5009",
-            "dataName": "questAccepted",
-            "dataNumber": 1.0
-        }
-    ]
+  "gold": 0,
+  "dreamMarble": 0,
+  "specialFeed": 0,
+  "bgmVolume": 0.0,
+  "effectVolume": 0.0,
+  "bgmMute": false,
+  "effectMute": false,
+  "currentScene": 0,
+  "currentMainQuestIndex": 0
 }

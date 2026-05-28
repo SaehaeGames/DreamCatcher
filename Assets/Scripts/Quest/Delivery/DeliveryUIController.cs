@@ -20,6 +20,7 @@ public class DeliveryUIController : MonoBehaviour
     public GameObject managers;
     private DeliveryManager deliveryManager;
     private QuestActionController questActionManager;
+    private PlayerDataManager playerDataManager;
 
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
 
@@ -27,6 +28,11 @@ public class DeliveryUIController : MonoBehaviour
     {
         deliveryManager = managers.GetComponent<DeliveryManager>();
         questActionManager = managers.GetComponent<QuestActionController>();
+    }
+
+    private void Start()
+    {
+        playerDataManager = GameManager.instance.playerDataManager;
     }
 
     public void OpenCheckWin(DreamCatcherInventoryData dreamCatcherInventoryData)
@@ -62,8 +68,9 @@ public class DeliveryUIController : MonoBehaviour
         {
             case DeliveryResult.Success:
                 // 퀘스트 종료 퀘스트 액션 재생
-                questActionManager.HandleSetQuestEndActive();
-                deliveryManager.DeliverySuccess();
+                deliveryManager.CompleteCurrentQuest();
+                QuestPanel.GetComponent<QuestUIController>().OpenWhiteWallPaper();
+                deliveryManager.MoveNextQuest();
                 break;
             case DeliveryResult.WrongItem:
                 // 잘못된 드림캐쳐 안내 대사창 재생
@@ -79,5 +86,11 @@ public class DeliveryUIController : MonoBehaviour
         // 납품창 비활성화
         this.gameObject.SetActive(false);
 
+    }
+
+    public void CompleteMainQuest()
+    {
+        int completedQuestIndex = playerDataManager.GetCurrentMainQuestIndex() - 1;
+        questActionManager.ActiveQuestEndActionActive(completedQuestIndex);
     }
 }

@@ -8,7 +8,7 @@ public class QuestActionController : MonoBehaviour
     public GameObject questActionPipelines;
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
-    private int currentQuestNum;
+    private int completedQuestNum;
     public Transform[] quests;
 
     private void Awake()
@@ -41,7 +41,7 @@ public class QuestActionController : MonoBehaviour
         }
 
         // 현재 퀘스트 번호 불러오기
-        currentQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
+        completedQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
 
         if (this == null)
         { Debug.LogError("QuestActionManager instance is null"); }
@@ -54,11 +54,11 @@ public class QuestActionController : MonoBehaviour
     public void HandleSetQuestStartActive()
     {
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
-        currentQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
-        bool questAccepted = questDataManager.IsQuestChecked(currentQuestNum); // 현재 퀘스트 수락 상태인지 불러오기
-        if (currentQuestNum >= 2 && currentQuestNum < quests.Length && !questAccepted)
+        completedQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
+        bool questAccepted = questDataManager.IsQuestChecked(completedQuestNum); // 현재 퀘스트 수락 상태인지 불러오기
+        if (completedQuestNum >= 2 && completedQuestNum < quests.Length && !questAccepted)
         {
-            Transform startObject = quests[currentQuestNum].GetChild(0);
+            Transform startObject = quests[completedQuestNum].GetChild(0);
             
             if (startObject != null)
             {
@@ -66,21 +66,19 @@ public class QuestActionController : MonoBehaviour
                 startObject.gameObject.SetActive(true); // Start 활성화
 
                 // 퀘스트 수락 상태 업데이트
-                questDataManager.CheckQuest(currentQuestNum); // [퀘스트 중]으로 수정
-                GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, playerDataManager);
+                questDataManager.CheckStartQuest(completedQuestNum); // [퀘스트 중]으로 수정
             }
         }
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- End</color>");
     }
 
-    public void HandleSetQuestEndActive()
+    public void ActiveQuestEndActionActive(int questIndex)
     {
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- Start</color>");
-        currentQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
-        bool questAccepted = questDataManager.IsQuestChecked(currentQuestNum); // 현재 퀘스트 수락 상태인지 불러오기
-        if (currentQuestNum >= 2 && currentQuestNum < quests.Length && questAccepted)
+        bool isQuestCleared = questDataManager.IsQuestCleared(questIndex); // 현재 퀘스트 수락 상태인지 불러오기
+        if (completedQuestNum >= 2 && completedQuestNum < quests.Length && isQuestCleared)
         {
-            Transform endObject = quests[currentQuestNum].GetChild(1);
+            Transform endObject = quests[completedQuestNum].GetChild(1);
             if (endObject != null)
             {
                 Debug.Log("<color=cyan>End QuestAction 활성화</color>");

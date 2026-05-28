@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+public enum QuestFlowState
+{
+    None,
+    PreviousQuestDeliveryCompleted,
+    CurrentQuestBeforeStart,
+    CurrentQuestProgress,
+    CurrentQuestDeliveryCompleted
+}
 public class QuestManager : MonoBehaviour
 {
     //퀘스트 내용을 데이터에서 가져와서 설정하는 스크립트
@@ -23,6 +30,64 @@ public class QuestManager : MonoBehaviour
         questDataManager = GameManager.instance.questDataManager;
         questInfo_Data = GameManager.instance.questinfo_data;
     }
+    
+    public void AcceptMainQuest()
+    {
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+        bool isChecked = questDataManager.IsQuestChecked(currentMainQuestIndex);
+        if (!isChecked)
+        {
+            questDataManager.CheckStartQuest(currentMainQuestIndex);
+        }
+    }
+
+    public QuestFlowState GetQuestFlowState()
+    {
+        int currentQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+        int previousQuestIndex = currentQuestIndex - 1;
+
+        // 이전 퀘스트 isEndChecked 확인(납품 완료했는지 확인)
+        if (previousQuestIndex >= 0)
+        {
+            bool previousQuestIsClear =
+                questDataManager.IsQuestCleared(previousQuestIndex);
+
+            bool previousQuestIsEndChecked =
+                questDataManager.IsQuestEndChecked(previousQuestIndex);
+
+            if (!previousQuestIsClear && previousQuestIsEndChecked)
+            {
+                questDataManager.ClearQuest(previousQuestIndex);
+                return QuestFlowState.PreviousQuestDeliveryCompleted;
+            }
+        }
+
+        // 현재 퀘스트 Start 확인
+        bool currentQuestIsChecked =
+            questDataManager.IsQuestChecked(currentQuestIndex);
+
+        if (!currentQuestIsChecked)
+        { 
+            return QuestFlowState.CurrentQuestBeforeStart; 
+        }
+
+        // 현재 퀘스트 납품 완료 상태
+        bool currentQuestIsEndChecked =
+            questDataManager.IsQuestEndChecked(currentQuestIndex);
+
+        if(currentQuestIsEndChecked)
+        {
+            return QuestFlowState.CurrentQuestDeliveryCompleted;
+        }
+
+        return QuestFlowState.CurrentQuestProgress;
+    }
+
+    public int GetCurrentMainQuestIndex()
+    {
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+        return currentMainQuestIndex;
+    }
 
     public QuestData GetCurrentQuestData()
     {
@@ -33,11 +98,11 @@ public class QuestManager : MonoBehaviour
 
     public string GetCurrentMainQuestTitle()
     {
+        QuestFlowState questFlowState = GetQuestFlowState();
         int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
-        bool isClear = questDataManager.IsQuestCleared(currentMainQuestIndex);
 
         string title;
-        if (isClear)
+        if (questFlowState == QuestFlowState.CurrentQuestDeliveryCompleted)
         {
             title = questInfo_Data.dataList[currentMainQuestIndex * 2 + 1].title.ToString();
         }
@@ -51,13 +116,12 @@ public class QuestManager : MonoBehaviour
 
     public string GetCurrentMainQuestContents()
     {
+        QuestFlowState questFlowState = GetQuestFlowState();
         int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
-
-        bool isClear = questDataManager.IsQuestCleared(currentMainQuestIndex);
 
         string contents;
 
-        if (isClear) // 클리어 시
+        if (questFlowState == QuestFlowState.CurrentQuestDeliveryCompleted) // 클리어 시
         {
             contents = questInfo_Data.dataList[currentMainQuestIndex * 2 + 1].contents.ToString();
         }
@@ -72,11 +136,11 @@ public class QuestManager : MonoBehaviour
 
     public string GetCurrentMainQuestFrom()
     {
+        QuestFlowState questFlowState = GetQuestFlowState();
         int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
-        bool isClear = questDataManager.IsQuestCleared(currentMainQuestIndex);
 
         string from;
-        if (isClear)
+        if (questFlowState == QuestFlowState.CurrentQuestDeliveryCompleted)
         {
             from = questInfo_Data.dataList[currentMainQuestIndex * 2 + 1].from.ToString();
         }
