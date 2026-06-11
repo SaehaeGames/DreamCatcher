@@ -11,8 +11,9 @@ public class DreamCatcher
     public bool[] DCbead = new bool[48];
     public int DCcolor;
     public int DCfeather1, DCfeather2, DCfeather3;
+    public string ThumbnailPath;
 
-    public DreamCatcher(string _DCid, int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3)
+    public DreamCatcher(string _DCid, int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3, string _thumbnailPath)
     {
         DCid = _DCid;
         DCline = _DCline;
@@ -22,6 +23,7 @@ public class DreamCatcher
         DCfeather2 = _DCfeather2;
         DCfeather3 = _DCfeather3;
         TemplateHash = DreamCatcherHasher.CreateTemplateHash(DCline, DCbead, DCcolor, DCfeather1, DCfeather2, DCfeather3);
+        ThumbnailPath = _thumbnailPath;
     }
 
     public DreamCatcher(int[] _DCline, bool[] _DCbead, int _DCcolor, int _DCfeather1, int _DCfeather2, int _DCfeather3)
@@ -105,5 +107,10 @@ public class DreamCatcher
     public string GetTemplateHash()
     {
         return TemplateHash;
+    }
+
+    public string GetThumbnailPath()
+    {
+        return ThumbnailPath;
     }
 }

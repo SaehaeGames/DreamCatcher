@@ -327,37 +327,42 @@ public class DCCheckManager : MonoBehaviour
         return BeadMap[beadIndex];
     }
 
-    // 드림캐쳐 1차 완성
-    public void CheckCompleteDreamCatcher()
+    public bool IsFeatherEnough()
     {
-        //CaptureDreamCatcher();
-        if (fNum == 3)
+        if (fNum >= 2)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // 드림캐쳐 1차 완성
+    public DreamCatcher ConfirmMyDreamCatcher()
+    {
+        if (IsFeatherEnough())
         {
             // 드림캐쳐 생성
-            myDreamCatcher = new DreamCatcher(ConvertLineArrayTo1D(DreamCatcherMap), BeadMap, colorMap, featherMap[0], featherMap[1], featherMap[2]);
+            string dreamCatcherId = dreamCatcherData.GetNextAvailableId();
+            myDreamCatcher = new DreamCatcher(dreamCatcherId, ConvertLineArrayTo1D(DreamCatcherMap), BeadMap, colorMap, featherMap[0], featherMap[1], featherMap[2], "");
 
+            return myDreamCatcher;
             // 드림캐쳐 이미지 생성
-            completeDCImg.GetComponent<MakeDreamCatcher>().MakeDreamCatcherImg(myDreamCatcher);
+            //completeDCImg.GetComponent<DreamCatcherPreview>().MakeDreamCatcherImg(myDreamCatcher);
+        }
+        else
+        {
+            return null;
         }
     }
     
     // 드림캐쳐 완성
-    public void CompleteDreamCatcher()
+    public void CompleteDreamCatcher(string path)
     {
         dreamCatcherData.AddDreamCatcher(myDreamCatcher);
-
-        try
-        {
-            // 드림캐쳐 json 세이브
-            //GameManager.instance.dreamCatcherDataManager.Save();
-        }
-        catch (Exception e)
-        {
-            testTxt.text += "json세이브 로드: " + e + "\n";
-        }
-
-        // 깃털 변경사항 저장
-        //FNDManager.SaveFeatherJson();
+        dreamCatcherData.SetDreamCatcherThumbnailPath(myDreamCatcher.GetId(), path);
 
         // 드림캐쳐 사용 재료 인벤토리 삭제
         for (int i = 0; i < fNum; i++)

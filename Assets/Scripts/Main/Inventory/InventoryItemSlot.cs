@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,9 @@ public class InventoryItemSlot : MonoBehaviour
     private bool selected;
     private InventoryManager inventoryManager;
 
+    private Texture2D loadedTexture;
+    private Sprite loadedSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,7 +57,7 @@ public class InventoryItemSlot : MonoBehaviour
         selectedIcon.SetActive(selected);
     }
 
-    public void SetSlotDreamCatcher(InventoryManager _inventoryManager, DreamCatcherInventoryData _dreamCatcherInventoryData, Sprite itemSprite, string itemName, string description, int count) 
+    public void SetSlotDreamCatcher(InventoryManager _inventoryManager, DreamCatcherInventoryData _dreamCatcherInventoryData, string itemName, string description, int count) 
     {
         inventoryManager= _inventoryManager;
         dreamCatcherInventoryData= _dreamCatcherInventoryData;
@@ -63,20 +67,48 @@ public class InventoryItemSlot : MonoBehaviour
         ItemImage.gameObject.SetActive(true);
         countText.gameObject.SetActive(true);
 
-        if(itemSprite == null)
-        {
-            ItemImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            ItemImage.sprite = itemSprite;
-        }
+        LoadDreamCatcherThumbnail();
+
         itemNameText.text = "드림 캐쳐";
         descriptionText.text = description;
         countText.text = "X " + count.ToString();
 
         selected = false;
         selectedIcon.SetActive(selected);
+    }
+
+    private void LoadDreamCatcherThumbnail()
+    {
+        string dreamCatcherId =
+        dreamCatcherInventoryData.GetDCids()[0];
+
+        string path =
+            DreamCatcherThumbnailRenderer.GetThumbnailPathStatic(
+                dreamCatcherId);
+
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning($"썸네일 없음 : {path}");
+
+            ItemImage.gameObject.SetActive(false);
+            return;
+        }
+
+        byte[] bytes = File.ReadAllBytes(path);
+
+        loadedTexture = new Texture2D(2, 2);
+        loadedTexture.LoadImage(bytes);
+
+        loadedSprite = Sprite.Create(
+            loadedTexture,
+            new Rect(
+                0,
+                0,
+                loadedTexture.width,
+                loadedTexture.height),
+            new Vector2(0.5f, 0.5f));
+
+        ItemImage.sprite = loadedSprite;
     }
 
     public DreamCatcherInventoryData GetSlotDreamCatcherInventoryData()

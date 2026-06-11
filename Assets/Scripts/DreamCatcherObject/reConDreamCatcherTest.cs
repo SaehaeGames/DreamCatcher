@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class reConDreamCatcherTest : MonoBehaviour
 {
-    public MakeDreamCatcher myDeramCatcher;
+    public DreamCatcherPreview myDeramCatcher;
 
     // Start is called before the first frame update
     void Start()

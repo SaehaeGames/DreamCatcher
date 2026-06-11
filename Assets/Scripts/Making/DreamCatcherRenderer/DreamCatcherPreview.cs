@@ -5,47 +5,48 @@ using UnityEngine.UI;
 using System.IO;
 
 
-public class MakeDreamCatcher : MonoBehaviour
+public class DreamCatcherPreview : MonoBehaviour
 {
     //public int dreamcatcherNumber;
-    //게임 오브젝트
-    public GameObject ring;
-    public GameObject feathers;
-    public GameObject beads;
-    public GameObject points;
-    public GameObject hangPoints;
-    public GameObject gem;
-    public GameObject lines;
+    [Header("[DreamCatcher Object]")]
+    [SerializeField] private GameObject ring;
+    [SerializeField] private GameObject feathers;
+    [SerializeField] private GameObject beads;
+    [SerializeField] private GameObject points;
+    [SerializeField] private GameObject hangPoints;
+    [SerializeField] private GameObject gem;
+    [SerializeField] private GameObject lines;
 
+    [Header("[Line Prefab]")]
     public GameObject linePrefab;
 
-    //드림캐쳐 데이터
-    //private static string fileName = "DreamCatcherData";       //파일 이름
-    //public List<DreamCatcher> madeData = new List<DreamCatcher>();
-    private int[,] lineMap = new int[8, 8];
-    private bool[] beadMap = new bool[48];
+    [Header("[Setting]")]
+    public float lineWidgth;
 
     //이미지 데이터
-    public Sprite[] ringImgs;
-    public Sprite[] featherImgs;
-    public Sprite[] beadImgs;
-    public Sprite[] gemImgs;
+    [Header("[Image Source]")]
+    [SerializeField] private Sprite[] ringImgs;
+    [SerializeField] private Sprite[] featherImgs;
+    [SerializeField] private Sprite[] beadImgs;
+    [SerializeField] private Sprite[] gemImgs;
     private Color[] stringColors = { new Color(1f, 1f, 1f, 1f), new Color(1f, 0.9254903f, 0.4784314f, 1f),
         new Color(0.3333333f, 0.345098f, 0.4705883f, 1f), new Color(0.6078432f, 0.2235294f, 0.2352941f, 1f),
         new Color(0.3411765f, 0.3411765f, 0.3411765f, 1f) };
 
-    //public GameObject txtCheck;
-
-    public int colorNum;
-
+    [Header("[Data]")]
     public DreamCatcherDataManager dreamCatcherDataManager;
+
+    private int[,] lineMap = new int[8, 8];
+    private bool[] beadMap = new bool[48];
+    private int colorNum;
+
 
     public void LineDelete()
     {
         if (lines.transform.childCount > 0)
         {
             Debug.Log("라인 삭제");
-            for (int i = 0; i > lines.transform.childCount; i++)
+            for (int i = 0; i < lines.transform.childCount; i++)
             {
                 Destroy(lines.transform.GetChild(i));
             }
@@ -59,15 +60,11 @@ public class MakeDreamCatcher : MonoBehaviour
         
         // 색
         colorNum = myDreamCatcher.GetColor();
-        Debug.Log("라인색 : " + colorNum);
 
         // 링
         ring.GetComponent<Image>().sprite = ringImgs[colorNum];
         //라인
         lineMap = myDreamCatcher.ConvertLineArrayTo2D(myDreamCatcher.GetLine());
-
-        //Debug.Log("myDreamCatcher.GetLine()[0, 4] : " + myDreamCatcher.GetLine()[0, 4]);
-        //Debug.Log("lineMap[0, 4] : " + lineMap[0, 4]);
 
         for (int i = 0; i < 8; i++)
         {
@@ -76,18 +73,18 @@ public class MakeDreamCatcher : MonoBehaviour
                 //lineMap 확인
                 if (lineMap[i, j] > 0 && lineMap[j, i] > 0)
                 {
-                    Debug.Log("lineMap[0, 4] is ok : "+lineMap[0, 4]);
                     //라인 생성
                     var line = Instantiate(linePrefab);
                     line.transform.SetParent(lines.transform);
                     line.GetComponent<LineRenderer>().sortingOrder = 6;
+                    
                     //라인 색 설정
                     line.GetComponent<LineRenderer>().startColor = stringColors[colorNum];
                     line.GetComponent<LineRenderer>().endColor = stringColors[colorNum];
-                    Debug.Log("라인 업데이트");
+                    
                     //라인 넓이 설정
-                    line.GetComponent<LineRenderer>().startWidth = 0.01f;
-                    line.GetComponent<LineRenderer>().endWidth = 0.01f;
+                    line.GetComponent<LineRenderer>().startWidth = lineWidgth;
+                    line.GetComponent<LineRenderer>().endWidth = lineWidgth;
                     if (lineMap[i, j] > 1 && lineMap[j, i] > 1)
                     {
                         //라인 연결
@@ -103,10 +100,6 @@ public class MakeDreamCatcher : MonoBehaviour
                         line.GetComponent<LineRenderer>().SetPosition(0, points.transform.GetChild(i).position);
                         line.GetComponent<LineRenderer>().SetPosition(1, points.transform.GetChild(j).position);
                     }
-                    //madeData 업데이트
-                    //lineMap[i, j] = 0;
-                    //lineMap[j, i] = 0;
-                    //Debug.Log("lineMap 변경후 : " + myDreamCatcher.GetLine()[0, 4]);
                 }
             }
         }
@@ -133,36 +126,6 @@ public class MakeDreamCatcher : MonoBehaviour
             feathers.transform.GetChild(i).GetChild(2).gameObject.GetComponent<Image>().sprite = beadImgs[colorNum];
         }
     }
-
-    //Json파일 불러오기
-    /*public void LoadJson()
-    {
-        string savePath = getPath(fileName);
-        if (File.Exists(savePath))
-        {
-            string jdata = File.ReadAllText(savePath);
-            madeData = JsonHelper.FromJson<DreamCatcher>(jdata); // 드림캐쳐 데이터들 불러옴
-            Debug.Log("파일을 불러온 후 data: " + madeData);
-            Debug.Log("**********Json파일 불러옴*************");
-        }
-        else
-        {
-            SaveJson();
-            //data = new List<DreamCatcher>();
-            Debug.Log("**********Json파일 없음*************");
-        }
-    }
-
-    //Json파일 저장
-    public void SaveJson()
-    {
-        string savePath = getPath(fileName);
-        string jdata = JsonHelper.ToJson(madeData, true);
-        Debug.Log("data: " + madeData);
-        Debug.Log("jdata: " + jdata);
-        File.WriteAllText(savePath, jdata);
-        Debug.Log("**********Json파일 저장************");
-    }*/
 
     // 드림캐쳐 이미지 만들기(Json파일 인덱스 파라미터)
     public void MakeDreamCatcherImg(int dreamcatcherIndex)
@@ -236,7 +199,6 @@ public class MakeDreamCatcher : MonoBehaviour
             {
                 beads.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = beadImgs[colorNum];
                 beads.transform.GetChild(i).gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
-                Debug.Log("MakeDreamCatcher-비즈 활성화 [" + i + "]");
             }
         }
 
@@ -251,19 +213,5 @@ public class MakeDreamCatcher : MonoBehaviour
             feathers.transform.GetChild(i).GetChild(1).gameObject.GetComponent<Image>().sprite = beadImgs[colorNum];
             feathers.transform.GetChild(i).GetChild(2).gameObject.GetComponent<Image>().sprite = beadImgs[colorNum];
         }
-    }
-
-    //파일위치
-    private static string getPath(string fileName)
-    {
-#if UNITY_EDITOR
-        return Application.dataPath + "/Saves/" + fileName + ".json";
-#elif UNITY_ANDROID
-        return Application.persistentDataPath+ "/" + fileName + ".json";
-#elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+ fileName + ".json";
-#else
-        return Application.dataPath +"/"+ fileName + ".json";
-#endif
     }
 }

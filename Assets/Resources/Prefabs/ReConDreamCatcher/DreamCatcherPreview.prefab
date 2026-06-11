@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 401204648384115171}
   - component: {fileID: 401204648384115169}
   m_Layer: 5
-  m_Name: DreamCatcherImg
+  m_Name: DreamCatcherPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

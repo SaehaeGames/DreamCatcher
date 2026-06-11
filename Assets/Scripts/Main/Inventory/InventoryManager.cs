@@ -147,7 +147,8 @@ public class InventoryManager : MonoBehaviour
         {
             GameObject slot = itemList[listCnt];
             slot.SetActive(true);
-            slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(this, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i],  null, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
+            DreamCatcherInventoryData inventoryData = dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i];
+            slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(this, inventoryData, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
             listCnt ++;
         }
     }

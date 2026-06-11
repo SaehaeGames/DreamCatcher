@@ -1,6 +1,7 @@
  using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -28,8 +29,6 @@ public class DreamCatcherDataManager
         if (dreamCatcher == null)
             return null;
 
-        int id = GetNextAvailableId();
-        dreamCatcher.DCid = "JS_" + id;
         dreamCatcherDataModel.dataList.Add(dreamCatcher);
         Save();
 
@@ -63,10 +62,11 @@ public class DreamCatcherDataManager
         // dreamCatcherInventoryData 동기화
         var dreamCatcher = dreamCatcherDataModel.dataList[index];
 
-        dreamCatcherInventoryDataManager.RemoveDreamCatcherInventoryData(
-            dreamCatcher
-        );
+        dreamCatcherInventoryDataManager.RemoveDreamCatcherInventoryData(dreamCatcher);
         dreamCatcherInventoryDataManager.Save();
+
+        // 드림캐쳐 썸네일 삭제
+        DeleteThumbnail(dreamCatcher);
 
         // 드림캐쳐 삭제
         dreamCatcherDataModel.dataList.RemoveAt(index);
@@ -118,6 +118,15 @@ public class DreamCatcherDataManager
         return result;
     }
 
+    public void SetDreamCatcherThumbnailPath(string id, string path)
+    {
+        DreamCatcher dreamCatcher = GetDreamCatcherById(id);
+        if (dreamCatcher != null)
+        {
+            dreamCatcher.ThumbnailPath = path;
+        }
+    }
+
     public int GetDreamCatcherCount()
     {
         return dreamCatcherDataModel.dataList.Count;
@@ -141,7 +150,7 @@ public class DreamCatcherDataManager
         jsonManager.SaveData(Constants.DreamCatcherDataFile, dreamCatcherDataModel);
     }
 
-    private int GetNextAvailableId()
+    public string GetNextAvailableId()
     {
         HashSet<int> usedIds = new HashSet<int>();
 
@@ -161,6 +170,16 @@ public class DreamCatcherDataManager
             idCandidate++;
         }
 
-        return idCandidate;
+        return "JS_" + idCandidate;
+    }
+
+    public void DeleteThumbnail(DreamCatcher dreamCatcher)
+    {
+        string path = dreamCatcher.GetThumbnailPath();
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 }
