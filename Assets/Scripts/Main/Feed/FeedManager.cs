@@ -127,7 +127,7 @@ public class FeedManager : MonoBehaviour
             birdinfo_data.dataList[randomBird].endTime + 1);                            // 랜덤으로 소요 시간을 정함
 
         // 튜토리얼 중(nowSceneNum <= 11) 비둘기콩은 30초 고정
-        bool isInTutorial = (int)GameManager.instance.playerDataManager.dataList[7].dataNumber <= 11;
+        bool isInTutorial = (int)GameManager.instance.playerDataManager.GetCurrentScene() <= 11;
         if (isInTutorial && feed == FeedType.PigeonBeans)
             randomTime = 30;
 

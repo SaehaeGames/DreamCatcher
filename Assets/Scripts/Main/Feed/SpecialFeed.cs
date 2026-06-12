@@ -23,7 +23,7 @@ public class SpecialFeed : MonoBehaviour
     {
         playerDataManager = GameManager.instance.playerDataManager;    //플레이어의 상단바 데이터 정보를 가져옴
 
-        feedCount = (int)playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_SpecialFeed).dataNumber;  //특제 먹이 개수를 가져옴
+        feedCount = playerDataManager.GetSpecialFeed();  //특제 먹이 개수를 가져옴
         decreaseTime = 300;   //특제먹이 감소 시간
         selectCount = 0;
         UpdateCountText(selectCount);
@@ -90,7 +90,7 @@ public class SpecialFeed : MonoBehaviour
             UpdateCountText(selectCount);
             GameObject.FindGameObjectWithTag(Constants.Tag_TopBar).GetComponent<TopBarText>().UpdateText();
 
-            GameManager.instance.playerDataManager.GetPlayerDataByDataName(Constants.PlayerData_SpecialFeed).dataNumber = feedCount;
+            GameManager.instance.playerDataManager.UseSpecialFeed(feedCount);
             GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, playerDataManager);
 
             this.GetComponent<FeedPanel>().SetSpecialFeedPanelActive(false);  // 패널 닫기

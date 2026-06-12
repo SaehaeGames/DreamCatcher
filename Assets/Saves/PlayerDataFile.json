@@ -1,11 +1,3 @@
 {
-    "gold": 0,
-    "dreamMarble": 3,
-    "specialFeed": 0,
-    "bgmVolume": 0.0,
-    "effectVolume": 0.0,
-    "bgmMute": false,
-    "effectMute": false,
-    "currentScene": 16,
-    "currentMainQuestIndex": 2
+    "dataList": []
 }
