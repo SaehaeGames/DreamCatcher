@@ -3,16 +3,16 @@ using UnityEngine.UI;
 
 public class RackTrigger : MonoBehaviour
 {
-    // È¶´ë Æ®¸®°Å ¿ÀºêÁ§Æ®¿¡ ³ÖÀ» Å¬·¡½º
-    // ÀÚ½ÅÀÇ È¶´ë Á¤º¸¸¦ °¡Áö°í ¸ÔÀÌ¿ÍÀÇ Ãæµ¹ Á¤º¸¸¦ °ü¸®ÇÔ
+    // È¶ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+    // ï¿½Ú½ï¿½ï¿½ï¿½ È¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     [Header("[RackTrigger]")]
-    [SerializeField] private int triggerNumber;         // ÀÚ½ÅÀÇ È¶´ë ¹øÈ£ º¯¼ö
+    [SerializeField] private int triggerNumber;         // ï¿½Ú½ï¿½ï¿½ï¿½ È¶ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 
     public int TriggerNumber
     {
-        // È¶´ë ¹øÈ£ ÇÁ·ÎÆÛÆ¼ ÇÔ¼ö
-        // È¶´ë ¹øÈ£¸¦ ¼³Á¤ÇÏ°Å³ª ¹ÝÈ¯ÇÔ
+        // È¶ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½Ô¼ï¿½
+        // È¶ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½È¯ï¿½ï¿½
 
         get => triggerNumber;
         set => triggerNumber = value;
@@ -20,7 +20,7 @@ public class RackTrigger : MonoBehaviour
 
     private void Start()
     {
-        Button button = GetComponent<Button>();      // ¹öÆ° ÄÄÆ÷³ÍÆ®
+        Button button = GetComponent<Button>();      // ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         button.onClick.AddListener(() => FeedPanelOpen());
     }
 
@@ -32,27 +32,45 @@ public class RackTrigger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        //¸ÔÀÌ ¿ÀºêÁ§Æ®¿¡ ´ê¾ÒÀ» ¶§ 
-
-        if (collision.CompareTag("Feed"))   // ¸ÔÀÌ¿Í ´ê¾Ò´Ù¸é
-        {
-            var feedDrag = collision.gameObject.GetComponent<FeedDrag>();
+        if (!collision.CompareTag("Feed")) return;
+        var feedDrag = FindDraggingFeedDrag(collision.gameObject);
+        if (feedDrag != null)
             feedDrag.LastRackNumber = triggerNumber;
-        }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        //¸ÔÀÌ ¿ÀºêÁ§Æ®¿¡¼­ ¶³¾îÁ³À» ¶§ 
-
-        if (collision.CompareTag("Feed"))     // ¸ÔÀÌ¿Í ´ê¾Ò´Ù°¡ ¶³¾îÁ³´Ù¸é
+        if (!collision.CompareTag("Feed")) return;
+        var feedDrag = FindDroppedFeedDrag(collision.gameObject, triggerNumber);
+        if (feedDrag != null)
         {
-            var feedDrag = collision.gameObject.GetComponent<FeedDrag>();
-            if (!feedDrag.IsDragging)          // ÇöÀç µå·¡±×ÁßÀÌ ¾Æ´Ï¶ó¸é (== µå·¡±×¸¦ ³¡³»°í È¶´ë¸¦ ¼±ÅÃÇß´Ù¸é)
-            {
-                var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
-                feedManager.SelectFeed(triggerNumber, feedDrag.Feed);   // È¶´ë ¸ÔÀÌ ¼±ÅÃ ÇÔ¼ö ½ÇÇà
-            }
+            feedDrag.LastRackNumber = -1;
+            var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
+            feedManager.SelectFeed(triggerNumber, feedDrag.Feed);
         }
+    }
+
+    private FeedDrag FindDraggingFeedDrag(GameObject obj)
+    {
+        Transform t = obj.transform;
+        while (t != null)
+        {
+            var fd = t.GetComponent<FeedDrag>();
+            if (fd != null && fd.IsDragging) return fd;
+            t = t.parent;
+        }
+        return null;
+    }
+
+    private FeedDrag FindDroppedFeedDrag(GameObject obj, int rackNum)
+    {
+        Transform t = obj.transform;
+        while (t != null)
+        {
+            var fd = t.GetComponent<FeedDrag>();
+            if (fd != null && !fd.IsDragging && fd.LastRackNumber == rackNum) return fd;
+            t = t.parent;
+        }
+        return null;
     }
 }

@@ -1,11 +1,38 @@
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 public class TestDataResetTool
 {
     private static readonly string GoodsDataPath = Application.dataPath + "/Saves/GoodsDataFile.json";
     private static readonly string InteriorDataPath = Application.dataPath + "/Saves/InteriorDataFile.json";
+    private static readonly string RackDataPath = Application.dataPath + "/Saves/RackDataFile.json";
+    private static readonly string PlayerDataPath = Application.dataPath + "/Saves/PlayerDataFile.json";
+    private static readonly string FeatherDataPath = Application.dataPath + "/Saves/FeatherNumInfo.json";
+    private static readonly string DreamCatcherInventoryPath = Application.dataPath + "/Saves/DreamCatcherInventoryDataFile.json";
+    private static readonly string DreamCatcherListPath = Application.dataPath + "/Saves/DreamCatcherListData.json";
+
+    [System.Serializable]
+    private class PlayerDataEntry { public string id; public string dataName; public float dataNumber; }
+    [System.Serializable]
+    private class PlayerDataWrapper { public List<PlayerDataEntry> dataList = new List<PlayerDataEntry>(); }
+
+    [MenuItem("DreamCatcher/테스트 데이터 초기화/튜토리얼 초기화")]
+    public static void ResetTutorial()
+    {
+        if (!EditorUtility.DisplayDialog("튜토리얼 초기화",
+            "튜토리얼 진행도와 인벤토리(깃털, 드림캐쳐)를 초기화하고\n멧비둘기 깃털 1개를 지급합니다.\n계속하시겠습니까?", "초기화", "취소"))
+            return;
+
+        ResetTutorialProgress();
+        ResetFeatherDataForTutorial();
+        ResetDreamCatcherInventoryData();
+        ResetDreamCatcherListData();
+        ResetRackData();
+        AssetDatabase.Refresh();
+        Debug.Log("[TestDataReset] 튜토리얼 초기화 완료 (멧비둘기 깃털 1개 지급)");
+    }
 
     [MenuItem("DreamCatcher/테스트 데이터 초기화/상점 + 인테리어 전체 초기화")]
     public static void ResetAll()
@@ -34,6 +61,71 @@ public class TestDataResetTool
         ResetInteriorData();
         AssetDatabase.Refresh();
         Debug.Log("[TestDataReset] 인테리어 데이터 초기화 완료");
+    }
+
+    [MenuItem("DreamCatcher/테스트 데이터 초기화/먹이 + 타이머 데이터 초기화")]
+    public static void ResetRackDataOnly()
+    {
+        if (!EditorUtility.DisplayDialog("데이터 초기화",
+            "횃대 먹이 및 타이머 데이터를 초기화합니다.\n계속하시겠습니까?", "초기화", "취소"))
+            return;
+
+        ResetRackData();
+        AssetDatabase.Refresh();
+        Debug.Log("[TestDataReset] 먹이 + 타이머 데이터 초기화 완료");
+    }
+
+    private static void ResetRackData()
+    {
+        string json = "{\n    \"datalist\": []\n}";
+        File.WriteAllText(RackDataPath, json);
+    }
+
+    private static void ResetTutorialProgress()
+    {
+        if (!File.Exists(PlayerDataPath))
+        {
+            Debug.LogWarning("[TestDataReset] PlayerDataFile.json 없음 - 스킵");
+            return;
+        }
+        string json = File.ReadAllText(PlayerDataPath);
+        PlayerDataWrapper data = JsonUtility.FromJson<PlayerDataWrapper>(json);
+        foreach (var entry in data.dataList)
+        {
+            if (entry.dataName == "nowSceneNum") entry.dataNumber = 0;
+            else if (entry.dataName == "nowQuestNum") entry.dataNumber = 0;
+            else if (entry.dataName == "questAccepted") entry.dataNumber = 0;
+        }
+        File.WriteAllText(PlayerDataPath, JsonUtility.ToJson(data, true));
+    }
+
+    private static void ResetFeatherDataForTutorial()
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("{");
+        sb.AppendLine("    \"birdCnt\": 16,");
+        sb.AppendLine("    \"featherList\": [");
+        for (int i = 0; i < 16; i++)
+        {
+            // 멧비둘기(JS_2000, index 0)만 깃털 3개 지급 (테스트용)
+            int featherNum = (i == 0) ? 3 : 0;
+            int appear = (i == 0) ? 1 : 0;
+            string comma = (i < 15) ? "," : "";
+            sb.AppendLine($"        {{ \"bird_id\": \"JS_{2000 + i}\", \"feather_number\": {featherNum}, \"appear\": {appear} }}{comma}");
+        }
+        sb.AppendLine("    ]");
+        sb.Append("}");
+        File.WriteAllText(FeatherDataPath, sb.ToString());
+    }
+
+    private static void ResetDreamCatcherInventoryData()
+    {
+        File.WriteAllText(DreamCatcherInventoryPath, "{\n    \"dataList\": []\n}");
+    }
+
+    private static void ResetDreamCatcherListData()
+    {
+        File.WriteAllText(DreamCatcherListPath, "{\n    \"dataList\": []\n}");
     }
 
     private static void ResetGoodsData()

@@ -68,13 +68,13 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
                 Destroy(duplicatedClickBtn);
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            else if (highlightArrowOnOff && clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
                 Debug.Log("화살표 강조 버튼 눌림 인식");
                 clickBtn.transform.SetParent(startParent);
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
             }
-            if(clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
+            else if(clickBtn.GetComponent<InteractiveButton>().GetButtonClicked())
             {
                 Debug.Log("일반 버튼 눌림 인식");
                 tutorialPipeline.SetNextTutorial(sceneStates[panelChangeNum]); // 다음 튜토리얼
