@@ -74,7 +74,7 @@ public class ScriptBox : MonoBehaviour
         myreturn = false; // myreturn 초기화
         this.startId = startId;
         lineNum = startId % 7000; // 인덱스화
-        //lineNum--;
+        lineNum--;
         this.endId = endId;
 
         SetNextDialog();  
@@ -138,7 +138,8 @@ public class ScriptBox : MonoBehaviour
 
 
         talk = _storyscriptinfo_data.dataList[lineNum].line; // 대사
-        _scriptManager.AddLog(talk); // 로그 업데이트
+        if (_scriptManager == null) _scriptManager = ScriptManager.instance;
+        if (_scriptManager != null) _scriptManager.AddLog(talk); // 로그 업데이트
         //Debug.Log("로그 추가: " + talk);
 
         // 타이핑 효과

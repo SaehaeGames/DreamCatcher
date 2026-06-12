@@ -60,7 +60,7 @@ MonoBehaviour:
     line: "\uB208 \uB5A0!!  \uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C!!\r"
   - id: SO_7005
     sceneNum: 1
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
     line: ".....\r"
   - id: SO_7006
     sceneNum: 1
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 4
     effectImage: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
     line: "\uC77C\uC5B4\uB0AC\uC5B4?\r"
   - id: SO_7007
     sceneNum: 1
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
       \uC911\uCC9C\uC774\uB77C\uACE0.\r"
   - id: SO_7008
     sceneNum: 1
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 19
     effectImage: 2
@@ -98,7 +98,7 @@ MonoBehaviour:
       \uD655\uC778\uD574\uC57C\uC9C0.\r"
   - id: SO_7009
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
       \uB9CC\uB4E4\uC5B4 \uBCFC\uAE4C.\r"
   - id: SO_7010
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7011
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 10
     effectImage: 2
@@ -126,7 +126,7 @@ MonoBehaviour:
     line: "\uBB50\uD574?   \uC548 \uB9CC\uB4E4\uACE0?\r"
   - id: SO_7012
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 29
     effectImage: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
     line: "\uC5B4\uB5BB\uAC8C \uD558\uB294\uC9C0 \uAE4C\uBA39\uC5C8\uB2E4\uACE0?\r"
   - id: SO_7013
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 27
     effectImage: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7014
     sceneNum: 2
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 24
     effectImage: 2
@@ -153,7 +153,7 @@ MonoBehaviour:
     line: "....\uC54C\uC558\uC5B4.  \uB2E4\uC2DC \uC124\uBA85\uD574 \uC904\uAC8C.\r"
   - id: SO_7015
     sceneNum: 3
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
       \uBA3C\uC800 \uB3C4\uAC10\uC744 \uBD10\uBD10.\r"
   - id: SO_7016
     sceneNum: 4
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
       \uC5EC\uAE30 \uCCAB \uD398\uC774\uC9C0\uC5D0 \uC788\uB124.\r"
   - id: SO_7017
     sceneNum: 4
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
       2\uAC1C, \uB9E4\uB4ED\uC740...\r"
   - id: SO_7018
     sceneNum: 5
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
       \uBD10.\r"
   - id: SO_7019
     sceneNum: 5
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
       \uB3FC.\r"
   - id: SO_7020
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
     line: "\uBE44\uB458\uAE30 \uCF69\uC740 \uB109\uB109\uD558\uC9C0?\r"
   - id: SO_7021
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 20
     effectImage: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
     line: "\uC774\uC81C \uAE30\uB2E4\uB9AC\uC790.\r"
   - id: SO_7022
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7023
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
     line: "............\r"
   - id: SO_7024
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 7
     effectImage: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
       \uBAB0\uB824\uC640\uC11C\uB294\r"
   - id: SO_7025
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 8
     effectImage: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
     line: "\uAE43\uD138 \uCF69 \uAC00\uACA9 \uC880 \uC62C\uB824 \uB2EC\uB77C \uC544\uC6B0\uC131\uC774\uC5C8\uC796\uC544.\r"
   - id: SO_7026
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 9
     effectImage: 3
@@ -269,7 +269,7 @@ MonoBehaviour:
       \uC6B0\uB9AC\uAC00 \uBB34\uC2A8 \uBC30\uC2DD\uC18C \uC778 \uC904 \uC54C\uC544.\r"
   - id: SO_7027
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 25
     effectImage: 2
@@ -279,7 +279,7 @@ MonoBehaviour:
       \uAE43\uD138\uC744 \uC8FC\uC6E0\uB294\uB370    \uADF8 \uB54C\uAC00 \uC88B\uC558\uC9C0...\r"
   - id: SO_7028
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 9
     effectImage: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
       \uB0A0\uAC15\uB3C4\uB77C\uB2C8\uAE4C.\r"
   - id: SO_7029
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 19
     effectImage: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
     line: "\uC774\uB7F0 <\uD143\uC0C8>\uB97C \uBD80\uB9AC\uB2E4\uB2C8.\r"
   - id: SO_7030
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7031
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
     line: "............\r"
   - id: SO_7032
     sceneNum: 6
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 4
     effectImage: 1
@@ -325,7 +325,7 @@ MonoBehaviour:
     line: "...\uC544! \uC654\uB2E4.\r"
   - id: SO_7033
     sceneNum: 7
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
       \uAC00\uC790.\r"
   - id: SO_7034
     sceneNum: 8
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
     line: "\uB3C4\uAC10\uC5D0\uC11C \uBCF8 \uAC70 \uAE30\uC5B5\uB098?\r"
   - id: SO_7035
     sceneNum: 8
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
     line: "\uADF8\uB9AC\uACE0 \uAD6C\uC2AC \uC704\uCE58\uB294?\r"
   - id: SO_7036
     sceneNum: 8
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 4
     effectImage: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
     line: "\uB2E4\uC74C\uC740 \uC544\uAE4C \uAD6C\uD55C \uAE43\uD138.\r"
   - id: SO_7037
     sceneNum: 9
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
     line: "\uB410\uB2E4. \uC774\uC81C \uBCF4\uB0B4\uBA74 \uB418\uACA0\uC5B4.\r"
   - id: SO_7038
     sceneNum: 10
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 22
     effectImage: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
       \uAC70\uC57C.\r"
   - id: SO_7039
     sceneNum: 10
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -392,7 +392,7 @@ MonoBehaviour:
       \uC545\uBABD\uC744 \uD574\uACB0\uD588\uB2E4\uB294 \uAC70\uB2C8\uAE4C.\r"
   - id: SO_7040
     sceneNum: 10
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -402,7 +402,7 @@ MonoBehaviour:
       \uB098\uC911\uC5D0 \uBD10.\r"
   - id: SO_7041
     sceneNum: 10
-    questNum: 1
+    questNum: 0
     charImage: 1
     faceImage: 16
     effectImage: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
     line: "\uB2E4\uC74C \uC758\uB8B0\uB294...\r"
   - id: SO_7042
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
     line: "\uC774\uAC74 \uB3D9\uBB3C\uACFC \uAD00\uB828\uB41C \uAFC8\uC774\uB124.\r"
   - id: SO_7043
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
       \uC0C8 \uB3C4\uAC10\uC5D0 \uC801\uD600\uC788\uB098 \uBCF4\uC790.\r"
   - id: SO_7044
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
       \uCF69\uC774\uBA74 \uB418\uC9C0 \uC54A\uC744\uAE4C?\r"
   - id: SO_7045
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 8
     effectImage: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
       \uC815\uB9D0 \uC131\uACA9\uC774 \uC548 \uB9DE\uB354\uB77C.\r"
   - id: SO_7046
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 9
     effectImage: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
     line: "\uB108\uB3C4 \uC5ED\uC2DC \uACE0\uC591\uC774\uAC00 \uB354 \uC88B\uC9C0?\r"
   - id: SO_7047
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7048
     sceneNum: 11
-    questNum: 2
+    questNum: 1
     charImage: 1
     faceImage: 7
     effectImage: 2
@@ -478,7 +478,7 @@ MonoBehaviour:
     line: "\uC65C \uB300\uB2F5\uC774 \uC5C6\uC5B4?\r"
   - id: SO_7049
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
     line: "\uD63C\uC790 \uD560 \uC218 \uC788\uC9C0?\r"
   - id: SO_7050
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
       \uC27D\uAC8C \uD560 \uC218 \uC788\uC744 \uAC70\uC57C.\r"
   - id: SO_7051
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 7
     effectImage: 3
@@ -507,7 +507,7 @@ MonoBehaviour:
     line: "\uC0C1\uB2E8??\r"
   - id: SO_7052
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
       \uD558\uC790\uB294 \uAC70\uC57C?\r"
   - id: SO_7053
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 9
     effectImage: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
       \uB2A5\uAD6C\uB801\uC774 \uAC19\uC740 \uB188\uB4E4\uC774\uB2C8\uAE4C.\r"
   - id: SO_7054
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 7
     effectImage: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
     line: "\uBB50\uB77C\uACE0 \uD558\uB4E0 \uC815\uC2E0 \uBC14\uC9DD \uCC28\uB824.\r"
   - id: SO_7055
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 28
     effectImage: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
     line: "\uC640!!! \uC774\uAC70 \uBD10!!  <\uD2B9\uC81C \uBA39\uC774>\uB97C \uD314\uC544?\r"
   - id: SO_7056
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 12
     effectImage: 1
@@ -556,7 +556,7 @@ MonoBehaviour:
       \uB354 \uBE68\uB9AC \uCC3E\uC544\uC628\uB2E4\uACE0!\r"
   - id: SO_7057
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 16
     effectImage: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
       \uAC83\uB4E4\uC774...\r"
   - id: SO_7058
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 12
     effectImage: 2
@@ -576,7 +576,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7059
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 20
     effectImage: 2
@@ -585,7 +585,7 @@ MonoBehaviour:
     line: "\uD07C\uD07C... \uADF8\uB0E5 \uADF8\uB807\uB2E4\uB294 \uAC70\uC57C...\r"
   - id: SO_7060
     sceneNum: 12
-    questNum: 3
+    questNum: 2
     charImage: 1
     faceImage: 4
     effectImage: 0
@@ -595,7 +595,7 @@ MonoBehaviour:
       \uB0B4\uD0A4\uBA74 \uD574.\r"
   - id: SO_7061
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
       \uAC70\uC57C?\r"
   - id: SO_7062
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 30
     effectImage: 0
@@ -614,7 +614,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7063
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 25
     effectImage: 2
@@ -624,7 +624,7 @@ MonoBehaviour:
       \uB9C8. \uBAA8\uB974\uB294 \uAC8C \uB0AB\uACA0\uC5B4.\r"
   - id: SO_7064
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 21
     effectImage: 1
@@ -633,7 +633,7 @@ MonoBehaviour:
     line: "\uC544\uAE4C \uC5BB\uC740 \uD2B9\uC81C \uBA39\uC774 \uC368\uBCF4\uC790!\r"
   - id: SO_7065
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
       \uAC70\uC9C0?\r"
   - id: SO_7066
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 29
     effectImage: 0
@@ -652,7 +652,7 @@ MonoBehaviour:
     line: "\uC815\uB9D0 \uBC14\uB85C \uC624\uB124?\r"
   - id: SO_7067
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 14
     effectImage: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
       \uD2C0\uB9B0 \uB9D0\uB3C4 \uC544\uB2C8\uC9C0.\r"
   - id: SO_7068
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -671,7 +671,7 @@ MonoBehaviour:
     line: "\uB124 \uB3D9\uC0DD \uC0DD\uAC01\uC774\uB77C\uB3C4 \uB098?\r"
   - id: SO_7069
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 10
     effectImage: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7070
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 9
     effectImage: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
     line: "\uCE5C\uC808\uD55C \uCE5C\uAD6C?  \uB3C4\uC6C0??\r"
   - id: SO_7071
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 8
     effectImage: 0
@@ -699,7 +699,7 @@ MonoBehaviour:
       \uC6B0\uB9AC\uB294 \uB610 \uC5B4\uB5BB\uAC8C \uCC3E\uC544\uB0B8 \uAC70\uC57C?!\r"
   - id: SO_7072
     sceneNum: 13
-    questNum: 4
+    questNum: 3
     charImage: 1
     faceImage: 9
     effectImage: 3
@@ -709,7 +709,7 @@ MonoBehaviour:
       \uD3B8\uC9C0 \uC918\uBD10. \uBD88\uD0DC\uC6CC\uBC84\uB824\uC57C\uACA0\uC5B4!\r"
   - id: SO_7073
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 15
     effectImage: 2
@@ -719,7 +719,7 @@ MonoBehaviour:
       \uC2DC\uB044\uB7EC\uC6B8 \uC218 \uC788\uB2E4\uB2C8. \uC2E0\uAE30\uD558\uB124.\r"
   - id: SO_7074
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
       \uB098\uB294\uB370.  \uD081\uD081...\r"
   - id: SO_7075
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 8
     effectImage: 2
@@ -738,7 +738,7 @@ MonoBehaviour:
     line: "... \uC624\uB80C\uC9C0? \uC73D...\r"
   - id: SO_7076
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 19
     effectImage: 2
@@ -748,7 +748,7 @@ MonoBehaviour:
       \uD3B8\uC9C0\uC796\uC544.\r"
   - id: SO_7077
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 21
     effectImage: 1
@@ -757,7 +757,7 @@ MonoBehaviour:
     line: "\uB0E0.  \uADF8\uB798\uB3C4 \uC774 \uBE68\uAC04 \uACFC\uC77C\uC740 \uB9DB\uC788\uB124.\r"
   - id: SO_7078
     sceneNum: 14
-    questNum: 5
+    questNum: 4
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
       \uC774\uAC78 \uBA39\uC774\uB85C \uC0AC\uC6A9\uD574 \uBCFC\uAE4C?\r"
   - id: SO_7079
     sceneNum: 15
-    questNum: 6
+    questNum: 5
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -777,7 +777,7 @@ MonoBehaviour:
       \uB3D9\uAD74\uC774 \uC788\uC5C8\uC796\uC544.\r"
   - id: SO_7080
     sceneNum: 15
-    questNum: 6
+    questNum: 5
     charImage: 1
     faceImage: 15
     effectImage: 2
@@ -787,7 +787,7 @@ MonoBehaviour:
       \uADF8\uB188\uB4E4 \uBA39\uC774\uAC00 \uB420 \uBED4\uD588\uC5C8\uC9C0.\r"
   - id: SO_7081
     sceneNum: 15
-    questNum: 6
+    questNum: 5
     charImage: 1
     faceImage: 19
     effectImage: 0
@@ -797,7 +797,7 @@ MonoBehaviour:
       \uAC8C \uC0DD\uAC01\uB098\uB124.\r"
   - id: SO_7082
     sceneNum: 15
-    questNum: 6
+    questNum: 5
     charImage: 1
     faceImage: 18
     effectImage: 2
@@ -806,7 +806,7 @@ MonoBehaviour:
     line: "\uC815\uB9D0 \uBB34\uC11C\uC6E0\uC5B4...\r"
   - id: SO_7083
     sceneNum: 15
-    questNum: 6
+    questNum: 5
     charImage: 1
     faceImage: 27
     effectImage: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
     line: "\uB2E4\uC2DC \uAC8C\uC73C\uB984\uBC45\uC774\uB85C \uB3CC\uC544\uC654\uC796\uC544!\r"
   - id: SO_7084
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 15
     effectImage: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
       \uC9D1\uC774 \uC628\uD1B5 \uBB3C\uBC14\uB2E4\uC600\uC796\uC544.\r"
   - id: SO_7085
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
       \uB458 \uB2E4 \uB5A8\uC5B4\uC84C\uB294\uB370\r"
   - id: SO_7086
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 19
     effectImage: 2
@@ -845,7 +845,7 @@ MonoBehaviour:
       \uD5C8\uB9AC\uB97C \uB2E4\uCCE4\uC5C8\uC9C0.\r"
   - id: SO_7087
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -855,7 +855,7 @@ MonoBehaviour:
       \uD574\uC904\uAE4C?\r"
   - id: SO_7088
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -865,7 +865,7 @@ MonoBehaviour:
       \uC88B\uC740 \uACF3\uC774\uC57C.\r"
   - id: SO_7089
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 14
     effectImage: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
       \uB54C\uAC00 \uC788\uC5B4.\r"
   - id: SO_7090
     sceneNum: 16
-    questNum: 7
+    questNum: 6
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -884,7 +884,7 @@ MonoBehaviour:
     line: "\uC9D1\uC774\uB780 \uB2E4 \uADF8\uB7F0 \uAC78\uAE4C?\r"
   - id: SO_7091
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 9
     effectImage: 3
@@ -894,7 +894,7 @@ MonoBehaviour:
       \uB354\uB7EC\uC6B4 \uD3B8\uC9C0\uAC00 \uB2E4 \uC788\uC5B4?!\r"
   - id: SO_7092
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 6
     effectImage: 3
@@ -904,7 +904,7 @@ MonoBehaviour:
       \uD558\uB098.\r"
   - id: SO_7093
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 30
     effectImage: 2
@@ -913,7 +913,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7094
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 34
     effectImage: 0
@@ -923,7 +923,7 @@ MonoBehaviour:
       \uAE30\uC5B5 \uC548 \uB098?\r"
   - id: SO_7095
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -932,7 +932,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7096
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 25
     effectImage: 0
@@ -942,7 +942,7 @@ MonoBehaviour:
       \uC800\uBC88\uC5D0 \uBC18\uC751\uC774 \uC5C6\uB2E4 \uD588\uC5B4.\r"
   - id: SO_7097
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -951,7 +951,7 @@ MonoBehaviour:
     line: "\uC77C\uB2E8 \uC758\uB8B0\uBD80\uD130 \uB05D\uB0B4\uACE0 \uB300\uD654\uD558\uC790.\r"
   - id: SO_7098
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -962,7 +962,7 @@ MonoBehaviour:
       \uBABB\uD558\uB824\uB098.\r"
   - id: SO_7099
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 36
     effectImage: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
       \uC788\uC9C0.\r"
   - id: SO_7100
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -983,7 +983,7 @@ MonoBehaviour:
       \uC804\uC5D0  \uAFC8 \uAD6C\uC2AC\uC744 \uBAA8\uC73C\uB294 \uAC70\uC57C.\r"
   - id: SO_7101
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 34
     effectImage: 0
@@ -992,7 +992,7 @@ MonoBehaviour:
     line: "\uC9D1\uC5D0 \uB3CC\uC544\uAC00\uC57C\uC9C0.\r"
   - id: SO_7102
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 37
     effectImage: 0
@@ -1001,7 +1001,7 @@ MonoBehaviour:
     line: "\uB124 \uB3D9\uC0DD\uAE4C\uC9C0 \uC78A\uC5B4\uBC84\uB9AC\uAE30 \uC804\uC5D0...\r"
   - id: SO_7103
     sceneNum: 17
-    questNum: 8
+    questNum: 7
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7104
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1020,7 +1020,7 @@ MonoBehaviour:
       \uAC70  \uC774\uB7F0 \uACBD\uC6B0\uAC00 \uAC00\uB054 \uC788\uAE34 \uD55C\uB370...\r"
   - id: SO_7105
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 4
     effectImage: 0
@@ -1031,7 +1031,7 @@ MonoBehaviour:
       \uD574.\r"
   - id: SO_7106
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 19
     effectImage: 0
@@ -1040,7 +1040,7 @@ MonoBehaviour:
     line: "\uAC19\uC740 \uAC70 2\uAC1C \uB9CC\uB4E4\uB77C\uB294 \uB9D0\uC774\uC9C0.\r"
   - id: SO_7107
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
     line: "\uB108\uB3C4 \uB124 \uB3D9\uC0DD\uC774\uB791 \uD568\uAED8 \uC7A4\uC5B4?\r"
   - id: SO_7108
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 14
     effectImage: 0
@@ -1059,7 +1059,7 @@ MonoBehaviour:
       \uACBD\uD5D8\uC774\uC5C8\uB294\uB370.\r"
   - id: SO_7109
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -1068,7 +1068,7 @@ MonoBehaviour:
     line: "\uB110 \uB9CC\uB098\uAE30 \uC804\uAE4C\uC9C0 \uD63C\uC790\uC600\uC73C\uB2C8.\r"
   - id: SO_7110
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1077,7 +1077,7 @@ MonoBehaviour:
     line: "\uB108\uB791 \uD55C \uC774\uBD88 \uC4F0\uB294 \uAC70?\r"
   - id: SO_7111
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 17
     effectImage: 0
@@ -1087,7 +1087,7 @@ MonoBehaviour:
       \uC774 \uAC00\uB294 \uAC70 \uBE7C\uBA74.\r"
   - id: SO_7112
     sceneNum: 18
-    questNum: 9
+    questNum: 8
     charImage: 1
     faceImage: 12
     effectImage: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
     line: "\uBB50 \uC2EB\uC9C0\uB294 \uC54A\uC544.\r"
   - id: SO_7113
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1106,7 +1106,7 @@ MonoBehaviour:
       \uC2EB\uC5B4\uD574\uC11C \uB531\uD788 \uAD81\uAE08\uD558\uC9C0\uB294 \uC54A\uC544.\r"
   - id: SO_7114
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -1115,7 +1115,7 @@ MonoBehaviour:
     line: "\uB10C \uC218\uC601\uD560 \uC904 \uC54C\uC544?\r"
   - id: SO_7115
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -1124,7 +1124,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7116
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 7
     effectImage: 2
@@ -1134,7 +1134,7 @@ MonoBehaviour:
       \uC808\uB300 \uBB3C \uC8FC\uBCC0\uC5D0 \uAC00\uC9C0 \uB9D0\uC544\uC57C\uC9C0.\r"
   - id: SO_7117
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 29
     effectImage: 2
@@ -1143,7 +1143,7 @@ MonoBehaviour:
     line: "\uC73C\uC544\uC544\uC544\uC544\uC544\uC544\uC544!!\r"
   - id: SO_7118
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 9
     effectImage: 3
@@ -1152,7 +1152,7 @@ MonoBehaviour:
     line: "\uCE58\uC6CC! \uCE58\uC6CC! \uCE58\uC6CC!!!!!\r"
   - id: SO_7119
     sceneNum: 19
-    questNum: 10
+    questNum: 9
     charImage: 1
     faceImage: 8
     effectImage: 2
@@ -1162,7 +1162,7 @@ MonoBehaviour:
       \uD574.\r"
   - id: SO_7120
     sceneNum: 20
-    questNum: 11
+    questNum: 10
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1173,7 +1173,7 @@ MonoBehaviour:
       \uC788\uC9C0.\r"
   - id: SO_7121
     sceneNum: 20
-    questNum: 11
+    questNum: 10
     charImage: 1
     faceImage: 7
     effectImage: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       \uC545\uBABD\uC740 \uC2DC\uC791\uC5D0 \uBD88\uACFC\uD560 \uC218\uB3C4 \uC788\uC5B4.\r"
   - id: SO_7122
     sceneNum: 20
-    questNum: 11
+    questNum: 10
     charImage: 1
     faceImage: 15
     effectImage: 0
@@ -1193,7 +1193,7 @@ MonoBehaviour:
       \uB4DC\uB9BC\uCE90\uCCD0\uB85C \uD574\uACB0\uB418\uB294 \uAC70\uBA74 \uC88B\uACA0\uB2E4\uB9CC.\r"
   - id: SO_7123
     sceneNum: 20
-    questNum: 11
+    questNum: 10
     charImage: 1
     faceImage: 27
     effectImage: 0
@@ -1202,7 +1202,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7124
     sceneNum: 20
-    questNum: 11
+    questNum: 10
     charImage: 1
     faceImage: 30
     effectImage: 2
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     line: "............\r"
   - id: SO_7125
     sceneNum: 21
-    questNum: 12
+    questNum: 11
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -1220,7 +1220,7 @@ MonoBehaviour:
     line: "\uC5B4\uB51C \uAC00\uB098.  \uBC40\uC740 \uC870\uC2EC\uD574\uC57C \uD574.\r"
   - id: SO_7126
     sceneNum: 21
-    questNum: 12
+    questNum: 11
     charImage: 1
     faceImage: 9
     effectImage: 2
@@ -1229,7 +1229,7 @@ MonoBehaviour:
     line: "\uC774\uAC8C \uB05D\uC774\uC57C?\r"
   - id: SO_7127
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1239,7 +1239,7 @@ MonoBehaviour:
       \uC788\uC5C8\uC796\uC544.\r"
   - id: SO_7128
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
       \uD55C\uB3D9\uC548 \uC218\uB9AC\uB9CC \uD588\uC5C8\uC9C0.\r"
   - id: SO_7129
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 10
     effectImage: 0
@@ -1258,7 +1258,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7130
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 18
     effectImage: 2
@@ -1267,7 +1267,7 @@ MonoBehaviour:
     line: "\uADF8\uB3D9\uC548 \uCC38 \uB2E4\uC0AC\uB2E4\uB09C\uD588\uAD6C\uB098.\r"
   - id: SO_7131
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1276,7 +1276,7 @@ MonoBehaviour:
     line: "\uB108\uB3C4 \uB0B4\uAC00 \uC788\uC5B4 \uB2E4\uD589\uC774\uC9C0?\r"
   - id: SO_7132
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 20
     effectImage: 0
@@ -1286,7 +1286,7 @@ MonoBehaviour:
       \uAE4C\uBA39\uC5B4\uC11C  \uC758\uB8B0\uB3C4 \uBABB\uD558\uBA74 \uC5B4\uB5A1\uD560\uBED4\uD588\uC5B4.\r"
   - id: SO_7133
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -1295,7 +1295,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7134
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 4
     effectImage: 0
@@ -1304,7 +1304,7 @@ MonoBehaviour:
     line: "\uB2F9\uC5F0\uD788 \uB3C4\uC640\uC57C\uC9C0.\r"
   - id: SO_7135
     sceneNum: 22
-    questNum: 13
+    questNum: 12
     charImage: 1
     faceImage: 3
     effectImage: 0
@@ -1314,7 +1314,7 @@ MonoBehaviour:
       <\uAE38\uC7A1\uC774> \uACE0\uC591\uC774\uC796\uC544.\r"
   - id: SO_7136
     sceneNum: 23
-    questNum: 14
+    questNum: 13
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -1324,7 +1324,7 @@ MonoBehaviour:
       \uBBFF\uC5B4?\r"
   - id: SO_7137
     sceneNum: 23
-    questNum: 14
+    questNum: 13
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -1334,7 +1334,7 @@ MonoBehaviour:
       \uADC0\uC2E0\uC740 \uC788\uC744 \uC218 \uC5C6\uC5B4.\r"
   - id: SO_7138
     sceneNum: 23
-    questNum: 14
+    questNum: 13
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1343,7 +1343,7 @@ MonoBehaviour:
     line: "\uC778\uAC04\uC758 \uC0C1\uC0C1\uB825\uC740 \uCC38 \uB300\uB2E8\uD574.\r"
   - id: SO_7139
     sceneNum: 23
-    questNum: 14
+    questNum: 13
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1354,7 +1354,7 @@ MonoBehaviour:
       \uC874\uC7AC\uB97C \uC99D\uBA85\uD560 \uBC29\uBC95\uC774 \uC5C6\uC5B4.\r"
   - id: SO_7140
     sceneNum: 23
-    questNum: 14
+    questNum: 13
     charImage: 1
     faceImage: 14
     effectImage: 0
@@ -1364,7 +1364,7 @@ MonoBehaviour:
       \uB9D0\uD574 \uBD24\uC790 \uC18C\uC6A9\uC5C6\uACA0\uC9C0.\r"
   - id: SO_7141
     sceneNum: 24
-    questNum: 15
+    questNum: 14
     charImage: 1
     faceImage: 9
     effectImage: 0
@@ -1373,7 +1373,7 @@ MonoBehaviour:
     line: "\uD765, \uC778\uACFC\uC751\uBCF4\uC796\uC544.\r"
   - id: SO_7142
     sceneNum: 24
-    questNum: 15
+    questNum: 14
     charImage: 1
     faceImage: 14
     effectImage: 0
@@ -1382,7 +1382,7 @@ MonoBehaviour:
     line: "\uB9F9\uAE08\uB958\uB77C...\r"
   - id: SO_7143
     sceneNum: 24
-    questNum: 15
+    questNum: 14
     charImage: 1
     faceImage: 15
     effectImage: 2
@@ -1392,7 +1392,7 @@ MonoBehaviour:
       \uC6B0\uB9AC\uB97C \uACF5\uACA9\uD560\uC9C0\uB3C4 \uBAB0\uB77C.\r"
   - id: SO_7144
     sceneNum: 24
-    questNum: 15
+    questNum: 14
     charImage: 1
     faceImage: 18
     effectImage: 2
@@ -1402,7 +1402,7 @@ MonoBehaviour:
       \uBC14\uB77C\uC57C\uC9C0.\r"
   - id: SO_7145
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 27
     effectImage: 0
@@ -1411,7 +1411,7 @@ MonoBehaviour:
     line: "\uC678\uAD6D\uC5B4 \uAC19\uC740\uB370...  \uB108 \uC77D\uC744 \uC218 \uC788\uC5B4?\r"
   - id: SO_7146
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 30
     effectImage: 2
@@ -1420,7 +1420,7 @@ MonoBehaviour:
     line: "............\r"
   - id: SO_7147
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 25
     effectImage: 2
@@ -1429,7 +1429,7 @@ MonoBehaviour:
     line: "\uC5B8\uC5B4\uC758 \uD55C\uACC4\uC5D0 \uBD80\uB52A\uD600 \uBC84\uB838\uB2E4.\r"
   - id: SO_7148
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 36
     effectImage: 0
@@ -1439,7 +1439,7 @@ MonoBehaviour:
       \uAC70\uC57C?!\r"
   - id: SO_7149
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -1448,7 +1448,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7150
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 36
     effectImage: 0
@@ -1458,7 +1458,7 @@ MonoBehaviour:
       \uBB50 \uD558\uACA0\uB0D0.\r"
   - id: SO_7151
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -1468,7 +1468,7 @@ MonoBehaviour:
       \uAC16\uACE0 \uC788\uC744\uAC8C.\r"
   - id: SO_7152
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 25
     effectImage: 0
@@ -1477,7 +1477,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7153
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -1486,7 +1486,7 @@ MonoBehaviour:
     line: "\uC788\uC796\uC544.\r"
   - id: SO_7154
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 34
     effectImage: 0
@@ -1497,7 +1497,7 @@ MonoBehaviour:
       \uD588\uC9C0.\r"
   - id: SO_7155
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1507,7 +1507,7 @@ MonoBehaviour:
       \uC8FC\uC220\uC0AC\uAC00 \uC545\uBABD\uC774\uB77C\uB2C8 \uCC38 \uC6C3\uACA8.\r"
   - id: SO_7156
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -1516,7 +1516,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7157
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 36
     effectImage: 0
@@ -1526,7 +1526,7 @@ MonoBehaviour:
       \uD574.  \uC6B0\uB9AC \uC774\uC81C \uC5BC\uB9C8 \uC548 \uB0A8\uC558\uC796\uC544.\r"
   - id: SO_7158
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1536,7 +1536,7 @@ MonoBehaviour:
       \uC788\uC744\uAE4C..?\r"
   - id: SO_7159
     sceneNum: 25
-    questNum: 16
+    questNum: 15
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
       \uC900\uBE44\uAC00 \uB2E4 \uB410\uC744 \uB54C.\r"
   - id: SO_7160
     sceneNum: 26
-    questNum: 17
+    questNum: 16
     charImage: 1
     faceImage: 23
     effectImage: 0
@@ -1555,7 +1555,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7161
     sceneNum: 26
-    questNum: 17
+    questNum: 16
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -1564,7 +1564,7 @@ MonoBehaviour:
     line: "............\r"
   - id: SO_7162
     sceneNum: 26
-    questNum: 17
+    questNum: 16
     charImage: 1
     faceImage: 10
     effectImage: 0
@@ -1573,7 +1573,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7163
     sceneNum: 26
-    questNum: 17
+    questNum: 16
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1582,7 +1582,7 @@ MonoBehaviour:
     line: "2\uAC1C \uB0A8\uC558\uC5B4.\r"
   - id: SO_7164
     sceneNum: 27
-    questNum: 18
+    questNum: 17
     charImage: 1
     faceImage: 34
     effectImage: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
     line: "\uC774 \uBAA8\uB4E0 \uAC8C \uBBF8\uB828\uC774\uB77C\uBA74\r"
   - id: SO_7165
     sceneNum: 27
-    questNum: 18
+    questNum: 17
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1601,7 +1601,7 @@ MonoBehaviour:
       \uB098\uC77C\uC9C0\uB3C4 \uBAB0\uB77C.\r"
   - id: SO_7166
     sceneNum: 27
-    questNum: 18
+    questNum: 17
     charImage: 1
     faceImage: 31
     effectImage: 0
@@ -1610,7 +1610,7 @@ MonoBehaviour:
     line: "...\r"
   - id: SO_7167
     sceneNum: 27
-    questNum: 18
+    questNum: 17
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -1620,7 +1620,7 @@ MonoBehaviour:
       \uB9C9\uACE0 \uC788\uB358 \uAC78\uAE4C?\r"
   - id: SO_7168
     sceneNum: 27
-    questNum: 18
+    questNum: 17
     charImage: 1
     faceImage: 23
     effectImage: 0
@@ -1629,7 +1629,7 @@ MonoBehaviour:
     line: "\uADF8\uB807\uB2E4\uBA74... \uB098\uB294  \uB0B4 \uC120\uD0DD\uC740...\r"
   - id: SO_7169
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -1638,7 +1638,7 @@ MonoBehaviour:
     line: "\uC774 \uC758\uB8B0\uAC00 \uB05D\uB098\uBA74  \uC77C\uAE30\uC7A5 \uB3CC\uB824\uC904\uAC8C.\r"
   - id: SO_7170
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1647,7 +1647,7 @@ MonoBehaviour:
     line: "\uBBF8\uC548\uD574..\r"
   - id: SO_7171
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -1656,7 +1656,7 @@ MonoBehaviour:
     line: "\uC774\uC81C\uB294 \uAD1C\uCC2E\uC744\uC9C0\uB3C4 \uBAA8\uB97C \uB110.\r"
   - id: SO_7172
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1666,7 +1666,7 @@ MonoBehaviour:
       \uC788\uC5C8\uB358 \uAC70 \uAC19\uC544...\r"
   - id: SO_7173
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 19
     effectImage: 0
@@ -1676,7 +1676,7 @@ MonoBehaviour:
       \uC900\uBE44\uAC00 \uB05D\uB098\uBA74 \uC77D\uC5B4.\r"
   - id: SO_7174
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 24
     effectImage: 0
@@ -1687,7 +1687,7 @@ MonoBehaviour:
       \uB450\uB824\uC6E0\uC5B4.\r"
   - id: SO_7175
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 32
     effectImage: 0
@@ -1697,7 +1697,7 @@ MonoBehaviour:
       \uB420\uAE4C.\r"
   - id: SO_7176
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -1707,7 +1707,7 @@ MonoBehaviour:
       \uAC78\uAE4C.\r"
   - id: SO_7177
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 31
     effectImage: 0
@@ -1716,7 +1716,7 @@ MonoBehaviour:
     line: "\uC544\uB2C8\uBA74...\r"
   - id: SO_7178
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 35
     effectImage: 0
@@ -1725,7 +1725,7 @@ MonoBehaviour:
     line: "...\r"
   - id: SO_7179
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1735,7 +1735,7 @@ MonoBehaviour:
       \uB9CC\uB098\uC57C\uC9C0.\r"
   - id: SO_7180
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
       \uAFC8\uCC98\uB7FC \uB290\uAEF4\uC9C8 \uAC70\uC57C.\r"
   - id: SO_7181
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1755,7 +1755,7 @@ MonoBehaviour:
       \uACB0\uAD6D \uB2E4 \uAD1C\uCC2E\uC544\uC9C8 \uAC70\uC57C.\r"
   - id: SO_7182
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 30
     effectImage: 0
@@ -1764,7 +1764,7 @@ MonoBehaviour:
     line: "...\uB098?\r"
   - id: SO_7183
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 6
     effectImage: 0
@@ -1773,7 +1773,7 @@ MonoBehaviour:
     line: "\uB098\uB3C4 \uC78A\uB294 \uAC70\uB0D0\uB2C8.  \uB2F9\uC5F0\uD558\uC796\uC544.\r"
   - id: SO_7184
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 20
     effectImage: 0
@@ -1783,7 +1783,7 @@ MonoBehaviour:
       \uC788\uC73C\uBA74 \uC548\uB418\uC9C0.\r"
   - id: SO_7185
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 10
     effectImage: 0
@@ -1792,7 +1792,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7186
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1801,7 +1801,7 @@ MonoBehaviour:
     line: "...\uC788\uC796\uC544.  \uB3CC\uB824 \uC904 \uAC8C \uC788\uC5B4.\r"
   - id: SO_7187
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1810,7 +1810,7 @@ MonoBehaviour:
     line: "\uADF8 \uC544\uC774\uC758 \uAFC8 \uAD6C\uC2AC\uC774\uC57C.\r"
   - id: SO_7188
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 2
     effectImage: 0
@@ -1820,7 +1820,7 @@ MonoBehaviour:
       \uD588\uC5C8\uC5B4.\r"
   - id: SO_7189
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 18
     effectImage: 0
@@ -1830,7 +1830,7 @@ MonoBehaviour:
       \uC0AC\uC2E4\uC740 \uBCC0\uD558\uC9C0 \uC54A\uC544.\r"
   - id: SO_7190
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -1840,7 +1840,7 @@ MonoBehaviour:
       \uAC78.\r"
   - id: SO_7191
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 11
     effectImage: 0
@@ -1850,7 +1850,7 @@ MonoBehaviour:
       \uC0B4\uC544\uAC00.  \uB108 \uC790\uC2E0\uC744 \uC704\uD574\uC11C\uB77C\uB3C4.\r"
   - id: SO_7192
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 5
     effectImage: 0
@@ -1859,7 +1859,7 @@ MonoBehaviour:
     line: "\uB09C \uACC4\uC18D \uC774\uACF3\uC5D0 \uC788\uC744\uAC8C.\r"
   - id: SO_7193
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 3
     effectImage: 1
@@ -1868,7 +1868,7 @@ MonoBehaviour:
     line: "\uB108\uC758 \uAE38\uC7A1\uC774\uC774\uC790....\r"
   - id: SO_7194
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 12
     effectImage: 0
@@ -1877,7 +1877,7 @@ MonoBehaviour:
     line: "\uC18C\uC911\uD55C \uB0B4 \uCE5C\uAD6C\uC57C.\r"
   - id: SO_7195
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 31
     effectImage: 0
@@ -1886,7 +1886,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7196
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 36
     effectImage: 0
@@ -1896,7 +1896,7 @@ MonoBehaviour:
       \uBABB\uBCF4\uB294 \uAC70 \uC544\uB2C8\uC796\uC544!\r"
   - id: SO_7197
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 34
     effectImage: 0
@@ -1906,7 +1906,7 @@ MonoBehaviour:
       \uC918.\r"
   - id: SO_7198
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1915,7 +1915,7 @@ MonoBehaviour:
     line: "\uB300\uC2E0 \uCC9C\uCC9C\uD788 \uC640\uC57C \uD574.  \uC57D\uC18D\uC774\uC57C.\r"
   - id: SO_7199
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 21
     effectImage: 0
@@ -1924,7 +1924,7 @@ MonoBehaviour:
     line: "......\r"
   - id: SO_7200
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 12
     effectImage: 0
@@ -1934,7 +1934,7 @@ MonoBehaviour:
       \uC548 \uD560\uAC8C.\r"
   - id: SO_7201
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 33
     effectImage: 0
@@ -1943,7 +1943,7 @@ MonoBehaviour:
     line: "\uB098\uC911\uC5D0 \uBCF4\uC790.  \uC798 \uAC00\r"
   - id: SO_7202
     sceneNum: 28
-    questNum: 19
+    questNum: 18
     charImage: 1
     faceImage: 38
     effectImage: 0
@@ -1951,8 +1951,8 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "<\uAFC8\uC5D0\uC11C \uAE70 \uC2DC\uAC04\uC774\uC57C.>\r"
   - id: SO_7203
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 1
     effectImage: 0
@@ -1960,8 +1960,8 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "......\r"
   - id: SO_7204
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 11
     effectImage: 2
@@ -1970,8 +1970,8 @@ MonoBehaviour:
     line: "\uC5EC\uC804\uD788 \uC545\uBABD\uC744 \uAFBC\uB2E4\uACE0...  \uB2F5\uC7A5\uC774
       \uC654\uC5B4.\r"
   - id: SO_7205
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 15
     effectImage: 2
@@ -1979,8 +1979,8 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uC774\uB7F0.... \uBB54\uAC00 \uC798\uBABB \uB9CC\uB4E0\uAC74\uAC00.\r"
   - id: SO_7206
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 13
     effectImage: 0
@@ -1989,8 +1989,8 @@ MonoBehaviour:
     line: "\uC2E4 \uC0C9\uAE54\uC774\uB791 \uD328\uD134 \uB9DE\uAC8C \uB9CC\uB4E0\uAC70\uC57C? 
       \uAD6C\uC2AC\uC774\uB791 \uAE43\uD138\uB3C4 \uD655\uC778\uD588\uACE0?\r"
   - id: SO_7207
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 20
     effectImage: 0
@@ -1998,8 +1998,8 @@ MonoBehaviour:
     speaker: "\uB098\uBE44"
     line: "\uCC28\uADFC\uCC28\uADFC \uB2E4\uC2DC \uB9CC\uB4E4\uC5B4\uBCF4\uC790.\r"
   - id: SO_7208
-    sceneNum: 0
-    questNum: 0
+    sceneNum: 29
+    questNum: -1
     charImage: 1
     faceImage: 35
     effectImage: 0

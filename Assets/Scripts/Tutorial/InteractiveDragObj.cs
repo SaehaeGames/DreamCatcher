@@ -26,11 +26,14 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
     // 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log($"OnBeginDrag 호출. startParent: {startParent?.name}");
+
         objectDraged = false; // 초기화
 
         // Tutorial 오브젝트들이 활성화 되어 있지 않으면 코드 비활성화
         if (startParent == null)
         {
+            Debug.LogWarning("startParent가 null이라 스크립트 비활성화됨");
             this.GetComponent<InteractiveDragObj>().enabled = false;
         }
         else
@@ -41,6 +44,8 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void SetTargetParent(Transform arrowTransform)
     {
+        Debug.Log($"[SetTargetParent 호출] arrowTransform: {arrowTransform?.name}, targets.Length: {targets.Length}");
+
         numberOfTargets = targets.Length;
         for (int i = 0; i < numberOfTargets; i++)
         {
@@ -62,6 +67,10 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
     // 드래그 끝
     public void OnEndDrag(PointerEventData eventData)
     {
+
+        Debug.Log($"드래그 종료. 놓은 위치: {eventData.pointerCurrentRaycast.gameObject?.name}");
+        Debug.Log($"targets[0]: {targets[0]?.name}");
+
         numberOfTargets = targets.Length;
         for (int i=0; i < numberOfTargets; i++) 
         {

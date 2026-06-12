@@ -68,6 +68,8 @@ public class TutorialPipeline : MonoBehaviour
     // 튜토리얼 리스트 완료
     public void CompletedAllTutorials(SceneState _sceneState)
     {
+        Debug.Log($"[CompletedAllTutorials 호출] 내 이름: {this.gameObject.name}");
+
         this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
         currentTutorial = null;
 

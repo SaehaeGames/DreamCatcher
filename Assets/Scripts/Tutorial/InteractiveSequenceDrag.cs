@@ -23,24 +23,24 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
 
         if (highlightArrowOnOff)
         {
-            // 화살표 생성
-            arrowPrefab = Resources.Load<GameObject>("Prefabs/Tutorial/HighlightArrowPref");
-            arrow = Instantiate(arrowPrefab, new Vector2(0f, 0f), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-            arrow.GetComponent<Canvas>().worldCamera = Camera.main;
-            GameObject arrowChild = arrow.transform.GetChild(0).gameObject;
+            // TutorialOverlay에서 화살표 가져오기 (Click 방식과 동일)
+            GameObject tutorialOverlay = GameObject.FindGameObjectWithTag("TutorialOverlay");
+            arrow = tutorialOverlay.transform.GetChild(1).gameObject;
+            GameObject blockPanal = tutorialOverlay.transform.GetChild(0).gameObject;
 
-            // 화살표 위치 조정
-            arrowChild.GetComponent<Image>().sprite = arrowImg;
+            arrow.SetActive(true);
+            blockPanal.SetActive(true);
+            arrow.GetComponent<Image>().sprite = arrowImg;
+
             startParent = dragObj.transform.parent;
-            
             dragObj.transform.SetParent(arrow.transform);
 
             // 타겟 부모 조정
             dragObj.GetComponent<InteractiveDragObj>().SetTargetParent(arrow.transform);
 
-            // 화살표 깜박임 애니메이션 재생
-            arrowChild.GetComponent<Animator>().enabled = true;
-            arrowChild.GetComponent<Animator>().Play("blinkArrow");
+            // 화살표 깜박임 애니메이션
+            arrow.GetComponent<Animator>().enabled = true;
+            arrow.GetComponent<Animator>().Play("blinkArrow");
         }
         else
         {
@@ -80,7 +80,18 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
 
     public override void Exit()
     {
+        /*        dragObj.GetComponent<InteractiveDragObj>().SetObjctDraged(false);
+                Destroy(arrow); // 화살표 삭제*/
+
         dragObj.GetComponent<InteractiveDragObj>().SetObjctDraged(false);
-        Destroy(arrow); // 화살표 삭제
+
+        if (highlightArrowOnOff && arrow != null)
+        {
+            arrow.GetComponent<Image>().sprite = null;
+            arrow.SetActive(false);
+            GameObject tutorialOverlay = GameObject.FindGameObjectWithTag("TutorialOverlay");
+            if (tutorialOverlay != null)
+                tutorialOverlay.transform.GetChild(0).gameObject.SetActive(false); // BlockPanal off
+        }
     }
 }

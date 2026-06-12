@@ -13,7 +13,7 @@
         {
             "id": "JS_5002",
             "dataName": "SpecialFeed",
-            "dataNumber": 61.0
+            "dataNumber": 51.0
         },
         {
             "id": "JS_5003",
@@ -43,12 +43,12 @@
         {
             "id": "JS_5008",
             "dataName": "nowQuestNum",
-            "dataNumber": 3.0
+            "dataNumber": 0.0
         },
         {
             "id": "JS_5009",
             "dataName": "questAccepted",
-            "dataNumber": 1.0
+            "dataNumber": 0.0
         }
     ]
 }
