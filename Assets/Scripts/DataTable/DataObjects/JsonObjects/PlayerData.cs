@@ -18,6 +18,8 @@ public class PlayerData
     public int currentScene;
     public int currentMainQuestIndex;
 
+    public UnlockData unlockData = new UnlockData();
+
     public PlayerData()
     {
         gold = 0;
@@ -29,9 +31,10 @@ public class PlayerData
         effectMute = false;
         currentScene = 0;
         currentMainQuestIndex = 0;
+        unlockData = new UnlockData(false, false, false, 0);
     }
 
-    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex) 
+    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, UnlockData _unlockData) 
     { 
         gold = _gold;
         dreamMarble = _dreamMarble;
@@ -42,6 +45,7 @@ public class PlayerData
         effectMute = _bgmMute;
         currentScene = _currentScene;
         currentMainQuestIndex = _currentMainQuestIndex;
+        unlockData = _unlockData;
     }
 
     # region Set ÇÔ¼ö

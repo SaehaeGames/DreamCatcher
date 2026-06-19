@@ -31,7 +31,9 @@ public class PlayerDataManager
             effectMute = false,
 
             currentScene = 0,
-            currentMainQuestIndex = 0
+            currentMainQuestIndex = 0,
+
+            unlockData = new UnlockData(false, false, false, 0)
         };
     }
 
@@ -170,6 +172,52 @@ public class PlayerDataManager
         Save();
     }
 
+    #endregion
+
+    #region Unlock
+    public void UnlockRepeatQuest()
+    {
+        playerData.unlockData.SetIsRepeatQuestUnlocked(true);
+        Save();
+    }
+
+    public void UnlockCharonLetter()
+    {
+        playerData.unlockData.SetIsCharonLetterUnlocked(true);
+        Save();
+    }
+
+    public void UnlockDiary()
+    {
+        playerData.unlockData.SetIsDiaryUnlocked(true);
+        Save();
+    }
+
+    public void UnlockFoodLevel(int level)
+    {
+        playerData.unlockData.SetFoodUnlockLevel(level);
+        Save();
+    }
+
+    public bool GetIsRepeatQuestUnlocked()
+    {
+        return playerData.unlockData.GetIsRepeatQuestUnlocked();
+    }
+
+    public bool GetIsCharonLetterUnlocked()
+    {
+        return playerData.unlockData.GetIsCharonLetterUnlocked();
+    }
+
+    public bool GetIsDiaryUnlocked()
+    {
+        return playerData.unlockData.GetIsDiaryUnlocked();
+    }
+
+    public int GetFoodUnlockLevel()
+    {
+        return playerData.unlockData.GetFoodUnlockLevel();
+    }
     #endregion
 
     public void Load()
