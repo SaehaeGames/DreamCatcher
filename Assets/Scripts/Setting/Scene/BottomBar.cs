@@ -15,7 +15,7 @@ public class BottomBar : MonoBehaviour
     {
         Main,
         Making,
-        CollectionBook,
+        CollectionDream,
         Store
     }
 
@@ -78,8 +78,8 @@ public class BottomBar : MonoBehaviour
                 UnSelects[(int)SceneName.Store].SetActive(false);
                 break;
             default:
-                Selects[(int)SceneName.CollectionBook].SetActive(true);
-                UnSelects[(int)SceneName.CollectionBook].SetActive(false);
+                Selects[(int)SceneName.CollectionDream].SetActive(true);
+                UnSelects[(int)SceneName.CollectionDream].SetActive(false);
                 break;
         }
     }

@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Store.unity
     guid: f8ee23dbcf59bd041bbbfe5b837efae5
   - enabled: 1
-    path: Assets/Scenes/CollectionBook.unity
-    guid: 90917f4afa7e0064aa6ebbd951ad7894
-  - enabled: 1
     path: Assets/Scenes/CollectionDream.unity
     guid: b15abd77aac99884dada79690499d041
+  - enabled: 1
+    path: Assets/Scenes/CollectionBook.unity
+    guid: 90917f4afa7e0064aa6ebbd951ad7894
   - enabled: 1
     path: Assets/Scenes/DreamCatcherObject.unity
     guid: 7e7a2be9b83dbaf4faf03e0c95e62985
