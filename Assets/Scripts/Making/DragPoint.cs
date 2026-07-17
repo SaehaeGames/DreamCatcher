@@ -87,7 +87,9 @@ public class DragPoint : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         mousePos.z = 90;
         Line.GetComponent<LineRenderer>().SetPosition(1, mousePos);
 
-        if (eventData.pointerCurrentRaycast.gameObject.CompareTag("DragPoint"))
+        GameObject hitObject = eventData.pointerCurrentRaycast.gameObject;
+
+        if (hitObject != null && hitObject.CompareTag("DragPoint"))
         {
             // 닿으면 거기서 한줄 완성
             endPointNum = eventData.pointerCurrentRaycast.gameObject.GetComponent<DragPoint>().PointNumber;
