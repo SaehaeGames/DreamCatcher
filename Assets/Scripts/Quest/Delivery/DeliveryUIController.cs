@@ -70,7 +70,6 @@ public class DeliveryUIController : MonoBehaviour
                 // 퀘스트 종료 퀘스트 액션 재생
                 deliveryManager.CompleteCurrentQuest();
                 QuestPanel.GetComponent<QuestUIController>().OpenWhiteWallPaper();
-                deliveryManager.MoveNextQuest();
                 break;
             case DeliveryResult.WrongItem:
                 // 잘못된 드림캐쳐 안내 대사창 재생
@@ -85,12 +84,5 @@ public class DeliveryUIController : MonoBehaviour
 
         // 납품창 비활성화
         this.gameObject.SetActive(false);
-
-    }
-
-    public void CompleteMainQuest()
-    {
-        int completedQuestIndex = playerDataManager.GetCurrentMainQuestIndex() - 1;
-        questActionManager.ActiveQuestEndActionActive(completedQuestIndex);
     }
 }

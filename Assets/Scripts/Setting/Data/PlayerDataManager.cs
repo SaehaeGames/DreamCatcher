@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Diagnostics;
 
 
 public class PlayerDataManager
@@ -31,7 +32,10 @@ public class PlayerDataManager
             effectMute = false,
 
             currentScene = 0,
-            currentMainQuestIndex = 0
+            currentMainQuestIndex = 0,
+            isQuestActionPlaying = false,
+
+            unlockData = new UnlockData(false, false, false, 0)
         };
     }
 
@@ -52,7 +56,7 @@ public class PlayerDataManager
     {
         if (playerData.gold < amount)
         {
-            Debug.LogWarning("[PlayerDataManager] Not enough gold.");
+            UnityEngine.Debug.LogWarning("[PlayerDataManager] Not enough gold.");
             return false;
         }
 
@@ -87,7 +91,7 @@ public class PlayerDataManager
     {
         if (playerData.specialFeed < amount)
         {
-            Debug.LogWarning("[PlayerDataManager] Not enough specialFeed.");
+            UnityEngine.Debug.LogWarning("[PlayerDataManager] Not enough specialFeed.");
             return false;
         }
 
@@ -164,12 +168,64 @@ public class PlayerDataManager
         return playerData.currentMainQuestIndex;
     }
 
-    public void SetCurrentMainQuestIndex(int questId)
+    public void SetCurrentMainQuestIndex(int questIndex)
     {
-        playerData.currentMainQuestIndex = questId;
-        Save();
+        UnityEngine.Debug.Log("mainQuestIndex edit");
+        playerData.currentMainQuestIndex = questIndex;
     }
 
+    public void SetIsQuestActionPlaying(bool _isQuestActionPlaying)
+    {
+        playerData.isQuestActionPlaying = _isQuestActionPlaying;
+    }
+
+    public bool GetIsQuestActinoPlaying()
+    {
+        return playerData.isQuestActionPlaying;
+    }
+
+    #endregion
+
+    #region Unlock
+    public void UnlockRepeatQuest()
+    {
+        playerData.unlockData.SetIsRepeatQuestUnlocked(true);
+    }
+
+    public void UnlockCharonLetter()
+    {
+        playerData.unlockData.SetIsCharonLetterUnlocked(true);
+    }
+
+    public void UnlockDiary()
+    {
+        playerData.unlockData.SetIsDiaryUnlocked(true);
+    }
+
+    public void UnlockFoodLevel(int level)
+    {
+        playerData.unlockData.SetFoodUnlockLevel(level);
+    }
+
+    public bool GetIsRepeatQuestUnlocked()
+    {
+        return playerData.unlockData.GetIsRepeatQuestUnlocked();
+    }
+
+    public bool GetIsCharonLetterUnlocked()
+    {
+        return playerData.unlockData.GetIsCharonLetterUnlocked();
+    }
+
+    public bool GetIsDiaryUnlocked()
+    {
+        return playerData.unlockData.GetIsDiaryUnlocked();
+    }
+
+    public int GetFoodUnlockLevel()
+    {
+        return playerData.unlockData.GetFoodUnlockLevel();
+    }
     #endregion
 
     public void Load()
@@ -178,7 +234,7 @@ public class PlayerDataManager
 
         if (playerData == null)
         {
-            Debug.Log("[PlayerDataManager] Save file not found. Create default data.");
+            UnityEngine.Debug.Log("[PlayerDataManager] Save file not found. Create default data.");
             ResetData();
             Save();
         }
@@ -188,10 +244,11 @@ public class PlayerDataManager
     {
         if (playerData == null)
         {
-            Debug.LogError("[PlayerDataManager] Save failed. playerData is null.");
+            UnityEngine.Debug.LogError("[PlayerDataManager] Save failed. playerData is null.");
             return;
         }
 
+        UnityEngine.Debug.Log(new StackTrace(true));
         jsonManager.SaveData(Constants.PlayerDataFile, playerData);
     }
 }
