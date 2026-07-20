@@ -190,25 +190,21 @@ public class PlayerDataManager
     public void UnlockRepeatQuest()
     {
         playerData.unlockData.SetIsRepeatQuestUnlocked(true);
-        Save();
     }
 
     public void UnlockCharonLetter()
     {
         playerData.unlockData.SetIsCharonLetterUnlocked(true);
-        Save();
     }
 
     public void UnlockDiary()
     {
         playerData.unlockData.SetIsDiaryUnlocked(true);
-        Save();
     }
 
     public void UnlockFoodLevel(int level)
     {
         playerData.unlockData.SetFoodUnlockLevel(level);
-        Save();
     }
 
     public bool GetIsRepeatQuestUnlocked()
