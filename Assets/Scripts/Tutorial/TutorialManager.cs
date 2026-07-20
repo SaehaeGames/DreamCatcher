@@ -28,11 +28,18 @@ public class TutorialManager : MonoBehaviour
 
         // 현재 튜토리얼 씬 설정
         curScene = playerDataManager.GetCurrentScene(); // 현재 튜토리얼 씬 불러오기
-
-        if(curScene > 11) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
+        if(!playerDataManager.GetIsQuestActinoPlaying())
         {
-            scriptBox.ScriptBoxOnOff(false);
-            if (tutorialFadePanal != null)  tutorialFadePanal.SetActive(false); // 페이더 패널(검은 패널) 비활성화
+            if (curScene > 11) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
+            {
+                scriptBox.ScriptBoxOnOff(false);
+                if (tutorialFadePanal != null) tutorialFadePanal.SetActive(false); // 페이더 패널(검은 패널) 비활성화
+                return;
+            }
+        }
+        else
+        {
+            if (tutorialFadePanal != null) tutorialFadePanal.SetActive(false); // 페이더 패널(검은 패널) 비활성화
             return;
         }
 

@@ -17,6 +17,7 @@ public class PlayerData
 
     public int currentScene;
     public int currentMainQuestIndex;
+    public bool isQuestActionPlaying;
 
     public UnlockData unlockData = new UnlockData();
 
@@ -32,9 +33,10 @@ public class PlayerData
         currentScene = 0;
         currentMainQuestIndex = 0;
         unlockData = new UnlockData(false, false, false, 0);
+        isQuestActionPlaying = false;
     }
 
-    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, UnlockData _unlockData) 
+    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, bool _isQuestActionPlaying, UnlockData _unlockData) 
     { 
         gold = _gold;
         dreamMarble = _dreamMarble;
@@ -45,6 +47,7 @@ public class PlayerData
         effectMute = _bgmMute;
         currentScene = _currentScene;
         currentMainQuestIndex = _currentMainQuestIndex;
+        isQuestActionPlaying = _isQuestActionPlaying;
         unlockData = _unlockData;
     }
 
@@ -58,6 +61,7 @@ public class PlayerData
     public void SetBGMMute(bool _bgmMute) { bgmMute = _bgmMute; }
     public void SetEffectMute(bool _effectMute) { effectMute = _effectMute; }
     public void SetCurrentScene(int _currentScene) { currentScene = _currentScene; }
+    public void SetIsQuestActionPlaying(bool _isQuestActionPlaying) { isQuestActionPlaying = _isQuestActionPlaying; }
     public void SetCurrentMainQuestIndex(int _currentMianQuestIndex) { currentMainQuestIndex = _currentMianQuestIndex; }
     # endregion
 
@@ -71,6 +75,7 @@ public class PlayerData
     public bool GetBgmMute() { return bgmMute; }
     public bool GetEffectMute() { return effectMute; }
     public int GetCurrentScene() { return currentScene; }
+    public bool GetIsQuestActionPlaying() { return isQuestActionPlaying; }
     public int GetCurrentMainQuestIndex() { return currentMainQuestIndex; }
 
     # endregion

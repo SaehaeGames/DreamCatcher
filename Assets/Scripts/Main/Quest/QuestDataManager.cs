@@ -19,7 +19,6 @@ public class QuestDataManager
             return;
 
         questData.isClear = true;
-        Save();
     }
 
     public void CheckStartQuest(int questIndex)
@@ -30,7 +29,6 @@ public class QuestDataManager
             return;
 
         questData.isStartChecked = true;
-        Save();
     }
 
     public void CheckEndQuest(int questIndex)
@@ -41,7 +39,6 @@ public class QuestDataManager
             return;
 
         questData.isEndChecked = true;
-        Save();
     }
 
     public void ResetData()

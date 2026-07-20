@@ -16,9 +16,9 @@
         },
         {
             "id": "JS_6002",
-            "isStartChecked": false,
-            "isEndChecked": false,
-            "isClear": false,
+            "isStartChecked": true,
+            "isEndChecked": true,
+            "isClear": true,
             "questInfo_Id": "SO_6002"
         },
         {
