@@ -32677,6 +32677,7 @@ MonoBehaviour:
   contentTexts: {fileID: 1107003044}
   deliveryView: {fileID: 553120850}
   curQuestNumber: 0
+  managers: {fileID: 0}
 --- !u!1 &1340903511
 GameObject:
   m_ObjectHideFlags: 0
@@ -41690,7 +41691,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 746535981}
         m_TargetAssemblyTypeName: QuestUIController, Assembly-CSharp
-        m_MethodName: PlayQuestActionActive
+        m_MethodName: CloseQuestPaper
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
