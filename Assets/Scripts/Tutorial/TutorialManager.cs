@@ -36,7 +36,17 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        this.transform.GetChild(curScene).gameObject.SetActive(true); // 튜토리얼 씬 활성화
+        //this.transform.GetChild(curScene).gameObject.SetActive(true); // 튜토리얼 씬 활성화
+        // 튜토리얼 씬 활성화
+        Transform currentObj = transform.Find("Scene " + curScene);
+        if (currentObj != null)
+        {
+            currentObj.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning($"[TutorialManager] 현재 씬에는 'Scene {curScene}' 오브젝트가 없습니다.");
+        }
 
         // 첫 튜토리얼 씬일 경우 페이드 패널 설정
         if (tutorialFadePanal!=null)
@@ -56,34 +66,27 @@ public class TutorialManager : MonoBehaviour
     // : 씬 넘버가 변경될 때 실행된다.
     public void ChangeScene()
     {
-        //Debug.Log("currentScene = " + curScene + " | 현재 씬: " + SceneManager.GetActiveScene().name);
-        Debug.Log($"[ChangeScene 호출] curScene: {curScene}, 자식 이름: {this.transform.GetChild(curScene).name}");
-
-        // 마지막 자식인지 확인
-        if (this.transform.GetChild(curScene) == this.transform.GetChild(this.transform.childCount - 1))
+        // 1. 현재 켜져있던 튜토리얼 끄기
+        Transform currentObj = transform.Find("Scene " + curScene);
+        if (currentObj != null)
         {
-            // 이전 씬 오브젝트 비활성화
-            this.transform.GetChild(curScene).gameObject.SetActive(false);
+            currentObj.gameObject.SetActive(false);
+        }
 
-            // 현재 씬 데이터 증가
-            curScene++;
+        // 2. 데이터 증가
+        curScene++;
+        playerDataManager.SetCurrentScene(curScene);
+
+        // 3. 증가된 번호의 다음 튜토리얼이 현재 씬에 있다면 켜기
+        Transform nextObj = transform.Find("Scene " + curScene);
+        if (nextObj != null)
+        {
+            nextObj.gameObject.SetActive(true);
         }
         else
         {
-
-            // 이전 씬 오브젝트 비활성화
-            this.transform.GetChild(curScene).gameObject.SetActive(false);
-
-            // 다음 씬 오브젝트 활성화
-            curScene++;
-            if (this.transform.GetChild(curScene).gameObject != null)
-            {
-                this.transform.GetChild(curScene).gameObject.SetActive(true);
-            }
+            // 다음 번호 오브젝트가 없다는 건, 이 씬에서의 튜토리얼이 끝났거나 다음 씬(도감 등)에서 이어서 해야 한다는 뜻
+            Debug.Log($"'Scene {curScene}'이 현재 씬에 없습니다. (현재 씬 튜토리얼 종료)");
         }
-
-
-        // 씬 데이터 업데이트
-        playerDataManager.SetCurrentScene(curScene);
     }
 }
