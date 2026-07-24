@@ -111,17 +111,11 @@ public class DeliveryManager : MonoBehaviour
 
         // 퀘스트 완료 처리
         questDataManager.CheckEndQuest(currentMainQuestIndex);
+        questDataManager.Save();
 
         // 꿈 구슬 지급
         playerDataManager.AddDreamMarble(1);
-    }
-
-    public void MoveNextQuest()
-    {
-        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
-
-        // 현재 퀘스트 데이터 업데이트
-        playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
+        playerDataManager.Save();
     }
 
     public void DeliveryFailed()
