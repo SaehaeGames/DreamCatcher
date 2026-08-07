@@ -6,11 +6,11 @@
     "effectVolume": 0.0,
     "bgmMute": false,
     "effectMute": false,
-    "currentScene": 30,
+    "currentScene": 14,
     "currentMainQuestIndex": 2,
     "isQuestActionPlaying": false,
     "unlockData": {
-        "isRepeatQuestUnlocked": false,
+        "isRepeatQuestUnlocked": true,
         "isCharonLetterUnlocked": false,
         "isDiaryUnlocked": false,
         "foodUnlockLevel": 0

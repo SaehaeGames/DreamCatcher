@@ -107,7 +107,20 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
 
     public override void Exit()
     {
-        if(TutorialOverlayPanal!=null)
+        // 튜토리얼이 끝날 때 추가했던 캔버스 제거
+        Canvas btnCanvas = clickBtn.gameObject.GetComponent<Canvas>();
+        if (btnCanvas != null)
+        {
+            Destroy(clickBtn.gameObject.GetComponent<GraphicRaycaster>());
+            Destroy(btnCanvas);
+        }
+
+        if (startParent != null)
+        {
+            clickBtn.transform.SetParent(startParent);
+        }
+
+        if (TutorialOverlayPanal!=null)
         {
             ArrowImage.GetComponent<Image>().sprite = null;
             ArrowImage.SetActive(false);
@@ -123,8 +136,11 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
     private void SetupArrowHighlight()
     {
         TutorialOverlayPanal = GameObject.FindGameObjectWithTag("TutorialOverlay");
-        ArrowImage = TutorialOverlayPanal.transform.GetChild(1).gameObject;
-        BlockPanal = TutorialOverlayPanal.transform.GetChild(0).gameObject;
+        /*ArrowImage = TutorialOverlayPanal.transform.GetChild(1).gameObject;
+        BlockPanal = TutorialOverlayPanal.transform.GetChild(0).gameObject;*/
+
+        ArrowImage = TutorialOverlayPanal.transform.Find("ArrowImage").gameObject;
+        BlockPanal = TutorialOverlayPanal.transform.Find("BlockPanal").gameObject;
 
         ArrowImage.SetActive(true);
         BlockPanal.SetActive(true);
@@ -141,14 +157,26 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
 
     private void SetClickButtonToOverlay()
     {
+        startParent = clickBtn.transform.parent;
+
         if (doClickButnDuplicate)
         {
-            duplicatedClickBtn.transform.SetParent(TutorialOverlayPanal.transform);
-            duplicatedClickBtn.transform.localScale = Vector3.one;
+            /*duplicatedClickBtn.transform.SetParent(TutorialOverlayPanal.transform);
+            duplicatedClickBtn.transform.localScale = Vector3.one;*/
+
+            Canvas btnCanvas = clickBtn.gameObject.GetComponent<Canvas>();
+            if (btnCanvas == null)
+            {
+                btnCanvas = clickBtn.gameObject.AddComponent<Canvas>();
+                clickBtn.gameObject.AddComponent<GraphicRaycaster>(); // 클릭을 위해 필수
+            }
+
+            btnCanvas.overrideSorting = true;
+            btnCanvas.sortingOrder = 100; // 가림막보다 높게 설정
         }
         else
         {
-            startParent = clickBtn.transform.parent;
+            //startParent = clickBtn.transform.parent;
             clickBtn.transform.SetParent(TutorialOverlayPanal.transform);
         }
     }
