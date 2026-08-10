@@ -89,7 +89,7 @@ public class QuestUIController : MonoBehaviour
     public void OpenBlackWallPaper()
     {
         //퀘스트 창을 검정색 편지지, 흰색 글씨로 바꾸고 퀘스트 패널을 여는 함수
-
+        questType = QuestType.Charon;
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 
         int textCnt = contentTexts.transform.childCount;
@@ -123,6 +123,10 @@ public class QuestUIController : MonoBehaviour
             PlayQuestActionActive();
         }
         else if (questType == QuestType.RepeatQuest)
+        {
+
+        }
+        else if (questType == QuestType.Charon)
         {
 
         }
