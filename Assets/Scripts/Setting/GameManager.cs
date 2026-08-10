@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public QuestInfo_Data questinfo_data;
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
+    public CharonInfo_Data charoninfo_data;
 
 
     void Awake()
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
 
-        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
+        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
     }
 
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
         questinfo_data.UpdateQuestInfoData(onUpdateComplete);
         storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
         storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
+        charoninfo_data.UpdateCharonInfoData(onUpdateComplete);
 #endif
     }
 
