@@ -33,7 +33,7 @@ public class PlayerDataManager
 
             currentScene = 0,
             currentMainQuestIndex = 0,
-            isQuestActionPlaying = false,
+            isMainQuestActionPlaying = false,
 
             unlockData = new UnlockData(false, false, false, 0)
         };
@@ -176,12 +176,12 @@ public class PlayerDataManager
 
     public void SetIsQuestActionPlaying(bool _isQuestActionPlaying)
     {
-        playerData.isQuestActionPlaying = _isQuestActionPlaying;
+        playerData.isMainQuestActionPlaying = _isQuestActionPlaying;
     }
 
     public bool GetIsQuestActinoPlaying()
     {
-        return playerData.isQuestActionPlaying;
+        return playerData.isMainQuestActionPlaying;
     }
 
     #endregion
