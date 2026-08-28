@@ -19,7 +19,6 @@ public class PlayerData
     public int currentMainQuestIndex;
     public bool isMainQuestActionPlaying;
 
-
     public int currentCharonLetterIndex;
     public bool isCharonQuestActionPlaying;
 
@@ -38,9 +37,11 @@ public class PlayerData
         currentMainQuestIndex = 0;
         unlockData = new UnlockData(false, false, false, 0);
         isMainQuestActionPlaying = false;
+        currentCharonLetterIndex = 0;
+        isCharonQuestActionPlaying = false;
     }
 
-    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, bool _isQuestActionPlaying, UnlockData _unlockData) 
+    public PlayerData(int _gold, int _dreamMarble, int _specialFeed, float _bgmVolume, float _effectVolume, bool _bgmMute, bool _effectMute, int _currentScene, int _currentMainQuestIndex, bool _isQuestActionPlaying, UnlockData _unlockData, int _currentCharonLetterIndex, bool _isCharonQuestActionPlaying) 
     { 
         gold = _gold;
         dreamMarble = _dreamMarble;
@@ -53,6 +54,8 @@ public class PlayerData
         currentMainQuestIndex = _currentMainQuestIndex;
         isMainQuestActionPlaying = _isQuestActionPlaying;
         unlockData = _unlockData;
+        currentCharonLetterIndex = _currentCharonLetterIndex;
+        isCharonQuestActionPlaying = _isCharonQuestActionPlaying;
     }
 
     # region Set 함수
@@ -67,6 +70,8 @@ public class PlayerData
     public void SetCurrentScene(int _currentScene) { currentScene = _currentScene; }
     public void SetIsQuestActionPlaying(bool _isQuestActionPlaying) { isMainQuestActionPlaying = _isQuestActionPlaying; }
     public void SetCurrentMainQuestIndex(int _currentMianQuestIndex) { currentMainQuestIndex = _currentMianQuestIndex; }
+    public void SetCurrentCharonLetterIndex(int _currentCharonLetterIndex) { currentCharonLetterIndex = _currentCharonLetterIndex; }
+    public void SetIsCharonQuestActionPlaying(bool _isCharonQuestActionPlaying) { isCharonQuestActionPlaying = _isCharonQuestActionPlaying; }
     # endregion
 
     # region Get 함수
@@ -81,6 +86,8 @@ public class PlayerData
     public int GetCurrentScene() { return currentScene; }
     public bool GetIsQuestActionPlaying() { return isMainQuestActionPlaying; }
     public int GetCurrentMainQuestIndex() { return currentMainQuestIndex; }
+    public int GetCurrentCharonLetterIndex() { return currentCharonLetterIndex; }
+    public bool GetCurrentIsCharonQuestActionPlaying() {return isCharonQuestActionPlaying; }
 
     # endregion
 }

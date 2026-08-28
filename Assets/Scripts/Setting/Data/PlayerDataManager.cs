@@ -35,7 +35,10 @@ public class PlayerDataManager
             currentMainQuestIndex = 0,
             isMainQuestActionPlaying = false,
 
-            unlockData = new UnlockData(false, false, false, 0)
+            unlockData = new UnlockData(false, false, false, 0),
+
+            currentCharonLetterIndex = 0,
+            isCharonQuestActionPlaying = false
         };
     }
 
@@ -182,6 +185,26 @@ public class PlayerDataManager
     public bool GetIsQuestActinoPlaying()
     {
         return playerData.isMainQuestActionPlaying;
+    }
+
+    public void SetCurrentCharonLetterIndex(int _currentCharonLetterIndex)
+    {
+        playerData.currentCharonLetterIndex = _currentCharonLetterIndex;
+    }
+
+    public int GetCurrentCharonLetterIndex()
+    {
+        return playerData.currentCharonLetterIndex;
+    }
+
+    public void SetIsCharonQuestActionPlaying(bool _isCharonQuestActionPlaying)
+    {
+        playerData.isCharonQuestActionPlaying = _isCharonQuestActionPlaying;
+    }
+
+    public bool GetIsCharonQuestActionPlaying()
+    {
+        return playerData.isCharonQuestActionPlaying;
     }
 
     #endregion
