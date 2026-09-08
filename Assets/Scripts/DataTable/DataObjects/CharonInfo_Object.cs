@@ -38,7 +38,7 @@ public class CharonInfo_Object
         return title;
     }
 
-    public string GetContetns()
+    public string GetContents()
     {
         return contents;
     }

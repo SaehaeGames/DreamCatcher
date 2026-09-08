@@ -56,6 +56,7 @@ MonoBehaviour:
   storyscriptinfo_data: {fileID: 11400000, guid: 9b4f7421e00b866488f5c966d69ee11a, type: 2}
   storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}
   charoninfo_data: {fileID: 11400000, guid: 0b557ce9e2dd1be4f86a989ab5b524c0, type: 2}
+  diaryinfo_data: {fileID: 11400000, guid: 65ac61902b52dd24ab7f4e7df508d770, type: 2}
 --- !u!114 &1645616839523807993
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
     public CharonInfo_Data charoninfo_data;
+    public DiaryInfo_Data diaryinfo_data;
 
 
     void Awake()
@@ -97,6 +98,7 @@ public class GameManager : MonoBehaviour
         storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
         storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
         charoninfo_data.UpdateCharonInfoData(onUpdateComplete);
+        diaryinfo_data.UpdateDiaryInfoData(onUpdateComplete);
 #endif
     }
 
