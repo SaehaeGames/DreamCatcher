@@ -35,11 +35,13 @@ public class PlayerDataManager
             currentMainQuestIndex = 0,
             isMainQuestActionPlaying = false,
 
+
             unlockData = new UnlockData(false, false, false, 0),
 
             currentCharonLetterIndex = 0,
-            isCharonQuestActionPlaying = false
-        };
+            isCharonQuestActionPlaying = false,
+            questNotice = new bool[3] { false, false, false }
+    };
     }
 
     #region Currency
@@ -205,6 +207,16 @@ public class PlayerDataManager
     public bool GetIsCharonQuestActionPlaying()
     {
         return playerData.isCharonQuestActionPlaying;
+    }
+
+    public bool GetQuestNoticeRead(QuestType questType)
+    {
+        return playerData.GetQuestNoticeRead((int)questType);
+    }
+
+    public void SetQuestNoticeRead(QuestType questType, bool isRead)
+    {
+        playerData.SetQuestNoticeRead((int)questType, isRead);
     }
 
     #endregion

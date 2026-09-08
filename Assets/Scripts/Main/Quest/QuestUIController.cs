@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum QuestType
-{
-    None,
-    MainQuest,
-    RepeatQuest,
-    Charon
-}
 public class QuestUIController : MonoBehaviour
 {
     //퀘스트 배경 이미지를 바꾸는 스크립트
@@ -50,7 +43,7 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseMainQuestNotice();    //메인퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.MainQuest);    //카론퀘스트 알림 끄기
         UpdateQuestContents();
 
         QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetCurrentQuestFlowState();
@@ -83,7 +76,7 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseRepeatQuestNotice();    //반복퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.RepeatQuest);    //카론퀘스트 알림 끄기
     }
 
     public void OpenBlackWallPaper()
@@ -107,6 +100,7 @@ public class QuestUIController : MonoBehaviour
         UpdateQuestContents();
 
         deliveryButton.SetActive(false); //납품 버튼 비활성화
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.Charon);    //카론퀘스트 알림 끄기
     }
 
     public void UpdateQuestContents()

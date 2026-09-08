@@ -6,11 +6,16 @@
     "effectVolume": 0.0,
     "bgmMute": false,
     "effectMute": false,
-    "currentScene": 0,
-    "currentMainQuestIndex": 0,
+    "currentScene": 30,
+    "currentMainQuestIndex": 2,
     "isMainQuestActionPlaying": false,
     "currentCharonLetterIndex": 0,
     "isCharonQuestActionPlaying": false,
+    "questNotice": [
+        false,
+        false,
+        false
+    ],
     "unlockData": {
         "isRepeatQuestUnlocked": false,
         "isCharonLetterUnlocked": false,

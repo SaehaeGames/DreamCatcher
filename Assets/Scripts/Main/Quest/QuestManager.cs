@@ -10,6 +10,15 @@ public enum QuestFlowState
     DeliveryCompleted,
     QuestClear
 }
+
+public enum QuestType
+{
+    None = -1,
+    MainQuest = 0,
+    RepeatQuest = 1,
+    Charon = 2
+}
+
 public class QuestManager : MonoBehaviour
 {
     //퀘스트 내용을 데이터에서 가져와서 설정하는 스크립트
