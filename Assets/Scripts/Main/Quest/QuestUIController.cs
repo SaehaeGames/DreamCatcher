@@ -90,6 +90,10 @@ public class QuestUIController : MonoBehaviour
     {
         //퀘스트 창을 검정색 편지지, 흰색 글씨로 바꾸고 퀘스트 패널을 여는 함수
         questType = QuestType.Charon;
+
+        contentTexts.SetActive(true);   //메시지 오브젝트 활성화
+        deliveryView.SetActive(false);  //납품 오브젝트 비활성화
+
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 
         int textCnt = contentTexts.transform.childCount;
@@ -99,21 +103,45 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
+
+        UpdateQuestContents();
+
+        deliveryButton.SetActive(false); //납품 버튼 비활성화
     }
 
     public void UpdateQuestContents()
     {
-        // 제목
-        contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
+        if (questType == QuestType.MainQuest)
+        {
+            // 제목
+            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
 
-        // 내용
-        contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestContents();
+            // 내용
+            contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestContents();
 
-        // 보낸 사람
-        contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
+            // 보낸 사람
+            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
+        }
+        else if (questType == QuestType.RepeatQuest)
+        {
+            
+        }
+        else if (questType == QuestType.Charon)
+        {
+            // 제목
+            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
+
+            // 내용
+            contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentCharonLetterContents();
+
+            // 보낸 사람
+            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = "";
+        }
+        
     }
 
     public void CloseQuestPaper()

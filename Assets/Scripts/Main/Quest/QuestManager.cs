@@ -27,12 +27,14 @@ public class QuestManager : MonoBehaviour
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
     private QuestInfo_Data questInfo_Data;
+    private CharonInfo_Data charonInfo_Data;
 
     private void Start()
     {
         playerDataManager = GameManager.instance.playerDataManager;
         questDataManager = GameManager.instance.questDataManager;
         questInfo_Data = GameManager.instance.questinfo_data;
+        charonInfo_Data = GameManager.instance.charoninfo_data;
 
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
@@ -170,5 +172,14 @@ public class QuestManager : MonoBehaviour
         }
 
         return from;
+    }
+
+    public string GetCurrentCharonLetterContents()
+    {
+        int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
+        string contents = charonInfo_Data.dataList[currentCharonLetterIndex].contents;
+        
+        contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
+        return contents;
     }
 }
