@@ -6,8 +6,8 @@ using UnityEngine;
 public enum QuestActionType
 {
     None,
-    Start,
-    End
+    Accept,
+    Complete
 }
 public class QuestActionController : MonoBehaviour
 {
@@ -57,19 +57,26 @@ public class QuestActionController : MonoBehaviour
 
     }
 
-    public void PlayQuestAction(QuestActionType type, int questIndex)
+    public void PlayQuestAction(
+        QuestActionType type,
+        int questIndex,
+        System.Action onStart = null,
+        System.Action onComplete = null)
     {
-        if (type == QuestActionType.Start)
+        if (type == QuestActionType.Accept)
         {
-            ActivateStartQuestAction(questIndex);
+            ActivateAcceptQuestAction(questIndex, onStart,onComplete);
         }
-        else if (type == QuestActionType.End)
+        else if (type == QuestActionType.Complete)
         {
-            ActivateEndQuestAction(questIndex);
+            ActivateCompleteQuestAction(questIndex, onStart, onComplete);
         }
     }
 
-    public void ActivateStartQuestAction(int questIndex)
+    public void ActivateAcceptQuestAction(
+        int questIndex,
+        System.Action onStart = null,
+        System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
         if (completedQuestNum >= 2 && completedQuestNum < quests.Length)
@@ -80,13 +87,16 @@ public class QuestActionController : MonoBehaviour
             {
                 Debug.Log("<color=cyan>Start QuestAction 활성화</color>");
                 startObject.gameObject.SetActive(true); // Start 활성화
-                startObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction();
+                startObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
             }
         }
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- End</color>");
     }
 
-    public void ActivateEndQuestAction(int questIndex)
+    public void ActivateCompleteQuestAction(
+        int questIndex,
+        System.Action onStart = null,
+        System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- Start</color>");
         if (completedQuestNum >= 2 && completedQuestNum < quests.Length)
@@ -96,7 +106,7 @@ public class QuestActionController : MonoBehaviour
             {
                 Debug.Log("<color=cyan>End QuestAction 활성화</color>");
                 endObject.gameObject.SetActive(true); // End 활성화
-                endObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction();
+                endObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
             }
         }
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- End</color>");

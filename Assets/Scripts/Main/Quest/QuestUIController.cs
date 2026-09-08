@@ -140,35 +140,6 @@ public class QuestUIController : MonoBehaviour
 
     public void CloseQuestPaper()
     {
-        if (questType == QuestType.MainQuest)
-        {
-            PlayQuestActionActive();
-        }
-        else if (questType == QuestType.RepeatQuest)
-        {
-
-        }
-        else if (questType == QuestType.Charon)
-        {
-
-        }
-    }
-
-    public void PlayQuestActionActive()
-    {
-        QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetCurrentQuestFlowState();
-        int currentQuestIndex = managers.GetComponent<QuestManager>().GetCurrentMainQuestIndex();
-        switch (questFlowState)
-        {
-            case QuestFlowState.BeforeStart:
-                managers.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.Start, currentQuestIndex);
-                managers.GetComponent<QuestManager>().AcceptMainQuest();
-                break;
-
-            case QuestFlowState.DeliveryCompleted:
-                managers.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.End, currentQuestIndex);
-                managers.GetComponent<QuestManager>().ClearMainQuest(currentQuestIndex);
-                break;
-        }
+        managers.GetComponent<QuestManager>().PlayCurrentQuestAction(questType);
     }
 }
