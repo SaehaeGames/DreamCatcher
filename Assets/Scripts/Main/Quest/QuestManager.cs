@@ -46,20 +46,18 @@ public class QuestManager : MonoBehaviour
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
 
+        Debug.Log("===== QuestManager Start =====");
+        Debug.Log($"IsQuestActionPlaying : {playerDataManager.GetIsQuestActinoPlaying()}");
+        Debug.Log($"CurrentQuestIndex : {GetCurrentMainQuestIndex()}");
+        Debug.Log($"QuestFlowState : {GetCurrentQuestFlowState()}");
+
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
         {
             int currentQuestIndex = GetCurrentMainQuestIndex();
+            Debug.Log($"강제 종료 복원 시작 / QuestIndex : {currentQuestIndex}");
 
-            if (GetCurrentQuestFlowState() == QuestFlowState.Progress)
-            {
-                this.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.Accept, currentQuestIndex);
-            }
-            else if (GetCurrentQuestFlowState() == QuestFlowState.DeliveryCompleted)
-            {
-                this.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.Complete, currentQuestIndex);
-                ClearMainQuest(currentQuestIndex);
-            }
+            PlayMainQuestAction();
         }
     }
     

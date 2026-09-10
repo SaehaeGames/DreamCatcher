@@ -14,7 +14,7 @@ public class QuestActionController : MonoBehaviour
     public GameObject questActionPipelines;
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
-    private int completedQuestNum;
+    //private int completedQuestNum;
     public Transform[] quests;
 
     private void Awake()
@@ -46,12 +46,6 @@ public class QuestActionController : MonoBehaviour
             Debug.LogError("_questDataManager instance is null");
         }
 
-        // 현재 퀘스트 번호 불러오기
-        completedQuestNum = playerDataManager.GetCurrentMainQuestIndex(); // 현재의 퀘스트 번호 불러오기
-
-        if (this == null)
-        { Debug.LogError("QuestActionManager instance is null"); }
-
         if (playerDataManager == null)
         { Debug.LogError("_playerDataContainer is null"); }
 
@@ -63,6 +57,7 @@ public class QuestActionController : MonoBehaviour
         System.Action onStart = null,
         System.Action onComplete = null)
     {
+
         if (type == QuestActionType.Accept)
         {
             ActivateAcceptQuestAction(questIndex, onStart,onComplete);
@@ -79,9 +74,9 @@ public class QuestActionController : MonoBehaviour
         System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
-        if (completedQuestNum >= 2 && completedQuestNum < quests.Length)
+        if (questIndex >= 2 && questIndex < quests.Length)
         {
-            Transform startObject = quests[completedQuestNum].GetChild(0);
+            Transform startObject = quests[questIndex].GetChild(0);
             
             if (startObject != null)
             {
@@ -99,9 +94,9 @@ public class QuestActionController : MonoBehaviour
         System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- Start</color>");
-        if (completedQuestNum >= 2 && completedQuestNum < quests.Length)
+        if (questIndex >= 2 && questIndex < quests.Length)
         {
-            Transform endObject = quests[completedQuestNum].GetChild(1);
+            Transform endObject = quests[questIndex].GetChild(1);
             if (endObject != null)
             {
                 Debug.Log("<color=cyan>End QuestAction 활성화</color>");
