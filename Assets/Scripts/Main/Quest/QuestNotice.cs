@@ -13,6 +13,7 @@ public class QuestNotice : MonoBehaviour
     private void Start()
     {
         checkedNotice = new bool[3] { false, false, false };    //퀘스트 알림 변수 초기화(나중에는 저장해야할듯,,? 읽은지 안읽었는지. 퀘스트 id, 퀘스트 읽음 확인 세트로.)
+        RefreshMainQuestNotice();
        
         //나중에 퀘스트 별로 데이터 저장해야하나?? 퀘스트 받은 날, 읽었는지 여부, 퀘스트 내용(무슨 실, 아이템인지) 데이터 저장해서 불러와야할듯)
 
@@ -28,16 +29,14 @@ public class QuestNotice : MonoBehaviour
     {
         //메인 퀘스트 알림을 활성화하는 함수
 
-        noticeObjects[0].SetActive(true);   //알림 오브젝트 활성화
-        checkedNotice[0] = false;  //퀘스트 알림 확인 변수를 확인 안 함으로 설정
+        SetNoticeState(0, true);
     }
 
     public void NoticeRepeatQuest()
     {
         //반복 퀘스트 알림을 활성화하는 함수
 
-        noticeObjects[1].SetActive(true);   //알림 오브젝트 활성화
-        checkedNotice[1] = false;  //퀘스트 알림 확인 변수를 확인 안 함으로 설정
+        SetNoticeState(1, true);
 
         PlayerPrefs.SetInt("RepeatNotification", System.Convert.ToInt16(checkedNotice[1])); //반복 퀘스트 알림 확인 여부 저장
     }
@@ -46,17 +45,46 @@ public class QuestNotice : MonoBehaviour
     {
         //메인 퀘스트 알림을 비활성화하는 함수
 
-        noticeObjects[0].SetActive(false);   //알림 오브젝트 비활성화
-        checkedNotice[0] = true;  //퀘스트 알림 확인 변수를 확인함으로 설정
+        SetNoticeState(0, false);
     }
 
     public void CloseRepeatQuestNotice()
     {
         //메인 퀘스트 알림을 비활성화하는 함수
 
-        noticeObjects[1].SetActive(false);   //알림 오브젝트 비활성화
-        checkedNotice[1] = true;  //퀘스트 알림 확인 변수를 확인함으로 설정
+        SetNoticeState(1, false);
 
         PlayerPrefs.SetInt("RepeatNotification", System.Convert.ToInt16(checkedNotice[1])); //반복 퀘스트 알림 확인 여부 저장
+    }
+
+    private void RefreshMainQuestNotice()
+    {
+        bool hasNewMainQuestLetter = false;
+
+        QuestManager questManager = GameObject.FindObjectOfType<QuestManager>();
+        if (questManager != null)
+        {
+            QuestFlowState state = questManager.GetCurrentQuestFlowState();
+            hasNewMainQuestLetter |= state == QuestFlowState.BeforeStart
+                || state == QuestFlowState.DeliveryCompleted;
+        }
+
+        SetNoticeState(0, hasNewMainQuestLetter);
+    }
+
+    private void SetNoticeState(int index, bool isActive)
+    {
+        if (noticeObjects == null || index < 0 || index >= noticeObjects.Length
+            || noticeObjects[index] == null)
+        {
+            Debug.LogWarning($"[QuestNotice] noticeObjects[{index}]가 설정되지 않았습니다.");
+            return;
+        }
+
+        noticeObjects[index].SetActive(isActive);
+        if (checkedNotice != null && index < checkedNotice.Length)
+        {
+            checkedNotice[index] = !isActive;
+        }
     }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public class FeatherDataModel
 {
-    public List<FeatherData> datalist;
+    public List<FeatherData> datalist = new List<FeatherData>();
 }

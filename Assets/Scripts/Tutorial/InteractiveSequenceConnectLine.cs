@@ -14,7 +14,7 @@ public class InteractiveSequenceConnectLine : InteractiveSequenceBase
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        if (numberOfTimesCorrect == 4)
+        if (numberOfTimesCorrect >= 4)
         {
             tutorialPipeline.SetNextTutorial(SceneState.None);
         }
@@ -22,7 +22,7 @@ public class InteractiveSequenceConnectLine : InteractiveSequenceBase
 
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
-        if (numberOfTimesCorrect == 4)
+        if (numberOfTimesCorrect >= 4)
         {
             questActionPipeline.SetNextQuestAction();
         }

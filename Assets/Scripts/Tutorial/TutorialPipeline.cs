@@ -13,17 +13,60 @@ public class TutorialPipeline : MonoBehaviour
     private InteractiveSequenceBase currentTutorial = null;
     private int currentIndex = -1;
     private GameSceneManager _gameSceneManager;
+    private bool isStarted;
 
     // Start is called before the first frame update
     void Start()
     {
+        isStarted = true;
+        InitializePipeline();
+    }
+
+    private void OnEnable()
+    {
+        if (isStarted)
+        {
+            InitializePipeline();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (currentTutorial != null)
+        {
+            currentTutorial.Exit();
+            currentTutorial = null;
+        }
+    }
+
+    private void InitializePipeline()
+    {
         _gameSceneManager = GameSceneManager.Instance; // 게임씬매니저 초기화
+        currentIndex = -1;
+        currentTutorial = null;
 
         // 튜토리얼 리스트 초기화
+        if (tutorials == null)
+        {
+            tutorials = new List<InteractiveSequenceBase>();
+        }
         tutorials.Clear(); // 튜토리얼 리스트 비우기
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            tutorials.Add(this.transform.GetChild(i).gameObject.GetComponent<InteractiveSequenceBase>()); // 튜토리얼 리스트 채우기
+            InteractiveSequenceBase tutorial = this.transform.GetChild(i).gameObject.GetComponent<InteractiveSequenceBase>();
+            if (tutorial == null)
+            {
+                Debug.LogError($"[TutorialPipeline] {gameObject.name}/{transform.GetChild(i).name}에 실행 시퀀스가 없습니다.");
+                return;
+            }
+
+            tutorials.Add(tutorial); // 튜토리얼 리스트 채우기
+        }
+
+        if (tutorials.Count == 0)
+        {
+            Debug.LogWarning($"[TutorialPipeline] {gameObject.name}에 실행할 튜토리얼이 없습니다.");
+            return;
         }
 
         // 다음 튜토리얼 불러오기
@@ -47,6 +90,7 @@ public class TutorialPipeline : MonoBehaviour
         if (currentTutorial != null)
         {
             currentTutorial.Exit();
+            currentTutorial = null;
         }
 
         // 마지막 튜토리얼을 진행했다면 CompletedAllTutorials() 메소드 호출
@@ -70,8 +114,8 @@ public class TutorialPipeline : MonoBehaviour
     {
         Debug.Log($"[CompletedAllTutorials 호출] 내 이름: {this.gameObject.name}");
 
-        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
         currentTutorial = null;
+        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
 
         Debug.Log("Complete Scene");
         if(_sceneState!=SceneState.None)

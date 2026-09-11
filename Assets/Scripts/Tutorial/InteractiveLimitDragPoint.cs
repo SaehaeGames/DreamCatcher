@@ -45,6 +45,7 @@ public class InteractiveLimitDragPoint : MonoBehaviour
                 if(_tutorialConnectLine==null)
                 {
                     Debug.LogError("_tutorialConnectLine이 존재하지 않습니다.");
+                    return false;
                 }
                 _tutorialConnectLine.PlusNumberOfTimesCorrect();
                 Debug.Log("연결 성공 타겟 같음");
@@ -63,6 +64,7 @@ public class InteractiveLimitDragPoint : MonoBehaviour
                 if (_tutorialConnectLine == null)
                 {
                     Debug.LogError("_tutorialConnectLine이 존재하지 않습니다.");
+                    return false;
                 }
                 _tutorialConnectLine.PlusNumberOfTimesCorrect();
                 Debug.Log("연결 성공 타겟 다름");

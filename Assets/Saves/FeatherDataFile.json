@@ -2,18 +2,18 @@
     "datalist": [
         {
             "id": "JS_2000",
-            "count": 9,
+            "count": 3,
             "appear": 1
         },
         {
             "id": "JS_2001",
-            "count": 17,
-            "appear": 1
+            "count": 0,
+            "appear": 0
         },
         {
             "id": "JS_2002",
-            "count": 9,
-            "appear": 1
+            "count": 0,
+            "appear": 0
         },
         {
             "id": "JS_2003",
@@ -27,8 +27,8 @@
         },
         {
             "id": "JS_2005",
-            "count": 4,
-            "appear": 1
+            "count": 0,
+            "appear": 0
         },
         {
             "id": "JS_2006",

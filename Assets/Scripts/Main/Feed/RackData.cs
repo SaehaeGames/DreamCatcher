@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class RackData
@@ -30,4 +31,33 @@ public class RackData
         this.feed = feed;
         this.birdNumber = birdNumber;
     }   
+}
+
+public class RackDataManager
+{
+    private JsonManager jsonManager = new JsonManager();
+
+    public List<RackData> dataList { get; private set; } = new List<RackData>();
+
+    public void Load()
+    {
+        dataList = jsonManager.LoadDataList<RackData>(Constants.RackDataFile)
+            ?? new List<RackData>();
+    }
+
+    public void SetData(List<RackData> data)
+    {
+        dataList = data ?? new List<RackData>();
+    }
+
+    public void Save()
+    {
+        jsonManager.SaveDataList(Constants.RackDataFile, dataList);
+    }
+
+    public void ResetData()
+    {
+        dataList = new List<RackData>();
+        Save();
+    }
 }

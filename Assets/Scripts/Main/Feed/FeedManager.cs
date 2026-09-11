@@ -29,10 +29,65 @@ public class FeedManager : MonoBehaviour
 
         rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
 
+        if (IsTutorialInProgress())
+        {
+            ClearTutorialRackState();
+        }
+
         InitializeFeedObjects();
         InitializeRackObjects();
         UpdateRackSetting();   // 횃대 정보 업데이트
         RestoreRackState();    // 저장된 횃대 시각 상태 복원
+    }
+
+    private bool IsTutorialInProgress()
+    {
+        PlayerDataManager playerDataManager = GameManager.instance.playerDataManager;
+        return !playerDataManager.GetIsQuestActinoPlaying()
+            && TutorialManager.IsTutorialScene(playerDataManager.GetCurrentScene());
+    }
+
+    private void ClearTutorialRackState()
+    {
+        List<RackData> dataList = GameManager.instance.rackDataList;
+        if (dataList == null)
+        {
+            dataList = new List<RackData>();
+            GameManager.instance.rackDataList = dataList;
+        }
+        else
+        {
+            dataList.Clear();
+        }
+
+        GameManager.instance.RackDataManager.SetData(dataList);
+        GameManager.instance.RackDataManager.Save();
+
+        foreach (GameObject rackFeedObject in RackFeedObjects)
+        {
+            for (int rackIndex = 0; rackIndex < rackFeedObject.transform.childCount; rackIndex++)
+            {
+                Transform rackFeed = rackFeedObject.transform.GetChild(rackIndex);
+                for (int feedIndex = 0; feedIndex < rackFeed.childCount; feedIndex++)
+                {
+                    rackFeed.GetChild(feedIndex).gameObject.SetActive(false);
+                }
+            }
+        }
+
+        foreach (GameObject rackBirdObject in RackBirdObjects)
+        {
+            for (int rackIndex = 0; rackIndex < rackBirdObject.transform.childCount; rackIndex++)
+            {
+                rackBirdObject.transform.GetChild(rackIndex).gameObject.SetActive(false);
+            }
+        }
+
+        FeedTimer feedTimer = GetComponent<FeedTimer>();
+        if (feedTimer != null)
+        {
+            feedTimer.ClearTimerObjects();
+        }
     }
 
     public void RestoreRackState()
@@ -119,15 +174,25 @@ public class FeedManager : MonoBehaviour
     {
         // 먹이를 선택하는 함수
 
+        if ((int)feed > GameManager.instance.playerDataManager.GetFoodUnlockLevel())
+        {
+            Debug.LogWarning($"[FeedManager] 잠긴 먹이는 사용할 수 없습니다. feed: {feed}");
+            return;
+        }
+
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;               // 새 도감 데이터를 가져옴
         FeedTimer feedTimer = this.GetComponent<FeedTimer>();
 
-        int randomBird = this.GetComponent<BirdSelect>().SelectBirdType(feed);          // 랜덤으로 먹이의 새를 정함
+        BirdSelect birdSelect = this.GetComponent<BirdSelect>();
+        bool isInTutorial = TutorialManager.IsTutorialScene(
+            GameManager.instance.playerDataManager.GetCurrentScene());
+        int randomBird = isInTutorial && feed == FeedType.PigeonBeans
+            ? birdSelect.SelectTutorialBirdType(feed)
+            : birdSelect.SelectBirdType(feed);
         int randomTime = Random.Range(birdinfo_data.dataList[randomBird].startTime,
             birdinfo_data.dataList[randomBird].endTime + 1);                            // 랜덤으로 소요 시간을 정함
 
         // 튜토리얼 중(nowSceneNum <= 11) 비둘기콩은 30초 고정
-        bool isInTutorial = (int)GameManager.instance.playerDataManager.GetCurrentScene() <= 11;
         if (isInTutorial && feed == FeedType.PigeonBeans)
             randomTime = 30;
 
@@ -181,6 +246,16 @@ public class FeedManager : MonoBehaviour
     {
         // 새를 터치하여 깃털을 얻는 함수
 
+        BirdInfo_Data birdInfoData = GameManager.instance.birdinfo_data;
+        if (birdNumber >= 0 && birdNumber < birdInfoData.dataList.Count &&
+            birdInfoData.dataList[birdNumber].isSpecial)
+        {
+            // 특별 새는 깃털이 없으므로 도감 등장 처리만 유지하고 횃대에서 돌려보낸다.
+            SetInactiveRackBird(rackNumber);
+            this.GetComponent<FeedTimer>().SaveTimerData(rackNumber, false, false);
+            return;
+        }
+
         // 인벤토리 용량 확인
         // if(인벤토리 용량 꽉찼는지) 해서 꽉찼으면 바로 return 하는 코드 추가하기
         InventoryManager inventoryData = GameObject.FindGameObjectWithTag(Constants.Tag_GoodsManager).GetComponent<InventoryManager>();  // 상품 데이터를 가져옴
@@ -193,13 +268,7 @@ public class FeedManager : MonoBehaviour
 
         if (featherCnt != 0 || inventoryCnt < inventoryMax)    // 이미 인벤토리에 가지고 있는 깃털이거나, 인벤토리가 꽉차지 않았다면 깃털 추가
         {
-            if (!featherData.IsFeatherAppeared(birdNumber))     // 한 번도 나타나지 않은 새라면
-            {
-                featherData.UnlockFeather(birdNumber); // 도감에 증가한 등장 여부 수정
-            }
-
             featherData.AddFeather(birdNumber, 1); // 얻은 깃털 개수 증가
-            inventoryData.AddFeatherInventory(birdNumber);  // 얻은 깃털을 인벤토리에 추가  -> ** 이걸 개수 증가 함수가 아니라 그냥 인벤토리 업데이트하는 걸로 바꿀까?
 
 
             RackBirdObjects[rackLevel].gameObject.transform.GetChild(rackNumber).gameObject.SetActive(false);       // 새 오브젝트 비활성화

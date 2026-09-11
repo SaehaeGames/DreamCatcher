@@ -12,6 +12,13 @@ public class InteractiveSequenceFadeEffect : InteractiveSequenceBase
 
     public override void Enter()
     {
+        isCompleted = false;
+        if (fadeEffect == null)
+        {
+            Debug.LogError($"[InteractiveSequenceFadeEffect] {gameObject.name}의 fadeEffect가 설정되지 않았습니다.");
+            return;
+        }
+
         fadeEffect.gameObject.SetActive(true);
         fadeEffect.FadeIn(OnAfterFadeEffect);
     }
@@ -41,6 +48,12 @@ public class InteractiveSequenceFadeEffect : InteractiveSequenceBase
         }
     }
 
-    public override void Exit() { }    
+    public override void Exit()
+    {
+        if (fadeEffect != null)
+        {
+            fadeEffect.StopFade();
+        }
+    }
     
 }

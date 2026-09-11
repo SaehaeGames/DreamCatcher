@@ -153,18 +153,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    /*
     public void AddFeatherInventory(int featherIndexNumber, int cnt = 1)
     {
-        //증가할 아이템 번호로 해당 인덱스의 깃털을 개수를 추가하는 함수
-        featherDataManager = GameManager.instance.featherDataManager;   //깃털 정보를 가져옴
-
-        featherDataManager.AddFeather(featherIndexNumber, cnt); //깃털 개수 증가
-        if (!featherDataManager.IsFeatherAppeared(featherIndexNumber))
-        {
-            featherDataManager.UnlockFeather(featherIndexNumber);
-        }
-        Debug.Log("인벤토리에 추가됨");
+        깃털 데이터 변경은 FeatherDataManager를 통해 한 곳에서만 처리한다.
+        인벤토리 UI는 OpenInventory()에서 최신 깃털 데이터로 다시 구성한다.
     }
+    */
 
     public void DeleteFeatherInventory(int featherIndexNumber, int cnt)
     {

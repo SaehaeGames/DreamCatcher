@@ -139,7 +139,7 @@ MonoBehaviour:
       \uADF8\uB9AC\uAE30\uB3C4 \uC2EB\uACE0\uC694.nn nn\uC544\uBE60\uD55C\uD14C \uBE44\uBC00\uB85C
       \uD558\uACE0 \uC800 \uC880 \uB3C4\uC640\uC8FC\uC138\uC694!"
     from: "-\uCF00\uBE48"
-    questDreamCatcher: 
+    questDreamCatcher: 2A9834D906904667C401554AEA0ED8FE23F2F2F28E5D35798B7BBDF79057F83A
     questDreamCatcherNum: 1
   - id: SO_6007
     title: "\uCE68\uB300\uBC11 \uAD34\uBB3C - \uC644\uB8CC"
@@ -156,7 +156,7 @@ MonoBehaviour:
       \uC6B0\uC640!nn nn\uB098\uC911\uC5D0 \uC800\uB3C4 \uAF2D \uC8FC\uC220\uC0AC\uB2D8\uCC98\uB7FC
       \uBA4B\uC9C4 \uC0AC\uB78C\uC774 \uB420\uB798\uC694!!"
     from: "-\uD589\uBCF5\uD55C \uCF00\uBE48"
-    questDreamCatcher: 
+    questDreamCatcher: 2A9834D906904667C401554AEA0ED8FE23F2F2F28E5D35798B7BBDF79057F83A
     questDreamCatcherNum: 1
   - id: SO_6008
     title: "\uC0C1\uD07C \uACFC\uC218\uC6D0"

@@ -6,6 +6,18 @@ public class JsonManager
 {
     // Json 데이터 로드/세이브 관리 클래스
 
+    public T LoadDefaultData<T>(string fileName) where T : new()
+    {
+        TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
+        if (defaultJson == null)
+        {
+            Debug.LogWarning($"[JsonManager] Default data not found: {fileName}");
+            return new T();
+        }
+
+        T data = JsonUtility.FromJson<T>(defaultJson.text);
+        return data == null ? new T() : data;
+    }
     public T LoadData<T>(string fileName) where T : new()
     {
         // 데이터를 로드하는 함수

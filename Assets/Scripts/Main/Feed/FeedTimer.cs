@@ -89,6 +89,19 @@ public class FeedTimer : MonoBehaviour
         }
     }
 
+    public void ClearTimerObjects()
+    {
+        rackData = GameManager.instance.rackDataList;
+
+        foreach (GameObject timerObject in timers)
+        {
+            for (int i = 0; i < timerObject.transform.childCount; i++)
+            {
+                timerObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
     public float GetLeftTime(int rackNumber)
     {
         // 먹이 남은 시간을 반환하는 함수
@@ -188,6 +201,14 @@ public class FeedTimer : MonoBehaviour
         updateAction(savedData[rackNumber]);    // rackNumber에 해당하는 데이터를 updateAction을 사용해 업데이트
 
         GameManager.instance.rackDataList = savedData;
-        GameManager.instance.jsonManager.SaveDataList<RackData>(fileName, savedData);
+        GameManager.instance.RackDataManager.SetData(savedData);
+
+        PlayerDataManager playerDataManager = GameManager.instance.playerDataManager;
+        bool isTutorialInProgress = !playerDataManager.GetIsQuestActinoPlaying()
+            && TutorialManager.IsTutorialScene(playerDataManager.GetCurrentScene());
+        if (!isTutorialInProgress)
+        {
+            GameManager.instance.RackDataManager.Save();
+        }
     }
 }

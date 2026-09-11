@@ -1,13 +1,3 @@
 {
-    "datalist": [
-        {
-            "isFed": false,
-            "startTime": "2026-07-24 오후 5:36:58",
-            "feedingTime": 30.0,
-            "decreaseTime": 0.0,
-            "isAppeared": false,
-            "feed": 0,
-            "birdNumber": 3
-        }
-    ]
+    "datalist": []
 }

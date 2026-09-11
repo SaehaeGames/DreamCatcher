@@ -9,6 +9,7 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
     private GameObject arrowPrefab;
     private GameObject canvas;
     private Transform startParent;
+    private InteractiveDragObj interactiveDragObj;
 
     [Header("화살표 강조 ON/OFF")]
     [SerializeField] private bool highlightArrowOnOff;
@@ -19,6 +20,19 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
 
     public override void Enter()
     {
+        if (dragObj == null)
+        {
+            Debug.LogError($"[InteractiveSequenceDrag] {gameObject.name}의 dragObj가 설정되지 않았습니다.");
+            return;
+        }
+
+        interactiveDragObj = dragObj.GetComponent<InteractiveDragObj>();
+        if (interactiveDragObj == null)
+        {
+            Debug.LogError($"[InteractiveSequenceDrag] {dragObj.name}에 InteractiveDragObj가 없습니다.");
+            return;
+        }
+
         canvas = GameObject.FindGameObjectWithTag("UI Canvas");
 
         if (highlightArrowOnOff)
@@ -36,7 +50,7 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
             dragObj.transform.SetParent(arrow.transform);
 
             // 타겟 부모 조정
-            dragObj.GetComponent<InteractiveDragObj>().SetTargetParent(arrow.transform);
+            interactiveDragObj.SetTargetParent(arrow.transform);
 
             // 화살표 깜박임 애니메이션
             arrow.GetComponent<Animator>().enabled = true;
@@ -45,17 +59,17 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
         else
         {
             startParent = dragObj.transform.parent;
-            dragObj.GetComponent<InteractiveDragObj>().SetTargetParent(canvas.transform);
+            interactiveDragObj.SetTargetParent(canvas.transform);
         }
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
         // 해당 오브젝트가 드래그 오브젝트라면
-        if (dragObj.GetComponent<InteractiveDragObj>() != null)
+        if (interactiveDragObj != null)
         {
             // 드래그가 완료되었다면
-            if (dragObj.GetComponent<InteractiveDragObj>().GetObjectDraged())
+            if (interactiveDragObj.GetObjectDraged())
             {
                 dragObj.transform.SetParent(startParent);
                 tutorialPipeline.SetNextTutorial(SceneState.None); // 다음 InteractiveSequence
@@ -66,10 +80,10 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
         // 해당 오브젝트가 드래그 오브젝트라면
-        if (dragObj.GetComponent<InteractiveDragObj>() != null)
+        if (interactiveDragObj != null)
         {
             // 드래그가 완료되었다면
-            if (dragObj.GetComponent<InteractiveDragObj>().GetObjectDraged())
+            if (interactiveDragObj.GetObjectDraged())
             {
                 Debug.Log("<color=red>드래그 튜토리얼 완료</color>");
                 dragObj.transform.SetParent(startParent);
@@ -83,7 +97,16 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
         /*        dragObj.GetComponent<InteractiveDragObj>().SetObjctDraged(false);
                 Destroy(arrow); // 화살표 삭제*/
 
-        dragObj.GetComponent<InteractiveDragObj>().SetObjctDraged(false);
+        if (interactiveDragObj != null)
+        {
+            interactiveDragObj.SetObjctDraged(false);
+            interactiveDragObj.ClearTargetConfiguration();
+        }
+
+        if (dragObj != null && startParent != null)
+        {
+            dragObj.transform.SetParent(startParent);
+        }
 
         if (highlightArrowOnOff && arrow != null)
         {

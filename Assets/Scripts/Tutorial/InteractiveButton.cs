@@ -7,11 +7,21 @@ public class InteractiveButton : MonoBehaviour
 {
     public bool buttonClicked;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         buttonClicked = false;
-        this.GetComponent<Button>().onClick.AddListener(TutorialButtonClicked);
+        Button button = GetComponent<Button>();
+        button.onClick.RemoveListener(TutorialButtonClicked);
+        button.onClick.AddListener(TutorialButtonClicked);
+    }
+
+    private void OnDestroy()
+    {
+        Button button = GetComponent<Button>();
+        if (button != null)
+        {
+            button.onClick.RemoveListener(TutorialButtonClicked);
+        }
     }
 
     // 튜토리얼 버튼이 눌렸을 때

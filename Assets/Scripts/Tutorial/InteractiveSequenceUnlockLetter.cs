@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,50 +10,58 @@ public enum LetterType
 
 public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 {
-    [Header("해금 설정")]
+    [Header("해금 종류")]
     public LetterType letterType;
 
-    [Header("UI 연결")]
-    public GameObject unlockPopUp; // TutorialOverlay의 UnlockPopUp 연결
-    public Button okBtn;           // UnlockPopUp 안의 OKBtn 연결
+    [Header("공통 팝업")]
+    public GameObject unlockPopUp;
+    public Button okBtn;
+    public Image itemImage;
+    public Text messageText;
+
+    [Header("해금 표시")]
+    public Sprite unlockIcon;
+    [TextArea] public string unlockMessage;
+
+    [Header("반복 퀘스트 보상")]
+    public Sprite specialFeedIcon;
+    [TextArea] public string specialFeedMessage = "특제먹이를 획득했습니다.";
 
     private PlayerDataManager playerDataManager;
-    private bool isOKBtnClicked = false;
+    private bool isCompleted;
+    private bool isShowingSpecialFeedReward;
 
     public override void Enter()
     {
-        isOKBtnClicked = false;
-
+        isCompleted = false;
+        isShowingSpecialFeedReward = false;
         playerDataManager = GameManager.instance.playerDataManager;
 
-        // 1. 데이터 해금
-        if(letterType == LetterType.RepeatQuest )
+        if (letterType == LetterType.RepeatQuest)
         {
-            playerDataManager.UnlockRepeatQuest();
+            playerDataManager.UnlockRepeatQuestWithSpecialFeed(1);
         }
-        else if(letterType == LetterType.Charon )
+        else if (letterType == LetterType.Charon)
         {
             playerDataManager.UnlockCharonLetter();
         }
 
-        // 2. 팝업 띄우기
-        if (unlockPopUp != null)
+        if (!TutorialUnlockPopupUtility.Resolve(
+                gameObject, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
         {
-            unlockPopUp.SetActive(true);
+            isCompleted = true;
+            return;
         }
 
-        // 3. OK 버튼 클릭 이벤트 등록
-        if (okBtn != null)
-        {
-            okBtn.onClick.RemoveAllListeners();
-            okBtn.onClick.AddListener(OnOkButtonClicked);
-        }
+        ShowUnlockPopup();
+
+        okBtn.onClick.RemoveListener(OnOkButtonClicked);
+        okBtn.onClick.AddListener(OnOkButtonClicked);
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        // 버튼을 눌렀다면 다음 튜토리얼 스텝으로 넘어감
-        if (isOKBtnClicked)
+        if (isCompleted)
         {
             tutorialPipeline.SetNextTutorial(SceneState.None);
         }
@@ -63,8 +69,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
-        // 버튼을 눌렀다면 다음 퀘스트 액션으로 넘어감
-        if (isOKBtnClicked)
+        if (isCompleted)
         {
             questActionPipeline.SetNextQuestAction();
         }
@@ -72,7 +77,6 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 
     public override void Exit()
     {
-        // 다음 스텝으로 넘어갈 때 팝업 닫기 및 이벤트 정리
         if (unlockPopUp != null)
         {
             unlockPopUp.SetActive(false);
@@ -80,13 +84,123 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 
         if (okBtn != null)
         {
-            okBtn.onClick.RemoveAllListeners();
+            okBtn.onClick.RemoveListener(OnOkButtonClicked);
         }
+
+        isCompleted = false;
+        isShowingSpecialFeedReward = false;
     }
 
     private void OnOkButtonClicked()
     {
-        isOKBtnClicked = true;
+        if (letterType == LetterType.RepeatQuest && !isShowingSpecialFeedReward)
+        {
+            isShowingSpecialFeedReward = true;
+            TutorialUnlockPopupUtility.Show(
+                unlockPopUp, itemImage, messageText, specialFeedIcon, specialFeedMessage);
+            return;
+        }
+
+        isCompleted = true;
     }
 
+    private void ShowUnlockPopup()
+    {
+        string defaultMessage = letterType == LetterType.RepeatQuest
+            ? "반복 퀘스트가 해금되었습니다."
+            : "카론의 편지가 해금되었습니다.";
+
+        TutorialUnlockPopupUtility.Show(
+            unlockPopUp,
+            itemImage,
+            messageText,
+            unlockIcon,
+            string.IsNullOrWhiteSpace(unlockMessage) ? defaultMessage : unlockMessage);
+    }
+}
+
+internal static class TutorialUnlockPopupUtility
+{
+    public static bool Resolve(
+        GameObject owner,
+        ref GameObject unlockPopUp,
+        ref Button okBtn,
+        ref Image itemImage,
+        ref Text messageText)
+    {
+        if (unlockPopUp == null)
+        {
+            GameObject tutorialOverlay = GameObject.FindGameObjectWithTag("TutorialOverlay");
+            if (tutorialOverlay != null)
+            {
+                Transform popupTransform = tutorialOverlay.transform.Find("UnlockPopUp");
+                if (popupTransform != null)
+                {
+                    unlockPopUp = popupTransform.gameObject;
+                }
+            }
+        }
+
+        if (unlockPopUp == null)
+        {
+            Debug.LogError($"[TutorialUnlockPopup] {owner.name}: UnlockPopUp을 찾을 수 없습니다.");
+            return false;
+        }
+
+        if (okBtn == null)
+        {
+            Transform buttonTransform = unlockPopUp.transform.Find("OKBtn");
+            if (buttonTransform != null)
+            {
+                okBtn = buttonTransform.GetComponent<Button>();
+            }
+        }
+
+        if (itemImage == null)
+        {
+            Transform imageTransform = unlockPopUp.transform.Find("ItemFrame/ItemImage");
+            if (imageTransform != null)
+            {
+                itemImage = imageTransform.GetComponent<Image>();
+            }
+        }
+
+        if (messageText == null)
+        {
+            Transform textTransform = unlockPopUp.transform.Find("Text");
+            if (textTransform != null)
+            {
+                messageText = textTransform.GetComponent<Text>();
+            }
+        }
+
+        if (okBtn == null)
+        {
+            Debug.LogError($"[TutorialUnlockPopup] {owner.name}: OKBtn을 찾을 수 없습니다.");
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void Show(
+        GameObject unlockPopUp,
+        Image itemImage,
+        Text messageText,
+        Sprite icon,
+        string message)
+    {
+        if (itemImage != null && icon != null)
+        {
+            itemImage.sprite = icon;
+            itemImage.enabled = true;
+        }
+
+        if (messageText != null && !string.IsNullOrWhiteSpace(message))
+        {
+            messageText.text = message;
+        }
+
+        unlockPopUp.SetActive(true);
+    }
 }

@@ -25,61 +25,24 @@ public class InteriorData
 
 public class InteriorDataManager
 {
-    public List<InteriorData> dataList;  
+    public List<InteriorData> dataList;
+    private JsonManager jsonManager = new JsonManager();
 
     public InteriorDataManager()
     {
         dataList = new List<InteriorData>();
-        ResetData();
     }
 
     public void ResetData()
     {
-        if (dataList != null)
-            dataList.Clear();
+        InteriorDataManager defaultData = jsonManager.LoadDefaultData<InteriorDataManager>(Constants.InteriorDataFile);
+        dataList = defaultData.dataList ?? new List<InteriorData>();
+        Save();
+    }
 
-        StoreInfo_Data storeInfo_data = GameManager.instance.storeinfo_data;
-
-        List<string> defaultItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Default);
-        List<string> SeaItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Sea);
-        List<string> StarItemIDList = storeInfo_data.GetSortedIDsByTheme(ItemTheme.Star);
-
-        List<string> combinedItemIDList = new List<string>();
-        combinedItemIDList.AddRange(defaultItemIDList);
-        combinedItemIDList.AddRange(SeaItemIDList);
-        combinedItemIDList.AddRange(StarItemIDList);
-
-        int startId = 4000;
-        int cnt = 0;
-        for (int j = 0; j < defaultItemIDList.Count; j++)
-        {
-            int level = GameManager.instance.storeinfo_data.GetLevelByID(defaultItemIDList[j]);
-            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
-            startId++;
-        }
-        for (int j = 0; j < SeaItemIDList.Count; j++)
-        {
-            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
-            startId++;
-        }
-        for (int j = 0; j < StarItemIDList.Count; j++)
-        {
-            dataList.Add(new InteriorData("JS_" + startId, false, false, combinedItemIDList[cnt++]));
-            startId++;
-        }
-
-
-        // 기초 꽃병, 주머니, 꽃병 아이템 1단계만 활성화
-        int[] indicesToSet = { 0, 4, 8 };       // 설정할 인덱스 목록
-        foreach (int index in indicesToSet)     // 각 인덱스에 대해 isHaving과 isAdjusting 값을 설정
-        {
-            dataList[index].isHaving = true;
-            dataList[index].isAdjusting = true;
-        }
-
-        /*        List<InteriorInfo_Object> infoDataList = GameManager.instance.interiorinfo_data.dataList;       // 인테리어 도감 데이터
-                for (int i = 0; i < infoDataList.Count; i++)
-                    dataList.Add(new InteriorData(infoDataList[i].id, false, false));*/
+    public void Save()
+    {
+        jsonManager.SaveData(Constants.InteriorDataFile, this);
     }
 
     public InteriorData GetInteriorDataByStoreInfoId(string _storeinfo_id)

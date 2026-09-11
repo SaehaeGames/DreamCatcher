@@ -134,14 +134,26 @@ public class FeatherDataManager
         return RemoveFeatherResult.Success;
     }
 
-    public void ResetData()
+    public void ResetData(IReadOnlyDictionary<int, int> initialCounts = null)
     {
-        if (featherDataModel.datalist != null)
+        if (featherDataModel.datalist == null)
+            featherDataModel.datalist = new List<FeatherData>();
+        else
             featherDataModel.datalist.Clear();
+
         for (int i = 0; i < featherDataCount; i++)
         {
-            featherDataModel.datalist.Add(new FeatherData("JS_" + (2000 + i), 0, 0));
+            int count = 0;
+            if (initialCounts != null)
+            {
+                initialCounts.TryGetValue(i, out count);
+                count = Mathf.Max(0, count);
+            }
+
+            featherDataModel.datalist.Add(new FeatherData(
+                "JS_" + (2000 + i), count, count > 0 ? 1 : 0));
         }
+
         Save();
     }
 
@@ -255,8 +267,12 @@ public class FeatherDataManager
     {
         featherDataModel = jsonManager.LoadData<FeatherDataModel>(Constants.FeatherDataFile);
 
-        if (featherDataModel == null)
-            featherDataModel = new FeatherDataModel();
+        if (featherDataModel == null ||
+            featherDataModel.datalist == null ||
+            featherDataModel.datalist.Count != featherDataCount)
+        {
+            ResetData();
+        }
     }
 
     public void Save()

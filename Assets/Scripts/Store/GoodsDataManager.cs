@@ -35,28 +35,23 @@ public class GoodsData
 public class GoodsDataManager
 {
     public List<GoodsData> dataList;
+    private JsonManager jsonManager = new JsonManager();
 
     public GoodsDataManager()
     {
         dataList = new List<GoodsData>();
-        ResetData();
     }
 
     public void ResetData()
     {
-        if (dataList != null)
-            dataList.Clear();
+        GoodsDataManager defaultData = jsonManager.LoadDefaultData<GoodsDataManager>(Constants.GoodsDataFile);
+        dataList = defaultData.dataList ?? new List<GoodsData>();
+        Save();
+    }
 
-        List<InteriorInfo_Object> infoDataList = GameManager.instance.interiorinfo_data.dataList;
-
-        // 아이디 초기값
-        int startId = 3000;
-
-        foreach (var info in infoDataList)
-        {
-            dataList.Add(new GoodsData("JS_" + startId, info.name, info.category, 0, info.id));
-            startId++;
-        }
+    public void Save()
+    {
+        jsonManager.SaveData(Constants.GoodsDataFile, this);
     }
 
     public List<GoodsData> GetGoodsDataList(string category)

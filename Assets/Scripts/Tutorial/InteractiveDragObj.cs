@@ -12,8 +12,9 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
     private int curScene;
     public bool objectDraged;
     [SerializeField] private GameObject[] targets;
-    private Transform startParent;
+    private Transform[] startParents;
     private int numberOfTargets;
+    private bool isTargetConfigured;
 
     // Start is called before the first frame update
     void Start()
@@ -26,12 +27,12 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
     // 드래그 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log($"OnBeginDrag 호출. startParent: {startParent?.name}");
+        Debug.Log($"OnBeginDrag 호출. isTargetConfigured: {isTargetConfigured}");
 
         objectDraged = false; // 초기화
 
         // Tutorial 오브젝트들이 활성화 되어 있지 않으면 코드 비활성화
-        if (startParent == null)
+        if (!isTargetConfigured)
         {
             Debug.LogWarning("startParent가 null이라 스크립트 비활성화됨");
             this.GetComponent<InteractiveDragObj>().enabled = false;
@@ -44,14 +45,25 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void SetTargetParent(Transform arrowTransform)
     {
-        Debug.Log($"[SetTargetParent 호출] arrowTransform: {arrowTransform?.name}, targets.Length: {targets.Length}");
+        if (arrowTransform == null || targets == null)
+        {
+            Debug.LogError("[InteractiveDragObj] 드래그 타겟 설정값이 없습니다.");
+            isTargetConfigured = false;
+            return;
+        }
+
+        Debug.Log($"[SetTargetParent 호출] arrowTransform: {arrowTransform.name}, targets.Length: {targets.Length}");
 
         numberOfTargets = targets.Length;
+        startParents = new Transform[numberOfTargets];
         for (int i = 0; i < numberOfTargets; i++)
         {
-            startParent = targets[i].transform.parent;
+            if (targets[i] == null) continue;
+
+            startParents[i] = targets[i].transform.parent;
             targets[i].transform.SetParent(arrowTransform);
         }
+        isTargetConfigured = numberOfTargets > 0;
     }
 
     public void SetObjctDraged(bool dragSet)
@@ -64,45 +76,65 @@ public class InteractiveDragObj : MonoBehaviour, IBeginDragHandler, IEndDragHand
         return objectDraged;
     }
 
+    public void RestoreTargets()
+    {
+        if (targets == null || startParents == null) return;
+
+        int restoreCount = Mathf.Min(targets.Length, startParents.Length);
+        for (int i = 0; i < restoreCount; i++)
+        {
+            if (targets[i] != null && startParents[i] != null)
+            {
+                targets[i].transform.SetParent(startParents[i]);
+            }
+        }
+
+    }
+
+    public void ClearTargetConfiguration()
+    {
+        RestoreTargets();
+        isTargetConfigured = false;
+    }
+
     // 드래그 끝
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log($"드래그 종료. 현재 위치: {eventData.pointerCurrentRaycast.gameObject?.name}");
+        numberOfTargets = targets != null ? targets.Length : 0;
+        RestoreTargets();
 
-        Debug.Log($"드래그 종료. 놓은 위치: {eventData.pointerCurrentRaycast.gameObject?.name}");
-        Debug.Log($"targets[0]: {targets[0]?.name}");
-
-        numberOfTargets = targets.Length;
-        for (int i=0; i < numberOfTargets; i++) 
+        FeedDrag feedDrag = GetComponent<FeedDrag>();
+        if (feedDrag != null && feedDrag.LastRackNumber >= 0)
         {
-            targets[i].transform.SetParent(startParent);
-            Debug.Log("<color=red>드래그 타겟 제자리로 돌아감 :  "+startParent+"</color>");
+            objectDraged = true;
+            return;
         }
-        Debug.Log("<color=red>" + eventData.pointerCurrentRaycast.gameObject + "</color>");
 
-        // 올바른 곳에 드래그 되었다면
-        switch(numberOfTargets)
+        GameObject droppedObject = eventData.pointerCurrentRaycast.gameObject;
+        for (int i = 0; i < numberOfTargets; i++)
         {
-            case 0:
-                Debug.LogError("타겟이 없습니다.");
+            if (IsTargetOrChild(droppedObject, targets[i]))
+            {
+                objectDraged = true;
                 break;
-            case 1:
-                if (eventData.pointerCurrentRaycast.gameObject == targets[0])
-                {
-                    objectDraged = true; // 드래그 완료 표시
-                }
-                break;
-            case 2:
-                if (eventData.pointerCurrentRaycast.gameObject == targets[0] || eventData.pointerCurrentRaycast.gameObject == targets[1])
-                {
-                    objectDraged = true; // 드래그 완료 표시
-                }
-                break;
-            case 3:
-                if (eventData.pointerCurrentRaycast.gameObject == targets[0] || eventData.pointerCurrentRaycast.gameObject == targets[1] || eventData.pointerCurrentRaycast.gameObject == targets[2])
-                {
-                    objectDraged = true; // 드래그 완료 표시
-                }
-                break;
+            }
         }
+
+        if (numberOfTargets == 0)
+        {
+            Debug.LogError("타겟이 존재하지 않습니다.");
+        }
+    }
+
+    private bool IsTargetOrChild(GameObject droppedObject, GameObject target)
+    {
+        if (droppedObject == null || target == null) return false;
+
+        Transform droppedTransform = droppedObject.transform;
+        Transform targetTransform = target.transform;
+        return droppedTransform == targetTransform
+            || droppedTransform.IsChildOf(targetTransform)
+            || targetTransform.IsChildOf(droppedTransform);
     }
 }

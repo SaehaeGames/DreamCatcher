@@ -132,9 +132,18 @@ public class DreamCatcherDataManager
         return dreamCatcherDataModel.dataList.Count;
     }
     // 드림캐쳐 데이터 리셋
+    public void ResetData()
+    {
+        dreamCatcherDataModel = new DreamCatcherDataModel
+        {
+            dataList = new List<DreamCatcher>()
+        };
+        Save();
+    }
+
     public void ResetDreamCatcherData()
     {
-        dreamCatcherDataModel.dataList.Clear();
+        ResetData();
     }
 
     public void Load()
@@ -143,6 +152,9 @@ public class DreamCatcherDataManager
 
         if (dreamCatcherDataModel == null)
             dreamCatcherDataModel = new DreamCatcherDataModel();
+
+        if (dreamCatcherDataModel.dataList == null)
+            dreamCatcherDataModel.dataList = new List<DreamCatcher>();
     }
 
     public void Save()

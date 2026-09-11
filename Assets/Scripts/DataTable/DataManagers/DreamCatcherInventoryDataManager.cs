@@ -73,8 +73,11 @@ public class DreamCatcherInventoryDataManager
 
     public void ResetData()
     {
-        if (dreamCatcherInventoryDataModel.dataList != null)
-            dreamCatcherInventoryDataModel.dataList.Clear();
+        dreamCatcherInventoryDataModel = new DreamCatcherInventoryDataModel
+        {
+            dataList = new List<DreamCatcherInventoryData>()
+        };
+        Save();
     }
 
     public DreamCatcherInventoryData GetDreamCatcherInventoryData(string _templateHash)
@@ -92,6 +95,9 @@ public class DreamCatcherInventoryDataManager
 
         if (dreamCatcherInventoryDataModel == null)
             dreamCatcherInventoryDataModel = new DreamCatcherInventoryDataModel();
+
+        if (dreamCatcherInventoryDataModel.dataList == null)
+            dreamCatcherInventoryDataModel.dataList = new List<DreamCatcherInventoryData>();
     }
 
     public void Save()

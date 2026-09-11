@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CSVBirdInfoLoad : MonoBehaviour
@@ -122,7 +121,7 @@ public class CSVBirdInfoLoad : MonoBehaviour
     // 꿈 도감으로 가기
     public void GoDreamCollection()
     {
-        SceneManager.LoadScene("CollectionDream");
+        GameSceneManager.Instance.ChangeSceneState(SceneState.CollectionDream);
     }
 
     private static string getPath(string fileName)

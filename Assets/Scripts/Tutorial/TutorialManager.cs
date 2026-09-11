@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class TutorialManager : MonoBehaviour
 {
+    public const int LastTutorialSceneIndex = 28;
+
     private PlayerDataManager playerDataManager;   //플레이어 데이터 정보
     private int curScene;
-    private int curTutorial;
     [SerializeField] private GameObject tutorialFadePanal;
 
     private ScriptBox scriptBox;
@@ -30,9 +31,9 @@ public class TutorialManager : MonoBehaviour
         curScene = playerDataManager.GetCurrentScene(); // 현재 튜토리얼 씬 불러오기
         if(!playerDataManager.GetIsQuestActinoPlaying())
         {
-            if (curScene > 11) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
+            if (!IsTutorialScene(curScene)) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
             {
-                scriptBox.ScriptBoxOnOff(false);
+                if (scriptBox != null) scriptBox.ScriptBoxOnOff(false);
                 if (tutorialFadePanal != null) tutorialFadePanal.SetActive(false); // 페이더 패널(검은 패널) 비활성화
                 return;
             }
@@ -67,6 +68,11 @@ public class TutorialManager : MonoBehaviour
                 tutorialFadePanal.SetActive(false); // 페이더 패널(검은 패널) 비활성화
             }
         }
+    }
+
+    public static bool IsTutorialScene(int sceneIndex)
+    {
+        return sceneIndex >= 0 && sceneIndex <= LastTutorialSceneIndex;
     }
 
     // 씬 넘버 변경 및 씬 오브젝트 업데이트 함수

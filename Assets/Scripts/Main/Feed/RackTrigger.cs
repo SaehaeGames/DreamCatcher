@@ -41,13 +41,14 @@ public class RackTrigger : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Feed")) return;
-        var feedDrag = FindDroppedFeedDrag(collision.gameObject, triggerNumber);
-        if (feedDrag != null)
-        {
-            feedDrag.LastRackNumber = -1;
-            var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
-            feedManager.SelectFeed(triggerNumber, feedDrag.Feed);
-        }
+        var feedDrag = FindFeedDrag(collision.gameObject);
+        if (feedDrag == null || feedDrag.LastRackNumber != triggerNumber) return;
+
+        feedDrag.LastRackNumber = -1;
+        if (feedDrag.IsDragging) return;
+
+        var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
+        feedManager.SelectFeed(triggerNumber, feedDrag.Feed);
     }
 
     private FeedDrag FindDraggingFeedDrag(GameObject obj)
@@ -62,13 +63,13 @@ public class RackTrigger : MonoBehaviour
         return null;
     }
 
-    private FeedDrag FindDroppedFeedDrag(GameObject obj, int rackNum)
+    private FeedDrag FindFeedDrag(GameObject obj)
     {
         Transform t = obj.transform;
         while (t != null)
         {
             var fd = t.GetComponent<FeedDrag>();
-            if (fd != null && !fd.IsDragging && fd.LastRackNumber == rackNum) return fd;
+            if (fd != null) return fd;
             t = t.parent;
         }
         return null;

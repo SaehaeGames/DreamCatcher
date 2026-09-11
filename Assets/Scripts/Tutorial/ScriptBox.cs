@@ -70,6 +70,8 @@ public class ScriptBox : MonoBehaviour
     // 대사창 시작
     public void SetScriptBox(int startId, int endId)
     {
+        StopCurrentDialog();
+
         // 시작 아이디 설정
         myreturn = false; // myreturn 초기화
         this.startId = startId;
@@ -88,6 +90,7 @@ public class ScriptBox : MonoBehaviour
         if (typing)
         {
             StopCoroutine(typingCoroutine); // Typing 코루틴 중단
+            typingCoroutine = null;
 
             talk = AddSpecialEffectsToLine(talk);
 
@@ -196,6 +199,7 @@ public class ScriptBox : MonoBehaviour
         }
 
         typing = false; // 타이핑 종료
+        typingCoroutine = null;
     }
 
     // 줄바꿈 및 하이라이트 효과 적용
@@ -240,7 +244,29 @@ public class ScriptBox : MonoBehaviour
     // 대화창 on/off
     public void ScriptBoxOnOff(bool onoff)
     {
+        if (!onoff)
+        {
+            StopCurrentDialog();
+        }
+
         this.gameObject.transform.GetChild(1).gameObject.SetActive(onoff);
         this.gameObject.transform.GetChild(0).gameObject.SetActive(onoff);
+    }
+
+    public void StopCurrentDialog()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        typing = false;
+        highlightChar = false;
+    }
+
+    private void OnDisable()
+    {
+        StopCurrentDialog();
     }
 }

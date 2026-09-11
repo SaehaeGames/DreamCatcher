@@ -6,17 +6,24 @@ public class InteractiveSequenceAppear : InteractiveSequenceBase
 {
     [SerializeField] private GameObject appearObject;
     [SerializeField] private bool doesItMakeObjectAppear;
-    private bool appear = false;
+    private bool isCompleted = false;
 
     public override void Enter()
     {
+        if (appearObject == null)
+        {
+            Debug.LogError($"[InteractiveSequenceAppear] {gameObject.name}의 appearObject가 설정되지 않았습니다.");
+            isCompleted = false;
+            return;
+        }
+
         appearObject.SetActive(doesItMakeObjectAppear);
-        appear = true;
+        isCompleted = true;
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        if(appear)
+        if(isCompleted)
         {
             tutorialPipeline.SetNextTutorial(SceneState.None);
         }
@@ -24,7 +31,7 @@ public class InteractiveSequenceAppear : InteractiveSequenceBase
 
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
-        if (appear)
+        if (isCompleted)
         {
             questActionPipeline.SetNextQuestAction();
         }
@@ -32,6 +39,6 @@ public class InteractiveSequenceAppear : InteractiveSequenceBase
 
     public override void Exit()
     {
-        
+        isCompleted = false;
     }
 }

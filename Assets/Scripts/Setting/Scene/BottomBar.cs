@@ -1,15 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using System;
+using UnityEngine.UI;
 
 public class BottomBar : MonoBehaviour
 {
     public GameObject[] Selects;
     public GameObject[] UnSelects;
+
     private GameSceneManager _gameSceneManager;
+    private UnityAction[] navigationListeners;
+    private bool[] navigationEnabled;
+
+    private readonly SceneState[] sceneStates =
+    {
+        SceneState.Main,
+        SceneState.Making,
+        SceneState.CollectionDream,
+        SceneState.Store
+    };
 
     public enum SceneName
     {
@@ -19,32 +28,38 @@ public class BottomBar : MonoBehaviour
         Store
     }
 
+    private void Awake()
+    {
+        int menuCount = Mathf.Min(UnSelects.Length, sceneStates.Length);
+        navigationListeners = new UnityAction[menuCount];
+        navigationEnabled = new bool[menuCount];
+
+        for (int i = 0; i < menuCount; i++)
+        {
+            int menu = i;
+            navigationListeners[i] = () => ChangeScene(menu);
+            navigationEnabled[i] = true;
+        }
+    }
+
     public void Start()
     {
         _gameSceneManager = GameSceneManager.Instance;
         OnClickSetting();
-
-        // 각 카테고리 버튼 이벤트 (씬 이동)
-        for (int i = 0; i < UnSelects.Length; i++)
-        {
-            int index = i;  // 버튼 인덱스 저장
-            Button button = UnSelects[i].GetComponent<Button>();    // 버튼 컴포넌트 가져오기
-
-            if (button != null)
-            {
-                button.onClick.AddListener(() => OnButtonClick((SceneName)index));
-            }
-        }
     }
 
-    void OnButtonClick(SceneName sceneName)
+    private void ChangeScene(int menu)
     {
-        // SceneChange 스크립트의 ChangeScene 함수 호출하여 씬 전환
+        if (!IsValidMenu(menu) || !navigationEnabled[menu]) return;
 
-        SceneChange sceneChanger = GetComponent<SceneChange>();
-        if (sceneChanger != null)
+        if (_gameSceneManager == null)
         {
-            sceneChanger.ChangeScene(sceneName.ToString());
+            _gameSceneManager = GameSceneManager.Instance;
+        }
+
+        if (_gameSceneManager != null)
+        {
+            _gameSceneManager.ChangeSceneState(sceneStates[menu]);
         }
     }
 
@@ -59,9 +74,8 @@ public class BottomBar : MonoBehaviour
 
     public void SetActiveCategory()
     {
-        ResetCategory();    // 모든 카테고리 초기화
+        ResetCategory();
 
-        // 현재 씬에 따라 활성 카테고리 설정
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
@@ -86,51 +100,82 @@ public class BottomBar : MonoBehaviour
 
     public void OnClickSetting()
     {
-        UnSelects[0].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
-        UnSelects[1].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
-        UnSelects[2].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
-        UnSelects[3].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
+        if (navigationListeners == null) return;
+
+        for (int i = 0; i < navigationListeners.Length; i++)
+        {
+            if (navigationEnabled[i])
+            {
+                AddNavigationListener(i);
+            }
+        }
     }
 
     public void onClickRemove(int menu)
     {
-        switch(menu)
-        {
-            case 0:
-                UnSelects[0].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
-                Debug.Log("onClickRemove: " + 0);
-                break;
-            case 1:
-                UnSelects[1].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
-                Debug.Log("onClickRemove: " + 1);
-                break;
-            case 2:
-                UnSelects[2].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
-                Debug.Log("onClickRemove: " + 2);
-                break;
-            case 3:
-                UnSelects[3].GetComponent<Button>().onClick.RemoveListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
-                Debug.Log("onClickRemove: " + 3);
-                break;
-        }
+        if (!IsValidMenu(menu)) return;
+
+        navigationEnabled[menu] = false;
     }
 
     public void OnClickAdd(int menu)
     {
-        switch (menu)
+        if (!IsValidMenu(menu)) return;
+
+        navigationEnabled[menu] = true;
+    }
+
+    public bool TryGetMenuIndex(GameObject target, out int menu)
+    {
+        menu = -1;
+        if (target == null || navigationListeners == null) return false;
+
+        for (int i = 0; i < navigationListeners.Length; i++)
         {
-            case 0:
-                UnSelects[0].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Main));
-                break;
-            case 1:
-                UnSelects[1].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Making));
-                break;
-            case 2:
-                UnSelects[2].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.CollectionDream));
-                break;
-            case 3:
-                UnSelects[3].GetComponent<Button>().onClick.AddListener(() => _gameSceneManager.ChangeSceneState(SceneState.Store));
-                break;
+            if (UnSelects[i] == null) continue;
+
+            Transform menuTransform = UnSelects[i].transform;
+            if (target == UnSelects[i] || target.transform.IsChildOf(menuTransform))
+            {
+                menu = i;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void AddNavigationListener(int menu)
+    {
+        Button button = GetMenuButton(menu);
+        if (button == null) return;
+
+        button.onClick.RemoveListener(navigationListeners[menu]);
+        button.onClick.AddListener(navigationListeners[menu]);
+    }
+
+    private Button GetMenuButton(int menu)
+    {
+        if (!IsValidMenu(menu) || UnSelects[menu] == null) return null;
+        return UnSelects[menu].GetComponent<Button>();
+    }
+
+    private bool IsValidMenu(int menu)
+    {
+        return navigationListeners != null && menu >= 0 && menu < navigationListeners.Length;
+    }
+
+    private void OnDestroy()
+    {
+        if (navigationListeners == null) return;
+
+        for (int i = 0; i < navigationListeners.Length; i++)
+        {
+            Button button = GetMenuButton(i);
+            if (button != null)
+            {
+                button.onClick.RemoveListener(navigationListeners[i]);
+            }
         }
     }
 }

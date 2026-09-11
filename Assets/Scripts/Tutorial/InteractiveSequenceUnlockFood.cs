@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum FoodType
 {
@@ -9,17 +8,29 @@ public enum FoodType
     Berry,
     Earthworm,
     LeanMeat
-
 }
 
 public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
 {
+    [Header("해금 종류")]
     public FoodType foodType;
 
+    [Header("공통 팝업")]
+    public GameObject unlockPopUp;
+    public Button okBtn;
+    public Image itemImage;
+    public Text messageText;
+
+    [Header("해금 표시")]
+    public Sprite unlockIcon;
+    [TextArea] public string unlockMessage;
+
     private PlayerDataManager playerDataManager;
+    private bool isCompleted;
 
     public override void Enter()
     {
+        isCompleted = false;
         playerDataManager = GameManager.instance.playerDataManager;
 
         if (foodType == FoodType.PigeonBean)
@@ -38,20 +49,75 @@ public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
         {
             playerDataManager.UnlockFoodLevel(3);
         }
+
+        if (!TutorialUnlockPopupUtility.Resolve(
+                gameObject, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
+        {
+            isCompleted = true;
+            return;
+        }
+
+        TutorialUnlockPopupUtility.Show(
+            unlockPopUp,
+            itemImage,
+            messageText,
+            unlockIcon,
+            string.IsNullOrWhiteSpace(unlockMessage) ? GetDefaultMessage() : unlockMessage);
+
+        okBtn.onClick.RemoveListener(OnOkButtonClicked);
+        okBtn.onClick.AddListener(OnOkButtonClicked);
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        throw new System.NotImplementedException();
+        if (isCompleted)
+        {
+            tutorialPipeline.SetNextTutorial(SceneState.None);
+        }
     }
 
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
-        throw new System.NotImplementedException();
+        if (isCompleted)
+        {
+            questActionPipeline.SetNextQuestAction();
+        }
     }
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        if (unlockPopUp != null)
+        {
+            unlockPopUp.SetActive(false);
+        }
+
+        if (okBtn != null)
+        {
+            okBtn.onClick.RemoveListener(OnOkButtonClicked);
+        }
+
+        isCompleted = false;
+    }
+
+    private void OnOkButtonClicked()
+    {
+        isCompleted = true;
+    }
+
+    private string GetDefaultMessage()
+    {
+        switch (foodType)
+        {
+            case FoodType.PigeonBean:
+                return "비둘기콩이 해금되었습니다.";
+            case FoodType.Berry:
+                return "베리가 해금되었습니다.";
+            case FoodType.Earthworm:
+                return "지렁이가 해금되었습니다.";
+            case FoodType.LeanMeat:
+                return "살코기가 해금되었습니다.";
+            default:
+                return "먹이가 해금되었습니다.";
+        }
     }
 }

@@ -13,12 +13,20 @@ public class InteractiveSequenceDialog : InteractiveSequenceBase
     public override void Enter()
     {
         scriptBox = GameObject.FindObjectOfType<ScriptBox>();
+        if (scriptBox == null)
+        {
+            Debug.LogError($"[InteractiveSequenceDialog] {gameObject.name}에서 ScriptBox를 찾을 수 없습니다.");
+            return;
+        }
+
         scriptBox.ScriptBoxOnOff(true);
         scriptBox.SetScriptBox(startId, endId);
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
     {
+        if (scriptBox == null) return;
+
         bool isCompleted = scriptBox.ReturnNextScript();
 
         if (isCompleted)
@@ -30,6 +38,8 @@ public class InteractiveSequenceDialog : InteractiveSequenceBase
 
     public override void Execute(QuestActionPipeline questActionPipeline)
     {
+        if (scriptBox == null) return;
+
         bool isCompleted = scriptBox.ReturnNextScript();
 
         if (isCompleted)
@@ -41,6 +51,9 @@ public class InteractiveSequenceDialog : InteractiveSequenceBase
 
     public override void Exit()
     {
-        scriptBox.ScriptBoxOnOff(false);
+        if (scriptBox != null)
+        {
+            scriptBox.ScriptBoxOnOff(false);
+        }
     }
 }

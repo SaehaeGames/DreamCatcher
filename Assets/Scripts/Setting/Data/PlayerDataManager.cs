@@ -8,18 +8,43 @@ using System.Diagnostics;
 
 public class PlayerDataManager
 {
+    public event Action OnUnlockChanged;
+
     private JsonManager jsonManager = new JsonManager();
     private PlayerData playerData;
 
 
     public PlayerDataManager()
     {
-        ResetData();
+        playerData = CreateDefaultData();
     }
      
     public void ResetData()
     {
-        playerData = new PlayerData()
+        playerData = CreateDefaultData();
+        Save();
+        OnUnlockChanged?.Invoke();
+    }
+
+    public void ResetTutorialProgress()
+    {
+        if (playerData == null)
+        {
+            playerData = CreateDefaultData();
+        }
+
+        playerData.currentScene = 0;
+        playerData.currentMainQuestIndex = 0;
+        playerData.isQuestActionPlaying = false;
+        playerData.unlockData = new UnlockData(false, false, false, 0);
+
+        Save();
+        OnUnlockChanged?.Invoke();
+    }
+
+    private PlayerData CreateDefaultData()
+    {
+        return new PlayerData()
         {
             gold = 30000,
             dreamMarble = 0,
@@ -189,12 +214,27 @@ public class PlayerDataManager
     #region Unlock
     public void UnlockRepeatQuest()
     {
+        UnlockRepeatQuestWithSpecialFeed(0);
+    }
+
+    public bool UnlockRepeatQuestWithSpecialFeed(int specialFeedReward)
+    {
+        EnsureUnlockData();
+        if (playerData.unlockData.GetIsRepeatQuestUnlocked()) return false;
+
         playerData.unlockData.SetIsRepeatQuestUnlocked(true);
+        playerData.specialFeed += Mathf.Max(0, specialFeedReward);
+        SaveUnlockData();
+        return true;
     }
 
     public void UnlockCharonLetter()
     {
+        EnsureUnlockData();
+        if (playerData.unlockData.GetIsCharonLetterUnlocked()) return;
+
         playerData.unlockData.SetIsCharonLetterUnlocked(true);
+        SaveUnlockData();
     }
 
     public void UnlockDiary()
@@ -204,27 +244,50 @@ public class PlayerDataManager
 
     public void UnlockFoodLevel(int level)
     {
+        EnsureUnlockData();
+        level = Mathf.Clamp(level, 0, 3);
+        if (level <= playerData.unlockData.GetFoodUnlockLevel()) return;
+
         playerData.unlockData.SetFoodUnlockLevel(level);
+        SaveUnlockData();
     }
 
     public bool GetIsRepeatQuestUnlocked()
     {
+        EnsureUnlockData();
         return playerData.unlockData.GetIsRepeatQuestUnlocked();
     }
 
     public bool GetIsCharonLetterUnlocked()
     {
+        EnsureUnlockData();
         return playerData.unlockData.GetIsCharonLetterUnlocked();
     }
 
     public bool GetIsDiaryUnlocked()
     {
+        EnsureUnlockData();
         return playerData.unlockData.GetIsDiaryUnlocked();
     }
 
     public int GetFoodUnlockLevel()
     {
+        EnsureUnlockData();
         return playerData.unlockData.GetFoodUnlockLevel();
+    }
+
+    private void EnsureUnlockData()
+    {
+        if (playerData.unlockData == null)
+        {
+            playerData.unlockData = new UnlockData(false, false, false, 0);
+        }
+    }
+
+    private void SaveUnlockData()
+    {
+        Save();
+        OnUnlockChanged?.Invoke();
     }
     #endregion
 
@@ -236,7 +299,6 @@ public class PlayerDataManager
         {
             UnityEngine.Debug.Log("[PlayerDataManager] Save file not found. Create default data.");
             ResetData();
-            Save();
         }
     }
 

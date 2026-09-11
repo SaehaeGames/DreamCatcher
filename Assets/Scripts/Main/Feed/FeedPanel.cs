@@ -10,6 +10,31 @@ public class FeedPanel : MonoBehaviour
     public GameObject Feed_Panel;               // 먹이 선택 패널
     public GameObject SpecialFeed_Panel;        // 특제 먹이 사용 패널
 
+    [Header("[Feed Unlock]")]
+    [SerializeField] private Transform feedDisplay;
+    [SerializeField] private Transform feedHidden;
+
+    private PlayerDataManager playerDataManager;
+
+    private void Start()
+    {
+        playerDataManager = GameManager.instance.playerDataManager;
+        playerDataManager.OnUnlockChanged += RefreshFoodUnlockState;
+        if (feedDisplay == null || feedHidden == null)
+        {
+            Debug.LogError("[FeedPanel] Feed Display 또는 Feed Hidden 참조가 설정되지 않았습니다.");
+        }
+        RefreshFoodUnlockState();
+    }
+
+    private void OnDestroy()
+    {
+        if (playerDataManager != null)
+        {
+            playerDataManager.OnUnlockChanged -= RefreshFoodUnlockState;
+        }
+    }
+
     public void OpenPanel(int triggerNumber)
     {
         // 조건에 따라 먹이 선택 패널 또는 특제 먹이 패널을 여는 함수
@@ -34,6 +59,10 @@ public class FeedPanel : MonoBehaviour
         // 먹이 선택 패널을 열고 닫는 함수
 
         Feed_Panel.SetActive(isActive);
+        if (isActive)
+        {
+            RefreshFoodUnlockState();
+        }
     }
 
     public void SetSpecialFeedPanelActive(bool TorF)
@@ -41,5 +70,25 @@ public class FeedPanel : MonoBehaviour
         // 특제 먹이 패널을 열고 닫는 함수
 
         SpecialFeed_Panel.SetActive(TorF);
+    }
+
+    private void RefreshFoodUnlockState()
+    {
+        if (playerDataManager == null || feedDisplay == null || feedHidden == null) return;
+
+        int unlockLevel = playerDataManager.GetFoodUnlockLevel();
+        int foodCount = Mathf.Min(feedDisplay.childCount, feedHidden.childCount);
+
+        for (int i = 0; i < foodCount; i++)
+        {
+            bool isUnlocked = i <= unlockLevel;
+            FeedDrag[] feedDrags = feedDisplay.GetChild(i).GetComponentsInChildren<FeedDrag>(true);
+            foreach (FeedDrag feedDrag in feedDrags)
+            {
+                feedDrag.enabled = isUnlocked;
+            }
+
+            feedHidden.GetChild(i).gameObject.SetActive(!isUnlocked);
+        }
     }
 }

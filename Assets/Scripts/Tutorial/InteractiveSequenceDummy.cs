@@ -9,7 +9,10 @@ public class InteractiveSequenceDummy : InteractiveSequenceBase
     public override void Enter()
     {
         scriptBox = GameObject.FindObjectOfType<ScriptBox>();
-        scriptBox.ScriptBoxOnOff(false);
+        if (scriptBox != null)
+        {
+            scriptBox.ScriptBoxOnOff(false);
+        }
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)
