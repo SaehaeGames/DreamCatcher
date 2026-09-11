@@ -38,7 +38,7 @@ public class PlayerDataManager
 
             unlockData = new UnlockData(false, false, false, 0),
 
-            currentCharonLetterIndex = 0,
+            currentCharonLetterIndex = -1,
             isCharonQuestActionPlaying = false,
             questNotice = new bool[3] { false, false, false }
     };

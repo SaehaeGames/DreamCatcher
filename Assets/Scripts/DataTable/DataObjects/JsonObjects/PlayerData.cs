@@ -42,7 +42,7 @@ public class PlayerData
         currentScene = 0;
         currentMainQuestIndex = 0;
         isMainQuestActionPlaying = false;
-        currentCharonLetterIndex = 0;
+        currentCharonLetterIndex = -1;
         isCharonQuestActionPlaying = false;
 
         questNotice = new bool[3] { false, false, false };
