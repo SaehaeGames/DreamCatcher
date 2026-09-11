@@ -26,34 +26,23 @@ public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
     [TextArea] public string unlockMessage;
 
     private PlayerDataManager playerDataManager;
+    private TutorialPipeline tutorialPipeline;
     private bool isCompleted;
+    private bool hasAppliedUnlock;
+    private bool hasQueuedUnlock;
 
     public override void Enter()
     {
         isCompleted = false;
+        hasAppliedUnlock = false;
+        hasQueuedUnlock = false;
         playerDataManager = GameManager.instance.playerDataManager;
+        tutorialPipeline = GetComponentInParent<TutorialPipeline>();
 
-        if (foodType == FoodType.PigeonBean)
-        {
-            playerDataManager.UnlockFoodLevel(0);
-        }
-        else if (foodType == FoodType.Berry)
-        {
-            playerDataManager.UnlockFoodLevel(1);
-        }
-        else if (foodType == FoodType.Earthworm)
-        {
-            playerDataManager.UnlockFoodLevel(2);
-        }
-        else if (foodType == FoodType.LeanMeat)
-        {
-            playerDataManager.UnlockFoodLevel(3);
-        }
 
         if (!TutorialUnlockPopupUtility.Resolve(
                 gameObject, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
         {
-            isCompleted = true;
             return;
         }
 
@@ -101,7 +90,53 @@ public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
 
     private void OnOkButtonClicked()
     {
+        QueueOrApplyUnlock();
         isCompleted = true;
+    }
+
+    private void QueueOrApplyUnlock()
+    {
+        if (tutorialPipeline == null)
+        {
+            ApplyUnlock(true);
+            return;
+        }
+
+        if (hasQueuedUnlock) return;
+
+        tutorialPipeline.RegisterCompletionAction(ApplyUnlockWithoutSave);
+        hasQueuedUnlock = true;
+    }
+
+    private void ApplyUnlockWithoutSave()
+    {
+        ApplyUnlock(false);
+    }
+
+    private void ApplyUnlock(bool saveImmediately)
+    {
+        if (hasAppliedUnlock) return;
+
+        switch (foodType)
+        {
+            case FoodType.PigeonBean:
+                playerDataManager.UnlockFoodLevel(0, saveImmediately);
+                break;
+            case FoodType.Berry:
+                playerDataManager.UnlockFoodLevel(1, saveImmediately);
+                break;
+            case FoodType.Earthworm:
+                playerDataManager.UnlockFoodLevel(2, saveImmediately);
+                break;
+            case FoodType.LeanMeat:
+                playerDataManager.UnlockFoodLevel(3, saveImmediately);
+                break;
+            default:
+                Debug.LogWarning($"[InteractiveSequenceUnlockFood] {gameObject.name}: 해금할 먹이 종류가 설정되지 않았습니다.");
+                break;
+        }
+
+        hasAppliedUnlock = true;
     }
 
     private string GetDefaultMessage()

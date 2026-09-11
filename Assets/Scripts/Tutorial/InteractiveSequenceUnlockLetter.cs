@@ -28,28 +28,24 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
     [TextArea] public string specialFeedMessage = "∆Ø¡¶∏‘¿Ã∏¶ »πµÊ«ﬂΩ¿¥œ¥Ÿ.";
 
     private PlayerDataManager playerDataManager;
+    private TutorialPipeline tutorialPipeline;
     private bool isCompleted;
     private bool isShowingSpecialFeedReward;
+    private bool hasAppliedUnlock;
+    private bool hasQueuedUnlock;
 
     public override void Enter()
     {
         isCompleted = false;
         isShowingSpecialFeedReward = false;
+        hasAppliedUnlock = false;
+        hasQueuedUnlock = false;
         playerDataManager = GameManager.instance.playerDataManager;
-
-        if (letterType == LetterType.RepeatQuest)
-        {
-            playerDataManager.UnlockRepeatQuestWithSpecialFeed(1);
-        }
-        else if (letterType == LetterType.Charon)
-        {
-            playerDataManager.UnlockCharonLetter();
-        }
+        tutorialPipeline = GetComponentInParent<TutorialPipeline>();
 
         if (!TutorialUnlockPopupUtility.Resolve(
                 gameObject, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
         {
-            isCompleted = true;
             return;
         }
 
@@ -101,7 +97,43 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
             return;
         }
 
+        QueueOrApplyUnlock();
         isCompleted = true;
+    }
+
+    private void QueueOrApplyUnlock()
+    {
+        if (tutorialPipeline == null)
+        {
+            ApplyUnlock(true);
+            return;
+        }
+
+        if (hasQueuedUnlock) return;
+
+        tutorialPipeline.RegisterCompletionAction(ApplyUnlockWithoutSave);
+        hasQueuedUnlock = true;
+    }
+
+    private void ApplyUnlockWithoutSave()
+    {
+        ApplyUnlock(false);
+    }
+
+    private void ApplyUnlock(bool saveImmediately)
+    {
+        if (hasAppliedUnlock) return;
+
+        if (letterType == LetterType.RepeatQuest)
+        {
+            playerDataManager.UnlockRepeatQuestWithSpecialFeed(1, saveImmediately);
+        }
+        else if (letterType == LetterType.Charon)
+        {
+            playerDataManager.UnlockCharonLetter(saveImmediately);
+        }
+
+        hasAppliedUnlock = true;
     }
 
     private void ShowUnlockPopup()

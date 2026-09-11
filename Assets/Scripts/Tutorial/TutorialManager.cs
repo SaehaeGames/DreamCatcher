@@ -79,6 +79,11 @@ public class TutorialManager : MonoBehaviour
     // : 씬 넘버가 변경될 때 실행된다.
     public void ChangeScene()
     {
+        ChangeScene(false);
+    }
+
+    public void ChangeScene(bool notifyUnlockChanged)
+    {
         // 1. 현재 켜져있던 튜토리얼 끄기
         Transform currentObj = transform.Find("Scene " + curScene);
         if (currentObj != null)
@@ -88,7 +93,7 @@ public class TutorialManager : MonoBehaviour
 
         // 2. 데이터 증가
         curScene++;
-        playerDataManager.SetCurrentScene(curScene);
+        playerDataManager.SetCurrentScene(curScene, notifyUnlockChanged);
 
         // 3. 증가된 번호의 다음 튜토리얼이 현재 씬에 있다면 켜기
         Transform nextObj = transform.Find("Scene " + curScene);

@@ -184,8 +184,17 @@ public class PlayerDataManager
 
     public void SetCurrentScene(int sceneIndex)
     {
+        SetCurrentScene(sceneIndex, false);
+    }
+
+    public void SetCurrentScene(int sceneIndex, bool notifyUnlockChanged)
+    {
         playerData.currentScene = sceneIndex;
         Save();
+        if (notifyUnlockChanged)
+        {
+            OnUnlockChanged?.Invoke();
+        }
     }
 
     public int GetCurrentMainQuestIndex()
@@ -219,22 +228,32 @@ public class PlayerDataManager
 
     public bool UnlockRepeatQuestWithSpecialFeed(int specialFeedReward)
     {
+        return UnlockRepeatQuestWithSpecialFeed(specialFeedReward, true);
+    }
+
+    public bool UnlockRepeatQuestWithSpecialFeed(int specialFeedReward, bool saveImmediately)
+    {
         EnsureUnlockData();
         if (playerData.unlockData.GetIsRepeatQuestUnlocked()) return false;
 
         playerData.unlockData.SetIsRepeatQuestUnlocked(true);
         playerData.specialFeed += Mathf.Max(0, specialFeedReward);
-        SaveUnlockData();
+        if (saveImmediately) SaveUnlockData();
         return true;
     }
 
     public void UnlockCharonLetter()
     {
+        UnlockCharonLetter(true);
+    }
+
+    public void UnlockCharonLetter(bool saveImmediately)
+    {
         EnsureUnlockData();
         if (playerData.unlockData.GetIsCharonLetterUnlocked()) return;
 
         playerData.unlockData.SetIsCharonLetterUnlocked(true);
-        SaveUnlockData();
+        if (saveImmediately) SaveUnlockData();
     }
 
     public void UnlockDiary()
@@ -244,12 +263,17 @@ public class PlayerDataManager
 
     public void UnlockFoodLevel(int level)
     {
+        UnlockFoodLevel(level, true);
+    }
+
+    public void UnlockFoodLevel(int level, bool saveImmediately)
+    {
         EnsureUnlockData();
         level = Mathf.Clamp(level, 0, 3);
         if (level <= playerData.unlockData.GetFoodUnlockLevel()) return;
 
         playerData.unlockData.SetFoodUnlockLevel(level);
-        SaveUnlockData();
+        if (saveImmediately) SaveUnlockData();
     }
 
     public bool GetIsRepeatQuestUnlocked()

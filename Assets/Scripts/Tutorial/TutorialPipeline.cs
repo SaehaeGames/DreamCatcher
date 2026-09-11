@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class TutorialPipeline : MonoBehaviour
     private int currentIndex = -1;
     private GameSceneManager _gameSceneManager;
     private bool isStarted;
+    private readonly List<Action> completionActions = new List<Action>();
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,8 @@ public class TutorialPipeline : MonoBehaviour
             currentTutorial.Exit();
             currentTutorial = null;
         }
+
+        completionActions.Clear();
     }
 
     private void InitializePipeline()
@@ -44,6 +48,7 @@ public class TutorialPipeline : MonoBehaviour
         _gameSceneManager = GameSceneManager.Instance; // 게임씬매니저 초기화
         currentIndex = -1;
         currentTutorial = null;
+        completionActions.Clear();
 
         // 튜토리얼 리스트 초기화
         if (tutorials == null)
@@ -71,6 +76,13 @@ public class TutorialPipeline : MonoBehaviour
 
         // 다음 튜토리얼 불러오기
         SetNextTutorial(SceneState.None);
+    }
+
+    public void RegisterCompletionAction(Action completionAction)
+    {
+        if (completionAction == null || completionActions.Contains(completionAction)) return;
+
+        completionActions.Add(completionAction);
     }
 
     // Update is called once per frame
@@ -115,7 +127,15 @@ public class TutorialPipeline : MonoBehaviour
         Debug.Log($"[CompletedAllTutorials 호출] 내 이름: {this.gameObject.name}");
 
         currentTutorial = null;
-        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene();
+        bool hasCompletionActions = completionActions.Count > 0;
+        Action[] actionsToCommit = completionActions.ToArray();
+        completionActions.Clear();
+        foreach (Action completionAction in actionsToCommit)
+        {
+            completionAction.Invoke();
+        }
+
+        this.transform.parent.gameObject.GetComponent<TutorialManager>().ChangeScene(hasCompletionActions);
 
         Debug.Log("Complete Scene");
         if(_sceneState!=SceneState.None)
