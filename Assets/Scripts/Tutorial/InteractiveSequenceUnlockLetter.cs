@@ -18,14 +18,16 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
     public override void Enter()
     {
         playerDataManager = GameManager.instance.playerDataManager;
-        if(letterType == LetterType.RepeatQuest )
+        if (letterType == LetterType.RepeatQuest)
         {
             playerDataManager.UnlockRepeatQuest();
         }
-        else if(letterType == LetterType.Charon )
+        else if (letterType == LetterType.Charon)
         {
             playerDataManager.UnlockCharonLetter();
         }
+
+        //pipeline.SetNextTutorial(SceneState.None);
     }
 
     public override void Execute(TutorialPipeline tutorialPipeline)

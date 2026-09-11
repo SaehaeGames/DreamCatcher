@@ -2,17 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveSequenceReceiveLetter : MonoBehaviour
+public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public LetterType letterType;
+    private QuestManager questManager;
+
+    public override void Enter()
     {
-        
+        questManager = FindFirstObjectByType<QuestManager>();
+
+        switch (letterType)
+        {
+            case LetterType.Charon:
+                questManager.ReceiveQuest(QuestType.Charon);
+                break;
+            case LetterType.RepeatQuest:
+                break;
+        }
+
+        //tutorialPipeline.SetNextTutorial(SceneState.None);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute(TutorialPipeline tutorialPipeline)
     {
-        
+
+    }
+
+    public override void Execute(QuestActionPipeline questActionPipeline)
+    {
+
+    }
+
+    public override void Exit()
+    {
+
     }
 }
