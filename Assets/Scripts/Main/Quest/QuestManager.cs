@@ -93,6 +93,7 @@ public class QuestManager : MonoBehaviour
                 // 다음 퀘스트 인덱스로 업데이트
                 int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
                 playerDataManager.SetCurrentCharonLetterIndex(currentCharonLetterIndex + 1);
+                playerDataManager.SetHasReadCharonLetter(false);
                 break;
         }
 
@@ -218,7 +219,17 @@ public class QuestManager : MonoBehaviour
         }
         else if (questType == QuestType.Charon)
         {
+            // 이미 읽었다면 퀘스트 액션 재생하지 않음
+            if (playerDataManager.GetHasReadCharonLetter())
+            {
+                return;
+            }
+
             PlayCharonQuestAction();
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -283,6 +294,7 @@ public class QuestManager : MonoBehaviour
             () =>
             {
                 playerDataManager.SetIsCharonQuestActionPlaying(false);
+                playerDataManager.SetHasReadCharonLetter(true);
                 playerDataManager.Save();
             });
     }
