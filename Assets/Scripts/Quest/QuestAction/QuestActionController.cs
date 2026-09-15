@@ -2,33 +2,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 public enum QuestActionType
 {
     None,
     Accept,
-    Complete
+    Complete,
+    Charon
 }
 public class QuestActionController : MonoBehaviour
 {
-    public GameObject questActionPipelines;
+    public GameObject mainQuestActions;
+    public GameObject charonQuestActions;
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
     //private int completedQuestNum;
-    public Transform[] quests;
+    private Transform[] mainQuests;
+    private Transform[] charonLetters;
 
     private void Awake()
     {
         // 퀘스트 액션 갯수 파악
-        int questCount = questActionPipelines.transform.childCount;
-        quests = new Transform[questCount];
+        int questCount = mainQuestActions.transform.childCount;
+        mainQuests = new Transform[questCount];
 
         // 모든 퀘스트 액션 비활성화
         for(int i=0; i< questCount; i++)
         {
-            quests[i] = questActionPipelines.transform.GetChild(i); // 퀘스트 액션 저장
-            quests[i].GetChild(1).gameObject.SetActive(false); // End 비활성화
-            quests[i].GetChild(0).gameObject.SetActive(false); // Start 비활성화
+            mainQuests[i] = mainQuestActions.transform.GetChild(i); // 퀘스트 액션 저장
+            mainQuests[i].GetChild(1).gameObject.SetActive(false); // End 비활성화
+            mainQuests[i].GetChild(0).gameObject.SetActive(false); // Start 비활성화
+        }
+
+        int charonQuestCount = charonQuestActions.transform.childCount;
+        charonLetters = new Transform[charonQuestCount];
+
+        for (int i = 0; i < charonQuestCount; i++)
+        {
+            charonLetters[i] = charonQuestActions.transform.GetChild(i);
+            charonLetters[i].gameObject.SetActive(false);
         }
     }
 
@@ -66,6 +79,10 @@ public class QuestActionController : MonoBehaviour
         {
             ActivateCompleteQuestAction(questIndex, onStart, onComplete);
         }
+        else if(type==QuestActionType.Charon)
+        {
+            ActivateCharonLetterQuestAction(questIndex, onStart, onComplete);
+        }
     }
 
     public void ActivateAcceptQuestAction(
@@ -74,9 +91,9 @@ public class QuestActionController : MonoBehaviour
         System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- Start</color>");
-        if (questIndex >= 2 && questIndex < quests.Length)
+        if (questIndex >= 2 && questIndex < mainQuests.Length)
         {
-            Transform startObject = quests[questIndex].GetChild(0);
+            Transform startObject = mainQuests[questIndex].GetChild(0);
             
             if (startObject != null)
             {
@@ -94,9 +111,9 @@ public class QuestActionController : MonoBehaviour
         System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- Start</color>");
-        if (questIndex >= 2 && questIndex < quests.Length)
+        if (questIndex >= 2 && questIndex < mainQuests.Length)
         {
-            Transform endObject = quests[questIndex].GetChild(1);
+            Transform endObject = mainQuests[questIndex].GetChild(1);
             if (endObject != null)
             {
                 Debug.Log("<color=cyan>End QuestAction 활성화</color>");
@@ -105,5 +122,22 @@ public class QuestActionController : MonoBehaviour
             }
         }
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- End</color>");
+    }
+
+    public void ActivateCharonLetterQuestAction(
+        int questIndex,
+        System.Action onStart = null,
+        System.Action onComplete = null)
+    {
+        if (questIndex >= 0 && questIndex < charonLetters.Length)
+        {
+            Transform letter = charonLetters[questIndex];
+            if (letter != null)
+            {
+                Debug.Log("<color=cyan>End QuestAction 활성화</color>");
+                letter.gameObject.SetActive(true); // End 활성화
+                letter.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
+            }
+        }
     }
 }

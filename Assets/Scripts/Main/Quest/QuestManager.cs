@@ -272,7 +272,7 @@ public class QuestManager : MonoBehaviour
         int questIndex = GetCurrentCharonLetterIndex();
 
         this.GetComponent<QuestActionController>().PlayQuestAction(
-            QuestActionType.Accept,
+            QuestActionType.Charon,
             questIndex,
             () =>
             {
