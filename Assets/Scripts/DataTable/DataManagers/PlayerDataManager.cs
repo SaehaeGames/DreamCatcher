@@ -209,7 +209,6 @@ public class PlayerDataManager
 
     public void SetCurrentMainQuestIndex(int questIndex)
     {
-        UnityEngine.Debug.Log("mainQuestIndex edit");
         playerData.currentMainQuestIndex = questIndex;
     }
 

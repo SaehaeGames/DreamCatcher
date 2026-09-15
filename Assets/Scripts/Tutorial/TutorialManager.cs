@@ -29,7 +29,7 @@ public class TutorialManager : MonoBehaviour
 
         // 현재 튜토리얼 씬 설정
         curScene = playerDataManager.GetCurrentScene(); // 현재 튜토리얼 씬 불러오기
-        if(!playerDataManager.GetIsQuestActinoPlaying())
+        if(!playerDataManager.GetIsQuestActinoPlaying() && !playerDataManager.GetIsCharonQuestActionPlaying())
         {
             if (!IsTutorialScene(curScene)) // 튜토리얼이 아닌 씬부터는 활성화하지 않음
             {
