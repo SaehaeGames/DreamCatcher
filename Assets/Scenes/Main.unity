@@ -8504,7 +8504,6 @@ MonoBehaviour:
   - {fileID: 253860837}
   - {fileID: 714498412}
   - {fileID: 1394204922}
-  checkedNotice: 000000
 --- !u!1 &340100197
 GameObject:
   m_ObjectHideFlags: 0
@@ -32247,8 +32246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229d40bf7e1db904d996b1e1ce378764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questActionPipelines: {fileID: 1833211847}
-  quests: []
+  mainQuestActions: {fileID: 1833211847}
+  charonQuestActions: {fileID: 0}
 --- !u!114 &1340028245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32264,6 +32263,7 @@ MonoBehaviour:
   contentTexts: {fileID: 1107003044}
   deliveryView: {fileID: 553120850}
   curQuestNumber: 0
+  questNotice: {fileID: 0}
   managers: {fileID: 0}
 --- !u!1 &1340903511
 GameObject:
