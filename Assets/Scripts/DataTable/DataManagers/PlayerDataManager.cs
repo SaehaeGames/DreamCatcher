@@ -35,7 +35,7 @@ public class PlayerDataManager
 
         playerData.currentScene = 0;
         playerData.currentMainQuestIndex = 0;
-        playerData.isQuestActionPlaying = false;
+        playerData.isMainQuestActionPlaying = false;
         playerData.unlockData = new UnlockData(false, false, false, 0);
 
         Save();
