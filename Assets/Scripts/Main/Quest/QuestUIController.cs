@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum QuestType
-{
-    None,
-    MainQuest,
-    RepeatQuest,
-    Charon
-}
 public class QuestUIController : MonoBehaviour
 {
     //퀘스트 배경 이미지를 바꾸는 스크립트
@@ -50,7 +43,7 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseMainQuestNotice();    //메인퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.MainQuest);    //카론퀘스트 알림 끄기
         UpdateQuestContents();
 
         QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetCurrentQuestFlowState();
@@ -83,12 +76,16 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseRepeatQuestNotice();    //반복퀘스트 알림 끄기
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.RepeatQuest);    //카론퀘스트 알림 끄기
     }
 
     public void OpenBlackWallPaper()
     {
         //퀘스트 창을 검정색 편지지, 흰색 글씨로 바꾸고 퀘스트 패널을 여는 함수
+        questType = QuestType.Charon;
+
+        contentTexts.SetActive(true);   //메시지 오브젝트 활성화
+        deliveryView.SetActive(false);  //납품 오브젝트 비활성화
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 
@@ -99,50 +96,50 @@ public class QuestUIController : MonoBehaviour
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
+
+        UpdateQuestContents();
+
+        deliveryButton.SetActive(false); //납품 버튼 비활성화
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.Charon);    //카론퀘스트 알림 끄기
     }
 
     public void UpdateQuestContents()
     {
-        // 제목
-        contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
+        if (questType == QuestType.MainQuest)
+        {
+            // 제목
+            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestTitle();
 
-        // 내용
-        contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestContents();
+            // 내용
+            contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestContents();
 
-        // 보낸 사람
-        contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
-            = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
+            // 보낸 사람
+            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestFrom();
+        }
+        else if (questType == QuestType.RepeatQuest)
+        {
+            
+        }
+        else if (questType == QuestType.Charon)
+        {
+            // 제목
+            contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text = "";
+
+            // 내용
+            contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentCharonLetterContents();
+
+            // 보낸 사람
+            contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = "";
+        }
+        
     }
 
     public void CloseQuestPaper()
     {
-        if (questType == QuestType.MainQuest)
-        {
-            PlayQuestActionActive();
-        }
-        else if (questType == QuestType.RepeatQuest)
-        {
-
-        }
-    }
-
-    public void PlayQuestActionActive()
-    {
-        QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetCurrentQuestFlowState();
-        int currentQuestIndex = managers.GetComponent<QuestManager>().GetCurrentMainQuestIndex();
-        switch (questFlowState)
-        {
-            case QuestFlowState.BeforeStart:
-                managers.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.Start, currentQuestIndex);
-                managers.GetComponent<QuestManager>().AcceptMainQuest();
-                break;
-
-            case QuestFlowState.DeliveryCompleted:
-                managers.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.End, currentQuestIndex);
-                managers.GetComponent<QuestManager>().ClearMainQuest(currentQuestIndex);
-                break;
-        }
+        managers.GetComponent<QuestManager>().PlayCurrentQuestAction(questType);
     }
 }

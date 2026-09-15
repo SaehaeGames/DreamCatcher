@@ -67,48 +67,13 @@ public class InventoryItemSlot : MonoBehaviour
         ItemImage.gameObject.SetActive(true);
         countText.gameObject.SetActive(true);
 
-        LoadDreamCatcherThumbnail();
-
         itemNameText.text = "드림 캐쳐";
         descriptionText.text = description;
         countText.text = "X " + count.ToString();
+        ItemImage.sprite = DreamCatcherThumbnailRenderer.LoadThumbnail(dreamCatcherInventoryData.GetDCids()[0]);
 
         selected = false;
         selectedIcon.SetActive(selected);
-    }
-
-    private void LoadDreamCatcherThumbnail()
-    {
-        string dreamCatcherId =
-        dreamCatcherInventoryData.GetDCids()[0];
-
-        string path =
-            DreamCatcherThumbnailRenderer.GetThumbnailPathStatic(
-                dreamCatcherId);
-
-        if (!File.Exists(path))
-        {
-            Debug.LogWarning($"썸네일 없음 : {path}");
-
-            ItemImage.gameObject.SetActive(false);
-            return;
-        }
-
-        byte[] bytes = File.ReadAllBytes(path);
-
-        loadedTexture = new Texture2D(2, 2);
-        loadedTexture.LoadImage(bytes);
-
-        loadedSprite = Sprite.Create(
-            loadedTexture,
-            new Rect(
-                0,
-                0,
-                loadedTexture.width,
-                loadedTexture.height),
-            new Vector2(0.5f, 0.5f));
-
-        ItemImage.sprite = loadedSprite;
     }
 
     public DreamCatcherInventoryData GetSlotDreamCatcherInventoryData()

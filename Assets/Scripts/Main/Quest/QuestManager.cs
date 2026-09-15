@@ -10,6 +10,15 @@ public enum QuestFlowState
     DeliveryCompleted,
     QuestClear
 }
+
+public enum QuestType
+{
+    None = -1,
+    MainQuest = 0,
+    RepeatQuest = 1,
+    Charon = 2
+}
+
 public class QuestManager : MonoBehaviour
 {
     //퀘스트 내용을 데이터에서 가져와서 설정하는 스크립트
@@ -19,6 +28,7 @@ public class QuestManager : MonoBehaviour
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject deliveryView;     //납품 오브젝트
     public int curQuestNumber;
+    public QuestNotice questNotice;
 
     [Space]
     [Header("[Managers]")]
@@ -27,27 +37,27 @@ public class QuestManager : MonoBehaviour
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
     private QuestInfo_Data questInfo_Data;
+    private CharonInfo_Data charonInfo_Data;
 
     private void Start()
     {
         playerDataManager = GameManager.instance.playerDataManager;
         questDataManager = GameManager.instance.questDataManager;
         questInfo_Data = GameManager.instance.questinfo_data;
+        charonInfo_Data = GameManager.instance.charoninfo_data;
+
+        Debug.Log("===== QuestManager Start =====");
+        Debug.Log($"IsQuestActionPlaying : {playerDataManager.GetIsQuestActinoPlaying()}");
+        Debug.Log($"CurrentQuestIndex : {GetCurrentMainQuestIndex()}");
+        Debug.Log($"QuestFlowState : {GetCurrentQuestFlowState()}");
 
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
         {
             int currentQuestIndex = GetCurrentMainQuestIndex();
+            Debug.Log($"강제 종료 복원 시작 / QuestIndex : {currentQuestIndex}");
 
-            if (GetCurrentQuestFlowState() == QuestFlowState.Progress)
-            {
-                this.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.Start, currentQuestIndex);
-            }
-            else if (GetCurrentQuestFlowState() == QuestFlowState.DeliveryCompleted)
-            {
-                this.GetComponent<QuestActionController>().PlayQuestAction(QuestActionType.End, currentQuestIndex);
-                ClearMainQuest(currentQuestIndex);
-            }
+            PlayMainQuestAction();
         }
     }
     
@@ -65,15 +75,27 @@ public class QuestManager : MonoBehaviour
     public void ClearMainQuest(int questIndex)
     {
         questDataManager.ClearQuest(questIndex);
-        MoveNextQuest();
     }
 
-    public void MoveNextQuest()
+    public void ReceiveQuest(QuestType questType)
     {
-        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+        switch(questType)
+        {
+            case QuestType.MainQuest:
+                // 현재 퀘스트 데이터 업데이트
+                int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+                playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
+                break;
+            case QuestType.RepeatQuest:
+                break;
+            case QuestType.Charon:
+                // 다음 퀘스트 인덱스로 업데이트
+                int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
+                playerDataManager.SetCurrentCharonLetterIndex(currentCharonLetterIndex + 1);
+                break;
+        }
 
-        // 현재 퀘스트 데이터 업데이트
-        playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
+        questNotice.Notice(questType);
     }
 
     public QuestFlowState GetCurrentQuestFlowState()
@@ -107,6 +129,12 @@ public class QuestManager : MonoBehaviour
     {
         int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
         return currentMainQuestIndex;
+    }
+
+    public int GetCurrentCharonLetterIndex()
+    {
+        int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
+        return currentCharonLetterIndex;
     }
 
     public QuestData GetCurrentQuestData()
@@ -170,5 +198,91 @@ public class QuestManager : MonoBehaviour
         }
 
         return from;
+    }
+
+    public string GetCurrentCharonLetterContents()
+    {
+        int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
+        string contents = charonInfo_Data.dataList[currentCharonLetterIndex].contents;
+        
+        contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
+        return contents;
+    }
+
+    public void PlayCurrentQuestAction(QuestType questType)
+    {
+        if (questType == QuestType.MainQuest)
+        {
+            PlayMainQuestAction();
+        }
+        else if (questType == QuestType.Charon)
+        {
+            PlayCharonQuestAction();
+        }
+    }
+
+    private void PlayMainQuestAction()
+    {
+        QuestFlowState state = GetCurrentQuestFlowState();
+        int questIndex = GetCurrentMainQuestIndex();
+
+        switch (state)
+        {
+            case QuestFlowState.BeforeStart:
+                this.GetComponent<QuestActionController>().PlayQuestAction(
+                    QuestActionType.Accept,
+                    questIndex,
+                    () =>
+                    {
+                        playerDataManager.SetIsQuestActionPlaying(true);
+                        playerDataManager.Save();
+                    },    
+                    () =>
+                    {
+                        playerDataManager.SetIsQuestActionPlaying(false);
+                        AcceptMainQuest();
+                        playerDataManager.Save();
+                        questDataManager.Save();
+                    });
+                break;
+
+            case QuestFlowState.DeliveryCompleted:
+                this.GetComponent<QuestActionController>().PlayQuestAction(
+                    QuestActionType.Complete,
+                    questIndex,
+                    () =>
+                    {
+                        playerDataManager.SetIsQuestActionPlaying(true);
+                        playerDataManager.Save();
+                    },
+                    () =>
+                    {
+                        playerDataManager.SetIsQuestActionPlaying(false);
+                        ClearMainQuest(questIndex);
+                        ReceiveQuest(QuestType.MainQuest);
+                        playerDataManager.Save();
+                        questDataManager.Save();
+                    });
+                break;
+        }
+    }
+
+    private void PlayCharonQuestAction()
+    {
+        int questIndex = GetCurrentCharonLetterIndex();
+
+        this.GetComponent<QuestActionController>().PlayQuestAction(
+            QuestActionType.Charon,
+            questIndex,
+            () =>
+            {
+                playerDataManager.SetIsCharonQuestActionPlaying(true);
+                playerDataManager.Save();
+            },
+            () =>
+            {
+                playerDataManager.SetIsCharonQuestActionPlaying(false);
+                playerDataManager.Save();
+            });
     }
 }

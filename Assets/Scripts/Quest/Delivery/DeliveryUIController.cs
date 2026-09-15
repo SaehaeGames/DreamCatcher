@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +44,7 @@ public class DeliveryUIController : MonoBehaviour
 
         // 선택 드림캐쳐 표시
         description.text = dreamCatcherInventoryData.GetDescription();
-        dreamcatcherImg.sprite = null; // 나중에 수정
+        dreamcatcherImg.sprite = DreamCatcherThumbnailRenderer.LoadThumbnail(dreamCatcherInventoryData.GetDCids()[0]);
 
         // 선택한 드림캐쳐 저장
         deliveryManager.SetSelectedDreamCatcherInventoryData(dreamCatcherInventoryData);

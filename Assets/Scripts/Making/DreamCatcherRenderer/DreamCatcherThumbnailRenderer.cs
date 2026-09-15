@@ -62,16 +62,36 @@ public class DreamCatcherThumbnailRenderer : MonoBehaviour
         File.WriteAllBytes(path, tex.EncodeToPNG());
     }
 
-    public string GetThumbnailPath(string id)
-    {
-        return GetThumbnailPathStatic(id);
-    }
-
-    public static string GetThumbnailPathStatic(string id)
+    public static string GetThumbnailPath(string id)
     {
         return Path.Combine(
             Application.persistentDataPath,
             "DreamCatcherThumbnails",
             $"DreamCatcher_{id}.png");
+    }
+
+    public static Sprite LoadThumbnail(string id)
+    {
+        string path = GetThumbnailPath(id);
+
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning($"[DreamCatcherThumbnailRenderer] ½æ³×ÀÏ ¾øÀ½ : {path}");
+            return null;
+        }
+
+        byte[] bytes = File.ReadAllBytes(path);
+
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(bytes);
+
+        return Sprite.Create(
+            texture,
+            new Rect(
+                0,
+                0,
+                texture.width,
+                texture.height),
+            new Vector2(0.5f, 0.5f));
     }
 }

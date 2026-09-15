@@ -13,6 +13,9 @@ public class QuestActionPipeline : MonoBehaviour
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
 
+    private System.Action onStart;
+    private System.Action onComplete;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,8 +32,14 @@ public class QuestActionPipeline : MonoBehaviour
         }
     }
 
-    public void StartQuestAction()
+    public void StartQuestAction(System.Action onStart = null, System.Action onComplete = null)
     {
+        // 콜백 함수
+        this.onStart = onStart;
+        this.onComplete = onComplete;
+
+        onStart?.Invoke();
+
         if (playerDataManager == null)
             playerDataManager = GameManager.instance.playerDataManager;
 
@@ -44,18 +53,15 @@ public class QuestActionPipeline : MonoBehaviour
             questActions.Add(this.transform.GetChild(i).gameObject.GetComponent<InteractiveSequenceBase>());
         }
 
-        playerDataManager.SetIsQuestActionPlaying(true);
-        playerDataManager.Save();
-
         SetNextQuestAction();
     }
 
     public void EndQuestAction()
     {
         currentQuestAction = null;
-        playerDataManager.SetIsQuestActionPlaying(false);
-        playerDataManager.Save();
-        questDataManager.Save();
+
+        onComplete?.Invoke();
+
         this.gameObject.SetActive(false);
     }
 

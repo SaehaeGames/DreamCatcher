@@ -58,10 +58,15 @@ public class PlayerDataManager
 
             currentScene = 0,
             currentMainQuestIndex = 0,
-            isQuestActionPlaying = false,
+            isMainQuestActionPlaying = false,
 
-            unlockData = new UnlockData(false, false, false, 0)
-        };
+
+            unlockData = new UnlockData(false, false, false, 0),
+
+            currentCharonLetterIndex = -1,
+            isCharonQuestActionPlaying = false,
+            questNotice = new bool[3] { false, false, false }
+    };
     }
 
     #region Currency
@@ -210,12 +215,42 @@ public class PlayerDataManager
 
     public void SetIsQuestActionPlaying(bool _isQuestActionPlaying)
     {
-        playerData.isQuestActionPlaying = _isQuestActionPlaying;
+        playerData.isMainQuestActionPlaying = _isQuestActionPlaying;
     }
 
     public bool GetIsQuestActinoPlaying()
     {
-        return playerData.isQuestActionPlaying;
+        return playerData.isMainQuestActionPlaying;
+    }
+
+    public void SetCurrentCharonLetterIndex(int _currentCharonLetterIndex)
+    {
+        playerData.currentCharonLetterIndex = _currentCharonLetterIndex;
+    }
+
+    public int GetCurrentCharonLetterIndex()
+    {
+        return playerData.currentCharonLetterIndex;
+    }
+
+    public void SetIsCharonQuestActionPlaying(bool _isCharonQuestActionPlaying)
+    {
+        playerData.isCharonQuestActionPlaying = _isCharonQuestActionPlaying;
+    }
+
+    public bool GetIsCharonQuestActionPlaying()
+    {
+        return playerData.isCharonQuestActionPlaying;
+    }
+
+    public bool GetQuestNoticeRead(QuestType questType)
+    {
+        return playerData.GetQuestNoticeRead((int)questType);
+    }
+
+    public void SetQuestNoticeRead(QuestType questType, bool isRead)
+    {
+        playerData.SetQuestNoticeRead((int)questType, isRead);
     }
 
     #endregion
