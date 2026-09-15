@@ -21,6 +21,7 @@ public class PlayerData
 
     public int currentCharonLetterIndex;
     public bool isCharonQuestActionPlaying;
+    public bool hasReadCharonLetter;
 
     // 퀘스트 알림 확인 여부
     // 0 : 메인 퀘스트
@@ -35,15 +36,19 @@ public class PlayerData
         gold = 0;
         dreamMarble = 0;
         specialFeed = 0;
+
         bgmVolume = 0;
         effectVolume = 0;
         bgmMute = false;
         effectMute = false;
+
         currentScene = 0;
         currentMainQuestIndex = 0;
         isMainQuestActionPlaying = false;
+
         currentCharonLetterIndex = -1;
         isCharonQuestActionPlaying = false;
+        hasReadCharonLetter = true;
 
         questNotice = new bool[3] { false, false, false };
 
@@ -64,11 +69,13 @@ public class PlayerData
         UnlockData _unlockData,
         int _currentCharonLetterIndex,
         bool _isCharonQuestActionPlaying,
+        bool _hasReadCharonLetter,
         bool[] _questNoticeRead)
     {
         gold = _gold;
         dreamMarble = _dreamMarble;
         specialFeed = _specialFeed;
+
         bgmVolume = _bgmVolume;
         effectVolume = _effectVolume;
         bgmMute = _bgmMute;
@@ -77,9 +84,12 @@ public class PlayerData
         currentScene = _currentScene;
         currentMainQuestIndex = _currentMainQuestIndex;
         isMainQuestActionPlaying = _isQuestActionPlaying;
+
         unlockData = _unlockData;
+
         currentCharonLetterIndex = _currentCharonLetterIndex;
         isCharonQuestActionPlaying = _isCharonQuestActionPlaying;
+        hasReadCharonLetter = _hasReadCharonLetter;
 
         questNotice = _questNoticeRead;
     }
@@ -89,15 +99,38 @@ public class PlayerData
     public void SetGold(int _gold) { gold = _gold; }
     public void SetDreamMarble(int _dreamMarble) { dreamMarble = _dreamMarble; }
     public void SetSpecialFeed(int _specialFeed) { specialFeed = _specialFeed; }
+
     public void SetBGMVolume(float _bgmVolume) { bgmVolume = _bgmVolume; }
     public void SetEffectVolume(float _effectVolume) { effectVolume = _effectVolume; }
     public void SetBGMMute(bool _bgmMute) { bgmMute = _bgmMute; }
     public void SetEffectMute(bool _effectMute) { effectMute = _effectMute; }
+
     public void SetCurrentScene(int _currentScene) { currentScene = _currentScene; }
-    public void SetIsQuestActionPlaying(bool _isQuestActionPlaying) { isMainQuestActionPlaying = _isQuestActionPlaying; }
-    public void SetCurrentMainQuestIndex(int _currentMainQuestIndex) { currentMainQuestIndex = _currentMainQuestIndex; }
-    public void SetCurrentCharonLetterIndex(int _currentCharonLetterIndex) { currentCharonLetterIndex = _currentCharonLetterIndex; }
-    public void SetIsCharonQuestActionPlaying(bool _isCharonQuestActionPlaying) { isCharonQuestActionPlaying = _isCharonQuestActionPlaying; }
+
+    public void SetIsQuestActionPlaying(bool _isQuestActionPlaying)
+    {
+        isMainQuestActionPlaying = _isQuestActionPlaying;
+    }
+
+    public void SetCurrentMainQuestIndex(int _currentMainQuestIndex)
+    {
+        currentMainQuestIndex = _currentMainQuestIndex;
+    }
+
+    public void SetCurrentCharonLetterIndex(int _currentCharonLetterIndex)
+    {
+        currentCharonLetterIndex = _currentCharonLetterIndex;
+    }
+
+    public void SetIsCharonQuestActionPlaying(bool _isCharonQuestActionPlaying)
+    {
+        isCharonQuestActionPlaying = _isCharonQuestActionPlaying;
+    }
+
+    public void SetHasReadCharonLetter(bool _hasReadCharonLetter)
+    {
+        hasReadCharonLetter = _hasReadCharonLetter;
+    }
 
     public void SetQuestNoticeRead(int _questType, bool _isRead)
     {
@@ -111,15 +144,38 @@ public class PlayerData
     public int GetGold() { return gold; }
     public int GetDreamMarble() { return dreamMarble; }
     public int GetSpecialFeed() { return specialFeed; }
+
     public float GetBgmVolume() { return bgmVolume; }
     public float GetEffectVolume() { return effectVolume; }
     public bool GetBgmMute() { return bgmMute; }
     public bool GetEffectMute() { return effectMute; }
+
     public int GetCurrentScene() { return currentScene; }
-    public bool GetIsQuestActionPlaying() { return isMainQuestActionPlaying; }
-    public int GetCurrentMainQuestIndex() { return currentMainQuestIndex; }
-    public int GetCurrentCharonLetterIndex() { return currentCharonLetterIndex; }
-    public bool GetCurrentIsCharonQuestActionPlaying() { return isCharonQuestActionPlaying; }
+
+    public bool GetIsQuestActionPlaying()
+    {
+        return isMainQuestActionPlaying;
+    }
+
+    public int GetCurrentMainQuestIndex()
+    {
+        return currentMainQuestIndex;
+    }
+
+    public int GetCurrentCharonLetterIndex()
+    {
+        return currentCharonLetterIndex;
+    }
+
+    public bool GetCurrentIsCharonQuestActionPlaying()
+    {
+        return isCharonQuestActionPlaying;
+    }
+
+    public bool GetHasReadCharonLetter()
+    {
+        return hasReadCharonLetter;
+    }
 
     public bool GetQuestNoticeRead(int _questType)
     {

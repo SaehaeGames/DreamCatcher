@@ -7,12 +7,13 @@
     "bgmMute": false,
     "effectMute": false,
     "currentScene": 30,
-    "currentMainQuestIndex": 2,
+    "currentMainQuestIndex": 3,
     "isMainQuestActionPlaying": false,
     "currentCharonLetterIndex": 0,
     "isCharonQuestActionPlaying": false,
+    "hasReadCharonLetter": true,
     "questNotice": [
-        false,
+        true,
         false,
         false
     ],
