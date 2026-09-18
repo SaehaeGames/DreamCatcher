@@ -21,6 +21,9 @@ public static class Constants
     public const string Tag_TopBar = "TopBar";
     public const string Tag_AudioManager = "AudioManager";
     public const string Tag_GoodsManager = "GoodsManager";
+    public const string Tag_TutorialOverlay = "TutorialOverlay";
+    public const string Tag_UICanvas = "UI Canvas";
+    public const string Tag_BottomBar = "BottomBar";
 
     // playerData 내부 데이터
     public const string PlayerData_DreamMarble = "DreamMarble";

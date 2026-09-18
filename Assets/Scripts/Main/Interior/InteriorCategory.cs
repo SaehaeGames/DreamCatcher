@@ -31,7 +31,11 @@ public class InteriorCategory : MonoBehaviour
         currentCategoryIndex = 0;               // 현재 카테고리 인덱스
         ScrollViewPort = Panel_Interior.transform.GetChild(2).GetChild(0).gameObject;
         for (int i = 0; i < Button_InteriorCategory.Length; i++)        // 버튼 번호 설정
-            Button_InteriorCategory[i].GetComponent<InteriorButton>().buttonNumber = i;
+        {
+            InteriorButton button = Button_InteriorCategory[i].GetComponent<InteriorButton>();
+            button.buttonNumber = i;
+            button.Initialize(this);
+        }
 
         interiorDataManager = GameManager.instance.interiorDataManager;
         goodsDataManager = GameManager.instance.goodsDataManager;
@@ -39,6 +43,11 @@ public class InteriorCategory : MonoBehaviour
 
 
         GetBtnItemCount();
+        foreach (GameObject itemObject in interiorItemArray)
+        {
+            InteriorButton button = itemObject.GetComponent<InteriorButton>();
+            if (button != null) button.Initialize(this);
+        }
         currentAdjusting = new bool[interiorItemArray.Count];
 
         LoadSaveData();
@@ -88,7 +97,7 @@ public class InteriorCategory : MonoBehaviour
         }
 
         if (changed)
-            GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
+            interiorDataManager.Save();
     }
 
     private void SyncDevelopmentItemsHaving()
@@ -461,7 +470,7 @@ public class InteriorCategory : MonoBehaviour
         currentAdjusting = interiorDataManager.dataList.Select(d => d.isAdjusting).ToArray();
         UpdateInteriorImage(selectedIdx, itemID);
         UpdateButtonAdjusting();
-        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
+        interiorDataManager.Save();
     }
 
     public void SettingItemHide(int itemIdx)

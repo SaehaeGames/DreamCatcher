@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 
@@ -47,6 +45,12 @@ public class GoodsDataManager
         GoodsDataManager defaultData = jsonManager.LoadDefaultData<GoodsDataManager>(Constants.GoodsDataFile);
         dataList = defaultData.dataList ?? new List<GoodsData>();
         Save();
+    }
+
+    public void Load()
+    {
+        GoodsDataManager loadedData = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
+        dataList = loadedData.dataList ?? new List<GoodsData>();
     }
 
     public void Save()

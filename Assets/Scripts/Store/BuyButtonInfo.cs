@@ -8,6 +8,7 @@ public class BuyButtonInfo : MonoBehaviour
     [SerializeField] private int selectGoodsNumber;    // 선택한 상품 번호
     [SerializeField] private string selectGoddsId;
     private Button buyButton;
+    private BuyCheck buyCheck;
 
     private void Awake()
     {
@@ -26,23 +27,25 @@ public class BuyButtonInfo : MonoBehaviour
     {
         // 상품 구매 버튼을 눌렀을 때 동작
 
-        GameObject storeManager = GameObject.FindGameObjectWithTag("StoreManager");
-        if (storeManager != null)
+        if (buyCheck == null)
         {
-            var buyCheck = storeManager.GetComponent<BuyCheck>();
-            if (buyCheck != null)
-            {
-                buyCheck.SelectBuyingGoods(selectGoodsNumber, selectGoddsId);
-            }
-            else
-            {
-                Debug.LogWarning("[WARNING] BuyCheck 컴포넌트를 찾을 수 없음");
-            }
+            GameObject storeManager = GameObject.FindGameObjectWithTag("StoreManager");
+            if (storeManager != null) buyCheck = storeManager.GetComponent<BuyCheck>();
+        }
+
+        if (buyCheck != null)
+        {
+            buyCheck.SelectBuyingGoods(selectGoodsNumber, selectGoddsId);
         }
         else
         {
-            Debug.LogWarning("[WARNING] StoreManager 게임 오브젝트를 찾을 수 없음");
+            Debug.LogWarning("[WARNING] BuyCheck 컴포넌트를 찾을 수 없음");
         }
+    }
+
+    public void Initialize(BuyCheck owner)
+    {
+        buyCheck = owner;
     }
 
     public void SetSelectGoodsNumber(int number)

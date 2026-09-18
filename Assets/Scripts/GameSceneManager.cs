@@ -1,26 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum SceneState
 {
-    None=0,
-    Start=1,
-    Main=2,
-    Making=3,
-    CollectionDream=4,
-    CollectionBird=5,
-    Store=6
+    None = 0,
+    Start = 1,
+    Main = 2,
+    Making = 3,
+    CollectionDream = 4,
+    CollectionBird = 5,
+    Store = 6
 }
 
 public partial class GameSceneManager : MonoBehaviour
 {
-    #region Singleton
-
-    static private GameSceneManager instance;
-    public delegate void OnSceneChange(SceneState InState);
+    private static GameSceneManager instance;
+    public delegate void OnSceneChange(SceneState inState);
     public OnSceneChange onSceneChangedCallback;
 
     public static GameSceneManager Instance
@@ -32,21 +28,40 @@ public partial class GameSceneManager : MonoBehaviour
                 instance = FindObjectOfType<GameSceneManager>();
                 if (instance == null)
                 {
-                    GameObject singletonObject = new GameObject();
+                    GameObject singletonObject = new GameObject("GameSceneManager");
                     instance = singletonObject.AddComponent<GameSceneManager>();
-                    singletonObject.name = "GameSceneManager";
-                    DontDestroyOnLoad(singletonObject);
                 }
             }
             return instance;
         }
     }
-    #endregion
 
     public UnityAction<SceneState> SceneChangeWarn;
 
     private SceneState currentSceneState = SceneState.None;
     private SceneState prevSceneState = SceneState.None;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SyncSceneState(SceneManager.GetActiveScene());
+    }
+
+    private void OnDestroy()
+    {
+        if (instance != this) return;
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        instance = null;
+    }
 
     public void UpdateSceneState(SceneState nextScene, SceneState nowScene)
     {
@@ -57,49 +72,58 @@ public partial class GameSceneManager : MonoBehaviour
 
     public void ChangeSceneState(SceneState inState)
     {
-        if (currentSceneState == SceneState.Making)
+        if (inState == SceneState.None) return;
+
+        if (currentSceneState == SceneState.Making && SceneChangeWarn != null)
         {
             SceneChangeWarn.Invoke(inState);
             return;
         }
-        
-        UpdateSceneState(inState, currentSceneState);
-        //prevSceneState = currentSceneState;
-        //currentSceneState = inState;
-        Debug.Log("SceneChange State : " + currentSceneState.ToString());
 
-        switch (currentSceneState)
+        UpdateSceneState(inState, currentSceneState);
+        string sceneName = GetSceneName(inState);
+        if (!string.IsNullOrEmpty(sceneName)) SceneManager.LoadScene(sceneName);
+    }
+
+    public void InitSceneState()
+    {
+        SyncSceneState(SceneManager.GetActiveScene());
+    }
+
+    public static bool TryGetSceneState(string sceneName, out SceneState sceneState)
+    {
+        switch (sceneName)
         {
-            case SceneState.Start:
-                SceneManager.LoadScene(SceneState.Start.ToString());
-                break;
-            case SceneState.Main:
-                SceneManager.LoadScene(SceneState.Main.ToString());
-                break;
-            case SceneState.Making:
-                SceneManager.LoadScene(SceneState.Making.ToString());
-                break;
-            case SceneState.CollectionBird:
-                SceneManager.LoadScene(SceneState.CollectionBird.ToString());
-                break;
-            case SceneState.CollectionDream:
-                SceneManager.LoadScene(SceneState.CollectionDream.ToString());
-                break;
-            case SceneState.Store:
-                SceneManager.LoadScene(SceneState.Store.ToString());
-                break;
+            case "Start": sceneState = SceneState.Start; return true;
+            case "Main": sceneState = SceneState.Main; return true;
+            case "Making": sceneState = SceneState.Making; return true;
+            case "CollectionDream": sceneState = SceneState.CollectionDream; return true;
+            case "CollectionBook":
+            case "CollectionBird": sceneState = SceneState.CollectionBird; return true;
+            case "Store": sceneState = SceneState.Store; return true;
+            default: sceneState = SceneState.None; return false;
         }
     }
 
-    // 씬 상태를 초기화하는 함수
-    public void InitSceneState()
+    private static string GetSceneName(SceneState sceneState)
     {
-        currentSceneState = SceneState.None;
+        return sceneState == SceneState.CollectionBird ? "CollectionBook" : sceneState.ToString();
     }
 
-    private void Start()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        InitSceneState();
+        SyncSceneState(scene);
+        onSceneChangedCallback?.Invoke(currentSceneState);
     }
 
+    private void SyncSceneState(Scene scene)
+    {
+        if (!TryGetSceneState(scene.name, out SceneState loadedState)) return;
+
+        if (loadedState != currentSceneState)
+        {
+            prevSceneState = currentSceneState;
+        }
+        currentSceneState = loadedState;
+    }
 }

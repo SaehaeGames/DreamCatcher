@@ -46,6 +46,7 @@ public class BottomBar : MonoBehaviour
     {
         _gameSceneManager = GameSceneManager.Instance;
         OnClickSetting();
+        SetActiveCategory();
     }
 
     private void ChangeScene(int menu)

@@ -9,6 +9,7 @@ public class InteriorButton : MonoBehaviour
     public string itemID;         // 해당 버튼의 아이템 ID
 
     private Button buttonComponent;
+    private InteriorCategory interiorCategory;
 
     private void Awake()
     {
@@ -32,16 +33,27 @@ public class InteriorButton : MonoBehaviour
 
     public void SelectInteriorButton()
     {
-        GameObject.FindGameObjectWithTag("GoodsManager")
-            .GetComponent<InteriorCategory>()
-            .UpdateCatrgoryPanel(buttonNumber);
+        ResolveInteriorCategory();
+        if (interiorCategory != null) interiorCategory.UpdateCatrgoryPanel(buttonNumber);
     }
 
     public void SelectInteriorItemButton()
     {
-        GameObject.FindGameObjectWithTag("GoodsManager")
-            .GetComponent<InteriorCategory>()
-            .SelectInteriorDafaultItem(buttonNumber, itemID);
+        ResolveInteriorCategory();
+        if (interiorCategory != null) interiorCategory.SelectInteriorDafaultItem(buttonNumber, itemID);
+    }
+
+    public void Initialize(InteriorCategory owner)
+    {
+        interiorCategory = owner;
+    }
+
+    private void ResolveInteriorCategory()
+    {
+        if (interiorCategory != null) return;
+
+        GameObject goodsManager = GameObject.FindGameObjectWithTag("GoodsManager");
+        if (goodsManager != null) interiorCategory = goodsManager.GetComponent<InteriorCategory>();
     }
 
     public void SetButtonNumber(int num)

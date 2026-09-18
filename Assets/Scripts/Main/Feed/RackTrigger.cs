@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RackTrigger : MonoBehaviour
@@ -7,7 +7,8 @@ public class RackTrigger : MonoBehaviour
     // �ڽ��� ȶ�� ������ ������ ���̿��� �浹 ������ ������
 
     [Header("[RackTrigger]")]
-    [SerializeField] private int triggerNumber;         // �ڽ��� ȶ�� ��ȣ ����
+    [SerializeField] private int triggerNumber;
+    [SerializeField] private FeedPanel feedPanel;         // �ڽ��� ȶ�� ��ȣ ����
 
     public int TriggerNumber
     {
@@ -20,14 +21,24 @@ public class RackTrigger : MonoBehaviour
 
     private void Start()
     {
-        Button button = GetComponent<Button>();      // ��ư ������Ʈ
-        button.onClick.AddListener(() => FeedPanelOpen());
+        Button button = GetComponent<Button>();
+        if (button != null) button.onClick.AddListener(FeedPanelOpen);
+    }
+
+    public void SetDependencies(FeedPanel panel)
+    {
+        feedPanel = panel;
     }
 
     private void FeedPanelOpen()
     {
-        var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedPanel>();
-        feedManager.OpenPanel(TriggerNumber);
+        if (feedPanel == null)
+        {
+            GameObject managerObject = GameObject.FindGameObjectWithTag("FeedManager");
+            if (managerObject != null) feedPanel = managerObject.GetComponent<FeedPanel>();
+        }
+
+        if (feedPanel != null) feedPanel.OpenPanel(TriggerNumber);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -41,14 +52,12 @@ public class RackTrigger : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Feed")) return;
-        var feedDrag = FindFeedDrag(collision.gameObject);
-        if (feedDrag == null || feedDrag.LastRackNumber != triggerNumber) return;
 
-        feedDrag.LastRackNumber = -1;
-        if (feedDrag.IsDragging) return;
-
-        var feedManager = GameObject.FindGameObjectWithTag("FeedManager").GetComponent<FeedManager>();
-        feedManager.SelectFeed(triggerNumber, feedDrag.Feed);
+        FeedDrag feedDrag = FindFeedDrag(collision.gameObject);
+        if (feedDrag != null && feedDrag.LastRackNumber == triggerNumber)
+        {
+            feedDrag.LastRackNumber = -1;
+        }
     }
 
     private FeedDrag FindDraggingFeedDrag(GameObject obj)

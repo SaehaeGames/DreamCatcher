@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
-using System.Diagnostics;
 
 
 public class PlayerDataManager
 {
     public event Action OnUnlockChanged;
+    public event Action OnCurrencyChanged;
 
     private JsonManager jsonManager = new JsonManager();
     private PlayerData playerData;
+    private int reservedSpecialFeed;
 
 
     public PlayerDataManager()
@@ -22,8 +20,10 @@ public class PlayerDataManager
     public void ResetData()
     {
         playerData = CreateDefaultData();
+        reservedSpecialFeed = 0;
         Save();
         OnUnlockChanged?.Invoke();
+        OnCurrencyChanged?.Invoke();
     }
 
     public void ResetTutorialProgress()
@@ -36,19 +36,22 @@ public class PlayerDataManager
         playerData.currentScene = 0;
         playerData.currentMainQuestIndex = 0;
         playerData.isQuestActionPlaying = false;
+        playerData.specialFeed = 0;
         playerData.unlockData = new UnlockData(false, false, false, 0);
+        reservedSpecialFeed = 0;
 
         Save();
         OnUnlockChanged?.Invoke();
+        OnCurrencyChanged?.Invoke();
     }
 
     private PlayerData CreateDefaultData()
     {
         return new PlayerData()
         {
-            gold = 30000,
+            gold = 0,
             dreamMarble = 0,
-            specialFeed = 100,
+            specialFeed = 0,
 
             bgmVolume = 1f,
             effectVolume = 1f,
@@ -73,8 +76,9 @@ public class PlayerDataManager
 
     public void AddGold(int amount)
     {
-        playerData.gold += amount;
+        playerData.gold = Mathf.Max(0, playerData.gold + amount);
         Save();
+        OnCurrencyChanged?.Invoke();
     }
 
     public bool UseGold(int amount)
@@ -87,6 +91,7 @@ public class PlayerDataManager
 
         playerData.gold -= amount;
         Save();
+        OnCurrencyChanged?.Invoke();
         return true;
     }
 
@@ -97,24 +102,26 @@ public class PlayerDataManager
 
     public void AddDreamMarble(int amount)
     {
-        playerData.dreamMarble += amount;
+        playerData.dreamMarble = Mathf.Max(0, playerData.dreamMarble + amount);
         Save();
+        OnCurrencyChanged?.Invoke();
     }
 
     public int GetSpecialFeed()
     {
-        return playerData.specialFeed;
+        return Mathf.Max(0, playerData.specialFeed - reservedSpecialFeed);
     }
 
     public void AddSpecialFeed(int amount)
     {
-        playerData.specialFeed += amount;
+        playerData.specialFeed = Mathf.Max(0, playerData.specialFeed + amount);
         Save();
+        OnCurrencyChanged?.Invoke();
     }
 
     public bool UseSpecialFeed(int amount)
     {
-        if (playerData.specialFeed < amount)
+        if (amount <= 0 || GetSpecialFeed() < amount)
         {
             UnityEngine.Debug.LogWarning("[PlayerDataManager] Not enough specialFeed.");
             return false;
@@ -122,7 +129,41 @@ public class PlayerDataManager
 
         playerData.specialFeed -= amount;
         Save();
+        OnCurrencyChanged?.Invoke();
         return true;
+    }
+
+    public bool TryReserveSpecialFeed(int amount)
+    {
+        if (amount <= 0 || GetSpecialFeed() < amount)
+        {
+            UnityEngine.Debug.LogWarning("[PlayerDataManager] Not enough specialFeed to reserve.");
+            return false;
+        }
+
+        reservedSpecialFeed += amount;
+        OnCurrencyChanged?.Invoke();
+        return true;
+    }
+
+    public void CommitReservedSpecialFeed(int amount, bool saveImmediately = true)
+    {
+        int commitAmount = Mathf.Clamp(amount, 0, reservedSpecialFeed);
+        if (commitAmount == 0) return;
+
+        reservedSpecialFeed -= commitAmount;
+        playerData.specialFeed = Mathf.Max(0, playerData.specialFeed - commitAmount);
+        if (saveImmediately) Save();
+        OnCurrencyChanged?.Invoke();
+    }
+
+    public void CancelReservedSpecialFeed(int amount)
+    {
+        int cancelAmount = Mathf.Clamp(amount, 0, reservedSpecialFeed);
+        if (cancelAmount == 0) return;
+
+        reservedSpecialFeed -= cancelAmount;
+        OnCurrencyChanged?.Invoke();
     }
 
     #endregion
@@ -170,6 +211,15 @@ public class PlayerDataManager
     public void SetEffectMute(bool mute)
     {
         playerData.effectMute = mute;
+        Save();
+    }
+
+    public void SetAudioSettings(float bgmVolume, float effectVolume, bool bgmMute, bool effectMute)
+    {
+        playerData.bgmVolume = Mathf.Clamp01(bgmVolume);
+        playerData.effectVolume = Mathf.Clamp01(effectVolume);
+        playerData.bgmMute = bgmMute;
+        playerData.effectMute = effectMute;
         Save();
     }
 
@@ -238,6 +288,7 @@ public class PlayerDataManager
 
         playerData.unlockData.SetIsRepeatQuestUnlocked(true);
         playerData.specialFeed += Mathf.Max(0, specialFeedReward);
+        OnCurrencyChanged?.Invoke();
         if (saveImmediately) SaveUnlockData();
         return true;
     }
@@ -323,7 +374,16 @@ public class PlayerDataManager
         {
             UnityEngine.Debug.Log("[PlayerDataManager] Save file not found. Create default data.");
             ResetData();
+            return;
         }
+
+        reservedSpecialFeed = 0;
+        playerData.gold = Mathf.Max(0, playerData.gold);
+        playerData.dreamMarble = Mathf.Max(0, playerData.dreamMarble);
+        playerData.specialFeed = Mathf.Max(0, playerData.specialFeed);
+        playerData.bgmVolume = Mathf.Clamp01(playerData.bgmVolume);
+        playerData.effectVolume = Mathf.Clamp01(playerData.effectVolume);
+        EnsureUnlockData();
     }
 
     public void Save()
@@ -334,7 +394,6 @@ public class PlayerDataManager
             return;
         }
 
-        UnityEngine.Debug.Log(new StackTrace(true));
         jsonManager.SaveData(Constants.PlayerDataFile, playerData);
     }
 }

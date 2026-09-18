@@ -26,8 +26,8 @@ public class PlayerData
         gold = 0;
         dreamMarble = 0;
         specialFeed = 0;
-        bgmVolume = 0;
-        effectVolume = 0;
+        bgmVolume = 1f;
+        effectVolume = 1f;
         bgmMute = false;
         effectMute = false;
         currentScene = 0;
@@ -44,7 +44,7 @@ public class PlayerData
         bgmVolume = _bgmVolume;
         effectVolume = _effectVolume;
         bgmMute = _bgmMute;
-        effectMute = _bgmMute;
+        effectMute = _effectMute;
         currentScene = _currentScene;
         currentMainQuestIndex = _currentMainQuestIndex;
         isQuestActionPlaying = _isQuestActionPlaying;

@@ -12,6 +12,23 @@ public class FeedManager : MonoBehaviour
     public GameObject[] RackBirdObjects;     // 횃대에 나타나는 새 오브젝트 배열
 
     private int rackLevel;
+    [SerializeField] private FeedTimer feedTimer;
+    [SerializeField] private BirdSelect birdSelect;
+    [SerializeField] private FeedPanel feedPanel;
+    [SerializeField] private EffectChange effectChange;
+
+    private void Awake()
+    {
+        if (feedTimer == null) feedTimer = GetComponent<FeedTimer>();
+        if (birdSelect == null) birdSelect = GetComponent<BirdSelect>();
+        if (feedPanel == null) feedPanel = GetComponent<FeedPanel>();
+
+        if (effectChange == null)
+        {
+            GameObject audioObject = GameObject.FindGameObjectWithTag(Constants.Tag_AudioManager);
+            if (audioObject != null) effectChange = audioObject.GetComponent<EffectChange>();
+        }
+    }
 
     void Start()
     {
@@ -19,15 +36,23 @@ public class FeedManager : MonoBehaviour
         if (dataList == null || dataList.Count == 0)
         {
             Debug.LogError("goodsDataManager.dataList is null or empty!");
+            return;
         }
 
         var rackData = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack);
         if (rackData == null)
         {
             Debug.LogError($"No data found for category: {Constants.GoodsData_Rack}");
+            return;
         }
 
-        rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
+        rackLevel = rackData.level;   // 플레이어의 횃대 레벨
+        if (rackLevel < 0 || rackLevel >= RackFeedObjects.Length
+            || rackLevel >= RackTriggerObjects.Length || rackLevel >= RackBirdObjects.Length)
+        {
+            Debug.LogError($"[FeedManager] 횃대 레벨에 맞는 오브젝트가 없습니다. level: {rackLevel}");
+            return;
+        }
 
         if (IsTutorialInProgress())
         {
@@ -61,8 +86,6 @@ public class FeedManager : MonoBehaviour
         }
 
         GameManager.instance.RackDataManager.SetData(dataList);
-        GameManager.instance.RackDataManager.Save();
-
         foreach (GameObject rackFeedObject in RackFeedObjects)
         {
             for (int rackIndex = 0; rackIndex < rackFeedObject.transform.childCount; rackIndex++)
@@ -125,18 +148,27 @@ public class FeedManager : MonoBehaviour
                 continue;
             }
             foreach (var feedDrag in allFeedDrags)
+            {
                 feedDrag.Feed = (FeedType)i;
+                feedDrag.SetFeedManager(this);
+            }
         }
     }
 
     public void InitializeRackObjects()
     {
-        for (int j = 0; j < RackTriggerObjects[rackLevel].transform.childCount; j++)
+        int rackCount = Mathf.Min(RackTriggerObjects[rackLevel].transform.childCount,
+            RackBirdObjects[rackLevel].transform.childCount);
+        for (int j = 0; j < rackCount; j++)
         {
             var rackTrigger = RackTriggerObjects[rackLevel].transform.GetChild(j).GetComponent<RackTrigger>();
             var rackBird = RackBirdObjects[rackLevel].transform.GetChild(j).GetComponent<RackBird>();
-            rackTrigger.TriggerNumber = j;
-            rackBird.RackNumber = j;
+            if (rackTrigger != null)
+            {
+                rackTrigger.TriggerNumber = j;
+                rackTrigger.SetDependencies(feedPanel);
+            }
+            if (rackBird != null) rackBird.SetDependencies(j, this);
         }
     }
 
@@ -144,7 +176,9 @@ public class FeedManager : MonoBehaviour
     {
         // 횃대 상태 업데이트 함수 (트리거, 먹이 활성화 / 비활성화)
 
-        for (int i = 0; i < RackTriggerObjects.Length; i++)        // 횃대 트리거 수만큼 반복
+        int levelObjectCount = Mathf.Min(RackFeedObjects.Length,
+            Mathf.Min(RackTriggerObjects.Length, RackBirdObjects.Length));
+        for (int i = 0; i < levelObjectCount; i++)        // 횃대 트리거 수만큼 반복
         {
             if (i == rackLevel)     // 현재 횃대 레벨이라면
             {
@@ -165,25 +199,34 @@ public class FeedManager : MonoBehaviour
     {
         // 먹이 시간이 다 된 새가 나타나는 함수
 
-        this.GetComponent<BirdSelect>().ChangeBirdImage(RackBirdObjects[rackLevel].transform.GetChild(rackNumber).gameObject, birdNumber);    // 새 이미지 변경
+        birdSelect.ChangeBirdImage(RackBirdObjects[rackLevel].transform.GetChild(rackNumber).gameObject, birdNumber);    // 새 이미지 변경
 
         SetActiveRackBird(rackNumber);      // 새 오브젝트 활성화
     }
 
     public void SelectFeed(int rackNumber, FeedType feed)
     {
-        // 먹이를 선택하는 함수
+        TrySelectFeed(rackNumber, feed);
+    }
+
+    public bool TrySelectFeed(int rackNumber, FeedType feed)
+    {
+        // 먹이 배치 가능 여부를 검증한 뒤 타이머·시각 상태를 함께 적용합니다.
 
         if ((int)feed > GameManager.instance.playerDataManager.GetFoodUnlockLevel())
         {
             Debug.LogWarning($"[FeedManager] 잠긴 먹이는 사용할 수 없습니다. feed: {feed}");
-            return;
+            return false;
+        }
+
+        List<RackData> datalist = GameManager.instance.rackDataList;
+        if (rackNumber < 0 || (datalist != null && rackNumber < datalist.Count
+            && (datalist[rackNumber].isFed || datalist[rackNumber].isAppeared)))
+        {
+            return false;
         }
 
         BirdInfo_Data birdinfo_data = GameManager.instance.birdinfo_data;               // 새 도감 데이터를 가져옴
-        FeedTimer feedTimer = this.GetComponent<FeedTimer>();
-
-        BirdSelect birdSelect = this.GetComponent<BirdSelect>();
         bool isInTutorial = TutorialManager.IsTutorialScene(
             GameManager.instance.playerDataManager.GetCurrentScene());
         int randomBird = isInTutorial && feed == FeedType.PigeonBeans
@@ -192,54 +235,29 @@ public class FeedManager : MonoBehaviour
         int randomTime = Random.Range(birdinfo_data.dataList[randomBird].startTime,
             birdinfo_data.dataList[randomBird].endTime + 1);                            // 랜덤으로 소요 시간을 정함
 
-        // 튜토리얼 중(nowSceneNum <= 11) 비둘기콩은 30초 고정
+        // 튜토리얼 중 비둘기콩은 30초 고정
         if (isInTutorial && feed == FeedType.PigeonBeans)
             randomTime = 30;
 
-        List<RackData> datalist = GameManager.instance.rackDataList;    // 플레이어 데이터를 가져옴
-
-        // 먹이를 추가하는 경우
-        // 1. 리스트가 비었을 때 (null일 때)
-        // 2. 리스트에 값이 존재하긴 하지만, 선택한 횃대 번호인 rackNumber 번째 데이터는 없을 때
-        // 3. 리스트에 값이 존재하고 선택한 횃대 번호인 rackNumber에도 데이터가 존재하지만, datalist[rackNumber].isFed가 False일 때
-        // 위 경우만 함수가 실행되고, 이외에는 함수 종료
-        if (datalist == null || datalist.Count <= rackNumber)
+        int vaseLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Vase).level;
+        int vaseStartNumber = GetCategoryStartNumber(StoreItemCategory.Vase);
+        int vaseDataIndex = vaseLevel + vaseStartNumber;
+        if (vaseStartNumber < 0 || vaseDataIndex < 0
+            || vaseDataIndex >= GameManager.instance.storeinfo_data.dataList.Count)
         {
-            int vaseLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
-            int vaseStartNumber = GetCategoryStartNumber(StoreItemCategory.Vase);// 꽃병의 시작 번호를 가져옴
-            int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[vaseLevel + vaseStartNumber].effect.ToString());    // 감소 효과를 가져옴
-            double decreaseTime = (double)vaseEffect * 0.01 * randomTime;    // 퍼센트를 적용하여 감소 시간 계산
-
-            feedTimer.SaveTimerData(rackNumber, randomTime, (float)decreaseTime, feed, randomBird);   //타이머 데이터 저장
-            feedTimer.UpdateTimerSetting(); // 타이머 상태 업데이트
-
-
-            SetActiveRackFeed(rackNumber, feed);     // 횃대 먹이 활성화
-            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_SelectFeed(); // 먹이두기 효과음
-            this.gameObject.GetComponent<FeedPanel>().SetFeedPanelActive(false);    // 먹이 선택 패널을 닫음
+            Debug.LogError("[FeedManager] 꽃병 효과 데이터를 찾을 수 없습니다.");
+            return false;
         }
-        else
-        {
-            if (datalist[rackNumber].isFed)
-            {
-                return;
-            }
-            else
-            {
-                int vaseLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Vase).level;  // 꽃병의 레벨을 가져옴
-                int vaseStartNumber = GetCategoryStartNumber(StoreItemCategory.Vase);// 꽃병의 시작 번호를 가져옴
-                int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[vaseLevel + vaseStartNumber].effect.ToString());    // 감소 효과를 가져옴
-                double decreaseTime = (double)vaseEffect * 0.01 * randomTime;    // 퍼센트를 적용하여 감소 시간 계산
 
-                feedTimer.SaveTimerData(rackNumber, randomTime, (float)decreaseTime, feed, randomBird);   //타이머 데이터 저장
-                feedTimer.UpdateTimerSetting(); // 타이머 상태 업데이트
+        int vaseEffect = int.Parse(GameManager.instance.storeinfo_data.dataList[vaseDataIndex].effect.ToString());
+        float decreaseTime = vaseEffect * 0.01f * randomTime;
 
-
-                SetActiveRackFeed(rackNumber, feed);     // 횃대 먹이 활성화
-                GameObject.FindGameObjectWithTag(Constants.Tag_AudioManager).GetComponent<EffectChange>().PlayEffect_SelectFeed(); // 먹이두기 효과음
-                this.gameObject.GetComponent<FeedPanel>().SetFeedPanelActive(false);    // 먹이 선택 패널을 닫음
-            }
-        }
+        feedTimer.SaveTimerData(rackNumber, randomTime, decreaseTime, feed, randomBird);
+        feedTimer.UpdateTimerSetting();
+        SetActiveRackFeed(rackNumber, feed);
+        if (effectChange != null) effectChange.PlayEffect_SelectFeed();
+        if (feedPanel != null) feedPanel.SetFeedPanelActive(false);
+        return true;
     }
 
     public void TouchBirdGetFeather(int rackNumber, int birdNumber)

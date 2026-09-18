@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,55 +46,13 @@ public class GameManager : MonoBehaviour
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
 
-        UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
-    }
-
-    private void Start()
-    {
-        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
-        //ResetGameManager();
     }
 
     public static GameManager GetGameManager()
     {
         return instance;
     }  
-
-    public void UpdateGameDataFromSpreadSheet()
-    {
-        // 스프레드 시트로부터 게임 데이터를 불러오는 함수
-        // 데이터 테이블에 변경사항 있을 때 딱 한 번 호출하기!
-        // 비동기 방식으로 데이터를 불러오기 때문에, 데이터가 모두 불러와지면 저장 코드 실행
-
-#if UNITY_EDITOR
-        int totalCount = 7; // 업데이트할 데이터의 총 개수
-        int updatedCount = 0;   // 업데이트된 데이터의 개수
-
-        Action onUpdateComplete = () =>
-        {
-            updatedCount++;
-
-            // 모든 데이터가 업데이트 되었을 때 저장
-            if (updatedCount >= totalCount)
-            {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh(); // 변경사항 즉시 반영
-
-                Debug.Log("데이터 테이블 저장 완료");
-            }
-        };
-
-        birdinfo_data.UpdateBirdInfoData(onUpdateComplete);
-        dreaminfo_data.UpdateDreamInfoData(onUpdateComplete);
-        storeinfo_data.UpdateStoreInfoData(onUpdateComplete);
-        interiorinfo_data.UpdateInteriorInfoData(onUpdateComplete);
-        questinfo_data.UpdateQuestInfoData(onUpdateComplete);
-        storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
-        storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
-#endif
-    }
-
 
     public void ResetGameManager()
     {
@@ -109,8 +63,10 @@ public class GameManager : MonoBehaviour
         // 각 저장 데이터 가져오기
         RackDataManager.Load();
         rackDataList = RackDataManager.dataList;
-        goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
-        interiorDataManager = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
+        goodsDataManager = new GoodsDataManager();
+        goodsDataManager.Load();
+        interiorDataManager = new InteriorDataManager();
+        interiorDataManager.Load();
         questDataManager.Load();
         playerDataManager.Load();
         //playerDataManager.ResetData();

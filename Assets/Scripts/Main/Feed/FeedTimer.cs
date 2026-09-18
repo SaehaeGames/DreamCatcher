@@ -10,34 +10,67 @@ public class FeedTimer : MonoBehaviour
     [Header("[Timer Objects]")]
     public GameObject[] timers;                     // 타이머 오브젝트 배열
 
-    [Header("[Timer Data")]
-    private static string fileName = Constants.RackDataFile;    // 타이머 데이터 저장 파일 이름
     private List<RackData> rackData;                // 저장된 횃대 데이터
     private float[] leftTimes;                      // 먹이 남은 시간 배열 (단위: 초)
     private int rackLevel;                          // 플레이어 횃대 레벨
+    private GameObject[] activeTimerObjects;        // 현재 횃대 레벨에서 사용하는 타이머 오브젝트 캐시
+    private Text[] timerTexts;                      // 매 프레임 GetComponent를 호출하지 않기 위한 텍스트 캐시
+    private int[] displayedSeconds;                 // 화면에 마지막으로 표시한 초
+    private FeedManager feedManager;
 
     private void Start()
     {
         rackLevel = GameManager.instance.goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Rack).level;   // 플레이어의 횃대 레벨
         rackData = GameManager.instance.rackDataList;
-        leftTimes = new float[timers[rackLevel].transform.childCount];
+        feedManager = GetComponent<FeedManager>();
+
+        if (timers == null || rackLevel < 0 || rackLevel >= timers.Length || timers[rackLevel] == null)
+        {
+            Debug.LogError($"[FeedTimer] 횃대 레벨 {rackLevel}의 타이머 오브젝트가 설정되지 않았습니다.");
+            enabled = false;
+            return;
+        }
+
+        CacheTimerComponents();
         if (rackData != null && rackData.Count > 0)
             UpdateTimerSetting();   // 타이머 상태 업데이트
+    }
+
+    /// <summary>
+    /// 현재 횃대 레벨의 타이머 오브젝트와 Text를 한 번만 찾아 저장합니다.
+    /// </summary>
+    private void CacheTimerComponents()
+    {
+        Transform timerParent = timers[rackLevel].transform;
+        int timerCount = timerParent.childCount;
+        activeTimerObjects = new GameObject[timerCount];
+        timerTexts = new Text[timerCount];
+        leftTimes = new float[timerCount];
+        displayedSeconds = new int[timerCount];
+
+        for (int i = 0; i < timerCount; i++)
+        {
+            activeTimerObjects[i] = timerParent.GetChild(i).gameObject;
+            timerTexts[i] = activeTimerObjects[i].GetComponent<Text>();
+            displayedSeconds[i] = int.MinValue;
+        }
     }
 
     private void Update()
     {
         // 활성화 되어 있는 타이머는 실시간으로 초 계산
 
-        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)                  // 타이머 개수만큼 반복
+        if (activeTimerObjects == null) return;
+
+        for (int i = 0; i < activeTimerObjects.Length; i++)                  // 타이머 개수만큼 반복
         {
-            if (!timers[rackLevel].transform.GetChild(i).gameObject.activeInHierarchy)    // 비활성화된 타이머라면 넘어가기
+            if (!activeTimerObjects[i].activeInHierarchy)    // 비활성화된 타이머라면 넘어가기
                 continue;
 
             if (leftTimes[i] > 0)      // 타이머 시간이 남아 있다면
             {
-                leftTimes[i] -= Time.deltaTime;             
-                timers[rackLevel].transform.GetChild(i).GetComponent<Text>().text = FormatTime(leftTimes[i]);    // 남은 시간 출력
+                leftTimes[i] -= Time.deltaTime;
+                RefreshTimerText(i);
             }
             else                       // 타이머가 끝났다면
             {
@@ -51,15 +84,17 @@ public class FeedTimer : MonoBehaviour
         // 타이머를 만료시키는 함수
 
         leftTimes[index] = 0f;                         // 남은 시간 초기화
-        timers[rackLevel].transform.GetChild(index).gameObject.SetActive(false);      // 타이머 비활성화
+        activeTimerObjects[index].SetActive(false);      // 타이머 비활성화
 
 
         FeedType feed = rackData[index].feed;           // 놓인 먹이를 가져옴
         int birdNumber = rackData[index].birdNumber;    // 나타날 새의 번호를 가져옴
 
-        FeedManager feedManager = GetComponent<FeedManager>();
-        feedManager.SetInactiveRackFeed(index, feed);   // 횃대에 놓인 먹이 비활성화
-        feedManager.ArriveRackBird(index, birdNumber);  // 새 오브젝트 활성화
+        if (feedManager != null)
+        {
+            feedManager.SetInactiveRackFeed(index, feed);   // 횃대에 놓인 먹이 비활성화
+            feedManager.ArriveRackBird(index, birdNumber);  // 새 오브젝트 활성화
+        }
         //GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>().PlayEffect_BirdArrived(); //새 도착 효과음
 
         SaveTimerData(index, false, true);   // 변경 내용 저장
@@ -75,16 +110,20 @@ public class FeedTimer : MonoBehaviour
 
         timers[rackLevel].gameObject.SetActive(true);               // 플레이어의 레벨에 맞는 횃대 타이머 활성화
 
-        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)
+        if (activeTimerObjects == null) return;
+
+        for (int i = 0; i < activeTimerObjects.Length; i++)
         {
             if (i < rackData.Count && rackData[i].isFed && !rackData[i].isAppeared)       // 먹이를 두었고, 새가 나타나지 않았다면
             {
                 leftTimes[i] = CalculateLeftTime(i);                                   // 타이머 남은 시간 계산
-                timers[rackLevel].transform.GetChild(i).gameObject.SetActive(true);    // 타이머 활성화
+                activeTimerObjects[i].SetActive(true);    // 타이머 활성화
+                RefreshTimerText(i, true);
             }
             else
             {
-                timers[rackLevel].transform.GetChild(i).gameObject.SetActive(false);    // 타이머 비활성화
+                activeTimerObjects[i].SetActive(false);    // 타이머 비활성화
+                displayedSeconds[i] = int.MinValue;
             }
         }
     }
@@ -106,6 +145,11 @@ public class FeedTimer : MonoBehaviour
     {
         // 먹이 남은 시간을 반환하는 함수
 
+        if (leftTimes == null || rackNumber < 0 || rackNumber >= leftTimes.Length)
+        {
+            return 0f;
+        }
+
         return leftTimes[rackNumber];
     }
 
@@ -121,31 +165,55 @@ public class FeedTimer : MonoBehaviour
         return leftTime;
     }
 
-    private string FormatTime(float amount)
+    private void RefreshTimerText(int index, bool force = false)
+    {
+        if (timerTexts == null || index < 0 || index >= timerTexts.Length || timerTexts[index] == null) return;
+
+        int currentSeconds = Mathf.Max(0, (int)leftTimes[index]);
+        if (!force && displayedSeconds[index] == currentSeconds) return;
+
+        displayedSeconds[index] = currentSeconds;
+        timerTexts[index].text = FormatTime(currentSeconds);
+    }
+
+    private string FormatTime(int amount)
     {
         // 입력한 숫자를 실제 시간으로 변환하는 함수 (시, 분, 초 양식)
 
-        int hour = (int)amount / 3600;           // 시
-        int minute = ((int)amount % 3600) / 60;  // 분  
-        int second = (int)amount % 60;           // 초
+        int hour = amount / 3600;           // 시
+        int minute = (amount % 3600) / 60;  // 분
+        int second = amount % 60;           // 초
         
         return $"{hour:00}:{minute:00}:{second:00}";
     }
 
-    public void DecreaseFeedingTime(int rackNumber, float decreaseTime)
+    public bool DecreaseFeedingTime(int rackNumber, float decreaseTime)
     {
         // 먹이 시간을 줄이는 함수 (특제 먹이 사용 등)
 
-        leftTimes[rackNumber] -= decreaseTime;                                 // 남은 시간에 감소 시간 차감
+        if (rackData == null || leftTimes == null || rackNumber < 0
+            || rackNumber >= rackData.Count || rackNumber >= leftTimes.Length
+            || !rackData[rackNumber].isFed || rackData[rackNumber].isAppeared
+            || decreaseTime <= 0f)
+        {
+            Debug.LogWarning($"[FeedTimer] 특제 먹이를 적용할 수 없는 횃대입니다. rack: {rackNumber}");
+            return false;
+        }
+
+        leftTimes[rackNumber] = Mathf.Max(0f, leftTimes[rackNumber] - decreaseTime); // 화면상 남은 시간은 음수가 되지 않게 유지
+        RefreshTimerText(rackNumber, true);
         float curDecreaseTime = rackData[rackNumber].decreaseTime + decreaseTime;   // 누적 감소 시간 계산
         SaveTimerData(rackNumber, curDecreaseTime);         // 변동된 타이머 데이터 저장
+        return true;
     }
 
     public void DecreaseAllActiveFeedingTimes(float decreaseTime)
     {
         // 진행 중인 모든 타이머에 먹이 시간을 줄이는 함수
 
-        for (int i = 0; i < timers[rackLevel].transform.childCount; i++)
+        if (activeTimerObjects == null) return;
+
+        for (int i = 0; i < activeTimerObjects.Length; i++)
         {
             if (i < rackData.Count && rackData[i].isFed && !rackData[i].isAppeared)
             {

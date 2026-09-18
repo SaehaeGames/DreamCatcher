@@ -166,7 +166,7 @@ public class StoreData : MonoBehaviour
                 {
                     rackList[0].level++;
                     rackList[1].level++;
-                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                    GameManager.instance.goodsDataManager.Save();
                 }
             }
             else
@@ -175,7 +175,7 @@ public class StoreData : MonoBehaviour
                 if (item != null)
                 {
                     item.level++;
-                    jsonManager.SaveData(Constants.GoodsDataFile, GameManager.instance.goodsDataManager);
+                    GameManager.instance.goodsDataManager.Save();
                 }
                 else
                 {
@@ -198,7 +198,7 @@ public class StoreData : MonoBehaviour
                 interiorItem.isHaving = true;
                 interiorItem.isAdjusting = true;
             }
-            jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
+            interiorDataManager.Save();
 
             UpdateDevelopmentGoodsData();
         }
@@ -208,7 +208,7 @@ public class StoreData : MonoBehaviour
             if (item != null)
             {
                 item.isHaving = true;
-                jsonManager.SaveData(Constants.InteriorDataFile, GameManager.instance.interiorDataManager);
+                GameManager.instance.interiorDataManager.Save();
             }
 
             UpdateInteriorGoodsData();

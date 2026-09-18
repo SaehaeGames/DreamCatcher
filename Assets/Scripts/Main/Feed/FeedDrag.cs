@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,6 +12,9 @@ public class FeedDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private Vector2 defaultPosition;                     // 드롭하면 다시 보낼 원위치
     private RectTransform rectTransform;                 // RectTransform 캐시
     private Canvas canvas;                               // 부모 Canvas 참조
+    [SerializeField] private FeedManager feedManager;    // 실제 먹이 배치를 처리하는 관리자
+
+    public event Action<bool> PlacementCompleted;
 
     public FeedType Feed
     {
@@ -34,6 +38,11 @@ public class FeedDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+        if (feedManager == null)
+        {
+            GameObject feedManagerObject = GameObject.FindGameObjectWithTag("FeedManager");
+            if (feedManagerObject != null) feedManager = feedManagerObject.GetComponent<FeedManager>();
+        }
         defaultPosition = rectTransform.anchoredPosition;
         lastRackNumber = -1;
     }
@@ -61,7 +70,18 @@ public class FeedDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         // 드래그 끝났을 때의 함수
 
+        int rackNumber = lastRackNumber;
         isDragging = false;                                  // 드래그중 아님으로 상태 변경
         rectTransform.anchoredPosition = defaultPosition;    // 원위치로 돌아가기
+        lastRackNumber = -1;
+
+        bool placed = rackNumber >= 0 && feedManager != null
+            && feedManager.TrySelectFeed(rackNumber, feed);
+        PlacementCompleted?.Invoke(placed);
+    }
+
+    public void SetFeedManager(FeedManager manager)
+    {
+        feedManager = manager;
     }
 }
