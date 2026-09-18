@@ -2,10 +2,17 @@
   "gold": 0,
   "dreamMarble": 0,
   "specialFeed": 0,
-  "bgmVolume": 0.0,
-  "effectVolume": 0.0,
+  "bgmVolume": 1.0,
+  "effectVolume": 1.0,
   "bgmMute": false,
   "effectMute": false,
   "currentScene": 0,
-  "currentMainQuestIndex": 0
+  "currentMainQuestIndex": 0,
+  "isQuestActionPlaying": false,
+  "unlockData": {
+    "isRepeatQuestUnlocked": false,
+    "isCharonLetterUnlocked": false,
+    "isDiaryUnlocked": false,
+    "foodUnlockLevel": 0
+  }
 }

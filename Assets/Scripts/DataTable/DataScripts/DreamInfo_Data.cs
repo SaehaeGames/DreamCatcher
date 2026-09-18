@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.Events;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System;
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/DreamInfo")]

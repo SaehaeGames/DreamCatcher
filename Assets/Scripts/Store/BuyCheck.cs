@@ -28,6 +28,7 @@ public class BuyCheck : MonoBehaviour
         for (int i = 0; i < ButtonObj.Length && i < developCategory.Length; i++)
         {
             BuyButtonInfo buttonInfo = ButtonObj[i].GetComponent<BuyButtonInfo>();
+            buttonInfo.Initialize(this);
             buttonInfo.SetSelectGoodsNumber(i);
 
             GoodsData goodsData = GameManager.instance.goodsDataManager.GetGoodsDataByCategory(developCategory[i]);
@@ -46,14 +47,18 @@ public class BuyCheck : MonoBehaviour
 
         for (int i = 0; i < starCount; i++)
         {
-            StarButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
-            StarButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsId(starList[i]);
+            BuyButtonInfo buttonInfo = StarButtonObj[i].GetComponent<BuyButtonInfo>();
+            buttonInfo.Initialize(this);
+            buttonInfo.SetSelectGoodsNumber(i);
+            buttonInfo.SetSelectGoodsId(starList[i]);
         }
 
         for (int i = 0; i < seaCount; i++)
         {
-            SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsNumber(i);
-            SeaButtonObj[i].GetComponent<BuyButtonInfo>().SetSelectGoodsId(seaList[i]);
+            BuyButtonInfo buttonInfo = SeaButtonObj[i].GetComponent<BuyButtonInfo>();
+            buttonInfo.Initialize(this);
+            buttonInfo.SetSelectGoodsNumber(i);
+            buttonInfo.SetSelectGoodsId(seaList[i]);
         }
     }
 
@@ -114,7 +119,7 @@ public class BuyCheck : MonoBehaviour
         InteriorData item = interiorDataManager.GetInteriorDataByStoreInfoId(selectId);
         item.isAdjusting = true;
 
-        GameManager.instance.jsonManager.SaveData(Constants.InteriorDataFile, interiorDataManager);
+        interiorDataManager.Save();
         panel_AdjustCheck.SetActive(false);
     }
 

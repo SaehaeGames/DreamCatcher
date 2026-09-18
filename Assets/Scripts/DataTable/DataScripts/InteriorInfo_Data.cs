@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEngine.Events;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/InteriorInfo")]
 public class InteriorInfo_Data : ScriptableObject

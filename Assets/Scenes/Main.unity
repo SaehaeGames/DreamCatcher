@@ -1960,6 +1960,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &58552032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,7 +2457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &72047878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2842,7 +2846,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &83876059
 GameObject:
   m_ObjectHideFlags: 0
@@ -3045,6 +3048,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &101027825
 GameObject:
   m_ObjectHideFlags: 0
@@ -4457,6 +4465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &180606038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4586,7 +4595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &185199446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,6 +5480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 0
+  feedPanel: {fileID: 0}
 --- !u!114 &201707754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,7 +5537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &202307094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6548,7 +6556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &242674818
 GameObject:
   m_ObjectHideFlags: 0
@@ -7279,7 +7286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &291704689
 GameObject:
   m_ObjectHideFlags: 0
@@ -7555,7 +7561,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &302662034
 GameObject:
   m_ObjectHideFlags: 0
@@ -7949,6 +7954,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &324085161
 GameObject:
   m_ObjectHideFlags: 0
@@ -8001,6 +8011,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &325442382
 GameObject:
   m_ObjectHideFlags: 0
@@ -10451,7 +10466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &434662729
 GameObject:
   m_ObjectHideFlags: 0
@@ -11088,6 +11102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &469042774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11219,7 +11234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &490692231
 GameObject:
   m_ObjectHideFlags: 0
@@ -11631,7 +11645,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &506954941
 GameObject:
   m_ObjectHideFlags: 0
@@ -11787,7 +11800,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &522068786
 GameObject:
   m_ObjectHideFlags: 0
@@ -12701,7 +12713,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &557262807
 GameObject:
   m_ObjectHideFlags: 0
@@ -12968,6 +12979,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &564659933
 GameObject:
   m_ObjectHideFlags: 0
@@ -13441,7 +13457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!114 &586512347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13454,7 +13469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &590375752
 GameObject:
   m_ObjectHideFlags: 0
@@ -14243,7 +14257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &620370721
 GameObject:
   m_ObjectHideFlags: 0
@@ -14636,7 +14649,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &638487905
 GameObject:
   m_ObjectHideFlags: 0
@@ -17058,6 +17070,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &723299057
 GameObject:
   m_ObjectHideFlags: 0
@@ -17836,7 +17853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &747542947
 GameObject:
   m_ObjectHideFlags: 0
@@ -18864,7 +18880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &801377820
 GameObject:
   m_ObjectHideFlags: 0
@@ -19922,7 +19937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &842768731
 GameObject:
   m_ObjectHideFlags: 0
@@ -20050,6 +20064,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &844403479
 GameObject:
   m_ObjectHideFlags: 0
@@ -22451,7 +22470,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &913602808
 GameObject:
   m_ObjectHideFlags: 0
@@ -22546,7 +22564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &916023353
 GameObject:
   m_ObjectHideFlags: 0
@@ -25755,6 +25772,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1044593650
 GameObject:
   m_ObjectHideFlags: 0
@@ -25808,6 +25830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 2
+  feedPanel: {fileID: 0}
 --- !u!61 &1044593653
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26856,6 +26879,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1100030838
 GameObject:
   m_ObjectHideFlags: 0
@@ -28363,7 +28391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1146011057
 GameObject:
   m_ObjectHideFlags: 0
@@ -29090,6 +29117,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1192566785
 GameObject:
   m_ObjectHideFlags: 0
@@ -30608,6 +30640,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1265259047
 GameObject:
   m_ObjectHideFlags: 0
@@ -31616,6 +31653,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1316108726
 GameObject:
   m_ObjectHideFlags: 0
@@ -32317,6 +32359,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1343507710
 GameObject:
   m_ObjectHideFlags: 0
@@ -33033,7 +33080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1374052006
 GameObject:
   m_ObjectHideFlags: 0
@@ -33080,7 +33126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1375623014
 GameObject:
   m_ObjectHideFlags: 0
@@ -33377,6 +33422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &1380789117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33696,6 +33742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 0
+  feedPanel: {fileID: 0}
 --- !u!61 &1385772600
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34530,6 +34577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 0
+  feedPanel: {fileID: 0}
 --- !u!61 &1430760001
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34968,6 +35016,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1474521571
 GameObject:
   m_ObjectHideFlags: 0
@@ -36006,6 +36059,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1520923596
 GameObject:
   m_ObjectHideFlags: 0
@@ -37064,6 +37122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 1
+  feedPanel: {fileID: 0}
 --- !u!61 &1559878092
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -37838,6 +37897,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dc94bab4b30f3a4e9c6bdba0e019db9, type: 3}
   - {fileID: 21300000, guid: 354c9792d30cb304f94534765f33b2a4, type: 3}
   - {fileID: 21300000, guid: d594b2b6f1b29ee418d83ecaba08c0b4, type: 3}
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1610184767
 GameObject:
   m_ObjectHideFlags: 0
@@ -38964,7 +39028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1654240630
 GameObject:
   m_ObjectHideFlags: 0
@@ -39367,6 +39430,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dc94bab4b30f3a4e9c6bdba0e019db9, type: 3}
   - {fileID: 21300000, guid: 354c9792d30cb304f94534765f33b2a4, type: 3}
   - {fileID: 21300000, guid: d594b2b6f1b29ee418d83ecaba08c0b4, type: 3}
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1690422667
 GameObject:
   m_ObjectHideFlags: 0
@@ -39625,6 +39693,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dc94bab4b30f3a4e9c6bdba0e019db9, type: 3}
   - {fileID: 21300000, guid: 354c9792d30cb304f94534765f33b2a4, type: 3}
   - {fileID: 21300000, guid: d594b2b6f1b29ee418d83ecaba08c0b4, type: 3}
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1697904256
 GameObject:
   m_ObjectHideFlags: 0
@@ -39747,7 +39820,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1710498270
 GameObject:
   m_ObjectHideFlags: 0
@@ -40374,7 +40446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1728676490
 GameObject:
   m_ObjectHideFlags: 0
@@ -40590,7 +40661,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1736552998
 GameObject:
   m_ObjectHideFlags: 0
@@ -40718,7 +40788,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1747820647
 GameObject:
   m_ObjectHideFlags: 0
@@ -40926,6 +40995,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dc94bab4b30f3a4e9c6bdba0e019db9, type: 3}
   - {fileID: 21300000, guid: 354c9792d30cb304f94534765f33b2a4, type: 3}
   - {fileID: 21300000, guid: d594b2b6f1b29ee418d83ecaba08c0b4, type: 3}
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1750012595
 GameObject:
   m_ObjectHideFlags: 0
@@ -41356,7 +41430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1763609980
 GameObject:
   m_ObjectHideFlags: 0
@@ -41821,6 +41894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerNumber: 1
+  feedPanel: {fileID: 0}
 --- !u!61 &1779992946
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -43163,7 +43237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1813461624
 GameObject:
   m_ObjectHideFlags: 0
@@ -44183,7 +44256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1838289526
 GameObject:
   m_ObjectHideFlags: 0
@@ -44995,6 +45067,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1881202250
 GameObject:
   m_ObjectHideFlags: 0
@@ -45418,7 +45495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeEffect: {fileID: 2016412179}
-  isCompleted: 0
 --- !u!1 &1907439517
 GameObject:
   m_ObjectHideFlags: 0
@@ -45644,7 +45720,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1916914922
 GameObject:
   m_ObjectHideFlags: 0
@@ -46062,7 +46137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!4 &1924321274
 Transform:
   m_ObjectHideFlags: 0
@@ -46436,7 +46510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &1952406623
 GameObject:
   m_ObjectHideFlags: 0
@@ -47688,6 +47761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &1991136549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49457,7 +49531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &2061789224
 GameObject:
   m_ObjectHideFlags: 0
@@ -50154,6 +50227,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialFadePanal: {fileID: 2016412175}
+  scriptBox: {fileID: 0}
+  tutorialOverlay: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  bottomBar: {fileID: 0}
 --- !u!4 &2083376372
 Transform:
   m_ObjectHideFlags: 0
@@ -50574,7 +50651,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &2107438603
 GameObject:
   m_ObjectHideFlags: 0
@@ -50715,7 +50791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &2115873892
 GameObject:
   m_ObjectHideFlags: 0
@@ -50810,7 +50885,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &2119762304
 GameObject:
   m_ObjectHideFlags: 0
@@ -51176,6 +51250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &2128885371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52058,6 +52133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feed: 0
   lastRackNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &254895448101900421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52072,6 +52148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feed: 0
   lastRackNumber: 0
+  feedManager: {fileID: 0}
 --- !u!1001 &299077798067191940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52774,6 +52851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feed: 0
   lastRackNumber: 0
+  feedManager: {fileID: 0}
 --- !u!1001 &2971994516693520521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53416,6 +53494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feed: 0
   lastRackNumber: 0
+  feedManager: {fileID: 0}
 --- !u!1001 &5532427223867986082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53536,7 +53615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adda074abc972f6479026643ce929966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectDraged: 0
   targets:
   - {fileID: 201707748}
 --- !u!1001 &6658033463996196437
@@ -53882,6 +53960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rackNumber: 0
   birdNumber: 0
+  feedManager: {fileID: 0}
 --- !u!114 &8279302668064500058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53938,7 +54017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!224 &8666420183148618962
 RectTransform:
   m_ObjectHideFlags: 0

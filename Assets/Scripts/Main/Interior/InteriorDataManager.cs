@@ -40,6 +40,12 @@ public class InteriorDataManager
         Save();
     }
 
+    public void Load()
+    {
+        InteriorDataManager loadedData = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
+        dataList = loadedData.dataList ?? new List<InteriorData>();
+    }
+
     public void Save()
     {
         jsonManager.SaveData(Constants.InteriorDataFile, this);

@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class JsonManager
 {
-    // Json 데이터 로드/세이브 관리 클래스
-
     public T LoadDefaultData<T>(string fileName) where T : new()
     {
         TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
@@ -15,179 +14,212 @@ public class JsonManager
             return new T();
         }
 
-        T data = JsonUtility.FromJson<T>(defaultJson.text);
-        return data == null ? new T() : data;
-    }
-    public T LoadData<T>(string fileName) where T : new()
-    {
-        // 데이터를 로드하는 함수
-        string savedPath = GetPath(fileName);
-
-#if DEVELOPMENT_BUILD && !UNITY_EDITOR// 개발 빌드일 땐 무조건 리소스에서 로드
-        Debug.Log("Json : Development Build - 강제로 Resource에서 불러옵니다.");
-        TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
-        if (defaultJson != null)
+        try
         {
             T data = JsonUtility.FromJson<T>(defaultJson.text);
-            SaveData<T>(fileName, data);
-            return data;
+            return ReferenceEquals(data, null) ? new T() : data;
         }
-        else
+        catch (Exception exception)
         {
-            T data = new T();
-            SaveData<T>(fileName, data);
-            return data;
+            Debug.LogError($"[JsonManager] Default data parse failed: {fileName}\n{exception.Message}");
+            return new T();
         }
-#else // 릴리즈 빌드일 때만 기존 저장 파일 우선
-        if (!File.Exists(savedPath))
-        {
-            Debug.Log("Json : playerData can't find in savePath");
-            TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
-            if (defaultJson != null)
-            {
-                Debug.Log("Json : defaultJson find in Resource");
-                T data = JsonUtility.FromJson<T>(defaultJson.text);
-                SaveData<T>(fileName, data);
-                return data;
-            }
-            else
-            {
-                Debug.Log("Json : defaultJson can't find in Resource");
-                T data = new T();
-                SaveData<T>(fileName, data);
-                return data;
-            }
-        }
-        else
-        {
-            Debug.Log("Json : playerData find in savePath");
-            Debug.Log("Json : Application.persistentDataPath: " + Application.persistentDataPath);
-            Debug.Log("Json : GetPath: " + GetPath(fileName));
-            string data = File.ReadAllText(savedPath);
-            return JsonUtility.FromJson<T>(data);
-        }
-#endif
     }
 
-    public List<T> LoadDataList<T> (string fileName) where T : new()
+    public T LoadData<T>(string fileName) where T : new()
     {
-        // 데이터 리스트를 로드하는 함수
         string savedPath = GetPath(fileName);
+        if (TryLoadJson(savedPath, out T data)) return data;
 
-#if DEVELOPMENT_BUILD // 개발 빌드일 땐 항상 Resource에서 강제 초기화
-            Debug.Log("Json List : Development Build - 강제로 Resource에서 불러옵니다.");
+        string backupPath = GetBackupPath(savedPath);
+        if (TryLoadJson(backupPath, out data))
+        {
+            Debug.LogWarning($"[JsonManager] 백업 저장 데이터를 복구합니다: {fileName}");
+            RestorePrimaryWithoutRotatingBackup(savedPath, JsonUtility.ToJson(data, true));
+            return data;
+        }
+
+        data = LoadDefaultData<T>(fileName);
+        SaveData(fileName, data);
+        return data;
+    }
+
+    public List<T> LoadDataList<T>(string fileName) where T : new()
+    {
+        string savedPath = GetPath(fileName);
+        if (TryLoadJson(savedPath, out Wrapper<T> wrapper) && wrapper.datalist != null)
+        {
+            return wrapper.datalist;
+        }
+
+        string backupPath = GetBackupPath(savedPath);
+        if (TryLoadJson(backupPath, out wrapper) && wrapper.datalist != null)
+        {
+            Debug.LogWarning($"[JsonManager] 백업 저장 데이터 목록을 복구합니다: {fileName}");
+            RestorePrimaryWithoutRotatingBackup(savedPath, JsonUtility.ToJson(wrapper, true));
+            return wrapper.datalist;
+        }
+
         TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
         if (defaultJson != null)
         {
-            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(defaultJson.text);
-            List<T> dataList = wrapper.datalist;
-            SaveDataList(fileName, dataList);
-            return dataList;
-        }
-        else
-        {
-            List<T> dataList = new List<T>();
-            SaveDataList(fileName, dataList);
-            return dataList;
-        }
-#else // 릴리즈 빌드일 경우 저장된 데이터 우선
-        if (!File.Exists(savedPath))
-        {
-            Debug.Log("Json List : playerData can't find in savePath");
-            TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
-            if (defaultJson != null)
+            try
             {
-                Debug.Log("Json List : defaultJson find in Resource");
-                Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(defaultJson.text);
-                List<T> dataList = wrapper.datalist;
-                SaveDataList(fileName, dataList);
-                return dataList;
+                wrapper = JsonUtility.FromJson<Wrapper<T>>(defaultJson.text);
+                if (wrapper != null && wrapper.datalist != null)
+                {
+                    SaveDataList(fileName, wrapper.datalist);
+                    return wrapper.datalist;
+                }
             }
-            else
+            catch (Exception exception)
             {
-                Debug.Log("Json List : defaultJson can't find in Resource");
-                List<T> dataList = new List<T>();
-                SaveDataList(fileName, dataList);
-                return dataList;
+                Debug.LogError($"[JsonManager] Default data list parse failed: {fileName}\n{exception.Message}");
             }
         }
-        else
-        {
-            Debug.Log("Json List : playerData find in savePath");
-            Debug.Log("Json List : Application.persistentDataPath: " + Application.persistentDataPath);
-            Debug.Log("Json List : GetPath: " + GetPath(fileName));
-            string data = File.ReadAllText(savedPath);
-            return JsonUtility.FromJson<Wrapper<T>>(data).datalist;
-        }
-#endif
+
+        List<T> emptyList = new List<T>();
+        SaveDataList(fileName, emptyList);
+        return emptyList;
     }
 
     public void SaveData<T>(string fileName, T data)
     {
-        // 데이터를 Json으로 저장하는 함수
-
-        string savedPath = GetPath(fileName); 
-        string jsonData = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savedPath, jsonData);
+        WriteJsonSafely(GetPath(fileName), JsonUtility.ToJson(data, true));
     }
 
     public void SaveDataList<T>(string fileName, List<T> dataList)
     {
-        // 데이터 리스트를 Json으로 저장하는 함수
-
-        string savedPath = GetPath(fileName);
-
-        Wrapper<T> wrapper = new Wrapper<T> { datalist = dataList };
-        string jsonData = JsonUtility.ToJson(wrapper, true);
-        File.WriteAllText(savedPath, jsonData);
+        Wrapper<T> wrapper = new Wrapper<T> { datalist = dataList ?? new List<T>() };
+        WriteJsonSafely(GetPath(fileName), JsonUtility.ToJson(wrapper, true));
     }
 
-    private string GetPath(string _fileName)
+    private static bool TryLoadJson<T>(string path, out T data)
     {
-        // 파일 저장 경로
-        string folderPath;
+        data = default(T);
+        if (!File.Exists(path)) return false;
 
-#if UNITY_EDITOR
-        folderPath = Application.dataPath + "/Saves/";
-#elif UNITY_ANDROID
-        folderPath = Application.persistentDataPath + "/Saves/";
-#elif UNITY_IPHONE
-        folderPath = Application.persistentDataPath + "/Saves/";
-#else
-        folderPath = Application.dataPath + "/Saves/";
-#endif
-
-        if (!Directory.Exists(folderPath))
+        try
         {
-            Directory.CreateDirectory(folderPath);
-        }
+            string json = File.ReadAllText(path);
+            if (string.IsNullOrWhiteSpace(json)) return false;
 
-        return folderPath + _fileName + ".json";
+            data = JsonUtility.FromJson<T>(json);
+            return !ReferenceEquals(data, null);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"[JsonManager] 저장 데이터 읽기 실패: {path}\n{exception.Message}");
+            return false;
+        }
     }
 
-    [System.Serializable]
-    private class Wrapper<T>
+    private static void WriteJsonSafely(string savedPath, string jsonData)
     {
-        public List<T> datalist;
+        string tempPath = savedPath + ".tmp";
+        string backupPath = GetBackupPath(savedPath);
+
+        try
+        {
+            File.WriteAllText(tempPath, jsonData);
+            if (File.Exists(savedPath))
+            {
+                try
+                {
+                    File.Replace(tempPath, savedPath, backupPath, true);
+                }
+                catch (PlatformNotSupportedException)
+                {
+                    File.Copy(savedPath, backupPath, true);
+                    File.Copy(tempPath, savedPath, true);
+                    File.Delete(tempPath);
+                }
+            }
+            else
+            {
+                File.Move(tempPath, savedPath);
+            }
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[JsonManager] 저장 실패: {savedPath}\n{exception.Message}");
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+        }
+    }
+
+    /// <summary>
+    /// 정상 백업에서 복구할 때는 기존 원본 파일만 교체하고 .bak 파일은 그대로 보존합니다.
+    /// 일반 저장 경로를 사용하면 손상된 원본이 정상 백업을 덮을 수 있으므로 복구 전용 경로를 사용합니다.
+    /// </summary>
+    private static void RestorePrimaryWithoutRotatingBackup(string savedPath, string jsonData)
+    {
+        string tempPath = savedPath + ".restore.tmp";
+
+        try
+        {
+            File.WriteAllText(tempPath, jsonData);
+            if (File.Exists(savedPath))
+            {
+                try
+                {
+                    File.Replace(tempPath, savedPath, null, true);
+                }
+                catch (PlatformNotSupportedException)
+                {
+                    File.Copy(tempPath, savedPath, true);
+                    File.Delete(tempPath);
+                }
+            }
+            else
+            {
+                File.Move(tempPath, savedPath);
+            }
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError($"[JsonManager] 백업 복구 파일 쓰기 실패: {savedPath}\n{exception.Message}");
+            if (File.Exists(tempPath)) File.Delete(tempPath);
+        }
+    }
+
+    private static string GetPath(string fileName)
+    {
+        return Path.Combine(GetSaveFolderPath(), fileName + ".json");
+    }
+
+    private static string GetBackupPath(string savedPath)
+    {
+        return savedPath + ".bak";
+    }
+
+    public static string GetSaveFolderPath()
+    {
+#if UNITY_EDITOR
+        string rootPath = Application.dataPath;
+#else
+        string rootPath = Application.persistentDataPath;
+#endif
+        string folderPath = Path.Combine(rootPath, "Saves");
+        if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+        return folderPath;
     }
 
     public static void ClearSavedData()
     {
-        string folderPath = Application.persistentDataPath + "/Saves/";
+        string folderPath = GetSaveFolderPath();
+        if (!Directory.Exists(folderPath)) return;
 
-        if (Directory.Exists(folderPath))
+        foreach (string file in Directory.GetFiles(folderPath))
         {
-            string[] files = Directory.GetFiles(folderPath);
-            foreach (string file in files)
-            {
-                File.Delete(file);
-            }
+            File.Delete(file);
+        }
 
-            Debug.Log("모든 저장 데이터를 초기화했습니다.");
-        }
-        else
-        {
-            Debug.Log("저장 폴더가 존재하지 않습니다.");
-        }
+        Debug.Log("모든 저장 데이터를 초기화했습니다.");
+    }
+
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public List<T> datalist;
     }
 }

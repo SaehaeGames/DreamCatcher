@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
+
     }
 
     private void Start()
     {
-        //UpdateGameDataFromSpreadSheet(); // 스프레드 시트 데이터 업데이트
         ResetGameManager();
     }
 
@@ -100,7 +100,6 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
-
     public void ResetGameManager()
     {
         //초기화 함수
@@ -110,8 +109,10 @@ public class GameManager : MonoBehaviour
         // 각 저장 데이터 가져오기
         RackDataManager.Load();
         rackDataList = RackDataManager.dataList;
-        goodsDataManager = jsonManager.LoadData<GoodsDataManager>(Constants.GoodsDataFile);
-        interiorDataManager = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
+        goodsDataManager = new GoodsDataManager();
+        goodsDataManager.Load();
+        interiorDataManager = new InteriorDataManager();
+        interiorDataManager.Load();
         questDataManager.Load();
         playerDataManager.Load();
         //playerDataManager.ResetData();

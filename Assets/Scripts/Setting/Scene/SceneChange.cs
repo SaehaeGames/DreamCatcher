@@ -6,14 +6,17 @@ public class SceneChange : MonoBehaviour
 {
     //public UnityAction<string> SceneChangeWarn;
 
-    private BottomBar bottomBar;
-    private EffectChange effectChange;
+    [SerializeField] private BottomBar bottomBar;
+    [SerializeField] private EffectChange effectChange;
 
-    public void Start()
+    private void Awake()
     {
-        // 한 번만 호출
-        bottomBar = this.GetComponent<BottomBar>();
-        effectChange = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<EffectChange>();
+        if (bottomBar == null) bottomBar = GetComponent<BottomBar>();
+        if (effectChange == null)
+        {
+            GameObject audioObject = GameObject.FindGameObjectWithTag("AudioManager");
+            if (audioObject != null) effectChange = audioObject.GetComponent<EffectChange>();
+        }
     }
 
     private void OnEnable()
@@ -42,55 +45,28 @@ public class SceneChange : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
-        string activeSceneName = SceneManager.GetActiveScene().name;    // 현재 활성중인 씬 이름
-        
-        if (activeSceneName == "Making")    // 만들기 씬일 경우
+        if (GameSceneManager.TryGetSceneState(sceneName, out SceneState sceneState))
         {
-            // 다른 일
-            //SceneChangeWarn.Invoke(sceneName);
+            GameSceneManager.Instance.ChangeSceneState(sceneState);
         }
         else
         {
-            SceneManager.LoadScene(sceneName);  // 씬 로드
+            Debug.LogError($"[SceneChange] 등록되지 않은 씬 이름입니다: {sceneName}");
         }
     }
 
     public void ChangeMakingScene()
     {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            //SceneChangeWarn.Invoke("Making");
-        }
-        else
-        {
-            SceneManager.LoadScene("Making");
-        }
+        GameSceneManager.Instance.ChangeSceneState(SceneState.Making);
     }
    
     public void ChangeGuideScene()
     {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            //SceneChangeWarn.Invoke("CollectionDream");
-        }
-        else
-        {
-            SceneManager.LoadScene("CollectionDream");
-        }
+        GameSceneManager.Instance.ChangeSceneState(SceneState.CollectionDream);
     }
 
     public void ChangeStoreScene()
     {
-        if (SceneManager.GetActiveScene().name == "Making")
-        {
-            //다른 일
-            //SceneChangeWarn.Invoke("Store");
-        }
-        else
-        {
-            SceneManager.LoadScene("Store");
-        }
+        GameSceneManager.Instance.ChangeSceneState(SceneState.Store);
     }
 }

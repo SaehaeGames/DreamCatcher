@@ -98,14 +98,8 @@ public class AudioSetting : MonoBehaviour
     {
         //오디오 설정을 저장하는 함수
 
-        PlayerDataManager saveData = GameManager.instance.playerDataManager;
-
-        playerDataManager.SetBGMVolume(BGVol);
-        playerDataManager.SetEffectVolume(EFVol);
-        playerDataManager.SetBGMMute(BGMute);
-        playerDataManager.SetEffectMute(EffectMute);
-
-        GameManager.instance.jsonManager.SaveData(Constants.PlayerDataFile, saveData);   //변경사항 json으로 저장
+        // 플레이어 데이터의 소유자인 PlayerDataManager가 네 설정을 한 번에 반영하고 한 번만 저장합니다.
+        playerDataManager.SetAudioSettings(BGVol, EFVol, BGMute, EffectMute);
 
         Debug.Log("오디오 저장됨");
     }
