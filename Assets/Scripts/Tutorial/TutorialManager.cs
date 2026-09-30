@@ -44,7 +44,7 @@ public sealed class TutorialContext
 /// </summary>
 public class TutorialManager : MonoBehaviour
 {
-    public const int LastTutorialSceneIndex = 28;
+    public const int LastTutorialSceneIndex = 11;
 
     [Header("튜토리얼 시작 연출")]
     [SerializeField] private GameObject tutorialFadePanal;
