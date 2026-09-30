@@ -5,13 +5,14 @@ using UnityEngine;
 /// <summary>
 /// 하나의 TutorialManager/Scene 아래에 배치된 시퀀스 자식들을 하이어라키 순서대로 실행함.
 /// </summary>
-public class TutorialPipeline : MonoBehaviour
+public class TutorialPipeline : InteractiveSequencePipeline
 {
     [Header("실행 시퀀스")]
     [SerializeField] private List<InteractiveSequenceBase> tutorials = new List<InteractiveSequenceBase>();
 
     private readonly List<PendingAction> pendingActions = new List<PendingAction>();
     private PipelineRuntimeState runtime;
+    private SceneState nextSceneState = SceneState.None;
 
     /// <summary>
     /// Unity의 첫 활성화에서 파이프라인을 한 번 초기화하고 이후 OnEnable 재초기화와 구분함.
@@ -56,7 +57,7 @@ public class TutorialPipeline : MonoBehaviour
     {
         if (runtime.CurrentSequence != null && !runtime.IsChangingSequence)
         {
-            runtime.CurrentSequence.Execute(this);
+            runtime.CurrentSequence.Execute();
         }
     }
 
@@ -106,10 +107,21 @@ public class TutorialPipeline : MonoBehaviour
         pendingActions.Add(new PendingAction(completionAction, cancellationAction));
     }
 
+    public override void SetSceneState(SceneState sceneState)
+    {
+        nextSceneState = sceneState;
+    }
+
+    public override void MoveToNextSequence()
+    {
+        SetNextTutorial(nextSceneState);
+        nextSceneState = SceneState.None;
+    }
+
     /// <summary>
     /// 현재 시퀀스를 정리한 뒤 다음 자식의 Enter를 호출하거나 전체 Scene 완료 처리를 시작함.
     /// </summary>
-    public void SetNextTutorial(SceneState nextSceneState)
+    public void SetNextTutorial(SceneState sceneState)
     {
         // 같은 프레임에 여러 완료 조건이 들어와도 한 번의 전환만 수행함.
         if (runtime.IsChangingSequence)
@@ -171,6 +183,7 @@ public class TutorialPipeline : MonoBehaviour
             }
 
             tutorials.Add(sequence);
+            sequence.Initialize(this);
         }
 
         // 2. 실행할 자식이 없는 Scene 구성은 로그를 남긴 후 시작하지 않음.

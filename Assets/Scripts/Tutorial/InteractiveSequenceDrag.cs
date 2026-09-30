@@ -60,22 +60,12 @@ public class InteractiveSequenceDrag : InteractiveSequenceBase
     /// <summary>
     /// 유효한 드래그가 완료되면 다음 튜토리얼 시퀀스로 진행함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (HasCompletedDrag())
         {
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
-
-    /// <summary>
-    /// 유효한 드래그가 완료되면 다음 퀘스트 액션으로 진행함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (HasCompletedDrag())
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 

@@ -21,27 +21,13 @@ public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
                 break;
         }
 
-        // юс╫ц
-        goNext = true;
-        //pipeline.SetNextTutorial(SceneState.None);
+        pipeline.SetSceneState(SceneState.None);
+        pipeline.MoveToNextSequence();
     }
 
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
-        if (goNext)
-        {
-            goNext = false;
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
 
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (goNext)
-        {
-            goNext = false;
-            questActionPipeline.SetNextQuestAction();
-        }
     }
 
     public override void Exit()

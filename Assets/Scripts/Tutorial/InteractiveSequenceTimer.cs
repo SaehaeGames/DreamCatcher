@@ -48,22 +48,12 @@ public class InteractiveSequenceTimer : InteractiveSequenceBase
     /// <summary>
     /// 선택된 대기 조건이 충족되면 다음 튜토리얼 시퀀스로 진행함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (IsWaitCompleted())
         {
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
-
-    /// <summary>
-    /// 선택된 대기 조건이 충족되면 다음 퀘스트 액션으로 진행함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (IsWaitCompleted())
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 

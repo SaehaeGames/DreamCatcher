@@ -24,16 +24,10 @@ public class InteractiveSequenceDummy : InteractiveSequenceBase
     /// <summary>
     /// 의도적으로 완료 요청을 보내지 않아 튜토리얼 파이프라인을 이 단계에 유지함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
     }
 
-    /// <summary>
-    /// 의도적으로 완료 요청을 보내지 않아 퀘스트 액션 파이프라인을 이 단계에 유지함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-    }
 
     /// <summary>
     /// 실행 중 생성하는 임시 상태가 없어 종료 시 별도 정리를 하지 않음.

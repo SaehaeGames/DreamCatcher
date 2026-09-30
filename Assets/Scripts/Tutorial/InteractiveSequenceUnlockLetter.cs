@@ -70,22 +70,12 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
     /// <summary>
     /// 필요한 팝업 확인이 모두 끝나면 다음 튜토리얼 시퀀스로 진행함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (runtime.IsCompleted)
         {
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
-
-    /// <summary>
-    /// 필요한 팝업 확인이 모두 끝나면 다음 퀘스트 액션으로 진행함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (runtime.IsCompleted)
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 

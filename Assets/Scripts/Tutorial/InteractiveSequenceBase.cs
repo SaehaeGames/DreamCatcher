@@ -6,6 +6,13 @@ using UnityEngine;
 /// </summary>
 public abstract class InteractiveSequenceBase : MonoBehaviour
 {
+    protected InteractiveSequencePipeline pipeline;
+
+    public void Initialize(InteractiveSequencePipeline pipeline)
+    {
+        this.pipeline = pipeline;
+    }
+
     /// <summary>
     /// 시퀀스가 현재 단계로 선택될 때 한 번 호출되어 UI·상태·리스너를 준비함.
     /// </summary>
@@ -14,12 +21,7 @@ public abstract class InteractiveSequenceBase : MonoBehaviour
     /// <summary>
     /// 튜토리얼 진행 중 매 프레임 호출되어 완료 조건을 확인하고 다음 시퀀스를 요청함.
     /// </summary>
-    public abstract void Execute(TutorialPipeline tutorialPipeline);
-
-    /// <summary>
-    /// 기존 퀘스트 액션에서 공용 시퀀스를 사용할 때 매 프레임 완료 조건을 확인함.
-    /// </summary>
-    public abstract void Execute(QuestActionPipeline questActionPipeline);
+    public abstract void Execute();
 
     /// <summary>
     /// 해당 단계가 완료되거나 중단될 때 호출되어 임시 UI·부모 관계·리스너·실행 상태를 복구함.

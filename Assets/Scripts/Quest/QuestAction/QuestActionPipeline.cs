@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestActionPipeline : MonoBehaviour
+public class QuestActionPipeline : InteractiveSequencePipeline
 {
     [SerializeField]
     private List<InteractiveSequenceBase> questActions;
@@ -28,7 +28,7 @@ public class QuestActionPipeline : MonoBehaviour
     {
         if(currentQuestAction != null)
         {
-            currentQuestAction.Execute(this);
+            currentQuestAction.Execute();
         }
     }
 
@@ -50,7 +50,12 @@ public class QuestActionPipeline : MonoBehaviour
         questActions.Clear();
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            questActions.Add(this.transform.GetChild(i).gameObject.GetComponent<InteractiveSequenceBase>());
+            InteractiveSequenceBase sequence =
+                    this.transform.GetChild(i).GetComponent<InteractiveSequenceBase>();
+
+            questActions.Add(sequence);
+
+            sequence.Initialize(this);
         }
 
         SetNextQuestAction();
@@ -63,6 +68,11 @@ public class QuestActionPipeline : MonoBehaviour
         onComplete?.Invoke();
 
         this.gameObject.SetActive(false);
+    }
+
+    public override void MoveToNextSequence()
+    {
+        SetNextQuestAction();
     }
 
     public void SetNextQuestAction()

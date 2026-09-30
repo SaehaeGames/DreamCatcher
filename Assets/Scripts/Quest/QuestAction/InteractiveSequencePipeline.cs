@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveSequencePipeline : MonoBehaviour
+public abstract class InteractiveSequencePipeline : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,11 @@ public class InteractiveSequencePipeline : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public abstract void MoveToNextSequence();
+
+    public virtual void SetSceneState(SceneState sceneState)
+    {
     }
 }

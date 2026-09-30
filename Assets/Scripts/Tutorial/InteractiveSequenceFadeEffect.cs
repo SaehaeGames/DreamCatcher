@@ -41,22 +41,12 @@ public class InteractiveSequenceFadeEffect : InteractiveSequenceBase
     /// <summary>
     /// Fade가 끝나면 다음 튜토리얼 시퀀스로 진행함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (TryConsumeCompletion())
         {
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
-
-    /// <summary>
-    /// Fade가 끝나면 다음 퀘스트 액션으로 진행함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (TryConsumeCompletion())
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 

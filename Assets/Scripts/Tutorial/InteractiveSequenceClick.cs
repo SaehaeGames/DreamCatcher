@@ -74,22 +74,12 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
     /// <summary>
     /// 클릭 대상에 붙은 InteractiveButton이 클릭을 기록하면 다음 튜토리얼 단계로 이동함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (runtime.InteractiveButton != null && runtime.InteractiveButton.GetButtonClicked())
         {
-            tutorialPipeline.SetNextTutorial(GetNextSceneState());
-        }
-    }
-
-    /// <summary>
-    /// 클릭 대상에 붙은 InteractiveButton이 클릭을 기록하면 다음 퀘스트 액션으로 이동함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (runtime.InteractiveButton != null && runtime.InteractiveButton.GetButtonClicked())
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 

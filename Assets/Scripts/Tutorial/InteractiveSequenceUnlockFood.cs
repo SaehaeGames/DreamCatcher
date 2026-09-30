@@ -74,22 +74,12 @@ public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
     /// <summary>
     /// 팝업 확인이 끝나면 다음 튜토리얼 시퀀스로 진행함.
     /// </summary>
-    public override void Execute(TutorialPipeline tutorialPipeline)
+    public override void Execute()
     {
         if (runtime.IsCompleted)
         {
-            tutorialPipeline.SetNextTutorial(SceneState.None);
-        }
-    }
-
-    /// <summary>
-    /// 팝업 확인이 끝나면 다음 퀘스트 액션으로 진행함.
-    /// </summary>
-    public override void Execute(QuestActionPipeline questActionPipeline)
-    {
-        if (runtime.IsCompleted)
-        {
-            questActionPipeline.SetNextQuestAction();
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
         }
     }
 
