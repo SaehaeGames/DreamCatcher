@@ -72,6 +72,7 @@ public class PlayerDataManager
 
             currentCharonLetterIndex = -1,
             isCharonQuestActionPlaying = false,
+            hasReadCharonLetter = true,
             questNotice = new bool[3] { false, false, false }
     };
     }
@@ -263,7 +264,6 @@ public class PlayerDataManager
 
     public void SetCurrentMainQuestIndex(int questIndex)
     {
-        UnityEngine.Debug.Log("mainQuestIndex edit");
         playerData.currentMainQuestIndex = questIndex;
     }
 
@@ -295,6 +295,16 @@ public class PlayerDataManager
     public bool GetIsCharonQuestActionPlaying()
     {
         return playerData.isCharonQuestActionPlaying;
+    }
+
+    public bool GetHasReadCharonLetter()
+    {
+        return playerData.hasReadCharonLetter;
+    }
+
+    public void SetHasReadCharonLetter(bool _hasReadCharonLetter)
+    {
+        playerData.hasReadCharonLetter = _hasReadCharonLetter;
     }
 
     public bool GetQuestNoticeRead(QuestType questType)

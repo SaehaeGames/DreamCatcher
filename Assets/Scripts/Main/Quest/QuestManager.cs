@@ -46,11 +46,6 @@ public class QuestManager : MonoBehaviour
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
 
-        Debug.Log("===== QuestManager Start =====");
-        Debug.Log($"IsQuestActionPlaying : {playerDataManager.GetIsQuestActinoPlaying()}");
-        Debug.Log($"CurrentQuestIndex : {GetCurrentMainQuestIndex()}");
-        Debug.Log($"QuestFlowState : {GetCurrentQuestFlowState()}");
-
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
         {
@@ -58,6 +53,12 @@ public class QuestManager : MonoBehaviour
             Debug.Log($"강제 종료 복원 시작 / QuestIndex : {currentQuestIndex}");
 
             PlayMainQuestAction();
+        }
+        else if (playerDataManager.GetIsCharonQuestActionPlaying())
+        {
+            int currentCharonIndex = GetCurrentCharonLetterIndex();
+            Debug.Log($"강제 종료 복원 시작 / 카론");
+            PlayCharonQuestAction();
         }
     }
     
@@ -92,6 +93,7 @@ public class QuestManager : MonoBehaviour
                 // 다음 퀘스트 인덱스로 업데이트
                 int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
                 playerDataManager.SetCurrentCharonLetterIndex(currentCharonLetterIndex + 1);
+                playerDataManager.SetHasReadCharonLetter(false);
                 break;
         }
 
@@ -217,7 +219,17 @@ public class QuestManager : MonoBehaviour
         }
         else if (questType == QuestType.Charon)
         {
+            // 이미 읽었다면 퀘스트 액션 재생하지 않음
+            if (playerDataManager.GetHasReadCharonLetter())
+            {
+                return;
+            }
+
             PlayCharonQuestAction();
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -282,6 +294,7 @@ public class QuestManager : MonoBehaviour
             () =>
             {
                 playerDataManager.SetIsCharonQuestActionPlaying(false);
+                playerDataManager.SetHasReadCharonLetter(true);
                 playerDataManager.Save();
             });
     }

@@ -81,6 +81,7 @@ public class QuestActionController : MonoBehaviour
         }
         else if(type==QuestActionType.Charon)
         {
+            Debug.Log("카론 퀘스트 액션 재생");
             ActivateCharonLetterQuestAction(questIndex, onStart, onComplete);
         }
     }
@@ -134,7 +135,7 @@ public class QuestActionController : MonoBehaviour
             Transform letter = charonLetters[questIndex];
             if (letter != null)
             {
-                Debug.Log("<color=cyan>End QuestAction 활성화</color>");
+                Debug.Log("<color=cyan>Charon QuestAction 활성화</color>");
                 letter.gameObject.SetActive(true); // End 활성화
                 letter.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
             }
