@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     //싱글톤 패턴을 사용하기 위한 전역 변수
     public static GameManager instance;
+    public bool IsInitialized { get; private set; }
 
     [Header("[Game Data]")]
     public JsonManager jsonManager;                 // JsonManager : 세이브&로드 클래스
@@ -43,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         if (instance)     //싱글톤 변수 instance가 이미 있다면
         {
-            DestroyImmediate(gameObject);   //삭제
+            Destroy(gameObject);
             return;
         }
 
@@ -51,12 +54,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
-
+        // 모든 화면의 Start보다 먼저 데이터 로드를 완료합니다.
+        ResetGameManager();
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        ResetGameManager();
+        if (instance == this) instance = null;
     }
 
     public static GameManager GetGameManager()
@@ -104,14 +108,15 @@ public class GameManager : MonoBehaviour
     {
         //초기화 함수
 
-        jsonManager = new JsonManager();    // JSON 저장 매니저 객체 생성
+        IsInitialized = false;
+        if (jsonManager == null) jsonManager = new JsonManager();
 
         // 각 저장 데이터 가져오기
         RackDataManager.Load();
         rackDataList = RackDataManager.dataList;
-        goodsDataManager = new GoodsDataManager();
+        if (goodsDataManager == null) goodsDataManager = new GoodsDataManager();
         goodsDataManager.Load();
-        interiorDataManager = new InteriorDataManager();
+        if (interiorDataManager == null) interiorDataManager = new InteriorDataManager();
         interiorDataManager.Load();
         questDataManager.Load();
         playerDataManager.Load();
@@ -120,5 +125,6 @@ public class GameManager : MonoBehaviour
         //featherDataManager.ResetData();
         dreamCatcherDataManager.Load();
         dreamCatcherInventoryDataManager.Load();
+        IsInitialized = true;
     }
 }

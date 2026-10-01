@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using System.Diagnostics;
 
 
 public class PlayerDataManager
@@ -93,14 +92,18 @@ public class PlayerDataManager
 
     public bool UseGold(int amount)
     {
-        if (playerData.gold < amount)
+        if (amount < 0 || playerData.gold < amount)
         {
             UnityEngine.Debug.LogWarning("[PlayerDataManager] Not enough gold.");
             return false;
         }
 
         playerData.gold -= amount;
-        Save();
+        if (!jsonManager.TrySaveData(Constants.PlayerDataFile, playerData))
+        {
+            playerData.gold += amount;
+            return false;
+        }
         OnCurrencyChanged?.Invoke();
         return true;
     }
@@ -177,6 +180,30 @@ public class PlayerDataManager
     }
 
     #endregion
+
+    /// <summary>현재 데이터는 유지한 채 골드 차감과 특제먹이 지급을 적용한 복사본을 만듭니다.</summary>
+    public bool TryCreatePurchaseData(int cost, int specialFeedReward, out PlayerData purchaseData)
+    {
+        purchaseData = null;
+        if (cost < 0 || specialFeedReward < 0 || playerData.gold < cost
+            || playerData.specialFeed > int.MaxValue - specialFeedReward) return false;
+        purchaseData = JsonUtility.FromJson<PlayerData>(JsonUtility.ToJson(playerData));
+        purchaseData.gold -= cost;
+        purchaseData.specialFeed += specialFeedReward;
+        return true;
+    }
+
+    public JsonManager.SaveEntry CreatePurchaseSaveEntry(PlayerData purchaseData)
+    {
+        return JsonManager.CreateSaveEntry(Constants.PlayerDataFile, purchaseData);
+    }
+
+    /// <summary>구매 기록 저장 후 메모리에 반영합니다. 예약 중인 튜토리얼 먹이 수량은 유지합니다.</summary>
+    public void ApplyPurchaseData(PlayerData purchaseData)
+    {
+        playerData = purchaseData;
+        OnCurrencyChanged?.Invoke();
+    }
 
     #region Sound
 
@@ -443,7 +470,6 @@ public class PlayerDataManager
             return;
         }
 
-		UnityEngine.Debug.Log(new StackTrace(true));
         jsonManager.SaveData(Constants.PlayerDataFile, playerData);
     }
 }

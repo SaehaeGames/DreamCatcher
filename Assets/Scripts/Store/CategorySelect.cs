@@ -1,111 +1,83 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>실제 선택값을 기준으로 모든 탭의 활성 상태를 일관되게 갱신합니다.</summary>
 public class CategorySelect : MonoBehaviour
 {
     [Header("[Current Store]")]
-    [SerializeField] private StoreType currentMainCategory;       // 현재 선택된 메인 카테고리 (Development / Interior / SpecialProduct)
-    [SerializeField] private ItemTheme currentInteriorCategory;   // 현재 선택된 인테리어 서브 카테고리 (Sea / Star)
+    [SerializeField] private StoreType currentMainCategory;
+    [SerializeField] private ItemTheme currentInteriorCategory;
+    public GameObject[] categoryProducts = new GameObject[3];
+    public GameObject[] unselectedBackground = new GameObject[3];
+    public GameObject[] interiorProducts = new GameObject[3];
+    public GameObject[] unselectedInteriorBackground = new GameObject[3];
+    [SerializeField] private EffectChange effectChange;
 
-    public GameObject[] categoryProducts = new GameObject[3];             // 메인 카테고리별 컨텐츠 패널 (Development, Interior, SpecialProduct 순)
-    public GameObject[] unselectedBackground = new GameObject[3];         // 메인 카테고리 버튼의 비선택 배경 이미지 (선택 시 숨김)
+    private StoreData storeData;
 
-    public GameObject[] interiorProducts = new GameObject[3];             // 인테리어 서브 카테고리 컨텐츠 패널 (Default, Sea, Star 순 — enum 인덱스 기준)
-    public GameObject[] unselectedInteriorBackground = new GameObject[3]; // 인테리어 서브 카테고리 버튼의 비선택 배경 이미지
-
-    private EffectChange effectChange;
-
-    /// <summary>
-    /// 씬 시작 시 보조도구(Development) 카테고리를 기본 선택 상태로 초기화
-    /// AudioManager에서 EffectChange 컴포넌트를 가져와 캐싱
-    /// </summary>
-    void Start()
+    private void Awake()
     {
-        currentMainCategory = StoreType.Development;
-        ActivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
-
-        var audioManager = GameObject.FindGameObjectWithTag(Constants.Tag_AudioManager);
-        effectChange = audioManager?.GetComponent<EffectChange>();
+        storeData = GetComponent<StoreData>();
+        if (effectChange == null)
+        {
+            GameObject audioObject = GameObject.FindGameObjectWithTag(Constants.Tag_AudioManager);
+            if (audioObject != null) effectChange = audioObject.GetComponent<EffectChange>();
+        }
     }
 
-    /// <summary>현재 선택된 메인 카테고리를 반환</summary>
+    private void Start()
+    {
+        // 기존 씬의 활성 상태와 무관하게 모든 탭을 초기화합니다.
+        currentMainCategory = StoreType.Development;
+        currentInteriorCategory = ItemTheme.Star;
+        RefreshPanels(categoryProducts, unselectedBackground, (int)currentMainCategory);
+        RefreshPanels(interiorProducts, unselectedInteriorBackground, (int)currentInteriorCategory);
+        if (storeData != null) storeData.Initialize();
+    }
+
     public StoreType GetSelectedCategory() => currentMainCategory;
-
-    /// <summary>보조도구 탭 버튼 클릭 시 호출 — Development 카테고리로 전환</summary>
     public void SetDevelopmentSelect() => SetMainCategory(StoreType.Development);
+    public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
 
-    /// <summary>
-    /// 인테리어 탭 버튼 클릭 시 호출 — Interior 카테고리로 전환하고 Star 서브탭을 기본 선택
-    /// DeactivateCategory가 currentInteriorCategory 값을 기준으로 동작하므로,
-    /// Sea로 먼저 설정한 뒤 SetStarInteriorSelect()를 호출해야 Sea → Star 전환이 정상 작동
-    /// </summary>
     public void SetWallpaperSelect()
     {
         SetMainCategory(StoreType.Interior);
-        currentInteriorCategory = ItemTheme.Sea;
-        SetStarInteriorSelect();
+        SetInteriorCategory(ItemTheme.Star, false);
     }
 
-    /// <summary>특수 상품 탭 버튼 클릭 시 호출 — SpecialProduct 카테고리로 전환</summary>
-    public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
-
-    /// <summary>Star 서브탭 버튼 클릭 시 호출 — Star 인테리어 카테고리로 전환</summary>
     public void SetStarInteriorSelect() => SetInteriorCategory(ItemTheme.Star);
-
-    /// <summary>Sea 서브탭 버튼 클릭 시 호출 — Sea 인테리어 카테고리로 전환</summary>
     public void SetSeaInteriorSelect() => SetInteriorCategory(ItemTheme.Sea);
 
-    /// <summary>
-    /// 메인 카테고리를 전환
-    /// 기존 카테고리의 UI를 비활성화하고 새 카테고리의 UI를 활성화
-    /// </summary>
     private void SetMainCategory(StoreType category)
     {
-        PlayOpenSceneEffect();
-        DeactivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
+        if (category == currentMainCategory) return;
         currentMainCategory = category;
-        ActivateCategory(categoryProducts, unselectedBackground, currentMainCategory);
-    }
-
-    /// <summary>
-    /// 인테리어 서브 카테고리를 전환
-    /// 기존 서브탭 UI를 비활성화하고 새 서브탭 UI를 활성화한 뒤,
-    /// StoreData에 테마 변경을 알려 상품 목록 UI를 갱신
-    /// </summary>
-    private void SetInteriorCategory(ItemTheme theme)
-    {
+        RefreshPanels(categoryProducts, unselectedBackground, (int)category);
         PlayOpenSceneEffect();
-        DeactivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
+    }
+
+    private void SetInteriorCategory(ItemTheme theme, bool playSound = true)
+    {
+        if (theme != ItemTheme.Sea && theme != ItemTheme.Star) return;
+        bool changed = currentInteriorCategory != theme;
         currentInteriorCategory = theme;
-        ActivateCategory(interiorProducts, unselectedInteriorBackground, currentInteriorCategory);
-        GetComponent<StoreData>().UpdateStoreInteriorData(currentInteriorCategory);
+        RefreshPanels(interiorProducts, unselectedInteriorBackground, (int)theme);
+        if (storeData != null) storeData.UpdateStoreInteriorData(theme);
+        if (changed && playSound) PlayOpenSceneEffect();
     }
 
-    /// <summary>
-    /// enum 값을 배열 인덱스로 변환해 해당 카테고리 UI를 활성화
-    /// products[i]는 컨텐츠 패널 → SetActive(true), backgrounds[i]는 버튼 비선택 배경 → SetActive(false).
-    /// </summary>
-    private void ActivateCategory<T>(GameObject[] products, GameObject[] backgrounds, T category) where T : Enum
+    /// <summary>선택 탭만 켜고 나머지는 끕니다. 사용하지 않는 Default 슬롯의 null은 허용합니다.</summary>
+    private static void RefreshPanels(GameObject[] products, GameObject[] backgrounds, int selected)
     {
-        int i = Convert.ToInt32(category);
-        products[i].SetActive(true);
-        backgrounds[i].SetActive(false);
-    }
-
-    /// <summary>
-    /// enum 값을 배열 인덱스로 변환해 해당 카테고리 UI를 비활성화
-    /// products[i]는 컨텐츠 패널 → SetActive(false), backgrounds[i]는 버튼 비선택 배경 → SetActive(true).
-    /// </summary>
-    private void DeactivateCategory<T>(GameObject[] products, GameObject[] backgrounds, T category) where T : Enum
-    {
-        int i = Convert.ToInt32(category);
-        products[i].SetActive(false);
-        backgrounds[i].SetActive(true);
+        if (products != null)
+            for (int i = 0; i < products.Length; i++)
+                if (products[i] != null) products[i].SetActive(i == selected);
+        if (backgrounds != null)
+            for (int i = 0; i < backgrounds.Length; i++)
+                if (backgrounds[i] != null) backgrounds[i].SetActive(i != selected);
     }
 
     private void PlayOpenSceneEffect()
     {
-        effectChange?.PlayEffect_OpenScene();
+        if (effectChange != null) effectChange.PlayEffect_OpenScene();
     }
 }

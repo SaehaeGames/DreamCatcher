@@ -5,6 +5,112 @@ using UnityEngine;
 
 public class JsonManager
 {
+    /// <summary>여러 저장 파일을 한 작업으로 확정하기 위한 변경 후 JSON 묶음입니다.</summary>
+    [Serializable]
+    public class SaveEntry
+    {
+        public string fileName;
+        public string json;
+    }
+
+    [Serializable]
+    private class SaveTransaction
+    {
+        public List<SaveEntry> entries;
+    }
+
+    public static SaveEntry CreateSaveEntry<T>(string fileName, T data)
+    {
+        return new SaveEntry { fileName = fileName, json = JsonUtility.ToJson(data, true) };
+    }
+
+    /// <summary>
+    /// 변경 후 데이터를 먼저 기록합니다. 기록 저장 성공이 구매 확정 시점입니다.
+    /// 개별 파일 적용 도중 종료되면 다음 로드 전에 같은 내용을 다시 적용합니다.
+    /// </summary>
+    public bool TrySaveBatch(List<SaveEntry> entries)
+    {
+        if (!RecoverPendingTransaction() || !ValidateEntries(entries)) return false;
+        string journalPath = GetTransactionPath();
+        if (!WriteJsonSafely(journalPath, JsonUtility.ToJson(new SaveTransaction { entries = entries })))
+            return false;
+
+        // 확정 기록이 있으므로 적용 실패를 구매 실패로 알려 재구매하게 하지 않습니다.
+        // 이후 일반 저장과 새 구매는 이 기록을 먼저 복구해야 실행될 수 있습니다.
+        if (!RecoverPendingTransaction())
+            Debug.LogWarning("[JsonManager] 확정된 구매는 다음 저장/실행 시 복구합니다.");
+        return true;
+    }
+
+    /// <summary>확정된 저장 작업을 모두 재적용한 뒤 기록을 제거합니다. 같은 값의 재적용은 중복 지급을 하지 않습니다.</summary>
+    public bool RecoverPendingTransaction()
+    {
+        try { return RecoverPendingTransactionCore(); }
+        catch (IOException exception)
+        {
+            Debug.LogError("[JsonManager] 저장 경로 접근 실패: " + exception.Message);
+            return false;
+        }
+        catch (UnauthorizedAccessException exception)
+        {
+            Debug.LogError("[JsonManager] 저장 경로 접근 권한이 없습니다: " + exception.Message);
+            return false;
+        }
+    }
+
+    private bool RecoverPendingTransactionCore()
+    {
+        string journalPath = GetTransactionPath();
+        if (!File.Exists(journalPath)) return true;
+        if (!TryLoadJson(journalPath, out SaveTransaction transaction) || !ValidateEntries(transaction.entries))
+        {
+            Debug.LogError("[JsonManager] 저장 복구 기록이 손상되었습니다. 기존 파일을 덮어쓰지 않습니다.");
+            return false;
+        }
+
+        foreach (SaveEntry entry in transaction.entries)
+        {
+            if (!WriteJsonSafely(GetPath(entry.fileName), entry.json)) return false;
+        }
+
+        try
+        {
+            File.Delete(journalPath);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("[JsonManager] 저장 복구 기록 정리 실패: " + exception.Message);
+            return false;
+        }
+    }
+
+    private static bool ValidateEntries(List<SaveEntry> entries)
+    {
+        if (entries == null || entries.Count == 0) return false;
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (SaveEntry entry in entries)
+        {
+            if (entry == null || string.IsNullOrWhiteSpace(entry.fileName)
+                || entry.fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0
+                || entry.fileName.Contains("/") || entry.fileName.Contains("\\")
+                || string.IsNullOrWhiteSpace(entry.json) || !names.Add(entry.fileName)) return false;
+        }
+        return true;
+    }
+
+    private static string GetTransactionPath()
+    {
+        // 점으로 시작하는 임시 파일은 Unity 에셋으로 가져오지 않습니다.
+        return Path.Combine(GetSaveFolderPath(), ".save-transaction");
+    }
+
+    private void EnsurePendingTransactionRecovered()
+    {
+        if (!RecoverPendingTransaction())
+            throw new IOException("확정된 저장 작업을 복구할 수 없어 데이터 로드를 중단합니다.");
+    }
+
     public T LoadDefaultData<T>(string fileName) where T : new()
     {
         TextAsset defaultJson = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
@@ -28,13 +134,14 @@ public class JsonManager
 
     public T LoadData<T>(string fileName) where T : new()
     {
+        EnsurePendingTransactionRecovered();
         string savedPath = GetPath(fileName);
         if (TryLoadJson(savedPath, out T data)) return data;
 
         string backupPath = GetBackupPath(savedPath);
         if (TryLoadJson(backupPath, out data))
         {
-            Debug.LogWarning($"[JsonManager] ��� ���� �����͸� �����մϴ�: {fileName}");
+            Debug.LogWarning($"[JsonManager] 백업 저장 데이터를 복구합니다: {fileName}");
             RestorePrimaryWithoutRotatingBackup(savedPath, JsonUtility.ToJson(data, true));
             return data;
         }
@@ -46,6 +153,7 @@ public class JsonManager
 
     public List<T> LoadDataList<T>(string fileName) where T : new()
     {
+        EnsurePendingTransactionRecovered();
         string savedPath = GetPath(fileName);
         if (TryLoadJson(savedPath, out Wrapper<T> wrapper) && wrapper.datalist != null)
         {
@@ -55,7 +163,7 @@ public class JsonManager
         string backupPath = GetBackupPath(savedPath);
         if (TryLoadJson(backupPath, out wrapper) && wrapper.datalist != null)
         {
-            Debug.LogWarning($"[JsonManager] ��� ���� ������ ����� �����մϴ�: {fileName}");
+            Debug.LogWarning($"[JsonManager] 백업 저장 데이터 목록을 복구합니다: {fileName}");
             RestorePrimaryWithoutRotatingBackup(savedPath, JsonUtility.ToJson(wrapper, true));
             return wrapper.datalist;
         }
@@ -85,13 +193,20 @@ public class JsonManager
 
     public void SaveData<T>(string fileName, T data)
     {
-        WriteJsonSafely(GetPath(fileName), JsonUtility.ToJson(data, true));
+        TrySaveData(fileName, data);
+    }
+
+    /// <summary>저장 성공 여부가 필요한 데이터 변경에서 사용합니다.</summary>
+    public bool TrySaveData<T>(string fileName, T data)
+    {
+        if (!RecoverPendingTransaction()) return false;
+        return WriteJsonSafely(GetPath(fileName), JsonUtility.ToJson(data, true));
     }
 
     public void SaveDataList<T>(string fileName, List<T> dataList)
     {
         Wrapper<T> wrapper = new Wrapper<T> { datalist = dataList ?? new List<T>() };
-        WriteJsonSafely(GetPath(fileName), JsonUtility.ToJson(wrapper, true));
+        TrySaveData(fileName, wrapper);
     }
 
     private static bool TryLoadJson<T>(string path, out T data)
@@ -109,19 +224,26 @@ public class JsonManager
         }
         catch (Exception exception)
         {
-            Debug.LogWarning($"[JsonManager] ���� ������ �б� ����: {path}\n{exception.Message}");
+            Debug.LogWarning($"[JsonManager] 저장 데이터 읽기 실패: {path}\n{exception.Message}");
             return false;
         }
     }
 
-    private static void WriteJsonSafely(string savedPath, string jsonData)
+    private static bool WriteJsonSafely(string savedPath, string jsonData)
     {
         string tempPath = savedPath + ".tmp";
         string backupPath = GetBackupPath(savedPath);
 
         try
         {
-            File.WriteAllText(tempPath, jsonData);
+            // 디스크에 내보낸 뒤 교체하여 불완전한 JSON이 원본이 되지 않게 합니다.
+            using (var stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var writer = new StreamWriter(stream, new System.Text.UTF8Encoding(false)))
+            {
+                writer.Write(jsonData);
+                writer.Flush();
+                stream.Flush(true);
+            }
             if (File.Exists(savedPath))
             {
                 try
@@ -139,17 +261,21 @@ public class JsonManager
             {
                 File.Move(tempPath, savedPath);
             }
+            return true;
         }
         catch (Exception exception)
         {
-            Debug.LogError($"[JsonManager] ���� ����: {savedPath}\n{exception.Message}");
-            if (File.Exists(tempPath)) File.Delete(tempPath);
+            Debug.LogError($"[JsonManager] 저장 실패: {savedPath}\n{exception.Message}");
+            try { if (File.Exists(tempPath)) File.Delete(tempPath); }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
+            return false;
         }
     }
 
     /// <summary>
-    /// ���� ������� ������ ���� ���� ���� ���ϸ� ��ü�ϰ� .bak ������ �״�� �����մϴ�.
-    /// �Ϲ� ���� ��θ� ����ϸ� �ջ�� ������ ���� ����� ���� �� �����Ƿ� ���� ���� ��θ� ����մϴ�.
+    /// 정상 백업에서 복구할 때는 기존 원본 파일만 교체하고 .bak 파일은 그대로 보존합니다.
+    /// 일반 저장 경로를 사용하면 손상된 원본이 정상 백업을 덮을 수 있으므로 복구 전용 경로를 사용합니다.
     /// </summary>
     private static void RestorePrimaryWithoutRotatingBackup(string savedPath, string jsonData)
     {
@@ -177,7 +303,7 @@ public class JsonManager
         }
         catch (Exception exception)
         {
-            Debug.LogError($"[JsonManager] ��� ���� ���� ���� ����: {savedPath}\n{exception.Message}");
+            Debug.LogError($"[JsonManager] 백업 복구 파일 쓰기 실패: {savedPath}\n{exception.Message}");
             if (File.Exists(tempPath)) File.Delete(tempPath);
         }
     }
@@ -214,7 +340,7 @@ public class JsonManager
             File.Delete(file);
         }
 
-        Debug.Log("��� ���� �����͸� �ʱ�ȭ�߽��ϴ�.");
+        Debug.Log("모든 저장 데이터를 초기화했습니다.");
     }
 
     [Serializable]

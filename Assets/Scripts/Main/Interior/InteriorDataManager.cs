@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using System.Security.Cryptography;
 
 [Serializable]
 public class InteriorData
@@ -67,5 +66,59 @@ public class InteriorDataManager
             return getData;
         else
             return null;
+    }
+
+    /// <summary>보유 상태와 자동 배치를 복사본에 적용하여 구매 확정 전 원본을 유지합니다.</summary>
+    public bool TryCreatePurchaseData(StoreInfo_Object product, StoreInfo_Data table, bool adjust,
+        out InteriorDataManager purchasedData)
+    {
+        purchasedData = null;
+        if (product == null || table == null) return false;
+        InteriorData current = GetInteriorDataByStoreInfoId(product.id);
+        if (current == null || current.isHaving) return false;
+        purchasedData = CopyData();
+        purchasedData.GetInteriorDataByStoreInfoId(product.id).isHaving = true;
+        if (adjust) purchasedData.SetAdjusting(product, table);
+        return true;
+    }
+
+    /// <summary>보유한 아이템만 배치하고 저장 실패 시 기존 배치 상태를 유지합니다.</summary>
+    public bool TryAdjustItem(string id, StoreInfo_Data table)
+    {
+        if (table == null || !table.TryGetItem(id, out StoreInfo_Object product)) return false;
+        InteriorData item = GetInteriorDataByStoreInfoId(id);
+        if (item == null || !item.isHaving) return false;
+        InteriorDataManager adjusted = CopyData();
+        adjusted.SetAdjusting(product, table);
+        if (!jsonManager.TrySaveData(Constants.InteriorDataFile, adjusted)) return false;
+        dataList = adjusted.dataList;
+        return true;
+    }
+
+    private void SetAdjusting(StoreInfo_Object product, StoreInfo_Data table)
+    {
+        foreach (InteriorData item in dataList)
+        {
+            if (table.TryGetItem(item.storeinfo_id, out StoreInfo_Object other) && other.category == product.category)
+                item.isAdjusting = item.storeinfo_id == product.id;
+        }
+    }
+
+    private InteriorDataManager CopyData()
+    {
+        var copy = new InteriorDataManager();
+        foreach (InteriorData item in dataList)
+            if (item != null) copy.dataList.Add(new InteriorData(item.id, item.isHaving, item.isAdjusting, item.storeinfo_id));
+        return copy;
+    }
+
+    public JsonManager.SaveEntry CreateSaveEntry()
+    {
+        return JsonManager.CreateSaveEntry(Constants.InteriorDataFile, this);
+    }
+
+    public void ApplyPurchaseData(InteriorDataManager purchasedData)
+    {
+        dataList = purchasedData.dataList;
     }
 }
