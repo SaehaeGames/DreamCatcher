@@ -181,12 +181,23 @@ public class PlayerDataManager
 
     #endregion
 
-    /// <summary>현재 데이터는 유지한 채 골드 차감과 특제먹이 지급을 적용한 복사본을 만듭니다.</summary>
+    /// <summary>
+    /// 데이터 복사와 저장 없이 가격, 골드 잔액, 지급 수량의 정수 범위를 검사합니다.
+    /// 지급은 실제 보유 수량을 기준으로 확인하며 튜토리얼에서 예약한 먹이 수량은 변경하지 않습니다.
+    /// </summary>
+    public bool CanPurchase(int cost, int specialFeedReward)
+    {
+        return playerData != null && cost >= 0 && specialFeedReward >= 0 && playerData.gold >= cost
+            && playerData.specialFeed <= int.MaxValue - specialFeedReward;
+    }
+
+    /// <summary>구매 조건을 재검사한 뒤 골드 차감과 특제먹이 지급을 적용한 복사본을 만듭니다.</summary>
     public bool TryCreatePurchaseData(int cost, int specialFeedReward, out PlayerData purchaseData)
     {
         purchaseData = null;
-        if (cost < 0 || specialFeedReward < 0 || playerData.gold < cost
-            || playerData.specialFeed > int.MaxValue - specialFeedReward) return false;
+        if (!CanPurchase(cost, specialFeedReward)) return false;
+
+        // 해금 상태 등 기존 필드도 함께 복사하여 저장이 확정되기 전까지 원본을 유지합니다.
         purchaseData = JsonUtility.FromJson<PlayerData>(JsonUtility.ToJson(playerData));
         purchaseData.gold -= cost;
         purchaseData.specialFeed += specialFeedReward;

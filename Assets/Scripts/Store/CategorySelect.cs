@@ -16,6 +16,7 @@ public class CategorySelect : MonoBehaviour
 
     private void Awake()
     {
+        // 담당 객체와 효과음 참조는 탭을 누를 때마다 탐색하지 않고 시작할 때 보관합니다.
         storeData = GetComponent<StoreData>();
         if (effectChange == null)
         {
@@ -26,20 +27,21 @@ public class CategorySelect : MonoBehaviour
 
     private void Start()
     {
-        // 기존 씬의 활성 상태와 무관하게 모든 탭을 초기화합니다.
+        // 1. 기존 씬의 활성 상태와 무관하게 처음 선택할 두 카테고리를 정합니다.
         currentMainCategory = StoreType.Development;
         currentInteriorCategory = ItemTheme.Star;
+        // 2. 이 컴포넌트는 패널만 준비하며, 상품 데이터 초기화는 StoreData가 담당합니다.
         RefreshPanels(categoryProducts, unselectedBackground, (int)currentMainCategory);
         RefreshPanels(interiorProducts, unselectedInteriorBackground, (int)currentInteriorCategory);
-        if (storeData != null) storeData.Initialize();
     }
 
-    public StoreType GetSelectedCategory() => currentMainCategory;
+    // 다음 함수 이름은 씬의 버튼 이벤트가 사용하므로 유지합니다.
     public void SetDevelopmentSelect() => SetMainCategory(StoreType.Development);
     public void SetSpecialProductSelect() => SetMainCategory(StoreType.SpecialProduct);
 
     public void SetWallpaperSelect()
     {
+        // 인테리어 탭 진입 시 기본 테마를 선택하되 한 클릭에서 효과음은 한 번만 재생합니다.
         SetMainCategory(StoreType.Interior);
         SetInteriorCategory(ItemTheme.Star, false);
     }
@@ -47,6 +49,7 @@ public class CategorySelect : MonoBehaviour
     public void SetStarInteriorSelect() => SetInteriorCategory(ItemTheme.Star);
     public void SetSeaInteriorSelect() => SetInteriorCategory(ItemTheme.Sea);
 
+    /// <summary>주 카테고리가 달라졌을 때만 패널과 선택 배경을 바꿉니다.</summary>
     private void SetMainCategory(StoreType category)
     {
         if (category == currentMainCategory) return;
@@ -55,6 +58,7 @@ public class CategorySelect : MonoBehaviour
         PlayOpenSceneEffect();
     }
 
+    /// <summary>단순한 두 테마 분기로 표시 패널과 상품 보유 상태를 함께 갱신합니다.</summary>
     private void SetInteriorCategory(ItemTheme theme, bool playSound = true)
     {
         if (theme != ItemTheme.Sea && theme != ItemTheme.Star) return;

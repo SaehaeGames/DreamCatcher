@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>상점 화면을 초기화하고 상품별 표시와 구매 결과를 갱신합니다.</summary>
+/// <summary>상점 초기화와 상품 화면 갱신을 담당합니다. 구매 규칙과 저장은 구매 서비스에 위임합니다.</summary>
 public class StoreData : MonoBehaviour
 {
     [Header("[Store Product]")]
     public GameObject[] goodsContents;
-    public GameObject[] interiorContetns; // 기존 씬 연결 유지: Star, Sea 순
+    public GameObject[] interiorContetns; // 기존 씬의 저장된 연결 유지: Star, Sea 순
     public SpriteArray[] goodsImages;
     public StoreInfo_Data storeinfo_data;
     public GameObject[] soldOut;
@@ -28,33 +28,55 @@ public class StoreData : MonoBehaviour
     private BuyCheck buyCheck;
     private StorePurchaseService purchaseService;
     private bool initialized;
-
-    public const string SpecialFeedProductId = "SpecialFeed";
-    public bool IsInitialized => initialized;
     public string LastPurchaseError { get; private set; }
 
-    /// <summary>여러 Start 호출 순서에 관계없이 참조와 상품 UI를 한 번만 준비합니다.</summary>
+    private void Start() => Initialize();
+
+    /// <summary>참조 준비, UI 연결, 첫 화면 갱신을 순서대로 수행하며 중복 초기화는 생략합니다.</summary>
     public bool Initialize()
     {
         if (initialized) return true;
+        if (!TryInitializeReferences()) return false;
+
+        // 1. 기존 배열 또는 Inspector의 상품별 참조로 표시 대상을 구성합니다.
+        InitializeProductViews();
+        // 2. 각 버튼에는 담당 객체와 상품 ID를 한 번만 연결합니다.
+        BindButtons(developmentViews);
+        BindButtons(starViews);
+        BindButtons(seaViews);
+        specialFeedView.Bind(buyCheck);
+
+        // 3. 모든 연결을 마친 뒤 데이터에 맞는 표시 상태를 적용합니다.
+        initialized = true;
+        RefreshProducts();
+        return true;
+    }
+
+    /// <summary>구매와 화면에서 사용하는 의존성을 초기화 시 명시적으로 전달합니다.</summary>
+    private bool TryInitializeReferences()
+    {
         GameManager manager = GameManager.instance;
-        if (manager == null || !manager.IsInitialized || manager.storeinfo_data == null)
+        buyCheck = GetComponent<BuyCheck>();
+        if (manager == null || !manager.IsInitialized || manager.jsonManager == null
+            || manager.playerDataManager == null || manager.storeinfo_data == null
+            || manager.goodsDataManager == null || manager.interiorDataManager == null || buyCheck == null)
         {
-            Debug.LogError("[StoreData] GameManager 데이터 초기화가 필요합니다.", this);
+            Debug.LogError("[StoreData] 데이터 매니저와 BuyCheck 초기화가 필요합니다.", this);
             return false;
         }
 
-        // 1. 화면에서 사용할 데이터와 구매 서비스를 명시적으로 전달합니다.
         goodsDataManager = manager.goodsDataManager;
         interiorDataManager = manager.interiorDataManager;
         storeinfo_data = manager.storeinfo_data;
-        buyCheck = GetComponent<BuyCheck>();
-        if (buyCheck == null) return false;
         buyCheck.Initialize(this, interiorDataManager, storeinfo_data);
         purchaseService = new StorePurchaseService(manager.jsonManager, manager.playerDataManager,
             goodsDataManager, interiorDataManager, storeinfo_data, specialFeedPrice);
+        return true;
+    }
 
-        // 2. 기존 씬은 유지하면서 참조를 캐싱합니다. 이후 갱신에서는 계층을 다시 탐색하지 않습니다.
+    /// <summary>기존 씬의 자동 연결은 초기화 때만 수행하고 이후에는 캐시된 참조를 사용합니다.</summary>
+    private void InitializeProductViews()
+    {
         if (developmentViews == null || developmentViews.Length == 0)
         {
             int count = Mathf.Min(goodsContents?.Length ?? 0, developCategory?.Length ?? 0);
@@ -65,42 +87,47 @@ public class StoreData : MonoBehaviour
                 developmentViews[i].category = developCategory[i];
             }
         }
+
+        // 이미지 배열도 상품별로 연결하여 매번 병렬 배열의 범위를 비교하지 않습니다.
+        for (int i = 0; i < developmentViews.Length; i++)
+        {
+            ProductView view = developmentViews[i];
+            if (view != null && (view.levelImages == null || view.levelImages.Length == 0)
+                && goodsImages != null && i < goodsImages.Length)
+                view.levelImages = goodsImages[i]?.imageList;
+        }
         starViews = CreateInteriorViews(starViews, ItemTheme.Star, buyCheck.StarButtonObj, StarSoldOut);
         seaViews = CreateInteriorViews(seaViews, ItemTheme.Sea, buyCheck.SeaButtonObj, SeaSoldOut);
-        CacheSpecialFeedView();
-        initialized = true;
-        RefreshProducts();
-        return true;
-    }
 
-    public void Start() => Initialize();
-
-    private ProductView[] CreateInteriorViews(ProductView[] views, ItemTheme theme, GameObject[] buttons, GameObject[] overlays)
-    {
-        if (views != null && views.Length > 0) return views;
-        List<StoreInfo_Object> items = storeinfo_data.GetItemsByTheme(theme);
-        int count = buttons?.Length ?? 0;
-        views = new ProductView[count];
-        for (int i = 0; i < count; i++)
-        {
-            BuyButtonInfo button = GetButton(buttons, i);
-            views[i] = ProductView.FromLegacy(button != null ? button.transform.parent.gameObject : null, button, GetObject(overlays, i));
-            // 상품 ID를 한 번 연결하고 이후 갱신은 테이블 순서가 아닌 ID로 처리합니다.
-            views[i].productId = i < items.Count ? items[i].id : null;
-        }
-        return views;
-    }
-
-    private void CacheSpecialFeedView()
-    {
         if (specialFeedView == null || specialFeedView.button == null)
         {
             CategorySelect categories = GetComponent<CategorySelect>();
             GameObject panel = categories != null ? GetObject(categories.categoryProducts, (int)StoreType.SpecialProduct) : null;
             BuyButtonInfo button = panel != null ? panel.GetComponentInChildren<BuyButtonInfo>(true) : null;
-            specialFeedView = ProductView.FromLegacy(button != null ? button.transform.parent.gameObject : null, button, null);
+            specialFeedView = ProductView.FromLegacy(GetProductRoot(button), button, null);
         }
-        specialFeedView.productId = SpecialFeedProductId;
+        specialFeedView.productId = StorePurchaseService.SpecialFeedProductId;
+    }
+
+    private ProductView[] CreateInteriorViews(ProductView[] views, ItemTheme theme, GameObject[] buttons, GameObject[] overlays)
+    {
+        if (views != null && views.Length > 0) return views;
+        List<StoreInfo_Object> items = storeinfo_data.GetItemsByTheme(theme);
+        views = new ProductView[buttons?.Length ?? 0];
+        for (int i = 0; i < views.Length; i++)
+        {
+            BuyButtonInfo button = GetButton(buttons, i);
+            views[i] = ProductView.FromLegacy(GetProductRoot(button), button, GetObject(overlays, i));
+            // 비활성 상품도 같은 슬롯에 남겨 뒤 상품의 이미지 연결이 밀리지 않게 합니다.
+            views[i].productId = i < items.Count ? items[i].id : null;
+        }
+        return views;
+    }
+
+    private void BindButtons(ProductView[] views)
+    {
+        foreach (ProductView view in views)
+            if (view != null) view.Bind(buyCheck);
     }
 
     private static GameObject GetObject(GameObject[] objects, int index)
@@ -114,50 +141,59 @@ public class StoreData : MonoBehaviour
         return target != null ? target.GetComponent<BuyButtonInfo>() : null;
     }
 
-    /// <summary>선택한 테마의 상품을 ID로 조회하여 가격과 보유 상태를 갱신합니다.</summary>
-    public void UpdateStoreInteriorData(ItemTheme theme)
+    private static GameObject GetProductRoot(BuyButtonInfo button)
     {
-        if (Initialize()) RefreshInteriorViews(theme == ItemTheme.Sea ? seaViews : starViews);
+        return button != null && button.transform.parent != null ? button.transform.parent.gameObject : null;
     }
 
+    /// <summary>테마 선택은 지역적인 두 갈래 결정이므로 조건문을 유지합니다.</summary>
+    public void UpdateStoreInteriorData(ItemTheme theme)
+    {
+        if ((theme == ItemTheme.Sea || theme == ItemTheme.Star) && Initialize())
+            RefreshInteriorViews(theme == ItemTheme.Sea ? seaViews : starViews);
+    }
+
+    /// <summary>유형별 화면을 갱신합니다. 반복 가능한 특제먹이의 두 표시 동작은 이 함수에 둡니다.</summary>
     public void RefreshProducts()
     {
         if (!initialized) return;
-        for (int i = 0; i < developmentViews.Length; i++)
-        {
-            ProductView view = developmentViews[i];
-            if (view == null) continue;
-            GoodsData current = goodsDataManager.GetValidatedGoodsData(view.category);
-            string id = current != null ? storeinfo_data.GetIDByCategoryAndLevel(view.category, current.level + 1) : null;
-            bool available = storeinfo_data.TryGetItem(id, out StoreInfo_Object item);
-            view.SetAvailable(buyCheck, i, id, available);
-            if (!available) continue;
-            if (view.price != null) view.price.text = item.gold.ToString();
-            if (view.description != null) view.description.text = item.effect ?? "";
-            if (view.image != null && goodsImages != null && i < goodsImages.Length
-                && goodsImages[i]?.imageList != null && item.level >= 0 && item.level < goodsImages[i].imageList.Length)
-                view.image.sprite = goodsImages[i].imageList[item.level];
-        }
+        RefreshDevelopmentViews();
         RefreshInteriorViews(starViews);
         RefreshInteriorViews(seaViews);
-        specialFeedView.SetAvailable(buyCheck, 0, SpecialFeedProductId, true);
-        if (specialFeedView.price != null) specialFeedView.price.text = specialFeedPrice.ToString();
+        specialFeedView.UpdateAvailability(StorePurchaseService.SpecialFeedProductId, true);
+        specialFeedView.ShowInformation(specialFeedPrice, null);
+    }
+
+    private void RefreshDevelopmentViews()
+    {
+        foreach (ProductView view in developmentViews)
+        {
+            if (view == null) continue;
+            // 1. 다음 레벨이 없거나 데이터가 잘못되면 구매 버튼과 품절 표시만 갱신합니다.
+            GoodsData current = goodsDataManager.GetValidatedGoodsData(view.category);
+            string id = current != null && current.level < int.MaxValue
+                ? storeinfo_data.GetIDByCategoryAndLevel(view.category, current.level + 1) : null;
+            bool available = storeinfo_data.TryGetItem(id, out StoreInfo_Object item);
+            view.UpdateAvailability(id, available);
+            if (!available) continue;
+
+            // 2. 표시값과 이미지는 상품별 UI 객체가 담당합니다.
+            view.ShowInformation(item.gold, item.effect ?? "");
+            view.ShowLevelImage(item.level);
+        }
     }
 
     private void RefreshInteriorViews(ProductView[] views)
     {
-        if (views == null) return;
-        for (int i = 0; i < views.Length; i++)
+        foreach (ProductView view in views)
         {
-            ProductView view = views[i];
             if (view == null) continue;
             bool exists = storeinfo_data.TryGetItem(view.productId, out StoreInfo_Object item);
-            if (view.content != null) view.content.SetActive(exists && item.isButtonActive);
-            InteriorData saved = exists ? interiorDataManager.GetInteriorDataByStoreInfoId(item.id) : null;
-            view.SetAvailable(buyCheck, i, view.productId, exists && item.isButtonActive && saved != null && !saved.isHaving);
-            if (!exists) continue;
-            if (view.price != null) view.price.text = item.gold.ToString();
-            if (view.description != null) view.description.text = (item.contents ?? "").Replace("nn", "\n");
+            bool visible = exists && item.isButtonActive;
+            InteriorData saved = visible ? interiorDataManager.GetInteriorDataByStoreInfoId(item.id) : null;
+            if (view.content != null) view.content.SetActive(visible);
+            view.UpdateAvailability(view.productId, visible && saved != null && !saved.isHaving);
+            if (exists) view.ShowInformation(item.gold, (item.contents ?? "").Replace("nn", "\n"));
         }
     }
 
@@ -166,13 +202,14 @@ public class StoreData : MonoBehaviour
         return storeinfo_data != null && storeinfo_data.TryGetItem(id, out StoreInfo_Object item) && item.theme != ItemTheme.Default;
     }
 
+    /// <summary>확인창을 열기 위한 검사는 저장용 데이터 복사본을 만들지 않습니다.</summary>
     public bool CanBuy(string id, out string error)
     {
         error = "상점 초기화에 실패했습니다.";
         return Initialize() && purchaseService.CanBuy(id, out error);
     }
 
-    /// <summary>검증과 저장을 구매 서비스에 위임하고 확정된 구매만 화면에 반영합니다.</summary>
+    /// <summary>구매를 확정하고 결과에 따른 전체 상품 표시만 갱신합니다.</summary>
     public bool BuyGoods(string id)
     {
         if (!Initialize()) return false;
@@ -189,7 +226,7 @@ public class StoreData : MonoBehaviour
         public Sprite[] imageList;
     }
 
-    /// <summary>같은 상품의 ID와 UI 참조를 묶어 병렬 배열의 순서 불일치를 줄입니다.</summary>
+    /// <summary>상품의 표시 참조와 표시 동작을 묶습니다. 데이터 검증과 구매 처리는 포함하지 않습니다.</summary>
     [Serializable]
     public class ProductView
     {
@@ -201,18 +238,33 @@ public class StoreData : MonoBehaviour
         public BuyButtonInfo button;
         public GameObject soldOut;
         public GameObject content;
+        public Sprite[] levelImages;
 
-        public void SetAvailable(BuyCheck owner, int number, string id, bool available)
+        public void Bind(BuyCheck owner)
         {
-            if (soldOut != null) soldOut.SetActive(!available);
-            if (button == null) return;
-            button.Initialize(owner);
-            button.SetSelectGoodsNumber(number);
-            button.SetSelectGoodsId(id);
-            button.SetAvailable(available);
+            if (button != null) button.BindProduct(owner, productId);
         }
 
-        /// <summary>기존 UI 이름을 사용하여 자식 번호에 의존하지 않고 초기화 때만 참조를 가져옵니다.</summary>
+        public void UpdateAvailability(string id, bool available)
+        {
+            if (soldOut != null) soldOut.SetActive(!available);
+            if (button != null) button.UpdateProduct(id, available);
+        }
+
+        public void ShowInformation(int gold, string text)
+        {
+            if (price != null) price.text = gold.ToString();
+            if (description != null && text != null) description.text = text;
+        }
+
+        public void ShowLevelImage(int level)
+        {
+            if (image == null || levelImages == null || level < 0 || level >= levelImages.Length) return;
+            Sprite sprite = levelImages[level];
+            if (sprite != null && image.sprite != sprite) image.sprite = sprite;
+        }
+
+        /// <summary>기존 UI 이름으로 참조를 모읍니다. 씬 구조를 변경하지 않고 명시적 연결로 옮기기 위한 초기화 경로입니다.</summary>
         public static ProductView FromLegacy(GameObject root, BuyButtonInfo button, GameObject overlay)
         {
             var view = new ProductView { button = button, soldOut = overlay, content = root };
@@ -245,13 +297,11 @@ public class StoreData : MonoBehaviour
             Debug.LogWarning("[StoreData] 보조도구 오브젝트와 이미지 배열 길이가 다릅니다.", this);
         if (goodsContents != null && soldOut != null && goodsContents.Length != soldOut.Length)
             Debug.LogWarning("[StoreData] 보조도구 오브젝트와 품절 배열 길이가 다릅니다.", this);
-        if (developmentViews != null)
-        {
-            var categories = new HashSet<string>();
-            foreach (ProductView view in developmentViews)
-                if (view != null && (string.IsNullOrWhiteSpace(view.category) || !categories.Add(view.category)))
-                    Debug.LogWarning("[StoreData] 보조도구 카테고리를 중복 없이 지정해 주세요.", this);
-        }
+        if (developmentViews == null) return;
+        var categories = new HashSet<string>();
+        foreach (ProductView view in developmentViews)
+            if (view != null && (string.IsNullOrWhiteSpace(view.category) || !categories.Add(view.category)))
+                Debug.LogWarning("[StoreData] 보조도구 카테고리를 중복 없이 지정해 주세요.", this);
     }
 
     private void ValidateViews(ProductView[] views)
@@ -268,15 +318,19 @@ public class StoreData : MonoBehaviour
     }
 }
 
-/// <summary>UI와 분리된 구매 검증 및 여러 데이터의 저장 확정을 담당합니다.</summary>
+/// <summary>유형별 구매 규칙을 선택하고 검증, 저장 확정, 메모리 반영의 공통 순서를 담당합니다.</summary>
 public sealed class StorePurchaseService
 {
+    public const string SpecialFeedProductId = "SpecialFeed";
+    private const string InvalidProductError = "상품 정보가 없거나 현재 구매할 수 없는 상품입니다.";
     private readonly JsonManager jsonManager;
     private readonly PlayerDataManager player;
+    private readonly StoreInfo_Data table;
     private readonly GoodsDataManager goods;
     private readonly InteriorDataManager interior;
-    private readonly StoreInfo_Data table;
-    private readonly int specialFeedPrice;
+    private readonly PurchaseRule developmentRule;
+    private readonly PurchaseRule interiorRule;
+    private readonly PurchaseRule specialFeedRule;
     private bool purchasing;
 
     public StorePurchaseService(JsonManager jsonManager, PlayerDataManager player, GoodsDataManager goods,
@@ -287,54 +341,42 @@ public sealed class StorePurchaseService
         this.goods = goods;
         this.interior = interior;
         this.table = table;
-        this.specialFeedPrice = specialFeedPrice;
+        // 규칙 객체는 매 클릭마다 만들지 않고 서비스 초기화 때 한 번 생성합니다.
+        developmentRule = new DevelopmentPurchaseRule(goods, interior, table);
+        interiorRule = new InteriorPurchaseRule(interior, table);
+        specialFeedRule = new SpecialFeedPurchaseRule(specialFeedPrice);
     }
 
-    public bool CanBuy(string id, out string error)
-    {
-        return TryPrepare(id, out _, out _, out _, out error);
-    }
+    public bool CanBuy(string id, out string error) => TryGetPurchasePlan(id, out _, out error);
 
-    private bool TryPrepare(string id, out PlayerData playerData, out GoodsDataManager goodsData,
-        out InteriorDataManager interiorData, out string error)
+    /// <summary>상품 선택은 짧은 조건문으로 처리하고 실제 검증은 해당 유형의 규칙에 위임합니다.</summary>
+    private bool TryGetPurchasePlan(string id, out PurchasePlan plan, out string error)
     {
-        playerData = null;
-        goodsData = null;
-        interiorData = null;
-        error = "상품 정보가 없거나 현재 구매할 수 없는 상품입니다.";
-        int price;
-        int reward = 0;
-        if (id == StoreData.SpecialFeedProductId)
-        {
-            price = specialFeedPrice;
-            reward = 1; // 특제먹이는 구매당 1개이며 보유 수에 따른 품절이 없습니다.
-        }
+        plan = default;
+        error = InvalidProductError;
+        StoreInfo_Object product = null;
+        PurchaseRule rule;
+        if (id == SpecialFeedProductId) rule = specialFeedRule;
         else
         {
-            if (!table.TryGetItem(id, out StoreInfo_Object product)) return false;
-            price = product.gold;
-            if (product.theme == ItemTheme.Default)
-            {
-                if ((int)product.category > (int)StoreItemCategory.Thread
-                    || table.GetIDByCategoryAndLevel(product.category.ToString(), product.level) != product.id
-                    || !goods.TryCreateUpgradeData(product, out goodsData)) return false;
-                // 횃대는 기존 데이터 구조상 인테리어 보유 항목이 없으므로 레벨만 저장합니다.
-                if (product.category != StoreItemCategory.Rack
-                    && !interior.TryCreatePurchaseData(product, table, true, out interiorData)) return false;
-            }
-            else if (!product.isButtonActive
-                || !interior.TryCreatePurchaseData(product, table, false, out interiorData)) return false;
+            if (!table.TryGetItem(id, out product)) return false;
+            rule = product.theme == ItemTheme.Default ? developmentRule : interiorRule;
         }
+        if (!rule.CanBuy(product)) return false;
 
-        if (!player.TryCreatePurchaseData(price, reward, out playerData))
+        int cost = rule.GetCost(product);
+        int reward = rule.SpecialFeedReward;
+        if (!player.CanPurchase(cost, reward))
         {
             error = "골드가 부족하거나 상품 가격/보유 수량이 올바르지 않습니다.";
             return false;
         }
+        plan = new PurchasePlan(product, rule, cost, reward);
         error = null;
         return true;
     }
 
+    /// <summary>확인창 이후 상태가 바뀔 수 있으므로 최종 검증 뒤에만 복사와 저장을 수행합니다.</summary>
     public bool TryPurchase(string id, out string error)
     {
         error = "이미 구매를 처리하고 있습니다.";
@@ -342,24 +384,156 @@ public sealed class StorePurchaseService
         purchasing = true;
         try
         {
-            // 1. 변경할 데이터의 복사본을 만들고 구매 조건을 최종 검사합니다.
-            if (!TryPrepare(id, out PlayerData playerData, out GoodsDataManager goodsData,
-                out InteriorDataManager interiorData, out error)) return false;
+            // 1. 읽기 전용 검증을 다시 수행하고 실제 구매에서만 변경 후 데이터를 만듭니다.
+            if (!TryGetPurchasePlan(id, out PurchasePlan plan, out error)) return false;
+            if (!player.TryCreatePurchaseData(plan.Cost, plan.SpecialFeedReward, out PlayerData playerData)
+                || !plan.Rule.TryCreateChanges(plan.Product, out PurchaseChanges changes))
+            {
+                error = InvalidProductError;
+                return false;
+            }
             var entries = new List<JsonManager.SaveEntry> { player.CreatePurchaseSaveEntry(playerData) };
-            if (goodsData != null) entries.Add(goodsData.CreateSaveEntry());
-            if (interiorData != null) entries.Add(interiorData.CreateSaveEntry());
+            if (changes.Goods != null) entries.Add(changes.Goods.CreateSaveEntry());
+            if (changes.Interior != null) entries.Add(changes.Interior.CreateSaveEntry());
 
-            // 2. 복구 가능한 기록을 저장한 후에만 메모리 상태를 교체합니다.
+            // 2. 저장 순서와 확정 시점은 상품 유형과 관계없이 한 곳에서 관리합니다.
             if (!jsonManager.TrySaveBatch(entries))
             {
                 error = "구매 정보를 저장할 수 없습니다. 재화와 상품은 변경되지 않았습니다.";
                 return false;
             }
-            if (goodsData != null) goods.ApplyPurchaseData(goodsData);
-            if (interiorData != null) interior.ApplyPurchaseData(interiorData);
+            if (changes.Goods != null) goods.ApplyPurchaseData(changes.Goods);
+            if (changes.Interior != null) interior.ApplyPurchaseData(changes.Interior);
             player.ApplyPurchaseData(playerData);
             return true;
         }
         finally { purchasing = false; }
+    }
+
+    /// <summary>검증된 상품과 가격을 구매 처리에 전달하는 값 형식이며 데이터 복사본은 포함하지 않습니다.</summary>
+    private readonly struct PurchasePlan
+    {
+        public readonly StoreInfo_Object Product;
+        public readonly PurchaseRule Rule;
+        public readonly int Cost;
+        public readonly int SpecialFeedReward;
+
+        public PurchasePlan(StoreInfo_Object product, PurchaseRule rule, int cost, int reward)
+        {
+            Product = product;
+            Rule = rule;
+            Cost = cost;
+            SpecialFeedReward = reward;
+        }
+    }
+
+    /// <summary>해당 유형에서 변경하는 데이터만 공통 저장 흐름에 전달합니다.</summary>
+    private readonly struct PurchaseChanges
+    {
+        public readonly GoodsDataManager Goods;
+        public readonly InteriorDataManager Interior;
+
+        public PurchaseChanges(GoodsDataManager goods, InteriorDataManager interior)
+        {
+            Goods = goods;
+            Interior = interior;
+        }
+    }
+
+    /// <summary>유형별로 달라지는 구매 가능 조건과 변경 데이터 생성만 분리합니다.</summary>
+    private abstract class PurchaseRule
+    {
+        public virtual int GetCost(StoreInfo_Object product) => product.gold;
+        public virtual int SpecialFeedReward => 0;
+        public abstract bool CanBuy(StoreInfo_Object product);
+        public abstract bool TryCreateChanges(StoreInfo_Object product, out PurchaseChanges changes);
+    }
+
+    /// <summary>보조도구는 다음 레벨만 구매하며, 횃대 외의 보조도구는 구매와 배치를 함께 확정합니다.</summary>
+    private sealed class DevelopmentPurchaseRule : PurchaseRule
+    {
+        private readonly GoodsDataManager goods;
+        private readonly InteriorDataManager interior;
+        private readonly StoreInfo_Data table;
+
+        public DevelopmentPurchaseRule(GoodsDataManager goods, InteriorDataManager interior, StoreInfo_Data table)
+        {
+            this.goods = goods;
+            this.interior = interior;
+            this.table = table;
+        }
+
+        public override bool CanBuy(StoreInfo_Object product)
+        {
+            if (product == null) return false;
+            // enum의 숫자 순서 대신 현재 보조도구 종류를 명시합니다.
+            switch (product.category)
+            {
+                case StoreItemCategory.Rack:
+                case StoreItemCategory.Vase:
+                case StoreItemCategory.Box:
+                case StoreItemCategory.Thread:
+                    return table.GetIDByCategoryAndLevel(product.category.ToString(), product.level) == product.id
+                        && goods.CanUpgrade(product)
+                        && (product.category == StoreItemCategory.Rack || interior.CanPurchase(product));
+                default:
+                    return false;
+            }
+        }
+
+        public override bool TryCreateChanges(StoreInfo_Object product, out PurchaseChanges changes)
+        {
+            changes = default;
+            if (!goods.TryCreateUpgradeData(product, out GoodsDataManager upgraded)) return false;
+            InteriorDataManager purchased = null;
+            // 횃대는 기존 데이터 구조에 인테리어 보유 항목이 없어 레벨만 변경합니다.
+            if (product.category != StoreItemCategory.Rack
+                && !interior.TryCreatePurchaseData(product, table, true, out purchased)) return false;
+            changes = new PurchaseChanges(upgraded, purchased);
+            return true;
+        }
+    }
+
+    /// <summary>인테리어는 미보유 상품만 구매하고, 실제 배치는 별도의 확인창에서 선택합니다.</summary>
+    private sealed class InteriorPurchaseRule : PurchaseRule
+    {
+        private readonly InteriorDataManager interior;
+        private readonly StoreInfo_Data table;
+
+        public InteriorPurchaseRule(InteriorDataManager interior, StoreInfo_Data table)
+        {
+            this.interior = interior;
+            this.table = table;
+        }
+
+        public override bool CanBuy(StoreInfo_Object product)
+        {
+            return product != null && product.isButtonActive && interior.CanPurchase(product);
+        }
+
+        public override bool TryCreateChanges(StoreInfo_Object product, out PurchaseChanges changes)
+        {
+            changes = default;
+            if (!interior.TryCreatePurchaseData(product, table, false, out InteriorDataManager purchased)) return false;
+            changes = new PurchaseChanges(null, purchased);
+            return true;
+        }
+    }
+
+    /// <summary>특제먹이는 제한 없이 반복 구매하며 설정된 가격으로 한 개씩 플레이어에게 지급합니다.</summary>
+    private sealed class SpecialFeedPurchaseRule : PurchaseRule
+    {
+        private readonly int price;
+
+        public SpecialFeedPurchaseRule(int price) => this.price = price;
+        public override int GetCost(StoreInfo_Object product) => price;
+        public override int SpecialFeedReward => 1;
+        public override bool CanBuy(StoreInfo_Object product) => true; // 재고 제한은 없고 재화는 공통 흐름에서 검증합니다.
+
+        public override bool TryCreateChanges(StoreInfo_Object product, out PurchaseChanges changes)
+        {
+            changes = default; // 특제먹이는 플레이어 재화 데이터만 변경합니다.
+            return true;
+        }
     }
 }

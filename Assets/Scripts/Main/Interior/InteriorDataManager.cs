@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using System.Linq;
 
 [Serializable]
 public class InteriorData
@@ -52,20 +49,25 @@ public class InteriorDataManager
 
     public InteriorData GetInteriorDataByStoreInfoId(string _storeinfo_id)
     {
-        InteriorData getData = dataList.FirstOrDefault(x => x.storeinfo_id == _storeinfo_id);
-        if (getData != null)
-            return getData;
-        else
-            return null;
+        if (dataList == null) return null;
+        foreach (InteriorData item in dataList)
+            if (item != null && item.storeinfo_id == _storeinfo_id) return item;
+        return null;
     }
 
     public InteriorData GetInteriorDataById(string _id)
     {
-        InteriorData getData = dataList.FirstOrDefault(x => x.id == _id);
-        if (getData != null)
-            return getData;
-        else
-            return null;
+        if (dataList == null) return null;
+        foreach (InteriorData item in dataList)
+            if (item != null && item.id == _id) return item;
+        return null;
+    }
+
+    /// <summary>복사본을 만들지 않고 상품의 저장 항목이 존재하고 아직 미보유인지 검사합니다.</summary>
+    public bool CanPurchase(StoreInfo_Object product)
+    {
+        InteriorData current = product != null ? GetInteriorDataByStoreInfoId(product.id) : null;
+        return current != null && !current.isHaving;
     }
 
     /// <summary>보유 상태와 자동 배치를 복사본에 적용하여 구매 확정 전 원본을 유지합니다.</summary>
@@ -73,9 +75,9 @@ public class InteriorDataManager
         out InteriorDataManager purchasedData)
     {
         purchasedData = null;
-        if (product == null || table == null) return false;
-        InteriorData current = GetInteriorDataByStoreInfoId(product.id);
-        if (current == null || current.isHaving) return false;
+        if (table == null || !CanPurchase(product)) return false;
+
+        // 검증과 복사를 구분하여 구매 가능 여부를 묻는 동안에는 전체 저장 데이터를 복사하지 않습니다.
         purchasedData = CopyData();
         purchasedData.GetInteriorDataByStoreInfoId(product.id).isHaving = true;
         if (adjust) purchasedData.SetAdjusting(product, table);
