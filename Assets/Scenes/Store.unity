@@ -16751,70 +16751,262 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2478b03c266413b44a8d886e19bcc9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodsContents:
-  - {fileID: 1217235870}
-  - {fileID: 1811917919}
-  - {fileID: 2016139590}
-  - {fileID: 2127749945}
-  interiorContetns:
-  - {fileID: 505989642}
-  - {fileID: 204045047}
-  goodsImages:
-  - imageList:
+  storeinfo_data: {fileID: 11400000, guid: 1f4fabd34cc3d6a499163bc3906e2fb9, type: 2}
+  developmentViews:
+  - productId: SO_4000
+    image: {fileID: 954494301}
+    price: {fileID: 790489602}
+    description: {fileID: 1910350947}
+    button: {fileID: 1422929657}
+    soldOut: {fileID: 515326681}
+    content: {fileID: 1217235870}
+    priceRoot: {fileID: 1539564611}
+    descriptionSuffix: ""
+    levelImages:
     - {fileID: 21300000, guid: 7d32afeb20957aa40ae79bac2e74bf04, type: 3}
     - {fileID: 21300000, guid: f83723316ca89824ab85780136ab541d, type: 3}
     - {fileID: 21300000, guid: 4892968c2a911724a9c7dc014faa197d, type: 3}
     - {fileID: 21300000, guid: 4892968c2a911724a9c7dc014faa197d, type: 3}
-  - imageList:
+  - productId: SO_4003
+    image: {fileID: 221243115}
+    price: {fileID: 268857077}
+    description: {fileID: 1380091319}
+    button: {fileID: 826635103}
+    soldOut: {fileID: 992103432}
+    content: {fileID: 1811917919}
+    priceRoot: {fileID: 332590628}
+    descriptionSuffix: ""
+    levelImages:
     - {fileID: 21300000, guid: c09c38027e4484d47a806eb59380b80b, type: 3}
     - {fileID: 21300000, guid: bf5caeee21d113344bf986dd149b381a, type: 3}
     - {fileID: 21300000, guid: 11db61b57e5973e49801d6a30ab7d3be, type: 3}
     - {fileID: 21300000, guid: bde3bf39c07bc0c4faf551d6ba72a499, type: 3}
     - {fileID: 21300000, guid: bde3bf39c07bc0c4faf551d6ba72a499, type: 3}
-  - imageList:
+  - productId: SO_4007
+    image: {fileID: 1008765598}
+    price: {fileID: 702819869}
+    description: {fileID: 482680404}
+    button: {fileID: 501778481}
+    soldOut: {fileID: 768161638}
+    content: {fileID: 2016139590}
+    priceRoot: {fileID: 297207623}
+    descriptionSuffix: ""
+    levelImages:
     - {fileID: 21300000, guid: 71087dd3a2e4f674bb8c72019a6e7eb4, type: 3}
     - {fileID: 21300000, guid: 4e4b3f724be566444bc4a578c32a1e83, type: 3}
     - {fileID: 21300000, guid: 5c641bd688c56564ea5890ba6eed2536, type: 3}
     - {fileID: 21300000, guid: c0745767bf026ad41a583ed11f782c74, type: 3}
     - {fileID: 21300000, guid: c0745767bf026ad41a583ed11f782c74, type: 3}
-  - imageList:
+  - productId: SO_4011
+    image: {fileID: 903696245}
+    price: {fileID: 137777240}
+    description: {fileID: 772078340}
+    button: {fileID: 2103551980}
+    soldOut: {fileID: 1661998330}
+    content: {fileID: 2127749945}
+    priceRoot: {fileID: 476485588}
+    descriptionSuffix: "\u0020\uC2E4"
+    levelImages:
     - {fileID: 21300000, guid: adf16cbdcb106b4449ac7919dbf710ab, type: 3}
     - {fileID: 21300000, guid: 9f081607dc8716f44b474b6c88662010, type: 3}
     - {fileID: 21300000, guid: 6a2d57314be3a154a90f96303abfad0b, type: 3}
     - {fileID: 21300000, guid: f03ad5faa6cb42e4ca49550c28a6e7e8, type: 3}
     - {fileID: 21300000, guid: 9e242461cd2d50d48bb6a504ac269998, type: 3}
     - {fileID: 21300000, guid: 9e242461cd2d50d48bb6a504ac269998, type: 3}
-  storeinfo_data: {fileID: 11400000, guid: 1f4fabd34cc3d6a499163bc3906e2fb9, type: 2}
-  soldOut:
-  - {fileID: 515326681}
-  - {fileID: 992103432}
-  - {fileID: 768161638}
-  - {fileID: 1661998330}
-  StarSoldOut:
-  - {fileID: 1679139442}
-  - {fileID: 1933238660}
-  - {fileID: 1860526583}
-  - {fileID: 715337176}
-  - {fileID: 787323996}
-  - {fileID: 1505484920}
-  - {fileID: 1051063666}
-  - {fileID: 1201306193}
-  - {fileID: 1782305769}
-  SeaSoldOut:
-  - {fileID: 288063019}
-  - {fileID: 556623235}
-  - {fileID: 2015967843}
-  - {fileID: 419433051}
-  - {fileID: 374430090}
-  - {fileID: 49949883}
-  - {fileID: 473817197}
-  - {fileID: 1298809776}
-  - {fileID: 2121643781}
-  developCategory:
-  - Rack
-  - Vase
-  - Box
-  - Thread
+  starViews:
+  - productId: SO_4018
+    image: {fileID: 752336424}
+    price: {fileID: 823772270}
+    description: {fileID: 1196602242}
+    button: {fileID: 1666878053}
+    soldOut: {fileID: 1679139442}
+    content: {fileID: 2019299838}
+    priceRoot: {fileID: 340565588}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4021
+    image: {fileID: 410364452}
+    price: {fileID: 1081690684}
+    description: {fileID: 299014042}
+    button: {fileID: 1163616100}
+    soldOut: {fileID: 1933238660}
+    content: {fileID: 27005408}
+    priceRoot: {fileID: 245265038}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4024
+    image: {fileID: 1819388566}
+    price: {fileID: 1710044441}
+    description: {fileID: 1866442471}
+    button: {fileID: 1637827824}
+    soldOut: {fileID: 1860526583}
+    content: {fileID: 1369011426}
+    priceRoot: {fileID: 769005434}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4027
+    image: {fileID: 1910603107}
+    price: {fileID: 426896750}
+    description: {fileID: 1112035816}
+    button: {fileID: 1068775629}
+    soldOut: {fileID: 715337176}
+    content: {fileID: 1728222863}
+    priceRoot: {fileID: 819053205}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4030
+    image: {fileID: 1348709620}
+    price: {fileID: 682001803}
+    description: {fileID: 1430542639}
+    button: {fileID: 1539509423}
+    soldOut: {fileID: 787323996}
+    content: {fileID: 657822912}
+    priceRoot: {fileID: 2076998806}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4033
+    image: {fileID: 1370579794}
+    price: {fileID: 1608703078}
+    description: {fileID: 668746120}
+    button: {fileID: 149620783}
+    soldOut: {fileID: 1505484920}
+    content: {fileID: 665843094}
+    priceRoot: {fileID: 697342682}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4036
+    image: {fileID: 1310527457}
+    price: {fileID: 1341174326}
+    description: {fileID: 2106944293}
+    button: {fileID: 1979861293}
+    soldOut: {fileID: 1051063666}
+    content: {fileID: 198155915}
+    priceRoot: {fileID: 1821246675}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4039
+    image: {fileID: 1904095983}
+    price: {fileID: 1845490222}
+    description: {fileID: 1404674634}
+    button: {fileID: 1654065178}
+    soldOut: {fileID: 1201306193}
+    content: {fileID: 2045756766}
+    priceRoot: {fileID: 651415645}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4042
+    image: {fileID: 955759762}
+    price: {fileID: 1973699101}
+    description: {fileID: 549756734}
+    button: {fileID: 967804714}
+    soldOut: {fileID: 1782305769}
+    content: {fileID: 75129602}
+    priceRoot: {fileID: 1861971281}
+    descriptionSuffix: ""
+    levelImages: []
+  seaViews:
+  - productId: SO_4017
+    image: {fileID: 630032621}
+    price: {fileID: 379767814}
+    description: {fileID: 52241837}
+    button: {fileID: 1386425570}
+    soldOut: {fileID: 288063019}
+    content: {fileID: 1573727727}
+    priceRoot: {fileID: 312416901}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4020
+    image: {fileID: 1497034946}
+    price: {fileID: 1136907637}
+    description: {fileID: 1002889755}
+    button: {fileID: 592609913}
+    soldOut: {fileID: 556623235}
+    content: {fileID: 1824815291}
+    priceRoot: {fileID: 1337482709}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4023
+    image: {fileID: 136056648}
+    price: {fileID: 605072927}
+    description: {fileID: 570400076}
+    button: {fileID: 55842035}
+    soldOut: {fileID: 2015967843}
+    content: {fileID: 1255673698}
+    priceRoot: {fileID: 153909975}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4026
+    image: {fileID: 965494390}
+    price: {fileID: 579449380}
+    description: {fileID: 481504344}
+    button: {fileID: 39165977}
+    soldOut: {fileID: 419433051}
+    content: {fileID: 1731423107}
+    priceRoot: {fileID: 1319037387}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4029
+    image: {fileID: 401382073}
+    price: {fileID: 900907221}
+    description: {fileID: 1265091159}
+    button: {fileID: 854366034}
+    soldOut: {fileID: 374430090}
+    content: {fileID: 1090243625}
+    priceRoot: {fileID: 1470629386}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4032
+    image: {fileID: 1955825108}
+    price: {fileID: 2008107394}
+    description: {fileID: 1570609610}
+    button: {fileID: 1607557746}
+    soldOut: {fileID: 49949883}
+    content: {fileID: 1310013082}
+    priceRoot: {fileID: 637426352}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4035
+    image: {fileID: 518247342}
+    price: {fileID: 125856342}
+    description: {fileID: 326515556}
+    button: {fileID: 1485307536}
+    soldOut: {fileID: 473817197}
+    content: {fileID: 1770643886}
+    priceRoot: {fileID: 666091749}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4038
+    image: {fileID: 1380417068}
+    price: {fileID: 1086390105}
+    description: {fileID: 2078425876}
+    button: {fileID: 500896293}
+    soldOut: {fileID: 1298809776}
+    content: {fileID: 1707570324}
+    priceRoot: {fileID: 1467254755}
+    descriptionSuffix: ""
+    levelImages: []
+  - productId: SO_4041
+    image: {fileID: 1264160381}
+    price: {fileID: 1148712443}
+    description: {fileID: 1077328780}
+    button: {fileID: 850575453}
+    soldOut: {fileID: 2121643781}
+    content: {fileID: 193097973}
+    priceRoot: {fileID: 612436764}
+    descriptionSuffix: ""
+    levelImages: []
+  specialFeedView:
+    productId: SpecialFeed
+    image: {fileID: 616553376}
+    price: {fileID: 695800440}
+    description: {fileID: 105293196}
+    button: {fileID: 2124201848}
+    soldOut: {fileID: 0}
+    content: {fileID: 853118456}
+    priceRoot: {fileID: 1523765709}
+    descriptionSuffix: ""
+    levelImages: []
+  specialFeedPrice: 1000
 --- !u!114 &897039079
 MonoBehaviour:
   m_ObjectHideFlags: 0

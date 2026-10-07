@@ -31,9 +31,15 @@ public class InteriorDataManager
 
     public void ResetData()
     {
+        ResetData(true);
+    }
+
+    /// <summary>기본 데이터를 구성하고, 상점 데이터와 함께 저장할 경우에는 즉시 저장을 생략합니다.</summary>
+    public void ResetData(bool saveImmediately)
+    {
         InteriorDataManager defaultData = jsonManager.LoadDefaultData<InteriorDataManager>(Constants.InteriorDataFile);
         dataList = defaultData.dataList ?? new List<InteriorData>();
-        Save();
+        if (saveImmediately) Save();
     }
 
     public void Load()

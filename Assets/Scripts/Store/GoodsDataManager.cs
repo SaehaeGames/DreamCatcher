@@ -35,9 +35,15 @@ public class GoodsDataManager
 
     public void ResetData()
     {
+        ResetData(true);
+    }
+
+    /// <summary>기본 데이터를 구성하고, 여러 파일을 함께 초기화할 때는 저장을 호출자에게 맡깁니다.</summary>
+    public void ResetData(bool saveImmediately)
+    {
         dataList = jsonManager.LoadDefaultData<GoodsDataManager>(Constants.GoodsDataFile).dataList
             ?? new List<GoodsData>();
-        Save();
+        if (saveImmediately) Save();
     }
 
     public void Load()

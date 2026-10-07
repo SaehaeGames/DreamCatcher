@@ -7,16 +7,9 @@ using UnityEngine.UI;
 public class StoreData : MonoBehaviour
 {
     [Header("[Store Product]")]
-    public GameObject[] goodsContents;
-    public GameObject[] interiorContetns; // 기존 씬의 저장된 연결 유지: Star, Sea 순
-    public SpriteArray[] goodsImages;
     public StoreInfo_Data storeinfo_data;
-    public GameObject[] soldOut;
-    public GameObject[] StarSoldOut;
-    public GameObject[] SeaSoldOut;
-    public string[] developCategory = { Constants.GoodsData_Rack, Constants.GoodsData_Vase, Constants.GoodsData_Box, Constants.GoodsData_Thread };
 
-    [Header("상품별 UI 참조 (비워두면 기존 씬에서 한 번만 연결)")]
+    [Header("상품 ID와 UI 직접 연결")]
     [SerializeField] private ProductView[] developmentViews;
     [SerializeField] private ProductView[] starViews;
     [SerializeField] private ProductView[] seaViews;
@@ -29,6 +22,14 @@ public class StoreData : MonoBehaviour
     private StorePurchaseService purchaseService;
     private bool initialized;
     public string LastPurchaseError { get; private set; }
+    public IReadOnlyList<ProductView> DevelopmentViews => developmentViews;
+    public ProductView SpecialFeedView => specialFeedView;
+
+    /// <summary>에디터 검증에서 실제 테마별 연결을 읽습니다. 목록을 새로 생성하거나 재정렬하지 않습니다.</summary>
+    public IReadOnlyList<ProductView> GetInteriorViews(ItemTheme theme)
+    {
+        return theme == ItemTheme.Star ? starViews : theme == ItemTheme.Sea ? seaViews : null;
+    }
 
     private void Start() => Initialize();
 
@@ -38,8 +39,8 @@ public class StoreData : MonoBehaviour
         if (initialized) return true;
         if (!TryInitializeReferences()) return false;
 
-        // 1. 기존 배열 또는 Inspector의 상품별 참조로 표시 대상을 구성합니다.
-        InitializeProductViews();
+        // 1. 씬에 저장된 명시적 연결을 검사합니다. 테이블 순서로 상품 ID를 추측하지 않습니다.
+        if (!ValidateProductBindings()) return false;
         // 2. 각 버튼에는 담당 객체와 상품 ID를 한 번만 연결합니다.
         BindButtons(developmentViews);
         BindButtons(starViews);
@@ -74,76 +75,28 @@ public class StoreData : MonoBehaviour
         return true;
     }
 
-    /// <summary>기존 씬의 자동 연결은 초기화 때만 수행하고 이후에는 캐시된 참조를 사용합니다.</summary>
-    private void InitializeProductViews()
+    /// <summary>상품 ID와 버튼이 연결된 구성만 실행하여 잘못된 상품을 대신 판매하지 않습니다.</summary>
+    private bool ValidateProductBindings()
     {
-        if (developmentViews == null || developmentViews.Length == 0)
-        {
-            int count = Mathf.Min(goodsContents?.Length ?? 0, developCategory?.Length ?? 0);
-            developmentViews = new ProductView[count];
-            for (int i = 0; i < count; i++)
-            {
-                developmentViews[i] = ProductView.FromLegacy(goodsContents[i], GetButton(buyCheck.ButtonObj, i), GetObject(soldOut, i));
-                developmentViews[i].category = developCategory[i];
-            }
-        }
-
-        // 이미지 배열도 상품별로 연결하여 매번 병렬 배열의 범위를 비교하지 않습니다.
-        for (int i = 0; i < developmentViews.Length; i++)
-        {
-            ProductView view = developmentViews[i];
-            if (view != null && (view.levelImages == null || view.levelImages.Length == 0)
-                && goodsImages != null && i < goodsImages.Length)
-                view.levelImages = goodsImages[i]?.imageList;
-        }
-        starViews = CreateInteriorViews(starViews, ItemTheme.Star, buyCheck.StarButtonObj, StarSoldOut);
-        seaViews = CreateInteriorViews(seaViews, ItemTheme.Sea, buyCheck.SeaButtonObj, SeaSoldOut);
-
-        if (specialFeedView == null || specialFeedView.button == null)
-        {
-            CategorySelect categories = GetComponent<CategorySelect>();
-            GameObject panel = categories != null ? GetObject(categories.categoryProducts, (int)StoreType.SpecialProduct) : null;
-            BuyButtonInfo button = panel != null ? panel.GetComponentInChildren<BuyButtonInfo>(true) : null;
-            specialFeedView = ProductView.FromLegacy(GetProductRoot(button), button, null);
-        }
-        specialFeedView.productId = StorePurchaseService.SpecialFeedProductId;
+        bool valid = HasBindings(developmentViews) && HasBindings(starViews) && HasBindings(seaViews)
+            && specialFeedView != null && specialFeedView.button != null
+            && specialFeedView.productId == StorePurchaseService.SpecialFeedProductId;
+        if (!valid)
+            Debug.LogError("[StoreData] 상품 ID와 버튼을 Inspector에서 연결한 뒤 상점 상품 검증 메뉴를 실행해 주세요.", this);
+        return valid;
     }
 
-    private ProductView[] CreateInteriorViews(ProductView[] views, ItemTheme theme, GameObject[] buttons, GameObject[] overlays)
+    private static bool HasBindings(ProductView[] views)
     {
-        if (views != null && views.Length > 0) return views;
-        List<StoreInfo_Object> items = storeinfo_data.GetItemsByTheme(theme);
-        views = new ProductView[buttons?.Length ?? 0];
-        for (int i = 0; i < views.Length; i++)
-        {
-            BuyButtonInfo button = GetButton(buttons, i);
-            views[i] = ProductView.FromLegacy(GetProductRoot(button), button, GetObject(overlays, i));
-            // 비활성 상품도 같은 슬롯에 남겨 뒤 상품의 이미지 연결이 밀리지 않게 합니다.
-            views[i].productId = i < items.Count ? items[i].id : null;
-        }
-        return views;
+        if (views == null || views.Length == 0) return false;
+        foreach (ProductView view in views)
+            if (view == null || view.button == null || string.IsNullOrWhiteSpace(view.productId)) return false;
+        return true;
     }
 
     private void BindButtons(ProductView[] views)
     {
-        foreach (ProductView view in views)
-            if (view != null) view.Bind(buyCheck);
-    }
-
-    private static GameObject GetObject(GameObject[] objects, int index)
-    {
-        return objects != null && index >= 0 && index < objects.Length ? objects[index] : null;
-    }
-
-    private static BuyButtonInfo GetButton(GameObject[] objects, int index)
-    {
-        GameObject target = GetObject(objects, index);
-        return target != null ? target.GetComponent<BuyButtonInfo>() : null;
-    }
-
-    private static GameObject GetProductRoot(BuyButtonInfo button)
-    {
-        return button != null && button.transform.parent != null ? button.transform.parent.gameObject : null;
+        foreach (ProductView view in views) view.Bind(buyCheck);
     }
 
     /// <summary>테마 선택은 지역적인 두 갈래 결정이므로 조건문을 유지합니다.</summary>
@@ -169,17 +122,22 @@ public class StoreData : MonoBehaviour
         foreach (ProductView view in developmentViews)
         {
             if (view == null) continue;
-            // 1. 다음 레벨이 없거나 데이터가 잘못되면 구매 버튼과 품절 표시만 갱신합니다.
-            GoodsData current = goodsDataManager.GetValidatedGoodsData(view.category);
+            // 1. 고정된 기본 상품 ID로 카테고리를 얻고, 저장된 레벨의 다음 상품을 찾습니다.
+            // 기본 상품 ID는 변경하지 않고, 실제 구매 버튼의 ID만 다음 레벨 상품으로 갱신합니다.
+            bool configured = storeinfo_data.TryGetItem(view.productId, out StoreInfo_Object baseItem)
+                && baseItem.theme == ItemTheme.Default;
+            string category = configured ? baseItem.category.ToString() : null;
+            GoodsData current = goodsDataManager.GetValidatedGoodsData(category);
             string id = current != null && current.level < int.MaxValue
-                ? storeinfo_data.GetIDByCategoryAndLevel(view.category, current.level + 1) : null;
+                ? storeinfo_data.GetIDByCategoryAndLevel(category, current.level + 1) : null;
             bool available = storeinfo_data.TryGetItem(id, out StoreInfo_Object item);
             view.UpdateAvailability(id, available);
-            if (!available) continue;
 
-            // 2. 표시값과 이미지는 상품별 UI 객체가 담당합니다.
-            view.ShowInformation(item.gold, item.effect ?? "");
-            view.ShowLevelImage(item.level);
+            // 2. 다음 상품이 없으면 현재 레벨을 표시합니다. 재진입 후에도 최대 레벨 이미지가 유지됩니다.
+            if (!available && current != null)
+                storeinfo_data.TryGetItem(storeinfo_data.GetIDByCategoryAndLevel(category, current.level), out item);
+            view.ShowInformation(item != null ? item.gold : 0, item?.effect ?? "", available);
+            if (current != null) view.ShowLevelImage(available ? item.level : current.level);
         }
     }
 
@@ -220,24 +178,20 @@ public class StoreData : MonoBehaviour
         return success;
     }
 
-    [Serializable]
-    public class SpriteArray
-    {
-        public Sprite[] imageList;
-    }
-
     /// <summary>상품의 표시 참조와 표시 동작을 묶습니다. 데이터 검증과 구매 처리는 포함하지 않습니다.</summary>
     [Serializable]
     public class ProductView
     {
         public string productId;
-        public string category;
         public Image image;
         public Text price;
         public Text description;
         public BuyButtonInfo button;
         public GameObject soldOut;
         public GameObject content;
+        public GameObject priceRoot;
+        [Tooltip("효과 값 뒤에 붙이는 고정 문구입니다. 실 색상에는 ' 실'을 설정합니다.")]
+        public string descriptionSuffix;
         public Sprite[] levelImages;
 
         public void Bind(BuyCheck owner)
@@ -251,10 +205,14 @@ public class StoreData : MonoBehaviour
             if (button != null) button.UpdateProduct(id, available);
         }
 
-        public void ShowInformation(int gold, string text)
+        /// <summary>변경되는 효과 값만 갱신합니다. 단위는 별도 Text 또는 설정한 접미사로 유지합니다.</summary>
+        public void ShowInformation(int gold, string text, bool showPrice = true)
         {
+            // 최대 레벨에서는 숫자뿐 아니라 골드 아이콘을 포함한 가격 영역 전체를 숨깁니다.
+            if (priceRoot != null) priceRoot.SetActive(showPrice);
+            else if (price != null) price.gameObject.SetActive(showPrice);
             if (price != null) price.text = gold.ToString();
-            if (description != null && text != null) description.text = text;
+            if (description != null && text != null) description.text = text + descriptionSuffix;
         }
 
         public void ShowLevelImage(int level)
@@ -264,28 +222,6 @@ public class StoreData : MonoBehaviour
             if (sprite != null && image.sprite != sprite) image.sprite = sprite;
         }
 
-        /// <summary>기존 UI 이름으로 참조를 모읍니다. 씬 구조를 변경하지 않고 명시적 연결로 옮기기 위한 초기화 경로입니다.</summary>
-        public static ProductView FromLegacy(GameObject root, BuyButtonInfo button, GameObject overlay)
-        {
-            var view = new ProductView { button = button, soldOut = overlay, content = root };
-            if (root == null) return view;
-            Transform cost = root.transform.Find("Cost");
-            if (cost != null) view.price = cost.GetComponentInChildren<Text>(true);
-            Transform effect = root.transform.Find("Text_EffectNumber") ?? root.transform.Find("Text_Effect");
-            if (effect != null) view.description = effect.GetComponent<Text>();
-            if (view.soldOut == null)
-            {
-                Transform sold = root.transform.Find("SoldOut");
-                if (sold != null) view.soldOut = sold.gameObject;
-            }
-            foreach (Transform child in root.transform)
-                if (child.name.StartsWith("Image_Product", StringComparison.Ordinal))
-                {
-                    view.image = child.GetComponent<Image>();
-                    break;
-                }
-            return view;
-        }
     }
 
     private void OnValidate()
@@ -293,15 +229,8 @@ public class StoreData : MonoBehaviour
         ValidateViews(developmentViews);
         ValidateViews(starViews);
         ValidateViews(seaViews);
-        if (goodsContents != null && goodsImages != null && goodsContents.Length != goodsImages.Length)
-            Debug.LogWarning("[StoreData] 보조도구 오브젝트와 이미지 배열 길이가 다릅니다.", this);
-        if (goodsContents != null && soldOut != null && goodsContents.Length != soldOut.Length)
-            Debug.LogWarning("[StoreData] 보조도구 오브젝트와 품절 배열 길이가 다릅니다.", this);
-        if (developmentViews == null) return;
-        var categories = new HashSet<string>();
-        foreach (ProductView view in developmentViews)
-            if (view != null && (string.IsNullOrWhiteSpace(view.category) || !categories.Add(view.category)))
-                Debug.LogWarning("[StoreData] 보조도구 카테고리를 중복 없이 지정해 주세요.", this);
+        if (specialFeedView != null && specialFeedView.button == null)
+            Debug.LogWarning("[StoreData] 특제먹이 상품 버튼 참조가 누락되었습니다.", this);
     }
 
     private void ValidateViews(ProductView[] views)
