@@ -63,8 +63,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 
         // 4. 해금 안내를 표시하고 OK 입력을 구독함.
         ShowUnlockPopup();
-        okBtn.onClick.RemoveListener(OnOkButtonClicked);
-        okBtn.onClick.AddListener(OnOkButtonClicked);
+        TutorialUnlockPopupUtility.BindOkButton(okBtn, OnOkButtonClicked);
     }
 
     /// <summary>
@@ -93,7 +92,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
         // 2. 재활성화 때 클릭 콜백이 중복되지 않도록 등록한 리스너를 제거함.
         if (okBtn != null)
         {
-            okBtn.onClick.RemoveListener(OnOkButtonClicked);
+            TutorialUnlockPopupUtility.UnbindOkButton(okBtn, OnOkButtonClicked);
         }
 
         runtime.IsCompleted = false;

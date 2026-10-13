@@ -98,6 +98,27 @@ internal static class TutorialUnlockPopupUtility
         unlockPopUp.SetActive(true);
     }
 
+    public static void BindOkButton(
+    Button okBtn,
+    UnityAction callback)
+    {
+        if (okBtn == null)
+            return;
+
+        okBtn.onClick.RemoveListener(callback);
+        okBtn.onClick.AddListener(callback);
+    }
+
+    public static void UnbindOkButton(
+    Button okBtn,
+    UnityAction callback)
+    {
+        if (okBtn == null)
+            return;
+
+        okBtn.onClick.RemoveListener(callback);
+    }
+
     /// <summary>
     /// TutorialContext를 우선 사용하고 이전 씬 구성은 안전한 태그 검색으로 지원함.
     /// </summary>
