@@ -51,7 +51,6 @@ MonoBehaviour:
   birdinfo_data: {fileID: 11400000, guid: d2db6e65f05fff74aa391e932d963579, type: 2}
   dreaminfo_data: {fileID: 11400000, guid: 1e483975a20b7d54e968407e4a302318, type: 2}
   storeinfo_data: {fileID: 11400000, guid: 1f4fabd34cc3d6a499163bc3906e2fb9, type: 2}
-  interiorinfo_data: {fileID: 11400000, guid: 6b285af3cad8cde47a6c08cde67ae308, type: 2}
   questinfo_data: {fileID: 11400000, guid: a66775841f187704e88b128bed9e8dfa, type: 2}
   storyscriptinfo_data: {fileID: 11400000, guid: 9b4f7421e00b866488f5c966d69ee11a, type: 2}
   storysceneinfo_data: {fileID: 11400000, guid: 1fe2c086afa895240af98a31a3aee81f, type: 2}

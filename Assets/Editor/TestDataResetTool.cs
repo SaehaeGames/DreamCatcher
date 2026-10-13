@@ -242,7 +242,6 @@ internal static class EditorDataTableUpdateService
         typeof(BirdInfo_Data),
         typeof(DreamInfo_Data),
         typeof(StoreInfo_Data),
-        typeof(InteriorInfo_Data),
         typeof(QuestInfo_Data),
         typeof(StoryScriptInfo_Data),
         typeof(StorySceneInfo_Data)
@@ -527,9 +526,13 @@ internal static class EditorDataTableUpdateService
         // 테이블 저장 후에는 이미지와 버튼 등 Store 씬에 연결된 참조까지 검사합니다.
         List<string> validationErrors = StoreProductValidationService.ValidateProject(true);
         foreach (string error in validationErrors) Debug.LogWarning("[StoreValidation] " + error);
+        List<string> interiorErrors = InteriorValidationService.ValidateProject(true);
+        foreach (string error in interiorErrors) Debug.LogWarning("[InteriorValidation] " + error);
         string validationMessage = validationErrors.Count == 0 ? "상점 상품 검증 통과"
             : $"상점 검증: {validationErrors.Count}개 확인 필요 (Console 참조)";
-        string message = $"성공 {completedJobCount}개, 실패 {failedJobCount}개\n{validationMessage}";
+        string interiorMessage = interiorErrors.Count == 0 ? "인테리어 검증 통과"
+            : $"인테리어 검증: {interiorErrors.Count}개 확인 필요 (Console 참조)";
+        string message = $"성공 {completedJobCount}개, 실패 {failedJobCount}개\n{validationMessage}\n{interiorMessage}";
         Debug.Log($"[DataTable] 에디터 데이터 테이블 갱신 종료: {message}");
         EditorUtility.DisplayDialog("데이터 테이블 갱신 완료", message, "확인");
     }
@@ -640,7 +643,8 @@ internal static class StoreProductValidationService
         return errors;
     }
 
-    private static T ReadDefault<T>(string fileName, List<string> errors) where T : class
+    /// <summary>상점과 인테리어 검증에서 공유하는 기본 JSON 읽기입니다. 실제 저장 파일은 읽거나 변경하지 않습니다.</summary>
+    internal static T ReadDefault<T>(string fileName, List<string> errors) where T : class
     {
         TextAsset asset = Resources.Load<TextAsset>("DefaultJsonData/" + fileName);
         if (asset == null)
@@ -832,5 +836,249 @@ internal static class StoreProductValidationService
         if (view.priceRoot == null) errors.Add(label + ": 가격 영역 루트가 없습니다.");
         if (view.description == null) errors.Add(label + ": 효과/설명 Text가 없습니다.");
         if (needsSoldOut && view.soldOut == null) errors.Add(label + ": 품절 표시가 없습니다.");
+    }
+}
+
+/// <summary>
+/// 인테리어 테이블과 기본 데이터, Main 씬의 명시적인 버튼·표시 대상 연결을 읽기 전용으로 검사합니다.
+/// 실제 저장 데이터 로드나 보정, UI 초기화는 실행하지 않아 검증만으로 사용자 상태가 바뀌지 않습니다.
+/// </summary>
+internal static class InteriorValidationService
+{
+    private const string MainScenePath = "Assets/Scenes/Main.unity";
+    private const string StoreTablePath = "Assets/Scripts/DataTable/ScritableObjects/StoreInfo.asset";
+
+    [MenuItem("DreamCatcher/인테리어/데이터 및 UI 검증")]
+    public static void ValidateMenu()
+    {
+        List<string> errors = ValidateProject(true);
+        if (errors.Count == 0)
+        {
+            Debug.Log("[InteriorValidation] 기본 데이터와 Main 인테리어 UI 연결에 문제가 없습니다.");
+            return;
+        }
+        foreach (string error in errors) Debug.LogWarning("[InteriorValidation] " + error);
+        Debug.LogWarning($"[InteriorValidation] 확인할 항목: {errors.Count}개");
+    }
+
+    /// <summary>프로젝트 기본 자산과 직렬화된 씬 참조를 검사하고, 임시로 연 씬은 저장 없이 닫습니다.</summary>
+    public static List<string> ValidateProject(bool includeUi)
+    {
+        // 1. 게임의 Load/Reset/Save 함수 대신 자산과 기본 JSON만 읽습니다.
+        var errors = new List<string>();
+        StoreInfo_Data table = AssetDatabase.LoadAssetAtPath<StoreInfo_Data>(StoreTablePath);
+        if (table == null)
+        {
+            errors.Add("인테리어 검증에 필요한 상점 테이블이 없습니다: " + StoreTablePath);
+            return errors;
+        }
+        GoodsDataManager goods = StoreProductValidationService.ReadDefault<GoodsDataManager>(Constants.GoodsDataFile, errors);
+        InteriorDataManager interior = StoreProductValidationService.ReadDefault<InteriorDataManager>(Constants.InteriorDataFile, errors);
+        errors.AddRange(StoreProductValidationService.ValidateData(table.dataList, goods?.dataList, interior?.dataList));
+        if (!includeUi) return errors;
+
+        // 2. 이미 열린 Main 씬을 우선 사용합니다. 검증을 위한 추가 로드는 Edit Mode에서만 허용합니다.
+        UnityEngine.SceneManagement.Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneByPath(MainScenePath);
+        UnityEngine.SceneManagement.Scene originalActiveScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        bool openedForValidation = false;
+        try
+        {
+            if (!scene.IsValid() || !scene.isLoaded)
+            {
+                if (EditorApplication.isPlayingOrWillChangePlaymode)
+                {
+                    errors.Add("Play Mode에서는 Main 씬을 먼저 열어야 UI를 검증할 수 있습니다. 데이터 검증은 완료했습니다.");
+                    return errors;
+                }
+                scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
+                    MainScenePath, UnityEditor.SceneManagement.OpenSceneMode.Additive);
+                openedForValidation = true;
+            }
+
+            // 3. 활성 게임 오브젝트에 연결된 실행 대상을 검사합니다. 누락 참조를 자동으로 채우지 않습니다.
+            InteriorCategory[] owners = scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<InteriorCategory>(true))
+                .Where(owner => owner.gameObject.activeInHierarchy).ToArray();
+            if (owners.Length != 1) errors.Add($"Main 씬의 활성 InteriorCategory는 1개여야 합니다. 현재: {owners.Length}개");
+            foreach (InteriorCategory owner in owners)
+                errors.AddRange(ValidateBindings(owner, table.dataList, goods?.dataList, interior?.dataList));
+        }
+        catch (Exception exception)
+        {
+            errors.Add("Main 씬 인테리어 검증을 완료할 수 없습니다: " + exception.Message);
+        }
+        finally
+        {
+            // 4. 이 함수가 연 씬만 닫습니다. 원래 편집하던 씬의 변경 내용과 활성 상태를 유지합니다.
+            if (openedForValidation && scene.IsValid())
+            {
+                if (originalActiveScene.IsValid() && originalActiveScene.isLoaded)
+                    UnityEngine.SceneManagement.SceneManager.SetActiveScene(originalActiveScene);
+                UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene, true);
+            }
+        }
+        return errors;
+    }
+
+    /// <summary>전달된 연결과 목록만 검사합니다. 데이터 순서나 판매 버튼 활성 여부로 상품 ID를 재배정하지 않습니다.</summary>
+    public static List<string> ValidateBindings(InteriorCategory owner, IReadOnlyList<StoreInfo_Object> products,
+        IReadOnlyList<GoodsData> defaultGoods, IReadOnlyList<InteriorData> defaultInterior)
+    {
+        var errors = new List<string>();
+        if (owner == null) { errors.Add("인테리어 UI 담당 객체가 없습니다."); return errors; }
+        if (products == null || products.Count == 0) { errors.Add("UI와 비교할 상점 상품 목록이 없습니다."); return errors; }
+
+        // 1. 상품을 ID로 조회합니다. 테이블 중복 자체는 공통 데이터 검증에서 보고하므로 예외 없이 첫 항목을 보관합니다.
+        var productById = new Dictionary<string, StoreInfo_Object>(StringComparer.Ordinal);
+        foreach (StoreInfo_Object product in products)
+            if (product != null && !string.IsNullOrWhiteSpace(product.id) && !productById.ContainsKey(product.id))
+                productById.Add(product.id, product);
+
+        // 2. 탭과 상품이 같은 버튼을 공유하지 않는지 공통 목록으로 확인합니다.
+        var buttons = new HashSet<InteriorButton>();
+        ValidateTabs(owner.Tabs, owner.ScrollRect, buttons, errors);
+        ValidateItemViews(owner.ItemViews, productById, defaultInterior, buttons, errors);
+
+        // 3. 실제 Main 표시 대상과 모든 상품 외형의 이미지 범위를 검사합니다.
+        ValidateMainProducts(owner.MainProducts, products, defaultGoods, errors);
+        return errors;
+    }
+
+    /// <summary>선택 탭의 ScrollRect 연결과 버튼·콘텐츠·선 표시를 검사합니다.</summary>
+    private static void ValidateTabs(IReadOnlyList<InteriorCategory.InteriorTab> tabs,
+        UnityEngine.UI.ScrollRect scrollRect, HashSet<InteriorButton> buttons, List<string> errors)
+    {
+        if (scrollRect == null) errors.Add("인테리어 ScrollRect가 없습니다.");
+        else if (scrollRect.viewport == null) errors.Add("인테리어 ScrollRect의 Viewport가 없습니다.");
+        if (tabs == null || tabs.Count != Enum.GetValues(typeof(ItemTheme)).Length)
+            errors.Add("인테리어 탭은 테이블의 Default·Sea·Star 테마와 같은 수로 연결해야 합니다.");
+        if (tabs == null) return;
+        var contents = new HashSet<RectTransform>();
+        var lines = new HashSet<GameObject>();
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            InteriorCategory.InteriorTab tab = tabs[i];
+            string label = "인테리어 탭 " + i;
+            if (tab == null) { errors.Add(label + ": 연결이 없습니다."); continue; }
+            ValidateButton(tab.button, label, buttons, errors);
+            if (tab.content == null) errors.Add(label + ": 콘텐츠가 없습니다.");
+            else
+            {
+                if (!contents.Add(tab.content)) errors.Add(label + ": 다른 탭과 콘텐츠를 공유합니다.");
+                if (scrollRect != null && scrollRect.viewport != null && !tab.content.IsChildOf(scrollRect.viewport))
+                    errors.Add(label + ": 콘텐츠가 ScrollRect Viewport 아래에 없습니다.");
+            }
+            if (tab.unselectedLine == null) errors.Add(label + ": 비선택 선 표시가 없습니다.");
+            else if (!lines.Add(tab.unselectedLine)) errors.Add(label + ": 다른 탭과 선 표시를 공유합니다.");
+        }
+        if (scrollRect != null && (scrollRect.content == null || !contents.Contains(scrollRect.content)))
+            errors.Add("ScrollRect의 Content가 연결된 인테리어 탭 콘텐츠가 아닙니다.");
+    }
+
+    /// <summary>보유 상태를 표시하는 모든 상품의 고정 ID와 버튼·잠금·적용 표시를 검사합니다.</summary>
+    private static void ValidateItemViews(IReadOnlyList<InteriorCategory.InteriorItemView> views,
+        Dictionary<string, StoreInfo_Object> productById, IReadOnlyList<InteriorData> defaultInterior,
+        HashSet<InteriorButton> buttons, List<string> errors)
+    {
+        if (views == null || views.Count == 0) { errors.Add("인테리어 상품 UI 목록이 비어 있습니다."); return; }
+        var ids = new HashSet<string>(StringComparer.Ordinal);
+        var indicators = new HashSet<GameObject>();
+        foreach (InteriorCategory.InteriorItemView view in views)
+        {
+            if (view == null) { errors.Add("인테리어 상품 UI 목록에 null 항목이 있습니다."); continue; }
+            string label = "인테리어 상품 " + (string.IsNullOrWhiteSpace(view.productId) ? "ID 없음" : view.productId);
+            if (string.IsNullOrWhiteSpace(view.productId) || !ids.Add(view.productId))
+                errors.Add(label + ": 상품 ID가 비어 있거나 중복되었습니다.");
+            if (!productById.TryGetValue(view.productId ?? string.Empty, out StoreInfo_Object product))
+                errors.Add(label + ": 상점 테이블에 없는 상품입니다.");
+            else if (product.category == StoreItemCategory.Rack
+                || (product.theme == ItemTheme.Default && product.category != StoreItemCategory.Vase
+                    && product.category != StoreItemCategory.Box && product.category != StoreItemCategory.Thread))
+                errors.Add(label + ": 선택 가능한 인테리어 상품이 아닙니다.");
+            ValidateButton(view.button, label, buttons, errors);
+            ValidateIndicator(view.locked, view.button, label + " 잠금", indicators, errors);
+            ValidateIndicator(view.applying, view.button, label + " 적용", indicators, errors);
+            if (view.locked != null && view.locked.GetComponent<UnityEngine.UI.Image>() == null)
+                errors.Add(label + ": 잠금 표시의 Image 컴포넌트가 없습니다.");
+        }
+        // 판매 상태는 외형 선택과 별개입니다. 기본 보유 데이터에 있는 상품은 판매 중단 상태여도 슬롯이 필요합니다.
+        if (defaultInterior != null)
+            foreach (InteriorData item in defaultInterior)
+                if (item != null && !string.IsNullOrWhiteSpace(item.storeinfo_id) && !ids.Contains(item.storeinfo_id))
+                    errors.Add("기본 인테리어 상품의 UI 연결이 없습니다: " + item.storeinfo_id);
+    }
+
+    /// <summary>같은 버튼의 중복 역할과 누락된 Unity UI Button 컴포넌트를 검사합니다.</summary>
+    private static void ValidateButton(InteriorButton button, string label, HashSet<InteriorButton> buttons,
+        List<string> errors)
+    {
+        if (button == null) { errors.Add(label + ": InteriorButton이 없습니다."); return; }
+        if (!buttons.Add(button)) errors.Add(label + ": 다른 탭이나 상품과 버튼을 공유합니다.");
+        if (button.GetComponent<UnityEngine.UI.Button>() == null) errors.Add(label + ": Button 컴포넌트가 없습니다.");
+    }
+
+    /// <summary>다른 상품의 잠금·적용 표시를 잘못 조작하지 않도록 표시 대상의 소속과 중복을 검사합니다.</summary>
+    private static void ValidateIndicator(GameObject indicator, InteriorButton button, string label,
+        HashSet<GameObject> indicators, List<string> errors)
+    {
+        if (indicator == null) { errors.Add(label + ": 표시 대상이 없습니다."); return; }
+        if (!indicators.Add(indicator)) errors.Add(label + ": 다른 역할과 표시 대상을 공유합니다.");
+        if (button != null && (indicator == button.gameObject || !indicator.transform.IsChildOf(button.transform)))
+            errors.Add(label + ": 해당 상품 버튼의 자식이 아닙니다.");
+    }
+
+    /// <summary>Goods ID별 실제 화면 대상과 상품 테마·레벨별 이미지가 모두 연결되어 있는지 검사합니다.</summary>
+    private static void ValidateMainProducts(MainProducts mainProducts, IReadOnlyList<StoreInfo_Object> products,
+        IReadOnlyList<GoodsData> defaultGoods, List<string> errors)
+    {
+        if (mainProducts == null) { errors.Add("인테리어의 MainProducts 참조가 없습니다."); return; }
+        IReadOnlyList<MainProducts.DisplayBinding> bindings = mainProducts.DisplayBindings;
+        if (bindings == null || bindings.Count == 0) { errors.Add("Main 화면 표시 대상 목록이 비어 있습니다."); return; }
+
+        // 1. 화면 대상은 저장 리스트의 위치가 아닌 Goods ID로 연결해야 합니다.
+        var goodsIds = new HashSet<string>(StringComparer.Ordinal);
+        var images = new HashSet<UnityEngine.UI.Image>();
+        var categories = new HashSet<StoreItemCategory>();
+        foreach (MainProducts.DisplayBinding binding in bindings)
+        {
+            if (binding == null) { errors.Add("Main 표시 대상 목록에 null 항목이 있습니다."); continue; }
+            string label = "Main 표시 대상 " + (string.IsNullOrWhiteSpace(binding.goodsId) ? "ID 없음" : binding.goodsId);
+            if (string.IsNullOrWhiteSpace(binding.goodsId) || !goodsIds.Add(binding.goodsId))
+                errors.Add(label + ": Goods ID가 비어 있거나 중복되었습니다.");
+            GoodsData defaultItem = defaultGoods?.FirstOrDefault(item => item != null && item.id == binding.goodsId);
+            if (defaultItem == null)
+                errors.Add(label + ": 기본 Goods 데이터에 없는 ID입니다.");
+            else if (Enum.TryParse(defaultItem.category?.Trim(), true, out StoreItemCategory savedCategory)
+                && Enum.IsDefined(typeof(StoreItemCategory), savedCategory) && savedCategory != binding.category)
+                errors.Add(label + ": 기본 Goods 데이터와 상품 종류가 다릅니다.");
+            if (!Enum.IsDefined(typeof(StoreItemCategory), binding.category))
+                errors.Add(label + ": 상품 종류가 올바르지 않습니다.");
+            categories.Add(binding.category);
+            if (binding.image == null) errors.Add(label + ": 적용할 Image가 없습니다.");
+            else if (!images.Add(binding.image)) errors.Add(label + ": 다른 표시 대상과 Image를 공유합니다.");
+            if (!products.Any(product => product != null && product.category == binding.category
+                && product.theme == ItemTheme.Default && product.level == 0))
+                errors.Add(label + ": 기본 복귀용 상품이 없습니다.");
+
+            // 2. 실제 렌더링과 같은 계산을 사용하여 높은 레벨과 Sea/Star 외형이 빈 이미지로 바뀌지 않게 합니다.
+            foreach (StoreInfo_Object product in products)
+            {
+                if (product == null || product.category != binding.category) continue;
+                bool isDevelopment = binding.category == StoreItemCategory.Rack || binding.category == StoreItemCategory.Vase
+                    || binding.category == StoreItemCategory.Box || binding.category == StoreItemCategory.Thread;
+                if (isDevelopment && product.theme != ItemTheme.Default)
+                    errors.Add(label + ": 보조도구의 테마 상품은 이미지 선택 정책을 먼저 설정해야 합니다: " + product.id);
+                if (!binding.TryGetSprite(product, out _))
+                    errors.Add(label + ": " + product.id + " 상품 외형 이미지가 없습니다.");
+            }
+        }
+
+        // 3. 같은 카테고리가 여러 화면에 적용되더라도 각 Goods ID의 대상은 빠짐없이 존재해야 합니다.
+        if (defaultGoods != null)
+            foreach (GoodsData goods in defaultGoods)
+                if (goods != null && !string.IsNullOrWhiteSpace(goods.id) && !goodsIds.Contains(goods.id))
+                    errors.Add("Main 화면의 Goods 표시 대상이 없습니다: " + goods.id);
+        foreach (StoreItemCategory category in products.Where(product => product != null).Select(product => product.category).Distinct())
+            if (!categories.Contains(category)) errors.Add("인테리어 종류의 Main 표시 대상이 없습니다: " + category);
     }
 }

@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,7 +26,6 @@ public class GameManager : MonoBehaviour
     public BirdInfo_Data birdinfo_data;
     public DreamInfo_Data dreaminfo_data;
     public StoreInfo_Data storeinfo_data;
-    public InteriorInfo_Data interiorinfo_data;
     public QuestInfo_Data questinfo_data;
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
@@ -68,41 +61,6 @@ public class GameManager : MonoBehaviour
         return instance;
     }  
 
-    public void UpdateGameDataFromSpreadSheet()
-    {
-        // 스프레드 시트로부터 게임 데이터를 불러오는 함수
-        // 데이터 테이블에 변경사항 있을 때 딱 한 번 호출하기!
-        // 비동기 방식으로 데이터를 불러오기 때문에, 데이터가 모두 불러와지면 저장 코드 실행
-
-#if UNITY_EDITOR
-        int totalCount = 7; // 업데이트할 데이터의 총 개수
-        int updatedCount = 0;   // 업데이트된 데이터의 개수
-
-        Action onUpdateComplete = () =>
-        {
-            updatedCount++;
-
-            // 모든 데이터가 업데이트 되었을 때 저장
-            if (updatedCount >= totalCount)
-            {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh(); // 변경사항 즉시 반영
-
-                Debug.Log("데이터 테이블 저장 완료");
-            }
-        };
-
-        birdinfo_data.UpdateBirdInfoData(onUpdateComplete);
-        dreaminfo_data.UpdateDreamInfoData(onUpdateComplete);
-        storeinfo_data.UpdateStoreInfoData(onUpdateComplete);
-        interiorinfo_data.UpdateInteriorInfoData(onUpdateComplete);
-        questinfo_data.UpdateQuestInfoData(onUpdateComplete);
-        storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
-        storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
-        charoninfo_data.UpdateCharonInfoData(onUpdateComplete);
-        diaryinfo_data.UpdateDiaryInfoData(onUpdateComplete);
-#endif
-    }
 
     public void ResetGameManager()
     {
@@ -125,6 +83,13 @@ public class GameManager : MonoBehaviour
         //featherDataManager.ResetData();
         dreamCatcherDataManager.Load();
         dreamCatcherInventoryDataManager.Load();
+        // 인테리어는 모든 화면에서 같은 보유·배치 상태를 사용하도록 데이터 로드 뒤에 준비합니다.
+        // 이전 세이브에 추가 상품이 없거나 배치 상태가 잘못된 경우 여기서 한 번만 보정·저장합니다.
+        if (!interiorDataManager.TryPrepareData(storeinfo_data, goodsDataManager, out string interiorError))
+        {
+            Debug.LogError("[GameManager] 인테리어 데이터 준비 실패: " + interiorError, this);
+            return;
+        }
         IsInitialized = true;
     }
 }
