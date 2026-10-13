@@ -6,7 +6,7 @@ public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
 {
     public LetterType letterType;
     private QuestManager questManager;
-    private bool goNext = false;
+    private bool isCompleted = false;
 
     public override void Enter()
     {
@@ -21,13 +21,17 @@ public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
                 break;
         }
 
-        pipeline.SetSceneState(SceneState.None);
-        pipeline.MoveToNextSequence();
+        isCompleted = true;
     }
 
     public override void Execute()
     {
-
+        if(isCompleted)
+        {
+            pipeline.SetSceneState(SceneState.None);
+            pipeline.MoveToNextSequence();
+            isCompleted = false;
+        }
     }
 
     public override void Exit()
