@@ -11984,11 +11984,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 547764428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
+  m_Script: {fileID: 11500000, guid: a5498d9d45657774b9e97b1ae9efc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startId: 7000
-  endId: 7000
+  letterType: 1
+  unlockPopUp: {fileID: 4018898486327527586}
+  okBtn: {fileID: 4018898486327527585}
+  itemImage: {fileID: 4018898486327527589}
+  messageText: {fileID: 4018898486327527588}
+  unlockIcon: {fileID: 21300000, guid: 8d5e8b0900e58ab4491ee69dc192c705, type: 3}
+  unlockMessage: "\uBC18\uBCF5 \uD018\uC2A4\uD2B8\uAC00 \uD574\uAE08\uB418\uC5C8\uC2B5\uB2C8\uB2E4."
+  specialFeedIcon: {fileID: 0}
+  specialFeedMessage: "\uD2B9\uC81C\uBA39\uC774\uB97C \uD68D\uB4DD\uD588\uC2B5\uB2C8\uB2E4."
 --- !u!1 &552471711
 GameObject:
   m_ObjectHideFlags: 0
@@ -51401,6 +51408,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8085696567013516971, guid: 09ca0bf5b5edcbb43829f7523d70e86b, type: 3}
   m_PrefabInstance: {fileID: 4018898486327527584}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4018898486327527588 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6120699155768018579, guid: 09ca0bf5b5edcbb43829f7523d70e86b, type: 3}
+  m_PrefabInstance: {fileID: 4018898486327527584}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4018898486327527589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7028520603219181778, guid: 09ca0bf5b5edcbb43829f7523d70e86b, type: 3}
+  m_PrefabInstance: {fileID: 4018898486327527584}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &4326545474794666651
 Rigidbody2D:
   serializedVersion: 4
