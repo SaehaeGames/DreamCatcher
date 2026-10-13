@@ -10,6 +10,7 @@ public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
 
     public override void Enter()
     {
+        isCompleted = false;
         questManager = FindFirstObjectByType<QuestManager>();
 
         switch (letterType)
@@ -28,9 +29,9 @@ public class InteractiveSequenceReceiveLetter : InteractiveSequenceBase
     {
         if(isCompleted)
         {
+            isCompleted = false;
             pipeline.SetSceneState(SceneState.None);
             pipeline.MoveToNextSequence();
-            isCompleted = false;
         }
     }
 

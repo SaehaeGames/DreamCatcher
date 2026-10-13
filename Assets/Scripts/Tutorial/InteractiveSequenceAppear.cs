@@ -36,9 +36,9 @@ public class InteractiveSequenceAppear : InteractiveSequenceBase
     {
         if(isCompleted)
         {
+            isCompleted = false;
             pipeline.SetSceneState(SceneState.None);
             pipeline.MoveToNextSequence();
-            isCompleted = false;
         }
     }
 
