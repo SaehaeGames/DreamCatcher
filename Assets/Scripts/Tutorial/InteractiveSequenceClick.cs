@@ -78,7 +78,7 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
     {
         if (runtime.InteractiveButton != null && runtime.InteractiveButton.GetButtonClicked())
         {
-            pipeline.SetSceneState(SceneState.None);
+            pipeline.SetSceneState(GetNextSceneState());
             pipeline.MoveToNextSequence();
         }
     }
