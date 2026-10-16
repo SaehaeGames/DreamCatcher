@@ -8,18 +8,19 @@ public class InteriorManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // 최초 씬 활성화는 데이터 준비보다 빠를 수 있습니다.
-        // 최초 외형은 InteriorCategory.Start에서 적용하고, 이후 패널 재열기만 여기서 갱신합니다.
-        if (category != null && category.IsInitialized) category.RefreshPanel();
+        // 최초 OnEnable은 GameManager.Awake보다 빠를 수 있으므로 데이터가 준비된 경우에만 갱신합니다.
+        // 메뉴 초기화가 이전에 실패했어도 재열기 시 다시 검증할 수 있으며, 최초 Main 외형은 MainProducts가 따로 준비합니다.
+        if (category != null && GameManager.instance != null && GameManager.instance.IsInitialized)
+            category.RefreshPanel();
     }
 
-    /// <summary>패널을 열면 OnEnable에서 표시와 선택 탭의 스크롤 위치를 갱신합니다.</summary>
+    /// <summary>패널을 열면 OnEnable에서 표시를 갱신하고 기본 탭과 스크롤 상단으로 돌아갑니다.</summary>
     public void OpenInteriorPanel()
     {
         if (interiorPanel != null) interiorPanel.SetActive(true);
     }
 
-    /// <summary>패널을 닫되 선택한 탭과 저장된 외형은 유지합니다.</summary>
+    /// <summary>패널을 닫습니다. 저장된 외형은 유지하고 탭과 스크롤은 다음에 열 때 초기화합니다.</summary>
     public void CloseInteriorPanel()
     {
         if (interiorPanel != null) interiorPanel.SetActive(false);

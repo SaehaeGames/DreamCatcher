@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Main의 보조도구와 장식 이미지를 표시합니다.
-/// 인테리어 초기화에서 데이터를 전달받아 저장된 최종 외형을 한 번에 적용합니다.
+/// 인테리어 메뉴의 연결 상태와 관계없이 저장된 최종 외형을 한 번에 적용합니다.
 /// </summary>
 public class MainProducts : MonoBehaviour
 {
@@ -18,6 +18,22 @@ public class MainProducts : MonoBehaviour
     private bool initialized;
 
     public IReadOnlyList<DisplayBinding> DisplayBindings => displayBindings;
+
+    /// <summary>메뉴 버튼·탭의 설정 오류와 독립적으로 첫 화면의 저장 외형을 준비합니다.</summary>
+    private void Start()
+    {
+        // 1. 메뉴에서 먼저 초기화한 경우 중복 조회와 이미지 변경을 생략합니다.
+        if (initialized) return;
+        GameManager manager = GameManager.instance;
+        if (manager == null || !manager.IsInitialized)
+        {
+            ReportError("게임 데이터 초기화가 필요합니다.");
+            return;
+        }
+
+        // 2. 모든 Awake에서 데이터 로드가 끝난 뒤 실행되므로 첫 렌더링 전에 최종 외형을 적용할 수 있습니다.
+        Initialize(manager.storeinfo_data, manager.goodsDataManager, manager.interiorDataManager);
+    }
 
     /// <summary>조회에 필요한 데이터를 전달받고 모든 초기 이미지를 검증한 뒤 함께 표시합니다.</summary>
     public bool Initialize(StoreInfo_Data table, GoodsDataManager goodsData, InteriorDataManager interiorData)

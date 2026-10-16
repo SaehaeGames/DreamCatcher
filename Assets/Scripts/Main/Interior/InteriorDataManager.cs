@@ -60,11 +60,22 @@ public class InteriorDataManager
         else dataList = defaultData.dataList ?? new List<InteriorData>();
     }
 
-    /// <summary>기존 파일을 읽습니다. 테이블과의 정합성은 공통 초기화의 TryPrepareData에서 확인합니다.</summary>
+    /// <summary>복구 가능한 보유 기록이 있는 파일을 읽고, 테이블과의 정합성은 TryPrepareData에서 확인합니다.</summary>
     public void Load()
     {
-        InteriorDataManager loadedData = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile);
+        // 빈 JSON도 문법상 정상일 수 있으므로, 보유 기록이 전혀 없는 원본보다 정상 백업을 우선합니다.
+        // 일부 행의 누락·중복과 이전 상품 ID는 여기서 버리지 않고 이후 준비 단계에서 병합합니다.
+        InteriorDataManager loadedData = jsonManager.LoadData<InteriorDataManager>(Constants.InteriorDataFile, HasRecoverableItems);
         dataList = loadedData.dataList ?? new List<InteriorData>();
+    }
+
+    /// <summary>복구할 상품 참조가 하나라도 있는지 검사합니다. 빈 목록이 정상인 다른 데이터에는 적용하지 않습니다.</summary>
+    private static bool HasRecoverableItems(InteriorDataManager data)
+    {
+        if (data?.dataList == null) return false;
+        foreach (InteriorData item in data.dataList)
+            if (item != null && !string.IsNullOrWhiteSpace(item.storeinfo_id)) return true;
+        return false;
     }
 
     public void Save()
@@ -110,7 +121,9 @@ public class InteriorDataManager
         foreach (InteriorData item in defaults.dataList)
             if (!byProduct.ContainsKey(item.storeinfo_id))
             {
-                var copy = new InteriorData(item.id, item.isHaving, item.isAdjusting, item.storeinfo_id);
+                // 새 기본 행의 적용 표시가 기존 선택과 경쟁하지 않게 합니다.
+                // 기존 유효 선택이 없을 때만 5단계에서 기본 레벨0 외형을 선택합니다.
+                var copy = new InteriorData(item.id, item.isHaving, false, item.storeinfo_id);
                 prepared.dataList.Add(copy);
                 byProduct.Add(copy.storeinfo_id, copy);
             }

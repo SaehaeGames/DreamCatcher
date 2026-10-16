@@ -9,6 +9,8 @@ using UnityEngine.UI;
 /// </summary>
 public class InteriorCategory : MonoBehaviour
 {
+    private const int DefaultTabIndex = 0;
+
     [Header("탭과 상품 ID 직접 연결")]
     [SerializeField] private InteriorTab[] tabs;
     [SerializeField] private InteriorItemView[] itemViews;
@@ -42,9 +44,14 @@ public class InteriorCategory : MonoBehaviour
         // 1. 초기화에서 준비한 공통 데이터를 사용합니다. 화면을 열 때 세이브를 다시 읽지 않습니다.
         storeInfo = manager.storeinfo_data;
         interior = manager.interiorDataManager;
+
+        // 2. 메뉴 연결 오류가 저장된 Main 외형 적용을 막지 않도록 표시 초기화를 먼저 요청합니다.
+        // MainProducts도 자체 Start에서 초기화하므로 메뉴의 MainProducts 참조가 없어도 Main 표시는 독립적으로 준비됩니다.
+        if (mainProducts == null || !mainProducts.Initialize(storeInfo, manager.goodsDataManager, interior))
+            return ReportError("Main 외형 연결을 확인해 주세요.");
         if (!ValidateBindings()) return false;
 
-        // 2. 비활성 탭의 버튼도 담당 객체와 고정 ID를 전달받습니다. OnClick은 Inspector 연결만 사용합니다.
+        // 3. 비활성 탭의 버튼도 담당 객체와 고정 ID를 전달받습니다. OnClick은 Inspector 연결만 사용합니다.
         for (int i = 0; i < tabs.Length; i++)
         {
             tabs[i].button.buttonNumber = i;
@@ -56,24 +63,21 @@ public class InteriorCategory : MonoBehaviour
             view.button.Initialize(this);
         }
 
-        // 3. 저장된 최종 외형으로 시작하여 보조도구의 최고 레벨 이미지와 선택 외형이 서로 덮어쓰지 않게 합니다.
-        if (!mainProducts.Initialize(storeInfo, manager.goodsDataManager, interior))
-            return ReportError("Main 외형 연결을 확인해 주세요.");
+        // 4. 씬에 남은 탭 인덱스와 관계없이 최초 화면은 기본 탭과 목록 상단으로 통일합니다.
         initialized = true;
-        currentCategoryIndex = Mathf.Clamp(currentCategoryIndex, 0, tabs.Length - 1);
-        UpdateCategoryPanel(currentCategoryIndex);
+        UpdateCategoryPanel(DefaultTabIndex);
         RefreshItemViews();
         ClearError();
         return true;
     }
 
-    /// <summary>패널 재열기 시 현재 데이터로 표시를 갱신하고 선택된 탭을 상단으로 복원합니다.</summary>
+    /// <summary>패널 재열기 시 현재 데이터로 표시를 갱신하고 기본 탭의 상단에서 다시 시작합니다.</summary>
     public bool RefreshPanel()
     {
         if (!initialized) return Initialize();
         if (!mainProducts.RefreshAll(out string error)) return ReportError(error);
         RefreshItemViews();
-        UpdateCategoryPanel(currentCategoryIndex);
+        UpdateCategoryPanel(DefaultTabIndex);
         ClearError();
         return true;
     }
@@ -84,7 +88,7 @@ public class InteriorCategory : MonoBehaviour
         if (!Initialize()) return;
         if (index < 0 || index >= tabs.Length) { ReportError("선택한 인테리어 탭이 없습니다."); return; }
 
-        // 1. 선택 상태를 보관하고 현재 탭만 표시합니다. 패널을 닫았다 열어도 탭 선택은 유지됩니다.
+        // 1. 열린 패널 안에서는 선택한 탭을 표시합니다. 패널 재열기는 RefreshPanel에서 기본 탭을 선택합니다.
         currentCategoryIndex = index;
         for (int i = 0; i < tabs.Length; i++)
         {
@@ -128,8 +132,8 @@ public class InteriorCategory : MonoBehaviour
     /// <summary>불완전한 씬 연결로 다른 상품을 대신 선택하지 않도록 초기화 전에 검사합니다.</summary>
     private bool ValidateBindings()
     {
-        if (mainProducts == null || scrollRect == null || tabs == null || tabs.Length == 0 || itemViews == null || itemViews.Length == 0)
-            return ReportError("탭, 상품 또는 Main 표시 참조가 없습니다.");
+        if (scrollRect == null || tabs == null || tabs.Length == 0 || itemViews == null || itemViews.Length == 0)
+            return ReportError("탭, 상품 또는 스크롤 참조가 없습니다.");
 
         var contents = new HashSet<RectTransform>();
         var buttons = new HashSet<InteriorButton>();

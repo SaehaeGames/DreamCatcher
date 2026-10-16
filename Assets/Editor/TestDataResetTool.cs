@@ -66,6 +66,46 @@ public class TestDataResetTool
         if (CanResetStoreData()) ResetStoreData(StoreResetMode.Interior);
     }
 
+    /// <summary>상점·인테리어 테스트용 골드 100,000과 특제먹이 50개를 현재 보유량에 더해 함께 저장합니다.</summary>
+    [MenuItem("DreamCatcher/테스트 데이터 초기화/테스트 재화 추가 (골드 +100000, 특제먹이 +50)")]
+    public static void AddTestCurrencies()
+    {
+        // 1. 실행 중인 매니저의 메모리와 저장 파일이 달라지지 않도록 Play Mode와 전환 중에는 지급하지 않습니다.
+        if (!ValidateStoreTestMenus())
+        {
+            Debug.LogWarning("[TestDataReset] 테스트 재화 추가는 Play Mode를 종료한 뒤 실행해 주세요.");
+            return;
+        }
+
+        const int goldReward = 100000;
+        const int specialFeedReward = 50;
+        try
+        {
+            // 2. 기존 진행도·해금·음향 설정을 보존하는 복사본에만 지급량을 반영합니다.
+            PlayerDataManager player = new PlayerDataManager();
+            player.Load();
+            if (player.GetGold() > int.MaxValue - goldReward
+                || !player.TryCreatePurchaseData(0, specialFeedReward, out PlayerData rewardedData))
+                throw new InvalidOperationException("골드 또는 특제먹이 보유량이 최대 저장 범위를 초과하여 지급할 수 없습니다.");
+            rewardedData.gold += goldReward;
+
+            // 3. 두 재화를 같은 플레이어 저장 작업으로 확정하여 한쪽만 지급되는 상태를 방지합니다.
+            JsonManager jsonManager = new JsonManager();
+            if (!jsonManager.TrySaveBatch(new List<JsonManager.SaveEntry> { player.CreatePurchaseSaveEntry(rewardedData) }))
+                throw new InvalidOperationException("테스트 재화를 저장할 수 없습니다.");
+
+            // 4. 에디터의 저장 파일 표시를 갱신하고 다음 Play Mode에서 읽을 확정 보유량을 안내합니다.
+            AssetDatabase.Refresh();
+            Debug.Log($"[TestDataReset] 테스트 재화 지급 확정: 골드 +{goldReward:N0}, 특제먹이 +{specialFeedReward}개 "
+                + $"(보유 골드 {rewardedData.gold:N0}, 특제먹이 {rewardedData.specialFeed}개)");
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError("[TestDataReset] 테스트 재화 추가 실패: " + exception.Message);
+            EditorUtility.DisplayDialog("테스트 재화 추가 실패", exception.Message, "확인");
+        }
+    }
+
     [MenuItem("DreamCatcher/테스트 데이터 초기화/먹이 + 타이머 데이터 초기화")]
     public static void ResetRackDataOnly()
     {
@@ -90,7 +130,8 @@ public class TestDataResetTool
     [MenuItem("DreamCatcher/테스트 데이터 초기화/상점 + 인테리어 전체 초기화", true)]
     [MenuItem("DreamCatcher/테스트 데이터 초기화/상점 구매 데이터만 초기화", true)]
     [MenuItem("DreamCatcher/테스트 데이터 초기화/인테리어 데이터만 초기화", true)]
-    private static bool ValidateStoreResetMenus()
+    [MenuItem("DreamCatcher/테스트 데이터 초기화/테스트 재화 추가 (골드 +100000, 특제먹이 +50)", true)]
+    private static bool ValidateStoreTestMenus()
     {
         // 실행 중인 GameManager의 메모리와 저장 파일이 서로 달라지지 않도록 실행/전환 중에는 차단합니다.
         return !EditorApplication.isPlayingOrWillChangePlaymode;
@@ -99,7 +140,7 @@ public class TestDataResetTool
     /// <summary>메뉴 검증을 거치지 않는 직접 호출에서도 실행 중 초기화를 차단합니다.</summary>
     private static bool CanResetStoreData()
     {
-        if (ValidateStoreResetMenus()) return true;
+        if (ValidateStoreTestMenus()) return true;
         Debug.LogWarning("[TestDataReset] 상점/인테리어 초기화는 Play Mode를 종료한 뒤 실행해 주세요.");
         return false;
     }

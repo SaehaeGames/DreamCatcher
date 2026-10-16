@@ -1,7 +1,7 @@
 {
-    "gold": 0,
+    "gold": 65000,
     "dreamMarble": 0,
-    "specialFeed": 0,
+    "specialFeed": 50,
     "bgmVolume": 0.0,
     "effectVolume": 0.0,
     "bgmMute": false,

@@ -134,12 +134,21 @@ public class JsonManager
 
     public T LoadData<T>(string fileName) where T : new()
     {
+        return LoadData<T>(fileName, null);
+    }
+
+    /// <summary>
+    /// JSON 문법과 데이터별 유효성을 함께 확인하여 원본, 백업, 기본 데이터 순서로 읽습니다.
+    /// 검증 함수를 생략하는 기존 호출은 빈 목록을 포함한 종전 로드 규칙을 유지합니다.
+    /// </summary>
+    public T LoadData<T>(string fileName, Func<T, bool> validateData) where T : new()
+    {
         EnsurePendingTransactionRecovered();
         string savedPath = GetPath(fileName);
-        if (TryLoadJson(savedPath, out T data)) return data;
+        if (TryLoadJson(savedPath, out T data, validateData)) return data;
 
         string backupPath = GetBackupPath(savedPath);
-        if (TryLoadJson(backupPath, out data))
+        if (TryLoadJson(backupPath, out data, validateData))
         {
             Debug.LogWarning($"[JsonManager] 백업 저장 데이터를 복구합니다: {fileName}");
             RestorePrimaryWithoutRotatingBackup(savedPath, JsonUtility.ToJson(data, true));
@@ -147,6 +156,12 @@ public class JsonManager
         }
 
         data = LoadDefaultData<T>(fileName);
+        // 기본 데이터까지 손상된 경우에는 기존 원본과 백업을 새 빈 데이터로 덮어쓰지 않습니다.
+        if (!IsValidLoadedData(data, validateData))
+        {
+            Debug.LogError($"[JsonManager] 유효한 기본 저장 데이터가 없어 파일을 유지합니다: {fileName}");
+            return data;
+        }
         SaveData(fileName, data);
         return data;
     }
@@ -209,7 +224,7 @@ public class JsonManager
         TrySaveData(fileName, wrapper);
     }
 
-    private static bool TryLoadJson<T>(string path, out T data)
+    private static bool TryLoadJson<T>(string path, out T data, Func<T, bool> validateData = null)
     {
         data = default(T);
         if (!File.Exists(path)) return false;
@@ -220,11 +235,24 @@ public class JsonManager
             if (string.IsNullOrWhiteSpace(json)) return false;
 
             data = JsonUtility.FromJson<T>(json);
-            return !ReferenceEquals(data, null);
+            return IsValidLoadedData(data, validateData);
         }
         catch (Exception exception)
         {
             Debug.LogWarning($"[JsonManager] 저장 데이터 읽기 실패: {path}\n{exception.Message}");
+            return false;
+        }
+    }
+
+    /// <summary>데이터 매니저가 제공한 검사만 적용하며, 검사 오류도 잘못된 파일로 처리해 다음 복구 후보를 확인합니다.</summary>
+    private static bool IsValidLoadedData<T>(T data, Func<T, bool> validateData)
+    {
+        if (ReferenceEquals(data, null)) return false;
+        if (validateData == null) return true;
+        try { return validateData(data); }
+        catch (Exception exception)
+        {
+            Debug.LogWarning("[JsonManager] 저장 데이터 검증 실패: " + exception.Message);
             return false;
         }
     }
