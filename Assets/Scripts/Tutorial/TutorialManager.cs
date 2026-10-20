@@ -86,8 +86,8 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        // 2. 튜토리얼 범위 밖이거나 메인/카론 퀘스트 연출 중이면 이 관리자는 실행하지 않음.
-        if (!ShouldRunTutorial())
+        // 2. 튜토리얼 범위 밖이거나 메인/카론 퀘스트 연출 중이 아니면 ScriptBox 비활성화.
+        if (ShouldDeactiveScriptBox())
         {
             if (scriptBox != null)
             {
@@ -226,11 +226,11 @@ public class TutorialManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 현재 저장 상태가 튜토리얼 범위이며 메인/카론 퀘스트 연출이 실행 중이지 않은지 확인함.
+    /// 현재 저장 상태가 튜토리얼 범위 밖이거나 메인/카론 퀘스트 연출 중이 아닌지 확인함.
     /// </summary>
-    private bool ShouldRunTutorial()
+    private bool ShouldDeactiveScriptBox()
     {
-        return IsTutorialScene(runtime.CurrentScene)
+        return !IsTutorialScene(runtime.CurrentScene)
             && !runtime.PlayerDataManager.GetIsQuestActinoPlaying()
             && !runtime.PlayerDataManager.GetIsCharonQuestActionPlaying();
     }
