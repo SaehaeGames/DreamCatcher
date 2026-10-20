@@ -4689,6 +4689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 194081979}
+  - component: {fileID: 194081980}
   m_Layer: 0
   m_Name: 04_Popup
   m_TagString: Untagged
@@ -4711,6 +4712,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 326550963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &194081980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194081978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startId: 7000
+  endId: 7001
 --- !u!1 &195431356
 GameObject:
   m_ObjectHideFlags: 0
@@ -6579,6 +6594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 253314669}
+  - component: {fileID: 253314670}
   m_Layer: 0
   m_Name: 02_Popup
   m_TagString: Untagged
@@ -6601,6 +6617,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1708025115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &253314670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253314668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa7ca9e07bde8543bbe8b97edc58c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockPopUp: {fileID: 4018898486327527586}
+  okBtn: {fileID: 4018898486327527585}
+  itemImage: {fileID: 4018898486327527589}
+  messageText: {fileID: 4018898486327527588}
+  popupIcon: {fileID: 0}
+  popupMessage: 
 --- !u!1 &253860837
 GameObject:
   m_ObjectHideFlags: 0
@@ -7759,6 +7793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323114949}
+  - component: {fileID: 323114950}
   m_Layer: 0
   m_Name: 01_Popup
   m_TagString: Untagged
@@ -7781,6 +7816,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 326550963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323114950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323114948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa7ca9e07bde8543bbe8b97edc58c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockPopUp: {fileID: 4018898486327527586}
+  okBtn: {fileID: 4018898486327527585}
+  itemImage: {fileID: 4018898486327527589}
+  messageText: {fileID: 4018898486327527588}
+  popupIcon: {fileID: 21300000, guid: 63de34ca5099607479ac0c5a02decf95, type: 3}
+  popupMessage: "\uC2E0\uAE30\uD55C \uC561\uCCB4\uB97C \uC5BB\uC5C8\uB2E4."
 --- !u!1 &324085161
 GameObject:
   m_ObjectHideFlags: 0
@@ -13921,6 +13974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 623887892}
+  - component: {fileID: 623887893}
   m_Layer: 0
   m_Name: 03_Note
   m_TagString: Untagged
@@ -13943,6 +13997,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 326550963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623887893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623887891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f4273344c03364b9189145d7491d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startId: 7000
+  endId: 7001
 --- !u!1 &629557366
 GameObject:
   m_ObjectHideFlags: 0

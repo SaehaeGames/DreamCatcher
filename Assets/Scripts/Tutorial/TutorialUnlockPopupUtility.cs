@@ -98,6 +98,19 @@ internal static class TutorialUnlockPopupUtility
         unlockPopUp.SetActive(true);
     }
 
+    /// <summary>
+    /// 공용 해금 팝업을 닫음.
+    /// </summary>
+    public static void Hide(GameObject unlockPopUp)
+    {
+        if (unlockPopUp == null)
+        {
+            return;
+        }
+
+        unlockPopUp.SetActive(false);
+    }
+
     public static void BindOkButton(
     Button okBtn,
     UnityAction callback)
