@@ -27,10 +27,18 @@ public class SpreadSheetManager : MonoBehaviour
         // 스트레드 시트 클래스 인스턴스화 한 데이터를 리스트화
 
         List<T> returnList = new List<T>();
+
+        // Windows 형식의 줄바꿈(\r\n)을 \n으로 통일
+        data = data.Replace("\r\n", "\n");
+
         string[] splitedData = data.Split('\n');    // 행을 기준으로 분리
         
         foreach (string element in splitedData)
         {
+            // 마지막에 남은 빈 행은 건너뜀
+            if (string.IsNullOrWhiteSpace(element))
+                continue;
+
             string[] datas = element.Split('\t');   // 열을 기준으로 분리
             returnList.Add(GetSpreadSheetData<T>(datas));   // 리스트에 추가
         }

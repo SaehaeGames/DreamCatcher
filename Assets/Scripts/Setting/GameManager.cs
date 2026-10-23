@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         ResetGameManager();
+        //UpdateGameDataFromSpreadSheet();
     }
 
     public static GameManager GetGameManager()
