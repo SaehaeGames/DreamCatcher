@@ -6,9 +6,6 @@ using UnityEngine.UI;
 /// <summary>
 /// 먹이와 편지 해금 시퀀스가 같은 TutorialOverlay 팝업을 찾고 아이콘·문구를 교체하는 공통 기능.
 /// </summary>
-/// <summary>
-/// 먹이와 편지 해금 시퀀스가 같은 TutorialOverlay 팝업을 찾고 아이콘·문구를 교체하는 공통 기능.
-/// </summary>
 internal static class TutorialUnlockPopupUtility
 {
     /// <summary>
@@ -16,22 +13,42 @@ internal static class TutorialUnlockPopupUtility
     /// </summary>
     public static bool Resolve(
         Component owner,
-        ref GameObject unlockPopUp,
+        PopupType type,
+        ref GameObject PopupObject,
         ref Button okBtn,
         ref Image itemImage,
         ref Text messageText)
     {
         // 1. 팝업 루트가 없으면 TutorialContext와 태그 검색 순서로 공용 UnlockPopUp을 찾음.
-        if (unlockPopUp == null)
+        if (PopupObject == null)
         {
             GameObject tutorialOverlay = ResolveTutorialOverlay(owner);
-            Transform popupTransform = tutorialOverlay != null
+            Transform popupTransform;
+            switch (type)
+            {
+                case PopupType.Unlock:
+                    popupTransform = tutorialOverlay != null
                 ? tutorialOverlay.transform.Find("UnlockPopUp")
                 : null;
-            unlockPopUp = popupTransform != null ? popupTransform.gameObject : null;
+                    break;
+                case PopupType.Text:
+                    popupTransform = tutorialOverlay != null
+                ? tutorialOverlay.transform.Find("TextPopup")
+                : null;
+                    break;
+                case PopupType.Note:
+                    popupTransform = tutorialOverlay != null
+                ? tutorialOverlay.transform.Find("NotePopup")
+                : null;
+                    break;
+                default:
+                    popupTransform = null;
+                    break;
+            }
+            PopupObject = popupTransform != null ? popupTransform.gameObject : null;
         }
 
-        if (unlockPopUp == null)
+        if (PopupObject == null)
         {
             Debug.LogError($"[TutorialUnlockPopup] {owner.name}: UnlockPopUp을 찾을 수 없습니다.");
             return false;
@@ -40,19 +57,19 @@ internal static class TutorialUnlockPopupUtility
         // 2. 개별 UI 참조가 없으면 팝업 내부의 정해진 경로에서 찾음.
         if (okBtn == null)
         {
-            Transform buttonTransform = unlockPopUp.transform.Find("OKBtn");
+            Transform buttonTransform = PopupObject.transform.Find("OKBtn");
             okBtn = buttonTransform != null ? buttonTransform.GetComponent<Button>() : null;
         }
 
-        if (itemImage == null)
+        if (type == PopupType.Unlock && itemImage == null)
         {
-            Transform imageTransform = unlockPopUp.transform.Find("ItemFrame/ItemImage");
+            Transform imageTransform = PopupObject.transform.Find("ItemFrame/ItemImage");
             itemImage = imageTransform != null ? imageTransform.GetComponent<Image>() : null;
         }
 
         if (messageText == null)
         {
-            Transform textTransform = unlockPopUp.transform.Find("Text");
+            Transform textTransform = PopupObject.transform.Find("Text");
             messageText = textTransform != null ? textTransform.GetComponent<Text>() : null;
         }
 
@@ -70,6 +87,7 @@ internal static class TutorialUnlockPopupUtility
     /// 공통 팝업의 이전 내용을 지우고 현재 보상의 아이콘과 문구로 교체한 뒤 표시함.
     /// </summary>
     public static void Show(
+        PopupType type,
         GameObject unlockPopUp,
         Image itemImage,
         Text messageText,
@@ -82,7 +100,7 @@ internal static class TutorialUnlockPopupUtility
         }
 
         // 1. 아이콘이 없는 보상에서 이전 팝업 아이콘이 남지 않도록 Sprite와 활성 상태를 함께 갱신함.
-        if (itemImage != null)
+        if (type == PopupType.Unlock && itemImage != null)
         {
             itemImage.sprite = icon;
             itemImage.enabled = icon != null;

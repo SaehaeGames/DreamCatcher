@@ -1,35 +1,47 @@
-
+ï»¿
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PopupType
+{
+    Unlock,
+    Text,
+    Note
+}
+
 /// <summary>
-/// °ø¿ë ÆË¾÷À» Ç¥½ÃÇÏ°í È®ÀÎ ¹öÆ°À» ´©¸£¸é ´ÙÀ½ ½ÃÄö½º·Î ÁøÇàÇÔ.
+/// ê³µìš© íŒì—…ì„ í‘œì‹œí•˜ê³  í™•ì¸ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ë‹¤ìŒ ì‹œí€€ìŠ¤ë¡œ ì§„í–‰í•¨.
 /// </summary>
 public class InteractiveSequencePopup : InteractiveSequenceBase
 {
-    [Header("°øÅë ÆË¾÷")]
+    [Header("ê³µí†µ íŒì—…")]
     [SerializeField] private GameObject unlockPopUp;
     [SerializeField] private Button okBtn;
     [SerializeField] private Image itemImage;
     [SerializeField] private Text messageText;
 
-    [Header("ÆË¾÷ Ç¥½Ã")]
+    [Header("íŒì—… í‘œì‹œ")]
+    [SerializeField] private PopupType popupType;
     [SerializeField] private Sprite popupIcon;
     [SerializeField, TextArea] private string popupMessage;
 
     private bool isCompleted;
+    private PlayerDataManager playerDataManager;
+    private CharonInfo_Data charonInfo_Data;
+    private DiaryInfo_Data diaryInfo_Data;
 
     /// <summary>
-    /// ÆË¾÷À» Ç¥½ÃÇÏ°í È®ÀÎ ¹öÆ° ÀÔ·ÂÀ» ±â´Ù¸².
+    /// íŒì—…ì„ í‘œì‹œí•˜ê³  í™•ì¸ ë²„íŠ¼ ì…ë ¥ì„ ê¸°ë‹¤ë¦¼.
     /// </summary>
     public override void Enter()
     {
-        // 1. Àç½ÇÇà ½Ã ÀÌÀü ¿Ï·á »óÅÂ¸¦ ÃÊ±âÈ­ÇÔ.
+        // 1. ì¬ì‹¤í–‰ ì‹œ ì´ì „ ì™„ë£Œ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•¨.
         isCompleted = false;
 
-        // 2. ÆË¾÷°ú ³»ºÎ UI ÂüÁ¶¸¦ È®º¸ÇÔ.
+        // 2. íŒì—…ê³¼ ë‚´ë¶€ UI ì°¸ì¡°ë¥¼ í™•ë³´í•¨.
         if (!TutorialUnlockPopupUtility.Resolve(
                 this,
+                popupType,
                 ref unlockPopUp,
                 ref okBtn,
                 ref itemImage,
@@ -38,22 +50,28 @@ public class InteractiveSequencePopup : InteractiveSequenceBase
             return;
         }
 
-        // 3. ¾ÆÀÌÄÜ°ú ¹®±¸¸¦ ¼³Á¤ÇÏ°í ÆË¾÷À» Ç¥½ÃÇÔ.
+        // 3. ì•„ì´ì½˜ê³¼ ë¬¸êµ¬ë¥¼ ì„¤ì •í•˜ê³  íŒì—…ì„ í‘œì‹œí•¨.
+        // ë…¸íŠ¸ íŒì—…ì¼ ë•Œë§Œ ë‹¤ì´ì–´ë¦¬ ë…¸íŠ¸ ë‚´ìš© ê°€ì ¸ì˜´.
+        if (popupType == PopupType.Note)
+        {
+            popupMessage = GetDiaryNoteContent();
+        }
         TutorialUnlockPopupUtility.Show(
+            popupType,
             unlockPopUp,
             itemImage,
             messageText,
             popupIcon,
             popupMessage);
 
-        // 4. È®ÀÎ ¹öÆ° Å¬¸¯ ÀÌº¥Æ®¸¦ µî·ÏÇÔ.
+        // 4. í™•ì¸ ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•¨.
         TutorialUnlockPopupUtility.BindOkButton(
             okBtn,
             OnOkButtonClicked);
     }
 
     /// <summary>
-    /// È®ÀÎ ¹öÆ° ÀÔ·ÂÀÌ ¿Ï·áµÇ¸é ´ÙÀ½ ½ÃÄö½º·Î ÁøÇàÇÔ.
+    /// í™•ì¸ ë²„íŠ¼ ì…ë ¥ì´ ì™„ë£Œë˜ë©´ ë‹¤ìŒ ì‹œí€€ìŠ¤ë¡œ ì§„í–‰í•¨.
     /// </summary>
     public override void Execute()
     {
@@ -62,7 +80,7 @@ public class InteractiveSequencePopup : InteractiveSequenceBase
             return;
         }
 
-        // Áßº¹À¸·Î ´ÙÀ½ ½ÃÄö½º¸¦ ÁøÇàÇÏÁö ¾Êµµ·Ï ¸ÕÀú ¿Ï·á »óÅÂ¸¦ ÃÊ±âÈ­ÇÔ.
+        // ì¤‘ë³µìœ¼ë¡œ ë‹¤ìŒ ì‹œí€€ìŠ¤ë¥¼ ì§„í–‰í•˜ì§€ ì•Šë„ë¡ ë¨¼ì € ì™„ë£Œ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•¨.
         isCompleted = false;
 
         pipeline.SetSceneState(SceneState.None);
@@ -70,14 +88,14 @@ public class InteractiveSequencePopup : InteractiveSequenceBase
     }
 
     /// <summary>
-    /// ÆË¾÷À» ´İ°í ¹öÆ° ÀÌº¥Æ®¸¦ Á¤¸®ÇÔ.
+    /// íŒì—…ì„ ë‹«ê³  ë²„íŠ¼ ì´ë²¤íŠ¸ë¥¼ ì •ë¦¬í•¨.
     /// </summary>
     public override void Exit()
     {
-        // 1. °ø¿ë À¯Æ¿¸®Æ¼¸¦ ÅëÇØ ÆË¾÷À» ´İÀ½.
+        // 1. ê³µìš© ìœ í‹¸ë¦¬í‹°ë¥¼ í†µí•´ íŒì—…ì„ ë‹«ìŒ.
         TutorialUnlockPopupUtility.Hide(unlockPopUp);
 
-        // 2. ÀÌ ½ÃÄö½º°¡ µî·ÏÇÑ ¹öÆ° ÀÌº¥Æ®¸¦ ÇØÁ¦ÇÔ.
+        // 2. ì´ ì‹œí€€ìŠ¤ê°€ ë“±ë¡í•œ ë²„íŠ¼ ì´ë²¤íŠ¸ë¥¼ í•´ì œí•¨.
         if (okBtn != null)
         {
             TutorialUnlockPopupUtility.UnbindOkButton(
@@ -85,15 +103,29 @@ public class InteractiveSequencePopup : InteractiveSequenceBase
                 OnOkButtonClicked);
         }
 
-        // 3. ¿Ï·á »óÅÂ¸¦ ÃÊ±âÈ­ÇÔ.
+        // 3. ì™„ë£Œ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•¨.
         isCompleted = false;
     }
 
     /// <summary>
-    /// È®ÀÎ ¹öÆ° Å¬¸¯ ½Ã ½ÃÄö½º ¿Ï·á »óÅÂ·Î º¯°æÇÔ.
+    /// í™•ì¸ ë²„íŠ¼ í´ë¦­ ì‹œ ì‹œí€€ìŠ¤ ì™„ë£Œ ìƒíƒœë¡œ ë³€ê²½í•¨.
     /// </summary>
     private void OnOkButtonClicked()
     {
         isCompleted = true;
+    }
+
+    private string GetDiaryNoteContent()
+    {
+        charonInfo_Data = GameManager.instance.charoninfo_data;
+        playerDataManager = GameManager.instance.playerDataManager;
+        diaryInfo_Data = GameManager.instance.diaryinfo_data;
+
+        string noteDataId = charonInfo_Data.dataList[playerDataManager.GetCurrentCharonLetterIndex()].note;
+        int diaryDataIndex = diaryInfo_Data.dataList.FindIndex(
+            diary => diary.id == noteDataId);
+
+        string result = diaryInfo_Data.dataList[diaryDataIndex].contents.Replace("nn", "\n");
+        return result;
     }
 }

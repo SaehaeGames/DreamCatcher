@@ -54,13 +54,14 @@ public class InteractiveSequenceUnlockFood : InteractiveSequenceBase
 
         // 3. Inspector 참조 또는 공용 TutorialOverlay에서 팝업 구성 요소를 준비함.
         if (!TutorialUnlockPopupUtility.Resolve(
-                this, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
+                this, PopupType.Unlock, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
         {
             return;
         }
 
         // 4. 현재 먹이의 아이콘과 안내 문구를 표시하고 OK 입력을 구독함.
         TutorialUnlockPopupUtility.Show(
+            PopupType.Unlock,
             unlockPopUp,
             itemImage,
             messageText,

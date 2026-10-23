@@ -56,7 +56,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
 
         // 3. Inspector 참조 또는 공용 TutorialOverlay에서 팝업 구성 요소를 준비함.
         if (!TutorialUnlockPopupUtility.Resolve(
-                this, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
+                this, PopupType.Unlock, ref unlockPopUp, ref okBtn, ref itemImage, ref messageText))
         {
             return;
         }
@@ -109,6 +109,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
         {
             runtime.IsShowingSpecialFeedReward = true;
             TutorialUnlockPopupUtility.Show(
+                PopupType.Unlock,
                 unlockPopUp,
                 itemImage,
                 messageText,
@@ -191,6 +192,7 @@ public class InteractiveSequenceUnlockLetter : InteractiveSequenceBase
             : "카론의 편지가 해금되었습니다.";
 
         TutorialUnlockPopupUtility.Show(
+            PopupType.Unlock,
             unlockPopUp,
             itemImage,
             messageText,
