@@ -5,7 +5,12 @@ using System;
 using System.Linq;
 using System.Diagnostics;
 
-
+public enum CharonItem
+{
+    None = 0,
+    Potion = 1,
+    Paperweight = 2
+}
 public class PlayerDataManager
 {
     public event Action OnUnlockChanged;
@@ -412,6 +417,22 @@ public class PlayerDataManager
     {
         Save();
         OnUnlockChanged?.Invoke();
+    }
+
+    public bool HasReceiveCharonItem(CharonItem item)
+    {
+        if (GetCurrentCharonLetterIndex() == (int)item && GetHasReadCharonLetter())
+        {
+            return true;
+        }
+        else if (GetCurrentCharonLetterIndex() > (int)item)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     #endregion
 
