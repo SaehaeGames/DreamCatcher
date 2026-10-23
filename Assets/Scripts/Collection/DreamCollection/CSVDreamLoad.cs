@@ -15,6 +15,7 @@ public class CSVDreamLoad : MonoBehaviour
 
     public Text nameTxt;
     public Image dreamCatcherImg, lineImg, featherImg1, featherImg2, featherImg3;
+    public Button itemBtn;
 
     // 이미지
     public Sprite[] dreamImgs = new Sprite[24]; // 꿈 아이콘 이미지
@@ -27,12 +28,15 @@ public class CSVDreamLoad : MonoBehaviour
         "유리딱새", "청딱따구리", "까막딱따구리", "오색딱따구리", "올빼미", "매", "흰머리수리"};
 
     // 데이터 테이블
-    public DreamInfo_Data _dreaminfo_data;
+    private DreamInfo_Data _dreaminfo_data;
+    private PlayerDataManager playerDataManager;
 
     // Start is called before the first frame update
     private void Start()
     {
         DreamInfoPanel.SetActive(false);
+        _dreaminfo_data = GameManager.instance.dreaminfo_data;
+        playerDataManager = GameManager.instance.playerDataManager;
         LoadDreamCollection();
     }
     public void LoadDreamCollection()
@@ -98,12 +102,22 @@ public class CSVDreamLoad : MonoBehaviour
                 
             }
         }
-    }
+        // 아이템 버튼
+        int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
+        bool hasReadCharonLetter = playerDataManager.GetHasReadCharonLetter();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (currentCharonLetterIndex == 1 && hasReadCharonLetter)
+        {
+            itemBtn.gameObject.SetActive(true);
+        }
+        else if (currentCharonLetterIndex > 1)
+        {
+            itemBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            itemBtn.gameObject.SetActive(false);
+        }
     }
 
     // 꿈 개별 정보 패널 열기
