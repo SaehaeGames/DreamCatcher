@@ -106,18 +106,7 @@ public class CSVDreamLoad : MonoBehaviour
         int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
         bool hasReadCharonLetter = playerDataManager.GetHasReadCharonLetter();
 
-        if (currentCharonLetterIndex == 1 && hasReadCharonLetter)
-        {
-            itemBtn.gameObject.SetActive(true);
-        }
-        else if (currentCharonLetterIndex > 1)
-        {
-            itemBtn.gameObject.SetActive(true);
-        }
-        else
-        {
-            itemBtn.gameObject.SetActive(false);
-        }
+        itemBtn.gameObject.SetActive(playerDataManager.HasReceiveCharonItem(CharonItem.Potion));
     }
 
     // 꿈 개별 정보 패널 열기
