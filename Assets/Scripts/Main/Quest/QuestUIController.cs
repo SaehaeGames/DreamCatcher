@@ -15,14 +15,20 @@ public class QuestUIController : MonoBehaviour
     public GameObject questPanel;   //퀘스트 패널
     public GameObject deliveryView;     //납품 오브젝트
     public GameObject deliveryButton;
+    public GameObject charonItemButton;
 
     [Space]
     [Header("[Quest Resource")]
     public Sprite[] wallPapers;  //배경 이미지들(0: 흰식, 1: 노란색, 2: 검정색)
+    public Sprite potion;
+    public Sprite paperweight;
+    private Color deactiveItemColor = new Color(0, 0, 0, 157);
+    private Color activeItemColor = new Color(225, 225, 225, 225);
 
     [Space]
     [Header("[Managers]")]
     public GameObject managers;
+    private PlayerDataManager playerDataManager;
 
     private QuestType questType;
 
@@ -57,6 +63,38 @@ public class QuestUIController : MonoBehaviour
         {
             deliveryButton.SetActive(true);
         }
+
+        playerDataManager = GameManager.instance.playerDataManager;
+        if (playerDataManager.GetCurrentMainQuestIndex() == 7)
+        {
+            charonItemButton.SetActive(true);
+            charonItemButton.GetComponent<Image>().sprite = potion;
+            if (playerDataManager.HasReceiveCharonItem(CharonItem.Potion))
+            {
+                charonItemButton.GetComponent<Image>().color = activeItemColor;
+            }
+            else
+            {
+                charonItemButton.GetComponent<Image>().color = deactiveItemColor;
+            }
+        }
+        else if(playerDataManager.GetCurrentMainQuestIndex() == 15)
+        {
+            charonItemButton.SetActive(true);
+            charonItemButton.GetComponent<Image>().sprite = paperweight;
+            if (playerDataManager.HasReceiveCharonItem(CharonItem.Paperweight))
+            {
+                charonItemButton.GetComponent<Image>().color = activeItemColor;
+            }
+            else
+            {
+                charonItemButton.GetComponent<Image>().color = deactiveItemColor;
+            }
+        }
+        else
+        {
+            charonItemButton.SetActive(false);
+        }   
     }
 
     public void OpenYellowWallPaper()
@@ -66,6 +104,8 @@ public class QuestUIController : MonoBehaviour
 
         contentTexts.SetActive(false);   //메시지 오브젝트 비활성화
         deliveryView.SetActive(true);  //납품 오브젝트 활성화
+        deliveryButton.SetActive(true);
+        charonItemButton.SetActive(false);
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[1]; //배경 이미지를 바꾼다
 
@@ -86,6 +126,7 @@ public class QuestUIController : MonoBehaviour
 
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
+        charonItemButton.SetActive(false);
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 

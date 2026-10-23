@@ -17586,10 +17586,13 @@ MonoBehaviour:
   questPanel: {fileID: 746535976}
   deliveryView: {fileID: 553120850}
   deliveryButton: {fileID: 167481798}
+  charonItemButton: {fileID: 245347313}
   wallPapers:
   - {fileID: 21300000, guid: 92f3cf6de522e1c46aaaff580e76efa3, type: 3}
   - {fileID: 21300000, guid: 48011e3fe702a9d45ba3d87bb8b98944, type: 3}
   - {fileID: 21300000, guid: beee6f0b0e24d734cafc0ff272044a60, type: 3}
+  potion: {fileID: 21300000, guid: 1f56064f554f7f1479058e5fd949253b, type: 3}
+  paperweight: {fileID: 21300000, guid: 75dc393066a8695438972ed2b754a175, type: 3}
   managers: {fileID: 1340028240}
 --- !u!1 &747085728
 GameObject:
