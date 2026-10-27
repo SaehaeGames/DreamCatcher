@@ -32,7 +32,7 @@ public class StainEraser : MonoBehaviour,
     private bool hasPreviousPosition;
     private Vector2 previousPosition;
 
-    private bool canErase=false;
+    private bool canErase = false;
 
     public float ErasedRatio { get; private set; }
 
