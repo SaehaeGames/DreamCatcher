@@ -16,14 +16,17 @@ public class QuestUIController : MonoBehaviour
     public GameObject deliveryView;     //납품 오브젝트
     public GameObject deliveryButton;
     public GameObject charonItemButton;
+    public GameObject stains;
+    private StainEraser[] stainErasers;
 
     [Space]
     [Header("[Quest Resource")]
     public Sprite[] wallPapers;  //배경 이미지들(0: 흰식, 1: 노란색, 2: 검정색)
     public Sprite potion;
     public Sprite paperweight;
-    private Color deactiveItemColor = new Color(0, 0, 0, 157);
-    private Color activeItemColor = new Color(225, 225, 225, 225);
+    private Color deactiveItemColor = new Color(0f, 0f, 0f, 157f / 255f);
+    private Color activeItemColor = Color.white;
+    private Color itemUsingColor = new Color(100f / 255f, 100f / 255f, 100f / 255f, 1f);
 
     [Space]
     [Header("[Managers]")]
@@ -31,6 +34,12 @@ public class QuestUIController : MonoBehaviour
     private PlayerDataManager playerDataManager;
 
     private QuestType questType;
+    private bool isEraserActive = false;
+
+    private void Awake()
+    {
+        stainErasers = stains.GetComponentsInChildren<StainEraser>();
+    }
 
     public void OpenWhiteWallPaper()
     {
@@ -39,6 +48,7 @@ public class QuestUIController : MonoBehaviour
         //퀘스트 창을 흰색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
+        stains.SetActive(false);
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[0]; //배경 이미지를 바꾼다
 
@@ -64,18 +74,22 @@ public class QuestUIController : MonoBehaviour
             deliveryButton.SetActive(true);
         }
 
+        // 퀘스트별 특별 처리
         playerDataManager = GameManager.instance.playerDataManager;
         if (playerDataManager.GetCurrentMainQuestIndex() == 7)
         {
+            stains.SetActive(true);
             charonItemButton.SetActive(true);
             charonItemButton.GetComponent<Image>().sprite = potion;
             if (playerDataManager.HasReceiveCharonItem(CharonItem.Potion))
             {
                 charonItemButton.GetComponent<Image>().color = activeItemColor;
+                charonItemButton.GetComponent<Button>().enabled = true;
             }
             else
             {
                 charonItemButton.GetComponent<Image>().color = deactiveItemColor;
+                charonItemButton.GetComponent<Button>().enabled = false;
             }
         }
         else if(playerDataManager.GetCurrentMainQuestIndex() == 15)
@@ -85,10 +99,12 @@ public class QuestUIController : MonoBehaviour
             if (playerDataManager.HasReceiveCharonItem(CharonItem.Paperweight))
             {
                 charonItemButton.GetComponent<Image>().color = activeItemColor;
+                charonItemButton.GetComponent<Button>().enabled = true;
             }
             else
             {
                 charonItemButton.GetComponent<Image>().color = deactiveItemColor;
+                charonItemButton.GetComponent<Button>().enabled = false;
             }
         }
         else
@@ -177,6 +193,23 @@ public class QuestUIController : MonoBehaviour
             contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text = "";
         }
         
+    }
+
+    public void SetEraserActive()
+    {
+        isEraserActive = !isEraserActive;
+
+        foreach (StainEraser stain in stainErasers)
+        {
+            stain.SetCanErase(isEraserActive);
+        }
+
+        // 버튼 UI 연출
+        Image buttonImage = charonItemButton.GetComponent<Image>();
+
+        buttonImage.color = isEraserActive
+            ? itemUsingColor
+            : activeItemColor;
     }
 
     public void CloseQuestPaper()
