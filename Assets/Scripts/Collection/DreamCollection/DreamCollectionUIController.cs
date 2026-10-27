@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class CSVDreamLoad : MonoBehaviour
+public class DreamCollectionUIController : MonoBehaviour
 {
     // 패널
     public GameObject DreamInfoPanel;
@@ -22,7 +22,7 @@ public class CSVDreamLoad : MonoBehaviour
     public Sprite[] dreamCatcherImgs = new Sprite[24]; // 드림캐쳐 이미지
     public Sprite[] lineImgs = new Sprite[5]; // 실 이미지
     public Sprite[] featherImgs = new Sprite[12]; // 깃털 이미지
-
+    public Sprite[] secondDreamImgs;
     // 기타
     private string[] featherNames= { "멧비둘기", "염주비둘기", "공작비둘기", "딱새", "동고비", 
         "유리딱새", "청딱따구리", "까막딱따구리", "오색딱따구리", "올빼미", "매", "흰머리수리"};
@@ -30,6 +30,8 @@ public class CSVDreamLoad : MonoBehaviour
     // 데이터 테이블
     private DreamInfo_Data _dreaminfo_data;
     private PlayerDataManager playerDataManager;
+
+    private int dreamIndex;
 
     // Start is called before the first frame update
     private void Start()
@@ -50,11 +52,15 @@ public class CSVDreamLoad : MonoBehaviour
 
     public void LoadDreamInfo(int index)
     {
+        // 인덱스 설정
+        dreamIndex = index;
+
         // 텍스트 설정(이름)
         nameTxt.text= _dreaminfo_data.dataList[index].name; // 이름
 
         // 이미지 설정(드림캐쳐, 실, 깃털)
         dreamCatcherImg.sprite = dreamCatcherImgs[index]; // 드림캐쳐
+        
         // 실
         string lineColor = _dreaminfo_data.dataList[index].line;
         if (lineColor == "w")
@@ -77,6 +83,7 @@ public class CSVDreamLoad : MonoBehaviour
         {
             lineImg.sprite = lineImgs[4];
         }
+
         // 깃털
         for (int i = 0; i < 12; i++)
         {
@@ -102,11 +109,28 @@ public class CSVDreamLoad : MonoBehaviour
                 
             }
         }
+
         // 아이템 버튼
         int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
         bool hasReadCharonLetter = playerDataManager.GetHasReadCharonLetter();
 
         itemBtn.gameObject.SetActive(playerDataManager.HasReceiveCharonItem(CharonItem.Potion));
+    }
+
+    public void UsePotion()
+    {
+        int secondImageIndex = _dreaminfo_data.dataList[dreamIndex].secondImageIndex;
+
+        if (secondImageIndex < 0 ||
+            secondImageIndex >= secondDreamImgs.Length)
+            return;
+
+        dreamCatcherImg.sprite = secondDreamImgs[secondImageIndex];
+    }
+
+    public void StopUsePotion()
+    {
+        dreamCatcherImg.sprite = dreamCatcherImgs[dreamIndex];
     }
 
     // 꿈 개별 정보 패널 열기

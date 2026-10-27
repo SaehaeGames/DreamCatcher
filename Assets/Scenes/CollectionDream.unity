@@ -2791,7 +2791,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1645616838076621556, guid: ca09aa69313b44a47994ba6ffe354107, type: 3}
       propertyPath: m_Name
-      value: GameManager 1
+      value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 1645616838076621567, guid: ca09aa69313b44a47994ba6ffe354107, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8808,9 +8808,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 21300000, guid: 2db47550c50f55441b6d19fb597cbefe, type: 3}
   - {fileID: 21300000, guid: 05902aca8fd245347a06f4efa516f77e, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 7e3ef971bab9f5b479e973fa5198c06b, type: 3}
   - {fileID: 21300000, guid: 3a14c47c7c4b369418c3e5f6d04b4fcc, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 7e3ef971bab9f5b479e973fa5198c06b, type: 3}
   - {fileID: 21300000, guid: bc6a2d36f51bfc546995f38e77427d8a, type: 3}
   - {fileID: 0}
   - {fileID: 21300000, guid: 13ae970926824ef478b2cb5518e3ad5c, type: 3}
@@ -8819,7 +8819,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1322016699bce08489cab4866a67883b, type: 3}
   - {fileID: 21300000, guid: 402b0e3f922a14041a5c85b7005e8d4d, type: 3}
   - {fileID: 21300000, guid: 92539054803eac34ead990d7f0792dd3, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 7e3ef971bab9f5b479e973fa5198c06b, type: 3}
   - {fileID: 21300000, guid: d3f36063a54d90f48a401ae669369185, type: 3}
   lineImgs:
   - {fileID: 21300000, guid: 73d7aaeedbe8731468211fa8115a7c2c, type: 3}
@@ -8840,6 +8840,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0de3b6cf6e70ff74e8e718db913ab928, type: 3}
   - {fileID: 21300000, guid: 387f94e8f16e7f747aa5dce5fda61af5, type: 3}
   - {fileID: 21300000, guid: d189bc45aa75d9544827cdc34e803587, type: 3}
+  secondDreamImgs:
+  - {fileID: 21300000, guid: 22061a1b4266313478f4742b32402238, type: 3}
+  - {fileID: 21300000, guid: 9f7a577398b9da34989e5f291510aea6, type: 3}
+  - {fileID: 21300000, guid: 79623386875891646a0114544ac03434, type: 3}
 --- !u!1001 &1508375852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9658,7 +9662,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9140382685926602794, guid: c5c2367561593294e90008cb733844b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1560836650}
   m_SourcePrefab: {fileID: 100100000, guid: c5c2367561593294e90008cb733844b6, type: 3}
 --- !u!224 &1560836647 stripped
 RectTransform:
@@ -9670,12 +9677,62 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 847485954946392211, guid: c5c2367561593294e90008cb733844b6, type: 3}
   m_PrefabInstance: {fileID: 1560836646}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1560836649}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1560836649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9140382685926602794, guid: c5c2367561593294e90008cb733844b6, type: 3}
+  m_PrefabInstance: {fileID: 1560836646}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1560836650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560836649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1503214031}
+          m_TargetAssemblyTypeName: DreamCollectionUIController, Assembly-CSharp
+          m_MethodName: UsePotion
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1503214031}
+          m_TargetAssemblyTypeName: DreamCollectionUIController, Assembly-CSharp
+          m_MethodName: StopUsePotion
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1560836651 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7920212730275596594, guid: c5c2367561593294e90008cb733844b6, type: 3}
