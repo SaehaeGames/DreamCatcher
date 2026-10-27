@@ -21,6 +21,7 @@ MonoBehaviour:
     feather2: "\uBA67\uBE44\uB458\uAE30"
     feather3: "\uBA67\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2001
     name: "\uAC1C\uAC00 \uBB3C\uC5B4\uB72F\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
@@ -29,6 +30,7 @@ MonoBehaviour:
     feather2: "\uBA67\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2002
     name: "\uACE0\uB798\uC5D0\uAC8C \uBA39\uD788\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -37,6 +39,7 @@ MonoBehaviour:
     feather2: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     bead: 0
+    secondImageIndex: -1
   - id: SO_2003
     name: "\uAD34\uBB3C\uC774 \uB098\uC624\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
@@ -45,6 +48,7 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uACF5\uC791\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2004
     name: "\uADC0\uC2E0\uC5D0\uAC8C \uC7A1\uD600\uAC00\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
@@ -53,6 +57,7 @@ MonoBehaviour:
     feather2: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2005
     name: "\uB0A9\uCE58 \uB2F9\uD558\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -61,6 +66,7 @@ MonoBehaviour:
     feather2: "\uB531\uC0C8"
     feather3: "\uB3D9\uACE0\uBE44"
     bead: 2
+    secondImageIndex: -1
   - id: SO_2006
     name: "\uB291\uB300\uAC00 \uB098\uC624\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
@@ -69,6 +75,7 @@ MonoBehaviour:
     feather2: "\uBA67\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2007
     name: "\uB3C4\uC801\uC744 \uB9CC\uB098\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -77,6 +84,7 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2008
     name: "\uB3C5\uC744 \uB9C8\uC2DC\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
@@ -85,6 +93,7 @@ MonoBehaviour:
     feather2: "\uB9E4"
     feather3: "\uD770\uBA38\uB9AC\uB3C5\uC218\uB9AC"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2009
     name: "\uBC14\uB2E4\uC5D0 \uBE60\uC9C0\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
@@ -93,6 +102,7 @@ MonoBehaviour:
     feather2: "\uC720\uB9AC\uB531\uC0C8"
     feather3: "\uC720\uB9AC\uB531\uC0C8"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2010
     name: "\uBC40\uC5D0\uAC8C \uBB3C\uB9AC\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
@@ -101,6 +111,7 @@ MonoBehaviour:
     feather2: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2011
     name: "\uBC8C\uB808\uAC00 \uB098\uC624\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
@@ -109,6 +120,7 @@ MonoBehaviour:
     feather2: "\uC720\uB9AC\uB531\uC0C8"
     feather3: "\uC62C\uBE7C\uBBF8"
     bead: 1
+    secondImageIndex: 0
   - id: SO_2012
     name: "\uBCBC\uB77D \uB9DE\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
@@ -117,6 +129,7 @@ MonoBehaviour:
     feather2: "\uC5FC\uC8FC\uBE44\uB458\uAE30"
     feather3: "\uB3D9\uACE0\uBE44"
     bead: 0
+    secondImageIndex: -1
   - id: SO_2013
     name: "\uC0AC\uB78C\uC744 \uC8FD\uC774\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -125,6 +138,7 @@ MonoBehaviour:
     feather2: "\uC62C\uBE7C\uBBF8"
     feather3: "\uC62C\uBE7C\uBBF8"
     bead: 1
+    secondImageIndex: 1
   - id: SO_2014
     name: "\uC2DD\uBB3C\uC774 \uC8FD\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
@@ -133,6 +147,7 @@ MonoBehaviour:
     feather2: "\uACF5\uC791\uBE44\uB458\uAE30"
     feather3: "\uACF5\uC791\uBE44\uB458\uAE30"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2015
     name: "\uC2E0\uCCB4\uAC00 \uC798\uB9AC\uB294 \uAFC8"
     kind: "\uB3D9\uBB3C"
@@ -141,6 +156,7 @@ MonoBehaviour:
     feather2: "\uB531\uC0C8"
     feather3: "\uC720\uB9AC\uB531\uC0C8"
     bead: 0
+    secondImageIndex: -1
   - id: SO_2016
     name: "\uC790\uC5F0\uC7AC\uD574\uAC00 \uC77C\uC5B4\uB098\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
@@ -149,6 +165,7 @@ MonoBehaviour:
     feather2: "\uB3D9\uACE0\uBE44"
     feather3: "\uC720\uB9AC\uB531\uC0C8"
     bead: 0
+    secondImageIndex: -1
   - id: SO_2017
     name: "\uC804\uC7C1\uC744 \uACAA\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -157,6 +174,7 @@ MonoBehaviour:
     feather2: "\uC62C\uBE7C\uBBF8"
     feather3: "\uB9E4"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2018
     name: "\uC808\uBCBD\uC5D0\uC11C \uB5A8\uC5B4\uC9C0\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -165,6 +183,7 @@ MonoBehaviour:
     feather2: "\uB531\uC0C8"
     feather3: "\uB531\uC0C8"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2019
     name: "\uC9D1\uB2E8 \uD63C\uB3C8\uC758 \uAFC8"
     kind: "\uC778\uAC04"
@@ -173,6 +192,7 @@ MonoBehaviour:
     feather2: "\uB3D9\uACE0\uBE44"
     feather3: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     bead: 1
+    secondImageIndex: -1
   - id: SO_2020
     name: "\uC9D1\uC774 \uBD88\uD0C0\uB294 \uAFC8"
     kind: "\uC790\uC5F0"
@@ -181,6 +201,7 @@ MonoBehaviour:
     feather2: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uAE4C\uB9C9\uB531\uB530\uAD6C\uB9AC"
     bead: 3
+    secondImageIndex: -1
   - id: SO_2021
     name: "\uCD9C\uAD6C\uB97C \uCC3E\uC744 \uC218 \uC5C6\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
@@ -189,6 +210,7 @@ MonoBehaviour:
     feather2: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uB3D9\uACE0\uBE44"
     bead: 0
+    secondImageIndex: -1
   - id: SO_2022
     name: "\uD63C\uC790\uAC00 \uB418\uB294 \uAFC8"
     kind: "\uD658\uC0C1"
@@ -197,6 +219,7 @@ MonoBehaviour:
     feather2: "\uB3D9\uACE0\uBE44"
     feather3: "\uC720\uB9AC\uB531\uC0C8"
     bead: 1
+    secondImageIndex: 2
   - id: SO_2023
     name: "\uD654\uC0B4\uC5D0 \uB9DE\uB294 \uAFC8"
     kind: "\uC778\uAC04"
@@ -205,3 +228,4 @@ MonoBehaviour:
     feather2: "\uCCAD\uB531\uB530\uAD6C\uB9AC"
     feather3: "\uC624\uC0C9\uB531\uB530\uAD6C\uB9AC"
     bead: 1
+    secondImageIndex: -1

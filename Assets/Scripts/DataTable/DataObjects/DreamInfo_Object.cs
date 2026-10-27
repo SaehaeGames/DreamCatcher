@@ -14,15 +14,17 @@ public class DreamInfo_Object
     public string feather2;
     public string feather3;
     public int bead;
+    public int secondImageIndex;
 
     public DreamInfo_Object()
     {
         id = "SO_0000";
         bead = 0;
+        secondImageIndex = -1;
         name = kind = line = feather1 = feather2 = feather3 = "";
     }
 
-    public DreamInfo_Object(string _id, string _name, string _kind, string _line, string _feather1, string _feather2, string _feather3, int _bead)
+    public DreamInfo_Object(string _id, string _name, string _kind, string _line, string _feather1, string _feather2, string _feather3, int _bead, int _secondImageIndex)
     {
         id = _id;
         name = _name;
@@ -32,5 +34,6 @@ public class DreamInfo_Object
         feather2 = _feather2;
         feather3 = _feather3;
         bead = _bead;
+        secondImageIndex = _secondImageIndex;
     }
 }

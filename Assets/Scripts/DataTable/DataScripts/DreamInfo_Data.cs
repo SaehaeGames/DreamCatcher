@@ -12,7 +12,7 @@ public class DreamInfo_Data : ScriptableObject
 {
     private static string spreadSheetAddress = "1mfsbRolc27mzfBjuKDV2WFLPayOgJWdpJEPKXtQcjhs";
     private static long spreadSheetWorksheet = 0;
-    private static string spreadSheetRange = "A2:H";
+    private static string spreadSheetRange = "A2:I";
     private static string objectName = "DreamInfo";
 
     public List<DreamInfo_Object> dataList = new List<DreamInfo_Object>();
