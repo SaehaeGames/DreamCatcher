@@ -126,6 +126,7 @@ public class QuestUIController : MonoBehaviour
         deliveryView.SetActive(true);  //납품 오브젝트 활성화
         deliveryButton.SetActive(true);
         charonItemButton.SetActive(false);
+        stains.SetActive(false);
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[1]; //배경 이미지를 바꾼다
 
@@ -147,6 +148,7 @@ public class QuestUIController : MonoBehaviour
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
         charonItemButton.SetActive(false);
+        stains.SetActive(false);
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 
