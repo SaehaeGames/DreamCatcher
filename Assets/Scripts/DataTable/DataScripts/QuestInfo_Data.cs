@@ -14,7 +14,9 @@ public class QuestInfo_Data : ScriptableObject
     private static long spreadSheetWorksheet = 0;
     private static string spreadSheetRange = "A2:F";
     private static string objectName = "QuestInfo";
-    
+
+    private const string TranslationSeparator = "##";
+
     public List<QuestInfo_Object> dataList = new List<QuestInfo_Object>();
 
     public void UpdateQuestInfoData(Action onUpdateComplete)
@@ -47,5 +49,33 @@ public class QuestInfo_Data : ScriptableObject
         }
 
         return data;
+    }
+
+    public bool HasTranslation(string contents)
+    {
+        return !string.IsNullOrEmpty(contents)
+            && contents.Contains(TranslationSeparator);
+    }
+
+    public string GetOriginalContents(string contents)
+    {
+        if (!HasTranslation(contents))
+            return contents;
+
+        int index = contents.LastIndexOf(TranslationSeparator);
+
+        return contents.Substring(0, index).TrimEnd();
+    }
+
+    public string GetTranslatedContents(string contents)
+    {
+        if (!HasTranslation(contents))
+            return string.Empty;
+
+        int index = contents.LastIndexOf(TranslationSeparator);
+
+        return contents.Substring(
+            index + TranslationSeparator.Length
+        ).Trim();
     }
 }

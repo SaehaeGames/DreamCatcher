@@ -174,10 +174,22 @@ public class QuestManager : MonoBehaviour
         if (questFlowState == QuestFlowState.DeliveryCompleted) // 클리어 시
         {
             contents = questInfo_Data.dataList[currentMainQuestIndex * 2 + 1].contents.ToString();
+
+            // 번역퀘만 따로 처리
+            if (questInfo_Data.HasTranslation(contents))
+            {
+                contents = questInfo_Data.GetOriginalContents(contents);
+            }
         }
         else // 미클리어 시
         {
             contents = questInfo_Data.dataList[currentMainQuestIndex * 2].contents.ToString();
+
+            // 번역퀘만 따로 처리
+            if (questInfo_Data.HasTranslation(contents))
+            {
+                contents = questInfo_Data.GetOriginalContents(contents);
+            }
         }
 
         contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
@@ -200,6 +212,28 @@ public class QuestManager : MonoBehaviour
         }
 
         return from;
+    }
+
+    public string GetCurrentMainQuestMagnifierContents()
+    {
+        QuestFlowState questFlowState = GetCurrentQuestFlowState();
+        int currentMainQuestIndex = playerDataManager.GetCurrentMainQuestIndex();
+
+        string contents;
+
+        if (questFlowState == QuestFlowState.DeliveryCompleted) // 클리어 시
+        {
+            contents = questInfo_Data.dataList[currentMainQuestIndex * 2 + 1].contents.ToString();
+            contents = questInfo_Data.GetTranslatedContents(contents);
+        }
+        else // 미클리어 시
+        {
+            contents = questInfo_Data.dataList[currentMainQuestIndex * 2].contents.ToString();
+            contents = questInfo_Data.GetTranslatedContents(contents);
+        }
+
+        contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
+        return contents;
     }
 
     public string GetCurrentCharonLetterContents()

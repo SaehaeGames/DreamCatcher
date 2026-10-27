@@ -18,6 +18,7 @@ public class QuestUIController : MonoBehaviour
     public GameObject charonItemButton;
     public GameObject stains;
     private StainEraser[] stainErasers;
+    public GameObject magnifier;
 
     [Space]
     [Header("[Quest Resource")]
@@ -34,7 +35,8 @@ public class QuestUIController : MonoBehaviour
     private PlayerDataManager playerDataManager;
 
     private QuestType questType;
-    private bool isEraserActive = false;
+    private bool isItemActive = false;
+    private CharonItem charonItem = CharonItem.None;
 
     private void Awake()
     {
@@ -83,6 +85,7 @@ public class QuestUIController : MonoBehaviour
             charonItemButton.GetComponent<Image>().sprite = potion;
             if (playerDataManager.HasReceiveCharonItem(CharonItem.Potion))
             {
+                charonItem = CharonItem.Potion;
                 charonItemButton.GetComponent<Image>().color = activeItemColor;
                 charonItemButton.GetComponent<Button>().enabled = true;
             }
@@ -98,6 +101,7 @@ public class QuestUIController : MonoBehaviour
             charonItemButton.GetComponent<Image>().sprite = paperweight;
             if (playerDataManager.HasReceiveCharonItem(CharonItem.Paperweight))
             {
+                charonItem = CharonItem.Paperweight;
                 charonItemButton.GetComponent<Image>().color = activeItemColor;
                 charonItemButton.GetComponent<Button>().enabled = true;
             }
@@ -195,19 +199,29 @@ public class QuestUIController : MonoBehaviour
         
     }
 
-    public void SetEraserActive()
+    public void UseItem()
     {
-        isEraserActive = !isEraserActive;
+        isItemActive = !isItemActive;
 
-        foreach (StainEraser stain in stainErasers)
+        if (charonItem == CharonItem.Potion)
         {
-            stain.SetCanErase(isEraserActive);
-        }
 
+            foreach (StainEraser stain in stainErasers)
+            {
+                stain.SetCanErase(isItemActive);
+            }
+        }
+        else if (charonItem == CharonItem.Paperweight)
+        {
+            magnifier.SetActive(isItemActive);
+            magnifier.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text
+                = managers.GetComponent<QuestManager>().GetCurrentMainQuestMagnifierContents();
+        }
+        
         // 버튼 UI 연출
         Image buttonImage = charonItemButton.GetComponent<Image>();
 
-        buttonImage.color = isEraserActive
+        buttonImage.color = isItemActive
             ? itemUsingColor
             : activeItemColor;
     }
