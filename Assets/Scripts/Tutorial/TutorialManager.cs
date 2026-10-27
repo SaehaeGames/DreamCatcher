@@ -89,11 +89,6 @@ public class TutorialManager : MonoBehaviour
         // 2. 튜토리얼 범위 밖이거나 메인/카론 퀘스트 연출 중이 아니면 ScriptBox 비활성화.
         if (ShouldDeactiveScriptBox())
         {
-            if (scriptBox != null)
-            {
-                scriptBox.ScriptBoxOnOff(false);
-            }
-
             SetFadePanelActive(false);
             return;
         }
@@ -230,9 +225,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     private bool ShouldDeactiveScriptBox()
     {
-        return !IsTutorialScene(runtime.CurrentScene)
-            && !runtime.PlayerDataManager.GetIsQuestActinoPlaying()
-            && !runtime.PlayerDataManager.GetIsCharonQuestActionPlaying();
+        return !IsTutorialScene(runtime.CurrentScene);
     }
 
     /// <summary>
