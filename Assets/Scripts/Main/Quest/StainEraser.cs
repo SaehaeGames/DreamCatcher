@@ -1,24 +1,23 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class StainEraser : MonoBehaviour,
-    IPointerDownHandler,
-    IDragHandler,
-    IPointerUpHandler
+public class StainEraser : MonoBehaviour
 {
-    [Header("¾ó·è")]
+    [Header("ì–¼ë£©")]
     [SerializeField] private Image stainImage;
 
-    [Header("Áö¿ì°³ ¼³Á¤")]
+    [Header("ì§€ìš°ê°œ ì„¤ì •")]
     [SerializeField, Min(1)]
     private int brushRadiusPixels = 60;
 
     [SerializeField, Range(0f, 1f)]
     private float eraseThreshold = 0.7f;
 
-    // ¾ó·èÀÌ ¼³Á¤ ºñÀ²¸¸Å­ Áö¿öÁ³À» ¶§ È£Ãâ
+    [Header("ì»¤ì„œ ê´€ë¦¬")]
+    [SerializeField] private QuestUIController questUIController;
+
+    // ì–¼ë£©ì´ ì„¤ì • ë¹„ìœ¨ë§Œí¼ ì§€ì›Œì¡Œì„ ë•Œ í˜¸ì¶œ
     public event Action OnErased;
 
     private Texture2D eraseTexture;
@@ -38,18 +37,20 @@ public class StainEraser : MonoBehaviour,
 
     private void Awake()
     {
+        questUIController = this.transform.parent.parent.GetComponent<QuestUIController>();
+        
         if (stainImage == null)
             stainImage = GetComponent<Image>();
 
         if (stainImage == null || stainImage.sprite == null)
         {
-            Debug.LogError("StainEraser: ¾ó·è Image ¶Ç´Â Sprite°¡ ¾ø½À´Ï´Ù.", this);
+            Debug.LogError("StainEraser: ì–¼ë£© Image ë˜ëŠ” Spriteê°€ ì—†ìŠµë‹ˆë‹¤.", this);
             enabled = false;
             return;
         }
 
-        // ½ºÇÁ¶óÀÌÆ®°¡ ¾ÆÆ²¶ó½º¿¡ µé¾î°¡ ÀÖ¾îµµ
-        // ½ÇÁ¦ ½ºÇÁ¶óÀÌÆ® ¿µ¿ª¸¸ º¹»çÇÑ´Ù.
+        // ìŠ¤í”„ë¼ì´íŠ¸ê°€ ì•„í‹€ë¼ìŠ¤ì— ë“¤ì–´ê°€ ìˆì–´ë„
+        // ì‹¤ì œ ìŠ¤í”„ë¼ì´íŠ¸ ì˜ì—­ë§Œ ë³µì‚¬í•œë‹¤.
         Sprite sourceSprite = stainImage.sprite;
         Texture2D sourceTexture = sourceSprite.texture;
         Rect textureRect = sourceSprite.textureRect;
@@ -108,27 +109,11 @@ public class StainEraser : MonoBehaviour,
         stainImage.sprite = runtimeSprite;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        hasPreviousPosition = false;
-        EraseAtScreenPosition(eventData.position, eventData.pressEventCamera);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        EraseAtScreenPosition(eventData.position, eventData.pressEventCamera);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        hasPreviousPosition = false;
-    }
-
-    private void EraseAtScreenPosition(
+    public void EraseAtScreenPosition(
         Vector2 screenPosition,
         Camera eventCamera)
     {
-        if (!canErase || isErased)
+        if (!canErase || isErased || !gameObject.activeInHierarchy)
             return;
 
         RectTransform rectTransform = stainImage.rectTransform;
@@ -165,7 +150,7 @@ public class StainEraser : MonoBehaviour,
                 currentPosition
             );
 
-            // ºê·¯½Ã ¹İ°æº¸´Ù ÃÎÃÎÇÏ°Ô Á¡À» Âï¾î ºóÆ´À» ¹æÁö
+            // ë¸ŒëŸ¬ì‹œ ë°˜ê²½ë³´ë‹¤ ì´˜ì´˜í•˜ê²Œ ì ì„ ì°ì–´ ë¹ˆí‹ˆì„ ë°©ì§€
             float spacing = Mathf.Max(1f, brushRadiusPixels * 0.5f);
 
             int steps = Mathf.Max(
@@ -226,7 +211,7 @@ public class StainEraser : MonoBehaviour,
 
                 int index = py * eraseTexture.width + px;
 
-                // ÀÌ¹Ì Åõ¸íÇÑ ÇÈ¼¿Àº ´Ù½Ã °è»êÇÏÁö ¾Ê´Â´Ù.
+                // ì´ë¯¸ íˆ¬ëª…í•œ í”½ì…€ì€ ë‹¤ì‹œ ê³„ì‚°í•˜ì§€ ì•ŠëŠ”ë‹¤.
                 if (pixels[index].a == 0)
                     continue;
 
@@ -258,7 +243,7 @@ public class StainEraser : MonoBehaviour,
     {
         canErase = value;
 
-        // Áö¿ì°³¸¦ ³õÀ¸¸é ´ÙÀ½ µå·¡±×´Â »õ ÀÔ·ÂÀ¸·Î Ã³¸®
+        // ì§€ìš°ê°œë¥¼ ë†“ìœ¼ë©´ ë‹¤ìŒ ë“œë˜ê·¸ëŠ” ìƒˆ ì…ë ¥ìœ¼ë¡œ ì²˜ë¦¬
         if (!value)
             hasPreviousPosition = false;
     }

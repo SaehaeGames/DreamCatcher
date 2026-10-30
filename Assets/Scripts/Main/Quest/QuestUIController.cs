@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class QuestUIController : MonoBehaviour
+public class QuestUIController : MonoBehaviour,
+    IPointerDownHandler,
+    IDragHandler,
+    IPointerUpHandler
 {
     //퀘스트 배경 이미지를 바꾸는 스크립트
     [Header("[Letter UI]")]
@@ -19,6 +23,14 @@ public class QuestUIController : MonoBehaviour
     public GameObject stains;
     private StainEraser[] stainErasers;
     public GameObject magnifier;
+
+    // 지우개 커서
+    [Header("[Eraser Cursor]")]
+    public RectTransform eraserCursor;
+    public Vector2 cursorOffset = new Vector2(35f, 45f);
+
+    // 투명 입력 영역
+    public GameObject eraserInputArea;
 
     [Space]
     [Header("[Quest Resource")]
@@ -41,6 +53,9 @@ public class QuestUIController : MonoBehaviour
     private void Awake()
     {
         stainErasers = stains.GetComponentsInChildren<StainEraser>();
+
+        eraserInputArea.SetActive(false);
+        eraserCursor.gameObject.SetActive(false);
     }
 
     public void OpenWhiteWallPaper()
@@ -127,6 +142,8 @@ public class QuestUIController : MonoBehaviour
         deliveryButton.SetActive(true);
         charonItemButton.SetActive(false);
         stains.SetActive(false);
+        eraserInputArea.SetActive(false);
+        HideEraserCursor();
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[1]; //배경 이미지를 바꾼다
 
@@ -149,6 +166,8 @@ public class QuestUIController : MonoBehaviour
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
         charonItemButton.SetActive(false);
         stains.SetActive(false);
+        eraserInputArea.SetActive(false);
+        HideEraserCursor();
 
         wallPaper.GetComponent<Image>().sprite = wallPapers[2]; //배경 이미지를 바꾼다
 
@@ -212,6 +231,12 @@ public class QuestUIController : MonoBehaviour
             {
                 stain.SetCanErase(isItemActive);
             }
+
+            // 지우개가 활성화된 동안만 입력 영역 활성화
+            eraserInputArea.SetActive(isItemActive);
+
+            if (!isItemActive)
+                HideEraserCursor();
         }
         else if (charonItem == CharonItem.Paperweight)
         {
@@ -228,8 +253,116 @@ public class QuestUIController : MonoBehaviour
             : activeItemColor;
     }
 
+    // [추가] 터치 시작
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (!isItemActive || charonItem != CharonItem.Potion)
+            return;
+
+        ShowEraserCursor(eventData.position, eventData.pressEventCamera);
+
+        // 모든 얼룩에 현재 터치 위치 전달
+        EraseStains(eventData.position, eventData.pressEventCamera);
+    }
+
+    // [추가] 드래그 중
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!isItemActive || charonItem != CharonItem.Potion)
+            return;
+
+        UpdateEraserCursor(eventData.position, eventData.pressEventCamera);
+
+        // 모든 얼룩에 현재 터치 위치 전달
+        EraseStains(eventData.position, eventData.pressEventCamera);
+    }
+
+    // [추가] 터치 종료
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        HideEraserCursor();
+    }
+
+    // [추가] 모든 얼룩에 터치 좌표 전달
+    private void EraseStains(Vector2 screenPosition, Camera eventCamera)
+    {
+        foreach (StainEraser stain in stainErasers)
+        {
+            if (stain == null || !stain.gameObject.activeInHierarchy)
+                continue;
+
+            stain.EraseAtScreenPosition(screenPosition, eventCamera);
+        }
+    }
+
+    // 커서 표시 및 최초 위치 설정
+    public void ShowEraserCursor(Vector2 screenPosition, Camera eventCamera)
+    {
+        if (eraserCursor == null)
+            return;
+
+        eraserCursor.gameObject.SetActive(true);
+
+        UpdateEraserCursor(screenPosition, eventCamera);
+    }
+
+    // 커서 위치 갱신
+    public void UpdateEraserCursor(Vector2 screenPosition, Camera eventCamera)
+    {
+        if (eraserCursor == null)
+            return;
+
+        RectTransform parentRect = eraserCursor.parent as RectTransform;
+
+        if (parentRect == null)
+            return;
+
+        Vector2 localPosition;
+
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            parentRect,
+            screenPosition + cursorOffset,
+            eventCamera,
+            out localPosition))
+        {
+            eraserCursor.anchoredPosition = localPosition;
+        }
+    }
+
+    // 커서 숨기기
+    public void HideEraserCursor()
+    {
+        if (eraserCursor != null)
+            eraserCursor.gameObject.SetActive(false);
+    }
+
+    private void ResetQuestUIState()
+    {
+        // 아이템 사용 상태 초기화
+        isItemActive = false;
+        charonItem = CharonItem.None;
+
+        // 지우개 입력 비활성화
+        eraserInputArea.SetActive(false);
+
+        // 커서 숨기기
+        HideEraserCursor();
+
+        // 얼룩 지우기 기능 비활성화
+        foreach (StainEraser stain in stainErasers)
+        {
+            if (stain != null)
+                stain.SetCanErase(false);
+        }
+
+        // 돋보기 비활성화
+        magnifier.SetActive(false);
+    }
+
     public void CloseQuestPaper()
     {
+        ResetQuestUIState();
+
         managers.GetComponent<QuestManager>().PlayCurrentQuestAction(questType);
     }
 }

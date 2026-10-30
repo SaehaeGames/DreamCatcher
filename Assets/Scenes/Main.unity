@@ -6744,6 +6744,7 @@ MonoBehaviour:
   stainImage: {fileID: 249321310}
   brushRadiusPixels: 80
   eraseThreshold: 0.7
+  questUIController: {fileID: 0}
 --- !u!114 &249321310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8899,6 +8900,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341043513}
   m_CullTransparentMesh: 1
+--- !u!1 &341341675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341341676}
+  - component: {fileID: 341341678}
+  - component: {fileID: 341341677}
+  m_Layer: 5
+  m_Name: EraserCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &341341676
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341341675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 746535977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &341341677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341341675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 66eaf93d74fd0ee4783cc2599c1aaf52, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &341341678
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341341675}
+  m_CullTransparentMesh: 1
 --- !u!1 &341872440
 GameObject:
   m_ObjectHideFlags: 0
@@ -10473,6 +10549,7 @@ MonoBehaviour:
   stainImage: {fileID: 406753939}
   brushRadiusPixels: 80
   eraseThreshold: 0.7
+  questUIController: {fileID: 0}
 --- !u!114 &406753939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17963,6 +18040,8 @@ RectTransform:
   - {fileID: 167481799}
   - {fileID: 245347314}
   - {fileID: 753625838}
+  - {fileID: 855572120}
+  - {fileID: 341341676}
   m_Father: {fileID: 1998238056}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -18029,6 +18108,9 @@ MonoBehaviour:
   charonItemButton: {fileID: 245347313}
   stains: {fileID: 999138951}
   magnifier: {fileID: 753625837}
+  eraserCursor: {fileID: 341341676}
+  cursorOffset: {x: 35, y: 45}
+  eraserInputArea: {fileID: 855572117}
   wallPapers:
   - {fileID: 21300000, guid: 92f3cf6de522e1c46aaaff580e76efa3, type: 3}
   - {fileID: 21300000, guid: 48011e3fe702a9d45ba3d87bb8b98944, type: 3}
@@ -20819,6 +20901,7 @@ MonoBehaviour:
   stainImage: {fileID: 851203198}
   brushRadiusPixels: 80
   eraseThreshold: 0.7
+  questUIController: {fileID: 0}
 --- !u!114 &851203198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21356,6 +21439,81 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startId: 7131
   endId: 7135
+--- !u!1 &855572117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 855572120}
+  - component: {fileID: 855572119}
+  - component: {fileID: 855572118}
+  m_Layer: 5
+  m_Name: EraserInputArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &855572118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855572117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &855572119
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855572117}
+  m_CullTransparentMesh: 1
+--- !u!224 &855572120
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855572117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 746535977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -11.675}
+  m_SizeDelta: {x: 1222.2, y: 1617.4}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &855894289
 GameObject:
   m_ObjectHideFlags: 0
@@ -22026,6 +22184,7 @@ MonoBehaviour:
   stainImage: {fileID: 880677121}
   brushRadiusPixels: 80
   eraseThreshold: 0.7
+  questUIController: {fileID: 0}
 --- !u!114 &880677121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50786,6 +50945,7 @@ MonoBehaviour:
   stainImage: {fileID: 2125640831}
   brushRadiusPixels: 80
   eraseThreshold: 0.7
+  questUIController: {fileID: 0}
 --- !u!114 &2125640831
 MonoBehaviour:
   m_ObjectHideFlags: 0
