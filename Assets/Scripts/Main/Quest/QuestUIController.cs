@@ -45,6 +45,7 @@ public class QuestUIController : MonoBehaviour,
     [Header("[Managers]")]
     public GameObject managers;
     private PlayerDataManager playerDataManager;
+    private RepeatQuestDataManager repeatQuestDataManager;
 
     private QuestType questType;
     private bool isItemActive = false;
@@ -56,6 +57,7 @@ public class QuestUIController : MonoBehaviour,
 
         eraserInputArea.SetActive(false);
         eraserCursor.gameObject.SetActive(false);
+        repeatQuestDataManager = GameManager.instance.repeatQuestDataManager;
     }
 
     public void OpenWhiteWallPaper()
@@ -136,10 +138,23 @@ public class QuestUIController : MonoBehaviour,
     {
         questType = QuestType.RepeatQuest;
         //퀘스트 창을 노란색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
+        repeatQuestDataManager = GameManager.instance.repeatQuestDataManager;
+        if (repeatQuestDataManager.GetHasReadFirstLetter())
+        {
+            // 퀘스트 생성
+            managers.GetComponent<QuestManager>().GenerateRepeatQuestDreamCatchers();
 
-        contentTexts.SetActive(false);   //메시지 오브젝트 비활성화
-        deliveryView.SetActive(true);  //납품 오브젝트 활성화
-        deliveryButton.SetActive(true);
+            contentTexts.SetActive(false);   //메시지 오브젝트 활성화
+            deliveryView.SetActive(true);  //납품 오브젝트 비활성화
+            deliveryButton.SetActive(true);
+        }
+        else
+        {
+            contentTexts.SetActive(true);   //메시지 오브젝트 활성화
+            deliveryView.SetActive(false);  //납품 오브젝트 비활성화
+            deliveryButton.SetActive(false);
+        }
+        
         charonItemButton.SetActive(false);
         stains.SetActive(false);
         eraserInputArea.SetActive(false);
@@ -154,7 +169,8 @@ public class QuestUIController : MonoBehaviour,
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.RepeatQuest);    //카론퀘스트 알림 끄기
+        UpdateQuestContents();
+        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.RepeatQuest);    //퀘스트 알림 끄기
     }
 
     public void OpenBlackWallPaper()
@@ -203,7 +219,42 @@ public class QuestUIController : MonoBehaviour,
         }
         else if (questType == QuestType.RepeatQuest)
         {
-            
+            if(repeatQuestDataManager.GetHasReadFirstLetter())
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    RepeatQuestDreamCatcher dreamCatcher =
+                        managers.GetComponent<QuestManager>().GetRepeatQuestDreamCatcher(i);
+
+                    if (dreamCatcher == null)
+                    {
+                        Debug.LogError($"[RepeatQuest] {i}번 드림캐쳐 데이터가 null입니다.");
+                        continue;
+                    }
+
+                    Debug.Log(
+                        $"[RepeatQuest DreamCatcher {i + 1}]\n" +
+                        $"DCid: {dreamCatcher.DCid}\n" +
+                        $"Feather1: {dreamCatcher.DCfeather1}\n" +
+                        $"Feather2: {dreamCatcher.DCfeather2}\n" +
+                        $"Feather3: {dreamCatcher.DCfeather3}"
+                    );
+                }
+            }
+            else
+            {
+                // 제목
+                contentTexts.transform.GetChild(0).gameObject.GetComponent<Text>().text
+                    = managers.GetComponent<QuestManager>().GetRepeatQuestLetterTitle();
+
+                // 내용
+                contentTexts.transform.GetChild(1).gameObject.GetComponent<Text>().text
+                    = managers.GetComponent<QuestManager>().GetRepeatQuestLetterContents();
+
+                // 보낸 사람
+                contentTexts.transform.GetChild(2).gameObject.GetComponent<Text>().text
+                    = managers.GetComponent<QuestManager>().GetRepeatQuestLetterFrom();
+            }
         }
         else if (questType == QuestType.Charon)
         {

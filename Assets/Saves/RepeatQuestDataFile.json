@@ -1,5 +1,27 @@
 {
-    "hasReadFirstLetter": false,
+    "hasReadFirstLetter": true,
     "questInProgress": false,
-    "repeatQuestDreamCatcherList": []
+    "repeatQuestDreamCatcherList": [
+        {
+            "DCid": "JS_8000",
+            "DCcolor": 0,
+            "DCfeather1": 0,
+            "DCfeather2": 2,
+            "DCfeather3": 1
+        },
+        {
+            "DCid": "JS_8001",
+            "DCcolor": 0,
+            "DCfeather1": 0,
+            "DCfeather2": 1,
+            "DCfeather3": 2
+        },
+        {
+            "DCid": "JS_8002",
+            "DCcolor": 0,
+            "DCfeather1": 0,
+            "DCfeather2": 2,
+            "DCfeather3": 2
+        }
+    ]
 }

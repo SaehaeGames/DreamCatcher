@@ -18,6 +18,12 @@ public class RepeatQuestDataManager
     public void SetRepeatQuestDreamCatcherList(List<RepeatQuestDreamCatcher> dreamCatcherList)
     {
         repeatQuestDataModel.repeatQuestDreamCatcherList = dreamCatcherList;
+
+        for (int i = 0; i < repeatQuestDataModel.repeatQuestDreamCatcherList.Count; i++)
+        {
+            var quest = repeatQuestDataModel.repeatQuestDreamCatcherList[i];
+        }
+
         Save();
     }
 
@@ -45,7 +51,9 @@ public class RepeatQuestDataManager
 
     public RepeatQuestDreamCatcher GetRepeatQuestDreamCatcherList(int index)
     {
-        return repeatQuestDataModel.repeatQuestDreamCatcherList[index];
+        var quest = repeatQuestDataModel.repeatQuestDreamCatcherList[index];
+
+        return quest;
     }
 
     public void Load()

@@ -36,15 +36,27 @@ public class QuestManager : MonoBehaviour
 
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
+    private RepeatQuestDataManager repeatQuestDataManager;
     private QuestInfo_Data questInfo_Data;
     private CharonInfo_Data charonInfo_Data;
+    private RepeatQuestInfo_Data repeatQuestInfo_Data;
+
+    private readonly Dictionary<int, int[]> availableFeathersByLevel = new()
+    {
+        { 0, new int[] { 0, 1, 2 } },
+        { 1, new int[] { 0, 1, 2, 4, 5, 6 } },
+        { 2, new int[] { 0, 1, 2, 4, 5, 6, 8, 9, 10 } },
+        { 3, new int[] { 0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14 } }
+    };
 
     private void Start()
     {
         playerDataManager = GameManager.instance.playerDataManager;
         questDataManager = GameManager.instance.questDataManager;
+        repeatQuestDataManager = GameManager.instance.repeatQuestDataManager;
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
+        repeatQuestInfo_Data = GameManager.instance.repeatQuestInfo_data;
 
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
@@ -241,6 +253,95 @@ public class QuestManager : MonoBehaviour
         int currentCharonLetterIndex = playerDataManager.GetCurrentCharonLetterIndex();
         string contents = charonInfo_Data.dataList[currentCharonLetterIndex].contents;
         
+        contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
+        return contents;
+    }
+
+    // 반복퀘스트 콘텐츠
+    private List<int> GetAvailableFeatherIds(int foodUnlockLevel)
+    {
+        if (availableFeathersByLevel.TryGetValue(
+            foodUnlockLevel, out int[] featherIds))
+        {
+            return new List<int>(featherIds);
+        }
+
+        Debug.LogError($"지원하지 않는 먹이 해금 레벨: {foodUnlockLevel}");
+        return new List<int>();
+    }
+
+    private void SetRandomFeathers(RepeatQuestDreamCatcher quest, List<int> featherIds)
+    {
+        quest.DCcolor = 0;
+        quest.DCfeather1 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
+        quest.DCfeather2 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
+        quest.DCfeather3 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
+    }
+
+    public void GenerateRepeatQuestDreamCatchers()
+    {
+        int foodUnlockLevel = playerDataManager.GetFoodUnlockLevel();
+
+        List<int> featherIds = GetAvailableFeatherIds(foodUnlockLevel);
+
+        if (featherIds.Count == 0)
+            return;
+
+        List<RepeatQuestDreamCatcher> quests = new List<RepeatQuestDreamCatcher>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            RepeatQuestDreamCatcher quest = new RepeatQuestDreamCatcher();
+
+            quest.DCid = "JS_" + (8000 + i);
+
+            SetRandomFeathers(quest, featherIds);
+
+            quests.Add(quest);
+        }
+
+        repeatQuestDataManager.SetRepeatQuestDreamCatcherList(quests);
+    }
+    public RepeatQuestDreamCatcher GetRepeatQuestDreamCatcher(int index)
+    {
+        if (!repeatQuestDataManager.GetHasReadFirstLetter())
+        {
+            return null;
+        }
+        RepeatQuestDreamCatcher dreamCatcher = repeatQuestDataManager.GetRepeatQuestDreamCatcherList(index);
+        return dreamCatcher;
+    }
+
+    public string GetRepeatQuestLetterTitle()
+    {
+        if (repeatQuestDataManager.GetHasReadFirstLetter())
+        {
+            return null;
+        }
+
+        string contents = repeatQuestInfo_Data.dataList[0].title;
+        return contents;
+    }
+
+    public string GetRepeatQuestLetterFrom()
+    {
+        if (repeatQuestDataManager.GetHasReadFirstLetter())
+        {
+            return null;
+        }
+
+        string contents = repeatQuestInfo_Data.dataList[0].from;
+        return contents;
+    }
+
+    public string GetRepeatQuestLetterContents()
+    {
+        if(repeatQuestDataManager.GetHasReadFirstLetter())
+        {
+            return null;
+        }
+
+        string contents = repeatQuestInfo_Data.dataList[0].contents;
         contents = contents.Replace("nn", "\n"); //퀘스트 내용 변경
         return contents;
     }
