@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public FeatherDataManager featherDataManager = new FeatherDataManager();
     public DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager = new DreamCatcherInventoryDataManager();
     public DreamCatcherDataManager dreamCatcherDataManager;
+    public RepeatQuestDataManager repeatQuestDataManager = new RepeatQuestDataManager();
 
     //데이터 베이스 오브젝트 (스크립터블 오브젝트 객체)
     [Space]
@@ -123,5 +124,6 @@ public class GameManager : MonoBehaviour
         //featherDataManager.ResetData();
         dreamCatcherDataManager.Load();
         dreamCatcherInventoryDataManager.Load();
+        repeatQuestDataManager.Load();
     }
 }
