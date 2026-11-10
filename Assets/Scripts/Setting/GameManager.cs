@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public StorySceneInfo_Data storysceneinfo_data;
     public CharonInfo_Data charoninfo_data;
     public DiaryInfo_Data diaryinfo_data;
+    public RepeatQuestInfo_Data repeatQuestInfo_data;
 
 
     void Awake()
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour
         storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
         charoninfo_data.UpdateCharonInfoData(onUpdateComplete);
         diaryinfo_data.UpdateDiaryInfoData(onUpdateComplete);
+        repeatQuestInfo_data.UpdateRpeatQuestInfoData(onUpdateComplete);
 #endif
     }
 
