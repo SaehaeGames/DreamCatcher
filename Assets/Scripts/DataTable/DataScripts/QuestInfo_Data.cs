@@ -1,10 +1,7 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
-using System.IO;
-using UnityEngine.Events;
-using UnityEditor;
+
 
 [CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/QuestInfo")]
 [Serializable]
