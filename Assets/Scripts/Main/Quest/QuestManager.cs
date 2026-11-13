@@ -37,6 +37,7 @@ public class QuestManager : MonoBehaviour
     private PlayerDataManager playerDataManager;
     private QuestDataManager questDataManager;
     private RepeatQuestDataManager repeatQuestDataManager;
+    private GoodsDataManager goodsDataManager;
     private QuestInfo_Data questInfo_Data;
     private CharonInfo_Data charonInfo_Data;
     private RepeatQuestInfo_Data repeatQuestInfo_Data;
@@ -54,6 +55,7 @@ public class QuestManager : MonoBehaviour
         playerDataManager = GameManager.instance.playerDataManager;
         questDataManager = GameManager.instance.questDataManager;
         repeatQuestDataManager = GameManager.instance.repeatQuestDataManager;
+        goodsDataManager = GameManager.instance.goodsDataManager;
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
         repeatQuestInfo_Data = GameManager.instance.repeatQuestInfo_data;
@@ -272,35 +274,39 @@ public class QuestManager : MonoBehaviour
 
     private void SetRandomFeathers(RepeatQuestDreamCatcher quest, List<int> featherIds)
     {
-        quest.DCcolor = 0;
         quest.DCfeather1 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
         quest.DCfeather2 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
         quest.DCfeather3 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
     }
 
+    private void SetRandomColor(RepeatQuestDreamCatcher quest, int threadLevel)
+    {
+        quest.DCcolor = Random.Range(0, threadLevel + 1);
+    }
+
     public void GenerateRepeatQuestDreamCatchers()
     {
+        // 깃털 지정
         int foodUnlockLevel = playerDataManager.GetFoodUnlockLevel();
-
         List<int> featherIds = GetAvailableFeatherIds(foodUnlockLevel);
-
+        int threadLevels = goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Thread).level;
         if (featherIds.Count == 0)
             return;
-
-        List<RepeatQuestDreamCatcher> quests = new List<RepeatQuestDreamCatcher>();
+        List<RepeatQuestDreamCatcher> repeatQuestDreamCatchers = new List<RepeatQuestDreamCatcher>();
 
         for (int i = 0; i < 3; i++)
         {
-            RepeatQuestDreamCatcher quest = new RepeatQuestDreamCatcher();
+            RepeatQuestDreamCatcher repeatQuestDreamCatcher = new RepeatQuestDreamCatcher();
 
-            quest.DCid = "JS_" + (8000 + i);
+            repeatQuestDreamCatcher.DCid = "JS_" + (8000 + i);
 
-            SetRandomFeathers(quest, featherIds);
+            SetRandomFeathers(repeatQuestDreamCatcher, featherIds);
+            SetRandomColor(repeatQuestDreamCatcher, threadLevels);
 
-            quests.Add(quest);
+            repeatQuestDreamCatchers.Add(repeatQuestDreamCatcher);
         }
 
-        repeatQuestDataManager.SetRepeatQuestDreamCatcherList(quests);
+        repeatQuestDataManager.SetRepeatQuestDreamCatcherList(repeatQuestDreamCatchers);
     }
     public RepeatQuestDreamCatcher GetRepeatQuestDreamCatcher(int index)
     {
