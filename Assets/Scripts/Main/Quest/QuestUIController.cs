@@ -21,6 +21,7 @@ public class QuestUIController : MonoBehaviour,
     public GameObject deliveryButton;
     public GameObject charonItemButton;
     public GameObject stains;
+    public GameObject repeatQuestDreamCaterList;
     private StainEraser[] stainErasers;
     public GameObject magnifier;
 
@@ -37,6 +38,8 @@ public class QuestUIController : MonoBehaviour,
     public Sprite[] wallPapers;  //배경 이미지들(0: 흰식, 1: 노란색, 2: 검정색)
     public Sprite potion;
     public Sprite paperweight;
+    public List<Sprite> threads;
+    public List<Sprite> feathers;
     private Color deactiveItemColor = new Color(0f, 0f, 0f, 157f / 255f);
     private Color activeItemColor = Color.white;
     private Color itemUsingColor = new Color(100f / 255f, 100f / 255f, 100f / 255f, 1f);
@@ -232,13 +235,15 @@ public class QuestUIController : MonoBehaviour,
                         continue;
                     }
 
-                    Debug.Log(
-                        $"[RepeatQuest DreamCatcher {i + 1}]\n" +
-                        $"DCid: {dreamCatcher.DCid}\n" +
-                        $"Feather1: {dreamCatcher.DCfeather1}\n" +
-                        $"Feather2: {dreamCatcher.DCfeather2}\n" +
-                        $"Feather3: {dreamCatcher.DCfeather3}"
-                    );
+                    Image thread = repeatQuestDreamCaterList.transform.GetChild(i).Find("Image_thread").gameObject.GetComponent<Image>();
+                    Image feather1 = repeatQuestDreamCaterList.transform.GetChild(i).Find("Image_feather1").gameObject.GetComponent<Image>();
+                    Image feather2 = repeatQuestDreamCaterList.transform.GetChild(i).Find("Image_feather2").gameObject.GetComponent<Image>();
+                    Image feather3 = repeatQuestDreamCaterList.transform.GetChild(i).Find("Image_feather3").gameObject.GetComponent<Image>();
+
+                    thread.sprite = threads[dreamCatcher.DCcolor];
+                    feather1.sprite = feathers[dreamCatcher.DCfeather1];
+                    feather2.sprite = feathers[dreamCatcher.DCfeather2];
+                    feather3.sprite = feathers[dreamCatcher.DCfeather3];
                 }
             }
             else
