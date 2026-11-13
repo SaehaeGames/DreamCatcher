@@ -21,6 +21,7 @@ public class DeliveryManager : MonoBehaviour
     private RepeatQuestDataManager repeatQuestDataManager;
 
     private QuestType questType;
+    private RepeatQuestDreamCatcher matchedRepeatQuestDreamCatcher;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,9 @@ public class DeliveryManager : MonoBehaviour
 
     public DeliveryResult TryDeliveryDreamCatcher()
     {
+        // 초기화
+        matchedRepeatQuestDreamCatcher = null;
+
         // 안전 코드
         if (selectedDreamCatcherInventoryData == null)
         {
@@ -146,6 +150,7 @@ public class DeliveryManager : MonoBehaviour
             // 깃털 3개가 모두 일치하는지 확인
             if (questFeathers.SetEquals(selectedFeathers))
             {
+                matchedRepeatQuestDreamCatcher = questDreamCatcher;
                 return DeliveryResult.Success;
             }
         }
@@ -195,5 +200,10 @@ public class DeliveryManager : MonoBehaviour
     public void SetSelectedDreamCatcherInventoryData(DreamCatcherInventoryData _selectedDreamCatcherInventoryData)
     {
         selectedDreamCatcherInventoryData = _selectedDreamCatcherInventoryData;
+    }
+
+    public RepeatQuestDreamCatcher GetMatchedRepeatQuestDreamCatcher()
+    {
+        return matchedRepeatQuestDreamCatcher;
     }
 }

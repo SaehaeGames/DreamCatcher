@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -40,15 +40,15 @@ public class DeliveryUIController : MonoBehaviour
 
     public void OpenCheckWin(DreamCatcherInventoryData dreamCatcherInventoryData)
     {
-        // Ã¢ È°¼ºÈ­
+        // ì°½ í™œì„±í™”
         this.gameObject.SetActive(true);
         this.transform.GetChild(0).gameObject.SetActive(true);
 
-        // ¼±ÅÃ µå¸²Ä³ÃÄ Ç¥½Ã
+        // ì„ íƒ ë“œë¦¼ìºì³ í‘œì‹œ
         description.text = dreamCatcherInventoryData.GetDescription();
         dreamcatcherImg.sprite = DreamCatcherThumbnailRenderer.LoadThumbnail(dreamCatcherInventoryData.GetDCids()[0]);
 
-        // ¼±ÅÃÇÑ µå¸²Ä³ÃÄ ÀúÀå
+        // ì„ íƒí•œ ë“œë¦¼ìºì³ ì €ì¥
         deliveryManager.SetSelectedDreamCatcherInventoryData(dreamCatcherInventoryData);
     }
 
@@ -60,9 +60,9 @@ public class DeliveryUIController : MonoBehaviour
 
     public void OnClickDeliveryButton()
     {
-        // ÀÎº¥Åä¸® Ã¢ ºñÈ°¼ºÈ­
+        // ì¸ë²¤í† ë¦¬ ì°½ ë¹„í™œì„±í™”
         InventoryPanel.SetActive(false);
-        // Äù½ºÆ® Ã¢ ºñÈ°¼ºÈ­
+        // í€˜ìŠ¤íŠ¸ ì°½ ë¹„í™œì„±í™”
         QuestPanel.SetActive(false);
 
         DeliveryResult deliveryResult = deliveryManager.TryDeliveryDreamCatcher();
@@ -80,7 +80,7 @@ public class DeliveryUIController : MonoBehaviour
                 break;
         }
 
-        // ³³Ç°Ã¢ ºñÈ°¼ºÈ­
+        // ë‚©í’ˆì°½ ë¹„í™œì„±í™”
         this.gameObject.SetActive(false);
     }
 
@@ -89,12 +89,12 @@ public class DeliveryUIController : MonoBehaviour
         switch (result)
         {
             case DeliveryResult.Success:
-                // Äù½ºÆ® Á¾·á Äù½ºÆ® ¾×¼Ç Àç»ı
+                // í€˜ìŠ¤íŠ¸ ì¢…ë£Œ í€˜ìŠ¤íŠ¸ ì•¡ì…˜ ì¬ìƒ
                 deliveryManager.CompleteCurrentQuest();
                 QuestPanel.GetComponent<QuestUIController>().OpenWhiteWallPaper();
                 break;
             case DeliveryResult.WrongItem:
-                // Àß¸øµÈ µå¸²Ä³ÃÄ ¾È³» ´ë»çÃ¢ Àç»ı
+                // ì˜ëª»ëœ ë“œë¦¼ìºì³ ì•ˆë‚´ ëŒ€ì‚¬ì°½ ì¬ìƒ
                 scriptBox.ScriptBoxOnOff(true);
                 scriptBox.SetScriptBox(7203, 7208);
                 deliveryManager.DeliveryFailed();
@@ -110,14 +110,16 @@ public class DeliveryUIController : MonoBehaviour
         switch (result)
         {
             case DeliveryResult.Success:
-                // ¹İº¹ Äù½ºÆ® ¼º°ø ¿¬Ãâ
-                Debug.Log("¹İº¹ Äù½ºÆ® ¼º°ø");
-                questManager.ClearRepeatQuest();
+                // ë°˜ë³µ í€˜ìŠ¤íŠ¸ ì„±ê³µ ì—°ì¶œ
+                Debug.Log("ë°˜ë³µ í€˜ìŠ¤íŠ¸ ì„±ê³µ");
+                RepeatQuestDreamCatcher completedDreamCatcher = deliveryManager.GetMatchedRepeatQuestDreamCatcher();
+
+                questManager.ClearRepeatQuest(completedDreamCatcher);
                 break;
 
             case DeliveryResult.WrongItem:
-                // ¹İº¹ Äù½ºÆ® ½ÇÆĞ ¿¬Ãâ
-                Debug.Log("¹İº¹ Äù½ºÆ® ½ÇÆĞ");
+                // ë°˜ë³µ í€˜ìŠ¤íŠ¸ ì‹¤íŒ¨ ì—°ì¶œ
+                Debug.Log("ë°˜ë³µ í€˜ìŠ¤íŠ¸ ì‹¤íŒ¨");
                 break;
 
             case DeliveryResult.Error:

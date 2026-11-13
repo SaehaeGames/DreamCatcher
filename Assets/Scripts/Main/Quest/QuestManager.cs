@@ -40,6 +40,7 @@ public class QuestManager : MonoBehaviour
     private GoodsDataManager goodsDataManager;
     private QuestInfo_Data questInfo_Data;
     private CharonInfo_Data charonInfo_Data;
+    private BirdInfo_Data birdInfo_Data;
     private RepeatQuestInfo_Data repeatQuestInfo_Data;
 
     private QuestType currentQuestType;
@@ -61,6 +62,7 @@ public class QuestManager : MonoBehaviour
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
         repeatQuestInfo_Data = GameManager.instance.repeatQuestInfo_data;
+        birdInfo_Data = GameManager.instance.birdinfo_data;
 
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
@@ -99,9 +101,26 @@ public class QuestManager : MonoBehaviour
         repeatQuestDataManager.UpdateQuestInProgress(true);
     }
 
-    public void ClearRepeatQuest()
+    public void ClearRepeatQuest(RepeatQuestDreamCatcher dreamCatcher)
     {
+        // 보상 계산
+        int reward = CalculateRepeatQuestReward(dreamCatcher);
+
+        // 보상 지급
+        playerDataManager.AddGold(reward);
+
+        // 반복 퀘스트 완료 처리
         repeatQuestDataManager.UpdateQuestInProgress(false);
+    }
+
+    public int CalculateRepeatQuestReward(RepeatQuestDreamCatcher dreamCatcher)
+    {
+        int reward = 0;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather1].price;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather2].price;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather3].price;
+
+        return reward;
     }
 
     public void ReceiveQuest(QuestType questType)
