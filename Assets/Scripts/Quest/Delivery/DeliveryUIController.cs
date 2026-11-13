@@ -21,12 +21,14 @@ public class DeliveryUIController : MonoBehaviour
     public GameObject managers;
     private DeliveryManager deliveryManager;
     private QuestActionController questActionManager;
+    private QuestManager questManager;
     private PlayerDataManager playerDataManager;
 
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
 
     private void Awake()
     {
+        questManager = managers.GetComponent<QuestManager>();
         deliveryManager = managers.GetComponent<DeliveryManager>();
         questActionManager = managers.GetComponent<QuestActionController>();
     }
@@ -65,7 +67,26 @@ public class DeliveryUIController : MonoBehaviour
 
         DeliveryResult deliveryResult = deliveryManager.TryDeliveryDreamCatcher();
 
-        switch (deliveryResult)
+        QuestType questType = questManager.GetCurrentQuestType();
+
+        switch (questType)
+        {
+            case QuestType.MainQuest:
+                HandleMainQuestDelivery(deliveryResult);
+                break;
+
+            case QuestType.RepeatQuest:
+                HandleRepeatQuestDelivery(deliveryResult);
+                break;
+        }
+
+        // 납품창 비활성화
+        this.gameObject.SetActive(false);
+    }
+
+    private void HandleMainQuestDelivery(DeliveryResult result)
+    {
+        switch (result)
         {
             case DeliveryResult.Success:
                 // 퀘스트 종료 퀘스트 액션 재생
@@ -82,8 +103,26 @@ public class DeliveryUIController : MonoBehaviour
                 Debug.LogError("[DeliveryUIController] DeliveryResult is Error");
                 break;
         }
+    }
 
-        // 납품창 비활성화
-        this.gameObject.SetActive(false);
+    private void HandleRepeatQuestDelivery(DeliveryResult result)
+    {
+        switch (result)
+        {
+            case DeliveryResult.Success:
+                // 반복 퀘스트 성공 연출
+                Debug.Log("반복 퀘스트 성공");
+                questManager.ClearRepeatQuest();
+                break;
+
+            case DeliveryResult.WrongItem:
+                // 반복 퀘스트 실패 연출
+                Debug.Log("반복 퀘스트 실패");
+                break;
+
+            case DeliveryResult.Error:
+                Debug.LogError("[DeliveryUI] Repeat Quest Delivery Error");
+                break;
+        }
     }
 }

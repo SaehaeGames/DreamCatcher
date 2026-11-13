@@ -42,6 +42,8 @@ public class QuestManager : MonoBehaviour
     private CharonInfo_Data charonInfo_Data;
     private RepeatQuestInfo_Data repeatQuestInfo_Data;
 
+    private QuestType currentQuestType;
+
     private readonly Dictionary<int, int[]> availableFeathersByLevel = new()
     {
         { 0, new int[] { 0, 1, 2 } },
@@ -90,6 +92,16 @@ public class QuestManager : MonoBehaviour
     public void ClearMainQuest(int questIndex)
     {
         questDataManager.ClearQuest(questIndex);
+    }
+
+    public void AcceptRepeatQuest()
+    {
+        repeatQuestDataManager.UpdateQuestInProgress(true);
+    }
+
+    public void ClearRepeatQuest()
+    {
+        repeatQuestDataManager.UpdateQuestInProgress(false);
     }
 
     public void ReceiveQuest(QuestType questType)
@@ -438,5 +450,15 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetHasReadCharonLetter(true);
                 playerDataManager.Save();
             });
+    }
+
+    public QuestType GetCurrentQuestType()
+    {
+        return currentQuestType;
+    }
+
+    public void SetCurrentQuestType(QuestType type)
+    {
+        currentQuestType = type;
     }
 }

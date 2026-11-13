@@ -50,7 +50,6 @@ public class QuestUIController : MonoBehaviour,
     private PlayerDataManager playerDataManager;
     private RepeatQuestDataManager repeatQuestDataManager;
 
-    private QuestType questType;
     private bool isItemActive = false;
     private CharonItem charonItem = CharonItem.None;
 
@@ -65,7 +64,7 @@ public class QuestUIController : MonoBehaviour,
 
     public void OpenWhiteWallPaper()
     {
-        questType = QuestType.MainQuest;
+        managers.GetComponent<QuestManager>().SetCurrentQuestType(QuestType.MainQuest);
 
         //퀘스트 창을 흰색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
@@ -139,13 +138,22 @@ public class QuestUIController : MonoBehaviour,
 
     public void OpenYellowWallPaper()
     {
-        questType = QuestType.RepeatQuest;
+        managers.GetComponent<QuestManager>().SetCurrentQuestType(QuestType.RepeatQuest);
         //퀘스트 창을 노란색 편지지, 검정 글씨로 바꾸고 퀘스트 패널을 여는 함수
         repeatQuestDataManager = GameManager.instance.repeatQuestDataManager;
         if (repeatQuestDataManager.GetHasReadFirstLetter())
         {
             // 퀘스트 생성
-            managers.GetComponent<QuestManager>().GenerateRepeatQuestDreamCatchers();
+            if (!repeatQuestDataManager.GetQuestInProgress())
+            {
+                // 새로운 반복 퀘스트 생성
+                managers.GetComponent<QuestManager>()
+                    .GenerateRepeatQuestDreamCatchers();
+
+                // 반복 퀘스트 수락 처리
+                managers.GetComponent<QuestManager>()
+                    .AcceptRepeatQuest();
+            }
 
             contentTexts.SetActive(false);   //메시지 오브젝트 활성화
             deliveryView.SetActive(true);  //납품 오브젝트 비활성화
@@ -179,7 +187,7 @@ public class QuestUIController : MonoBehaviour,
     public void OpenBlackWallPaper()
     {
         //퀘스트 창을 검정색 편지지, 흰색 글씨로 바꾸고 퀘스트 패널을 여는 함수
-        questType = QuestType.Charon;
+        managers.GetComponent<QuestManager>().SetCurrentQuestType(QuestType.Charon);
 
         contentTexts.SetActive(true);   //메시지 오브젝트 활성화
         deliveryView.SetActive(false);  //납품 오브젝트 비활성화
@@ -206,6 +214,7 @@ public class QuestUIController : MonoBehaviour,
 
     public void UpdateQuestContents()
     {
+        QuestType questType = managers.GetComponent<QuestManager>().GetCurrentQuestType();
         if (questType == QuestType.MainQuest)
         {
             // 제목
@@ -418,6 +427,8 @@ public class QuestUIController : MonoBehaviour,
     public void CloseQuestPaper()
     {
         ResetQuestUIState();
+
+        QuestType questType = managers.GetComponent<QuestManager>().GetCurrentQuestType();
 
         managers.GetComponent<QuestManager>().PlayCurrentQuestAction(questType);
     }
