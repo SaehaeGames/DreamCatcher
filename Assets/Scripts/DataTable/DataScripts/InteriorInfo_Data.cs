@@ -1,39 +1,12 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.IO;
-using UnityEngine.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "DataTable", menuName = "Scriptable Object Asset/InteriorInfo")]
+/// <summary>
+/// 기존 InteriorInfo 자산을 읽기 위한 보관용 형식입니다.
+/// 현재 인테리어는 StoreInfo와 Inspector의 상품·화면 연결을 사용하므로 실행 및 테이블 갱신 대상에서 제외합니다.
+/// 자산의 스크립트 GUID와 기존 데이터 구조를 유지하기 위해 타입과 필드만 보존합니다.
+/// </summary>
 public class InteriorInfo_Data : ScriptableObject
 {
-    private static string spreadSheetAddress = "1F3nQXJxatyzvJHbba9H0B832GQ6aQh0cigMeJJxSLx4";
-    private static long spreadSheetWorksheet = 0;
-    private static string spreadSheetRange = "A2:E";
-    private static string objectName = "InteriorInfo";
-
     public List<InteriorInfo_Object> dataList = new List<InteriorInfo_Object>();
-
-    public void UpdateInteriorInfoData(Action onUpdateComplete)
-    {
-        // InteriorInfo 스크립터블 오브젝트 데이터를 업데이트하는 함수
-
-        GameManager.instance.GetComponent<ScriptableObjectManager>().GetScriptableObjectToObjectList<InteriorInfo_Object>(spreadSheetAddress, spreadSheetRange, spreadSheetWorksheet, (_loadedDataList) =>
-        {
-            dataList = _loadedDataList;
-            GameManager.instance.GetComponent<ScriptableObjectManager>().SaveScriptableObjectAtPath(objectName);    // 변동사항 저장
-            onUpdateComplete?.Invoke(); //onUpdateComplete 콜백 호출
-        });
-    }
-
-    public void InitializeInteriorInfoData()
-    {
-        // InteriorInfo 스크립터블 오브젝트를 초기화하는 함수
-
-        GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<InteriorInfo_Data>(CreateInstance<InteriorInfo_Data>(), objectName);
-    }
 }

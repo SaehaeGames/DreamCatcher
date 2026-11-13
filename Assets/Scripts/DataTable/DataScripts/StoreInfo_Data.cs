@@ -37,115 +37,86 @@ public class StoreInfo_Data : ScriptableObject
         GameManager.instance.GetComponent<ScriptableObjectManager>().InitializeScriptableObject<StoreInfo_Data>(CreateInstance<StoreInfo_Data>(), objectName);
     }
 
+/// <summary>현재 판매하는 항목을 동일한 ID 순서로 반환하여 버튼과 표시 목록을 일치시킵니다.</summary>
+    public List<StoreInfo_Object> GetPurchasableItems(ItemTheme theme)
+    {
+        return GetItemsByTheme(theme).FindAll(item => item.isButtonActive);
+    }
+
+    /// <summary>기존 UI 연결을 구성할 때는 비활성 상품도 포함하여 뒤 상품의 아이콘이 밀리지 않게 합니다.</summary>
+    public List<StoreInfo_Object> GetItemsByTheme(ItemTheme theme)
+    {
+        var result = new List<StoreInfo_Object>();
+        foreach (StoreInfo_Object item in dataList)
+            if (item != null && item.theme == theme) result.Add(item);
+        result.Sort((left, right) => StringComparer.Ordinal.Compare(left.id, right.id));
+        return result;
+    }
+
+    /// <summary>없는 ID와 중복 ID를 정상 상품으로 취급하지 않습니다.</summary>
+    public bool TryGetItem(string id, out StoreInfo_Object item)
+    {
+        item = null;
+        if (string.IsNullOrWhiteSpace(id)) return false;
+        foreach (StoreInfo_Object candidate in dataList)
+        {
+            if (candidate == null || candidate.id != id) continue;
+            if (item != null)
+            {
+                item = null;
+                return false;
+            }
+            item = candidate;
+        }
+        return item != null;
+    }
+
     public List<string> GetSortedIDsByTheme(ItemTheme keyword)
     {
-        // theme 키워드를 검색해서 id 리스트를 반환하는 함수
-
-        return dataList
-            .Where(storeItem => storeItem.theme == keyword && storeItem.isButtonActive == true)
-            .Select(storeItem => storeItem.id)
-            .ToList();
+        return GetPurchasableItems(keyword).Select(item => item.id).ToList();
     }
+
     public List<string> GetSortedIDsByTheme(StoreItemCategory keyword)
     {
-        // theme 키워드를 검색해서 id 리스트를 반환하는 함수
-
-        return dataList
-            .Where(storeItem => storeItem.category == keyword && storeItem.isButtonActive == true)
-            .Select(storeItem => storeItem.id)
-            .ToList();
+        return dataList.Where(item => item != null && item.category == keyword && item.isButtonActive)
+            .OrderBy(item => item.id, StringComparer.Ordinal).Select(item => item.id).ToList();
     }
 
-    public List<string> GetSortedIDsByTheme(ItemTheme keyword1, StoreItemCategory keyword2)
+    public List<string> GetSortedIDsByTheme(ItemTheme theme, StoreItemCategory category)
     {
-        // theme 키워드를 검색해서 id 리스트를 반환하는 함수
-
-        Debug.Log("keyword1 : " + keyword1 + "keyword2: " +  keyword2);
-
-        return dataList
-            .Where(storeItem => storeItem.theme == keyword1 && storeItem.category == keyword2 && storeItem.isButtonActive == true)
-            .Select(storeItem => storeItem.id)
-            .ToList();
+        return GetPurchasableItems(theme).Where(item => item.category == category).Select(item => item.id).ToList();
     }
 
-    public StoreItemCategory GetCategoryByItemID(string itemID)
+    public StoreItemCategory GetCategoryByItemID(string id)
     {
-        var matchedItem = dataList.FirstOrDefault(storeItem => storeItem.id == itemID);
-        Debug.Log(matchedItem.category);
-        return matchedItem.category;
+        if (TryGetItem(id, out StoreInfo_Object item)) return item.category;
+        Debug.LogError("[StoreInfo_Data] 유효한 상품 ID가 아닙니다: " + id);
+        return default;
     }
 
-    public int GetLevelByID(string id)
-    {
-        var result = dataList
-            .Where(storeItem => storeItem.id == id)
-            .Select(storeItem => storeItem.level)
-            .FirstOrDefault();
+    public int GetLevelByID(string id) => TryGetItem(id, out StoreInfo_Object item) ? item.level : 0;
 
-        return result;
-    }
-
+    /// <summary>보조도구의 기본 테마만 조회합니다. 다음 레벨이 없는 품절은 정상 결과입니다.</summary>
     public string GetIDByCategoryAndLevel(string category, int level)
     {
-        var matchingItems = dataList
-            .Where(storeItem => storeItem.category.ToString().Trim().Equals(category.Trim(), StringComparison.OrdinalIgnoreCase)
-                                && storeItem.level == level)
-            .ToList();
-
-        if (matchingItems.Count == 1)
+        if (string.IsNullOrWhiteSpace(category)) return "";
+        StoreInfo_Object result = null;
+        foreach (StoreInfo_Object item in dataList)
         {
-            return matchingItems[0].id;
+            if (item == null || item.theme != ItemTheme.Default || item.level != level
+                || !string.Equals(item.category.ToString(), category.Trim(), StringComparison.OrdinalIgnoreCase)) continue;
+            if (result != null)
+            {
+                Debug.LogError("[StoreInfo_Data] 동일 카테고리와 레벨의 상품이 중복됩니다: " + category);
+                return "";
+            }
+            result = item;
         }
-        else if (matchingItems.Count > 1)
-        {
-            Debug.LogError($"[ERROR] {category}에 해당하는 여러 개의 아이템이 존재합니다! (레벨 {level})");
-            return matchingItems[0].id;  // 첫 번째 ID 반환 (임시)
-        }
-        else
-        {
-            Debug.LogError($"[ERROR] {category}에 해당하는 아이템을 찾을 수 없음! (레벨 {level})");
-            return ""; // 에러 처리
-        }
+        return result != null ? result.id : "";
     }
 
-
-    public ItemTheme GetThemeByID(string id)
-    {
-        var result = dataList
-            .Where(storeItem => storeItem.id == id)
-            .Select(storeItem => storeItem.theme)
-            .FirstOrDefault();
-
-        return result;
-    }
-
-    public string GetContentsByID(string id)
-    {
-        var result = dataList
-            .Where(storeItem => storeItem.id == id)
-            .Select(storeItem => storeItem.contents)
-            .FirstOrDefault();
-
-        return result;
-    }
-
-    public string GetEffectByID(string id)
-    {
-        var result = dataList
-            .Where(storeItem => storeItem.id == id)
-            .Select(storeItem => storeItem.effect)
-            .FirstOrDefault();
-
-        return result;
-    }
-
-    public int GetGoldByID(string id)
-    {
-        var result = dataList
-            .Where(storeItem => storeItem.id == id)
-            .Select(storeItem => storeItem.gold)
-            .FirstOrDefault();
-
-        return result;
-    }
+    public ItemTheme GetThemeByID(string id) => TryGetItem(id, out StoreInfo_Object item) ? item.theme : default;
+    public string GetContentsByID(string id) => TryGetItem(id, out StoreInfo_Object item) ? item.contents : null;
+    public string GetEffectByID(string id) => TryGetItem(id, out StoreInfo_Object item) ? item.effect : null;
+    public int GetGoldByID(string id) => TryGetItem(id, out StoreInfo_Object item) ? item.gold : 0;
 }

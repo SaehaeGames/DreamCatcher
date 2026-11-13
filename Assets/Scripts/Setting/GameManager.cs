@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     //싱글톤 패턴을 사용하기 위한 전역 변수
     public static GameManager instance;
+    public bool IsInitialized { get; private set; }
 
     [Header("[Game Data]")]
     public JsonManager jsonManager;                 // JsonManager : 세이브&로드 클래스
@@ -30,7 +27,6 @@ public class GameManager : MonoBehaviour
     public BirdInfo_Data birdinfo_data;
     public DreamInfo_Data dreaminfo_data;
     public StoreInfo_Data storeinfo_data;
-    public InteriorInfo_Data interiorinfo_data;
     public QuestInfo_Data questinfo_data;
     public StoryScriptInfo_Data storyscriptinfo_data;
     public StorySceneInfo_Data storysceneinfo_data;
@@ -45,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         if (instance)     //싱글톤 변수 instance가 이미 있다면
         {
-            DestroyImmediate(gameObject);   //삭제
+            Destroy(gameObject);
             return;
         }
 
@@ -53,13 +49,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);  //씬이 바뀌어도 계속 유지시킴
 
         dreamCatcherDataManager = new DreamCatcherDataManager(dreamCatcherInventoryDataManager);
-
+        // 모든 화면의 Start보다 먼저 데이터 로드를 완료합니다.
+        ResetGameManager();
     }
 
-    private void Start()
+    private void OnDestroy()
     {
-        ResetGameManager();
-        //UpdateGameDataFromSpreadSheet();
+        if (instance == this) instance = null;
     }
 
     public static GameManager GetGameManager()
@@ -67,55 +63,19 @@ public class GameManager : MonoBehaviour
         return instance;
     }  
 
-    public void UpdateGameDataFromSpreadSheet()
-    {
-        // 스프레드 시트로부터 게임 데이터를 불러오는 함수
-        // 데이터 테이블에 변경사항 있을 때 딱 한 번 호출하기!
-        // 비동기 방식으로 데이터를 불러오기 때문에, 데이터가 모두 불러와지면 저장 코드 실행
-
-#if UNITY_EDITOR
-        int totalCount = 7; // 업데이트할 데이터의 총 개수
-        int updatedCount = 0;   // 업데이트된 데이터의 개수
-
-        Action onUpdateComplete = () =>
-        {
-            updatedCount++;
-
-            // 모든 데이터가 업데이트 되었을 때 저장
-            if (updatedCount >= totalCount)
-            {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh(); // 변경사항 즉시 반영
-
-                Debug.Log("데이터 테이블 저장 완료");
-            }
-        };
-
-        birdinfo_data.UpdateBirdInfoData(onUpdateComplete);
-        dreaminfo_data.UpdateDreamInfoData(onUpdateComplete);
-        storeinfo_data.UpdateStoreInfoData(onUpdateComplete);
-        interiorinfo_data.UpdateInteriorInfoData(onUpdateComplete);
-        questinfo_data.UpdateQuestInfoData(onUpdateComplete);
-        storyscriptinfo_data.UpdateStoryScriptInfoData(onUpdateComplete);
-        storysceneinfo_data.UpdateStorySceneInfoData(onUpdateComplete);
-        charoninfo_data.UpdateCharonInfoData(onUpdateComplete);
-        diaryinfo_data.UpdateDiaryInfoData(onUpdateComplete);
-        repeatQuestInfo_data.UpdateRpeatQuestInfoData(onUpdateComplete);
-#endif
-    }
-
     public void ResetGameManager()
     {
         //초기화 함수
 
-        jsonManager = new JsonManager();    // JSON 저장 매니저 객체 생성
+        IsInitialized = false;
+        if (jsonManager == null) jsonManager = new JsonManager();
 
         // 각 저장 데이터 가져오기
         RackDataManager.Load();
         rackDataList = RackDataManager.dataList;
-        goodsDataManager = new GoodsDataManager();
+        if (goodsDataManager == null) goodsDataManager = new GoodsDataManager();
         goodsDataManager.Load();
-        interiorDataManager = new InteriorDataManager();
+        if (interiorDataManager == null) interiorDataManager = new InteriorDataManager();
         interiorDataManager.Load();
         questDataManager.Load();
         playerDataManager.Load();
@@ -125,5 +85,13 @@ public class GameManager : MonoBehaviour
         dreamCatcherDataManager.Load();
         dreamCatcherInventoryDataManager.Load();
         repeatQuestDataManager.Load();
+
+        // 인테리어는 모든 화면에서 같은 보유·배치 상태를 사용하도록 데이터 로드 뒤에 준비
+        if (!interiorDataManager.TryPrepareData(storeinfo_data, goodsDataManager, out string interiorError))
+        {
+            Debug.LogError("[GameManager] 인테리어 데이터 준비 실패: " + interiorError, this);
+            return;
+        }
+        IsInitialized = true;
     }
 }

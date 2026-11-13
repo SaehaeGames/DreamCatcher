@@ -1,25 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 
+/// <summary>보관 중인 InteriorInfo 자산의 이전 행 형식입니다. 현재 상품 조회나 배치에는 사용하지 않습니다.</summary>
 [Serializable]
 public class InteriorInfo_Object
 {
-    public string id;   //인테리어 아이템 아이디
-    public string name; //인테리어 아이템 이름
-    public string category;   //인테리어 아이템 카테고리
-
-    public InteriorInfo_Object()
-    {
-        id = "SO_0000";
-        name = category = "";
-    }
-
-    public InteriorInfo_Object(string _id, string _name, string _category)
-    {
-        id = _id;
-        name = _name;
-        category = _category;
-    }
+    public string id;
+    public string name;
+    public string category;
 }

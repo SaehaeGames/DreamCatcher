@@ -1,0 +1,26 @@
+{
+    "gold": 67000,
+    "dreamMarble": 0,
+    "specialFeed": 50,
+    "bgmVolume": 0.0,
+    "effectVolume": 0.0,
+    "bgmMute": false,
+    "effectMute": false,
+    "currentScene": 30,
+    "currentMainQuestIndex": 3,
+    "isMainQuestActionPlaying": false,
+    "currentCharonLetterIndex": 0,
+    "isCharonQuestActionPlaying": false,
+    "hasReadCharonLetter": true,
+    "questNotice": [
+        true,
+        false,
+        false
+    ],
+    "unlockData": {
+        "isRepeatQuestUnlocked": false,
+        "isCharonLetterUnlocked": false,
+        "isDiaryUnlocked": false,
+        "foodUnlockLevel": 0
+    }
+}
