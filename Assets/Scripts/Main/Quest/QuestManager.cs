@@ -28,7 +28,7 @@ public class QuestManager : MonoBehaviour
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject deliveryView;     //납품 오브젝트
     public int curQuestNumber;
-    public QuestNotice questNotice;
+    public LetterUIController questNotice;
 
     [Space]
     [Header("[Managers]")]
@@ -128,7 +128,10 @@ public class QuestManager : MonoBehaviour
 
     public void ReceiveQuest(QuestType questType)
     {
-        switch(questType)
+        // QuestNotice 표시 및 데이터 업데이터(저장X)
+        questNotice.Notice(questType);
+
+        switch (questType)
         {
             case QuestType.MainQuest:
                 // 현재 퀘스트 데이터 업데이트
@@ -136,6 +139,7 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
                 break;
             case QuestType.RepeatQuest:
+                playerDataManager.Save(); // QuestNotice 저장용
                 break;
             case QuestType.Charon:
                 // 다음 퀘스트 인덱스로 업데이트
@@ -143,9 +147,7 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetCurrentCharonLetterIndex(currentCharonLetterIndex + 1);
                 playerDataManager.SetHasReadCharonLetter(false);
                 break;
-        }
-
-        questNotice.Notice(questType);
+        }        
     }
 
     public QuestFlowState GetCurrentQuestFlowState()

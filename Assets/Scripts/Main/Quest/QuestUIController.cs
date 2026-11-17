@@ -80,7 +80,7 @@ public class QuestUIController : MonoBehaviour,
         }
 
         questPanel.SetActive(true); //퀘스트창 열기
-        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.MainQuest);    //카론퀘스트 알림 끄기
+        letters.GetComponent<LetterUIController>().CloseNotice(QuestType.MainQuest);    //카론퀘스트 알림 끄기
         UpdateQuestContents();
 
         QuestFlowState questFlowState = managers.GetComponent<QuestManager>().GetCurrentQuestFlowState();
@@ -181,7 +181,9 @@ public class QuestUIController : MonoBehaviour,
 
         questPanel.SetActive(true); //퀘스트창 열기
         UpdateQuestContents();
-        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.RepeatQuest);    //퀘스트 알림 끄기
+        letters.GetComponent<LetterUIController>().CloseNotice(QuestType.RepeatQuest);    //퀘스트 알림 끄기
+        playerDataManager = GameManager.instance.playerDataManager;
+        playerDataManager.Save(); // QuestNoice 저장용
     }
 
     public void OpenBlackWallPaper()
@@ -209,7 +211,7 @@ public class QuestUIController : MonoBehaviour,
         UpdateQuestContents();
 
         deliveryButton.SetActive(false); //납품 버튼 비활성화
-        letters.GetComponent<QuestNotice>().CloseNotice(QuestType.Charon);    //카론퀘스트 알림 끄기
+        letters.GetComponent<LetterUIController>().CloseNotice(QuestType.Charon);    //카론퀘스트 알림 끄기
     }
 
     public void UpdateQuestContents()
