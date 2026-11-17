@@ -118,8 +118,9 @@ public class DeliveryUIController : MonoBehaviour
                 break;
 
             case DeliveryResult.WrongItem:
-                // 반복 퀘스트 실패 연출
-                Debug.Log("반복 퀘스트 실패");
+                // 잘못된 드림캐쳐 안내 대사창 재생
+                scriptBox.ScriptBoxOnOff(true);
+                scriptBox.SetScriptBox(7203, 7208);
                 break;
 
             case DeliveryResult.Error:
