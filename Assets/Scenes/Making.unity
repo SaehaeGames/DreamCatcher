@@ -225,6 +225,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9dc94bab4b30f3a4e9c6bdba0e019db9, type: 3}
   - {fileID: 21300000, guid: 354c9792d30cb304f94534765f33b2a4, type: 3}
   - {fileID: 21300000, guid: d594b2b6f1b29ee418d83ecaba08c0b4, type: 3}
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &26159602
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!114 &64125431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,6 +2001,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &208389273
 GameObject:
   m_ObjectHideFlags: 0
@@ -5029,6 +5038,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4462673395165328762, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4529626907209382293, guid: 23509c8932faa86429d483beb79aec06, type: 3}
       propertyPath: m_Name
       value: ScriptBox
@@ -5044,6 +5057,10 @@ PrefabInstance:
     - target: {fileID: 7169616163083191174, guid: 23509c8932faa86429d483beb79aec06, type: 3}
       propertyPath: m_SizeDelta.x
       value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693353955504425568, guid: 23509c8932faa86429d483beb79aec06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9026123047853825978, guid: 23509c8932faa86429d483beb79aec06, type: 3}
       propertyPath: m_Pivot.x
@@ -5257,6 +5274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialFadePanal: {fileID: 0}
+  scriptBox: {fileID: 0}
+  tutorialOverlay: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  bottomBar: {fileID: 0}
 --- !u!4 &454323097
 Transform:
   m_ObjectHideFlags: 0
@@ -9378,7 +9399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &867237397
 GameObject:
   m_ObjectHideFlags: 0
@@ -10655,7 +10675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorials: []
-  nextSceneName: 
 --- !u!1 &997790674
 GameObject:
   m_ObjectHideFlags: 0
@@ -12067,7 +12086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adda074abc972f6479026643ce929966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectDraged: 0
   targets:
   - {fileID: 200955288}
   - {fileID: 578150802}
@@ -12488,6 +12506,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1169620581
 GameObject:
   m_ObjectHideFlags: 0
@@ -14938,6 +14961,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1332618236
 GameObject:
   m_ObjectHideFlags: 0
@@ -15531,6 +15559,11 @@ MonoBehaviour:
   panelChangeNum: 0
   shadowPanal: {fileID: 0}
   shadowImages: []
+  useExplicitSettings: 0
+  changeSceneOnComplete: 0
+  nextSceneState: 0
+  showShadowPanel: 0
+  shadowImageIndex: -1
 --- !u!1 &1422866802
 GameObject:
   m_ObjectHideFlags: 0
@@ -15771,7 +15804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adda074abc972f6479026643ce929966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectDraged: 0
   targets:
   - {fileID: 200955288}
   - {fileID: 578150802}
@@ -18107,7 +18139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1 &1570640192
 GameObject:
   m_ObjectHideFlags: 0
@@ -18703,7 +18734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!1001 &1623049068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20184,7 +20214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e969a56b41035d40a01ec92d844ff27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonClicked: 0
 --- !u!224 &1748617130 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 714237478228648789, guid: 5b93a7e4543dd59498acd3b07c480479, type: 3}
@@ -24026,7 +24055,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3218f92f5b3a651459950a3504cb89e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragPoints: {fileID: 0}
 --- !u!1 &2131689457
 GameObject:
   m_ObjectHideFlags: 0

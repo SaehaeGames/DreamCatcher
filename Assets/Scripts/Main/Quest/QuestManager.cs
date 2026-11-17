@@ -28,7 +28,7 @@ public class QuestManager : MonoBehaviour
     public GameObject contentTexts;       //텍스트 오브젝트
     public GameObject deliveryView;     //납품 오브젝트
     public int curQuestNumber;
-    public QuestNotice questNotice;
+    public LetterUIController questNotice;
 
     [Space]
     [Header("[Managers]")]
@@ -40,7 +40,10 @@ public class QuestManager : MonoBehaviour
     private GoodsDataManager goodsDataManager;
     private QuestInfo_Data questInfo_Data;
     private CharonInfo_Data charonInfo_Data;
+    private BirdInfo_Data birdInfo_Data;
     private RepeatQuestInfo_Data repeatQuestInfo_Data;
+
+    private QuestType currentQuestType;
 
     private readonly Dictionary<int, int[]> availableFeathersByLevel = new()
     {
@@ -59,6 +62,7 @@ public class QuestManager : MonoBehaviour
         questInfo_Data = GameManager.instance.questinfo_data;
         charonInfo_Data = GameManager.instance.charoninfo_data;
         repeatQuestInfo_Data = GameManager.instance.repeatQuestInfo_data;
+        birdInfo_Data = GameManager.instance.birdinfo_data;
 
         // 강제 종료시 연출 복원
         if (playerDataManager.GetIsQuestActinoPlaying())
@@ -92,9 +96,42 @@ public class QuestManager : MonoBehaviour
         questDataManager.ClearQuest(questIndex);
     }
 
+    public void AcceptRepeatQuest()
+    {
+        repeatQuestDataManager.UpdateQuestInProgress(true);
+    }
+
+    public void ClearRepeatQuest(RepeatQuestDreamCatcher dreamCatcher)
+    {
+        // 보상 계산
+        int reward = CalculateRepeatQuestReward(dreamCatcher);
+
+        // 보상 지급
+        playerDataManager.AddGold(reward);
+
+        // 반복 퀘스트 완료 처리
+        repeatQuestDataManager.UpdateQuestInProgress(false);
+
+        // 다음 반복 퀘스트 도착
+        ReceiveQuest(QuestType.RepeatQuest);
+    }
+
+    public int CalculateRepeatQuestReward(RepeatQuestDreamCatcher dreamCatcher)
+    {
+        int reward = 0;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather1].price;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather2].price;
+        reward += birdInfo_Data.dataList[dreamCatcher.DCfeather3].price;
+
+        return reward;
+    }
+
     public void ReceiveQuest(QuestType questType)
     {
-        switch(questType)
+        // QuestNotice 표시 및 데이터 업데이터(저장X)
+        questNotice.Notice(questType);
+
+        switch (questType)
         {
             case QuestType.MainQuest:
                 // 현재 퀘스트 데이터 업데이트
@@ -102,6 +139,7 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
                 break;
             case QuestType.RepeatQuest:
+                playerDataManager.Save(); // QuestNotice 저장용
                 break;
             case QuestType.Charon:
                 // 다음 퀘스트 인덱스로 업데이트
@@ -109,9 +147,7 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetCurrentCharonLetterIndex(currentCharonLetterIndex + 1);
                 playerDataManager.SetHasReadCharonLetter(false);
                 break;
-        }
-
-        questNotice.Notice(questType);
+        }        
     }
 
     public QuestFlowState GetCurrentQuestFlowState()
@@ -272,41 +308,101 @@ public class QuestManager : MonoBehaviour
         return new List<int>();
     }
 
-    private void SetRandomFeathers(RepeatQuestDreamCatcher quest, List<int> featherIds)
+    // 생성 가능한 모든 드림캐쳐 조합 생성
+    private List<RepeatQuestDreamCatcher> GetAllRepeatQuestCombinations(
+        List<int> featherIds, int threadLevel)
     {
-        quest.DCfeather1 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
-        quest.DCfeather2 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
-        quest.DCfeather3 = featherIds[UnityEngine.Random.Range(0, featherIds.Count)];
+        List<RepeatQuestDreamCatcher> combinations =
+            new List<RepeatQuestDreamCatcher>();
+
+        // 깃털 순서와 관계없이 같은 조합이 되도록
+        // i <= j <= k 형태로 생성
+        for (int i = 0; i < featherIds.Count; i++)
+        {
+            for (int j = i; j < featherIds.Count; j++)
+            {
+                for (int k = j; k < featherIds.Count; k++)
+                {
+                    // 색상까지 포함해서 모든 조합 생성
+                    for (int color = 0; color <= threadLevel; color++)
+                    {
+                        RepeatQuestDreamCatcher dreamCatcher =
+                            new RepeatQuestDreamCatcher();
+
+                        dreamCatcher.DCfeather1 = featherIds[i];
+                        dreamCatcher.DCfeather2 = featherIds[j];
+                        dreamCatcher.DCfeather3 = featherIds[k];
+                        dreamCatcher.DCcolor = color;
+
+                        combinations.Add(dreamCatcher);
+                    }
+                }
+            }
+        }
+
+        return combinations;
     }
 
-    private void SetRandomColor(RepeatQuestDreamCatcher quest, int threadLevel)
+    // 리스트 무작위 섞기
+    private void ShuffleRepeatQuestCombinations(
+        List<RepeatQuestDreamCatcher> combinations)
     {
-        quest.DCcolor = Random.Range(0, threadLevel + 1);
+        for (int i = combinations.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+
+            (combinations[i], combinations[randomIndex]) =
+                (combinations[randomIndex], combinations[i]);
+        }
     }
 
     public void GenerateRepeatQuestDreamCatchers()
     {
-        // 깃털 지정
+        // 깃털 및 실 해금 정보
         int foodUnlockLevel = playerDataManager.GetFoodUnlockLevel();
         List<int> featherIds = GetAvailableFeatherIds(foodUnlockLevel);
-        int threadLevels = goodsDataManager.GetValidatedGoodsData(Constants.GoodsData_Thread).level;
-        if (featherIds.Count == 0)
+
+        int threadLevel = goodsDataManager
+            .GetValidatedGoodsData(Constants.GoodsData_Thread).level;
+
+        if (featherIds.Count == 0 || threadLevel < 0)
+        {
+            Debug.LogError("[RepeatQuest] 유효하지 않은 드림캐쳐 생성 조건입니다.");
             return;
-        List<RepeatQuestDreamCatcher> repeatQuestDreamCatchers = new List<RepeatQuestDreamCatcher>();
+        }
+
+        // 생성 가능한 모든 조합 가져오기
+        List<RepeatQuestDreamCatcher> combinations =
+            GetAllRepeatQuestCombinations(featherIds, threadLevel);
+
+        // 3개 미만이면 중복 없이 생성할 수 없음
+        if (combinations.Count < 3)
+        {
+            Debug.LogError(
+                $"[RepeatQuest] 생성 가능한 조합이 부족합니다. " +
+                $"현재 조합 수: {combinations.Count}");
+
+            return;
+        }
+
+        // 무작위 순서로 섞기
+        ShuffleRepeatQuestCombinations(combinations);
+
+        // 앞에서부터 3개 선택
+        List<RepeatQuestDreamCatcher> repeatQuestDreamCatchers =
+            new List<RepeatQuestDreamCatcher>();
 
         for (int i = 0; i < 3; i++)
         {
-            RepeatQuestDreamCatcher repeatQuestDreamCatcher = new RepeatQuestDreamCatcher();
+            RepeatQuestDreamCatcher dreamCatcher = combinations[i];
 
-            repeatQuestDreamCatcher.DCid = "JS_" + (8000 + i);
+            dreamCatcher.DCid = "JS_" + (8000 + i);
 
-            SetRandomFeathers(repeatQuestDreamCatcher, featherIds);
-            SetRandomColor(repeatQuestDreamCatcher, threadLevels);
-
-            repeatQuestDreamCatchers.Add(repeatQuestDreamCatcher);
+            repeatQuestDreamCatchers.Add(dreamCatcher);
         }
 
-        repeatQuestDataManager.SetRepeatQuestDreamCatcherList(repeatQuestDreamCatchers);
+        repeatQuestDataManager.SetRepeatQuestDreamCatcherList(
+            repeatQuestDreamCatchers);
     }
     public RepeatQuestDreamCatcher GetRepeatQuestDreamCatcher(int index)
     {
@@ -438,5 +534,15 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetHasReadCharonLetter(true);
                 playerDataManager.Save();
             });
+    }
+
+    public QuestType GetCurrentQuestType()
+    {
+        return currentQuestType;
+    }
+
+    public void SetCurrentQuestType(QuestType type)
+    {
+        currentQuestType = type;
     }
 }
