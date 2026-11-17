@@ -111,6 +111,9 @@ public class QuestManager : MonoBehaviour
 
         // 반복 퀘스트 완료 처리
         repeatQuestDataManager.UpdateQuestInProgress(false);
+
+        // 다음 반복 퀘스트 도착
+        ReceiveQuest(QuestType.RepeatQuest);
     }
 
     public int CalculateRepeatQuestReward(RepeatQuestDreamCatcher dreamCatcher)
