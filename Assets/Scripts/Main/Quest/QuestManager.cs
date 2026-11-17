@@ -114,6 +114,7 @@ public class QuestManager : MonoBehaviour
 
         // 다음 반복 퀘스트 도착
         ReceiveQuest(QuestType.RepeatQuest);
+        playerDataManager.Save();
     }
 
     public int CalculateRepeatQuestReward(RepeatQuestDreamCatcher dreamCatcher)
@@ -139,7 +140,6 @@ public class QuestManager : MonoBehaviour
                 playerDataManager.SetCurrentMainQuestIndex(currentMainQuestIndex + 1);
                 break;
             case QuestType.RepeatQuest:
-                playerDataManager.Save(); // QuestNotice 저장용
                 break;
             case QuestType.Charon:
                 // 다음 퀘스트 인덱스로 업데이트
