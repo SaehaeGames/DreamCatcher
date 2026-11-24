@@ -103,6 +103,11 @@ public class QuestActionController : MonoBehaviour
                 startObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
             }
         }
+        else if (questIndex >= 0 && questIndex < mainQuests.Length)
+        {
+            onStart?.Invoke();
+            onComplete?.Invoke();
+        }
         Debug.Log("<color=cyan>Handle Set Quest Start Active ----- End</color>");
     }
 
@@ -121,6 +126,11 @@ public class QuestActionController : MonoBehaviour
                 endObject.gameObject.SetActive(true); // End 활성화
                 endObject.gameObject.GetComponent<QuestActionPipeline>().StartQuestAction(onStart, onComplete);
             }
+        }
+        else if(questIndex >= 0 && questIndex < mainQuests.Length)
+        {
+            onStart?.Invoke();
+            onComplete?.Invoke();
         }
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- End</color>");
     }
