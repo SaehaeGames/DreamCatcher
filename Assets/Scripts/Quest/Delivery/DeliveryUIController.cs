@@ -26,6 +26,12 @@ public class DeliveryUIController : MonoBehaviour
 
     private DreamCatcherInventoryData selectedDreamCatcherInventoryData;
 
+    [Header("공통 팝업")]
+    [SerializeField] private GameObject unlockPopUp;
+    [SerializeField] private Button okBtn;
+    [SerializeField] private Image itemImage;
+    [SerializeField] private Text messageText;
+
     private void Awake()
     {
         questManager = managers.GetComponent<QuestManager>();
@@ -118,14 +124,46 @@ public class DeliveryUIController : MonoBehaviour
                 break;
 
             case DeliveryResult.WrongItem:
-                // 잘못된 드림캐쳐 안내 대사창 재생
-                scriptBox.ScriptBoxOnOff(true);
-                scriptBox.SetScriptBox(7203, 7208);
+                // 잘못된 드림캐쳐 안내 팝업 활성화
+                if (!TutorialUnlockPopupUtility.Resolve(
+                    this,
+                    PopupType.Text,
+                    ref unlockPopUp,
+                    ref okBtn,
+                    ref itemImage,
+                    ref messageText))
+                {
+                    return;
+                }
+
+                TutorialUnlockPopupUtility.Show(
+                    PopupType.Text,
+                    unlockPopUp,
+                    itemImage,
+                    messageText,
+                    null,
+                    "납품 조건이 맞지 않습니다.");
+
+                TutorialUnlockPopupUtility.BindOkButton(
+                    okBtn,
+                    OnOkButtonClicked);
                 break;
 
             case DeliveryResult.Error:
                 Debug.LogError("[DeliveryUI] Repeat Quest Delivery Error");
                 break;
+        }
+    }
+    
+    private void OnOkButtonClicked()
+    {
+        TutorialUnlockPopupUtility.Hide(unlockPopUp);
+
+        if (okBtn != null)
+        {
+            TutorialUnlockPopupUtility.UnbindOkButton(
+                okBtn,
+                OnOkButtonClicked);
         }
     }
 }
