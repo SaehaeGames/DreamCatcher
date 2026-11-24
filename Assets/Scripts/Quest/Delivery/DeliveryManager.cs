@@ -78,9 +78,12 @@ public class DeliveryManager : MonoBehaviour
                 result = DeliveryResult.Error;
                 break;
         }
-        
-        // 드림캐쳐 납품(삭제) => 틀릴 때는 삭제를 원치 않을 시 성공했을 때만 삭제하도록 위치 이동
-        DeliveryDreamCatcher();
+
+        // 드림캐쳐 납품(삭제) => 틀릴 때는 삭제를 원치 않을 시 성공했을 때만 삭제하도록 위치 이동        
+        if (result == DeliveryResult.Success)
+        {
+            DeliveryDreamCatcher();
+        }
 
         return result;
     }
