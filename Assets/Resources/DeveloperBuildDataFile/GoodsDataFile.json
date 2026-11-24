@@ -1,0 +1,123 @@
+{
+    "dataList": [
+        {
+            "id": "JS_3000",
+            "name": "RackFront",
+            "category": "Rack\r",
+            "level": 0,
+            "interior_id": "SO_3000"
+        },
+        {
+            "id": "JS_3001",
+            "name": "RackBack",
+            "category": "Rack\r",
+            "level": 0,
+            "interior_id": "SO_3001"
+        },
+        {
+            "id": "JS_3002",
+            "name": "Vase",
+            "category": "Vase\r",
+            "level": 0,
+            "interior_id": "SO_3002"
+        },
+        {
+            "id": "JS_3003",
+            "name": "Poket",
+            "category": "Box\r",
+            "level": 0,
+            "interior_id": "SO_3003"
+        },
+        {
+            "id": "JS_3004",
+            "name": "Thread",
+            "category": "Thread\r",
+            "level": 0,
+            "interior_id": "SO_3004"
+        },
+        {
+            "id": "JS_3005",
+            "name": "Wallpaper",
+            "category": "Wallpaper\r",
+            "level": 0,
+            "interior_id": "SO_3005"
+        },
+        {
+            "id": "JS_3006",
+            "name": "FrameUpper",
+            "category": "Wallpaper\r",
+            "level": 0,
+            "interior_id": "SO_3006"
+        },
+        {
+            "id": "JS_3007",
+            "name": "FrameLower",
+            "category": "Wallpaper\r",
+            "level": 0,
+            "interior_id": "SO_3007"
+        },
+        {
+            "id": "JS_3008",
+            "name": "Desk",
+            "category": "Wallpaper\r",
+            "level": 0,
+            "interior_id": "SO_3008"
+        },
+        {
+            "id": "JS_3009",
+            "name": "Garland",
+            "category": "Garland\r",
+            "level": 0,
+            "interior_id": "SO_3009"
+        },
+        {
+            "id": "JS_3010",
+            "name": "WindowFrame",
+            "category": "WindowFrame\r",
+            "level": 0,
+            "interior_id": "SO_3010"
+        },
+        {
+            "id": "JS_3011",
+            "name": "Pad",
+            "category": "Pad\r",
+            "level": 0,
+            "interior_id": "SO_3011"
+        },
+        {
+            "id": "JS_3012",
+            "name": "Fillpen",
+            "category": "Fillpen\r",
+            "level": 0,
+            "interior_id": "SO_3012"
+        },
+        {
+            "id": "JS_3013",
+            "name": "Prob1",
+            "category": "Prob1\r",
+            "level": 0,
+            "interior_id": "SO_3013"
+        },
+        {
+            "id": "JS_3014",
+            "name": "CrystalBall",
+            "category": "CrystalBall\r",
+            "level": 0,
+            "interior_id": "SO_3014"
+        },
+        {
+            "id": "JS_3015",
+            "name": "Telescope",
+            "category": "Telescope\r",
+            "level": 0,
+            "interior_id": "SO_3015"
+        },
+        {
+            "id": "JS_3016",
+            "name": "Prob2",
+            "category": "Prob2",
+            "level": 0,
+            "interior_id": "SO_3016"
+        }
+    ]
+}

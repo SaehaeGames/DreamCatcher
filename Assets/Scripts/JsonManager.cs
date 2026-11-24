@@ -143,6 +143,13 @@ public class JsonManager
     /// </summary>
     public T LoadData<T>(string fileName, Func<T, bool> validateData) where T : new()
     {
+#if DEVELOPMENT_BUILD
+        // DeveloperBuildDataFile에 같은 이름의 JSON이 있으면
+        // persistentDataPath의 저장 데이터보다 우선해서 사용한다.
+        if (TryLoadDeveloperBuildData(fileName, validateData, out T developerData))
+            return developerData;
+#endif
+
         EnsurePendingTransactionRecovered();
         string savedPath = GetPath(fileName);
         if (TryLoadJson(savedPath, out T data, validateData)) return data;
@@ -168,6 +175,11 @@ public class JsonManager
 
     public List<T> LoadDataList<T>(string fileName) where T : new()
     {
+#if DEVELOPMENT_BUILD
+        // 리스트 데이터도 DeveloperBuildDataFile을 우선 확인한다.
+        if (TryLoadDeveloperBuildDataList(fileName, out List<T> developerList))
+            return developerList;
+#endif
         EnsurePendingTransactionRecovered();
         string savedPath = GetPath(fileName);
         if (TryLoadJson(savedPath, out Wrapper<T> wrapper) && wrapper.datalist != null)
@@ -205,6 +217,94 @@ public class JsonManager
         SaveDataList(fileName, emptyList);
         return emptyList;
     }
+
+#if DEVELOPMENT_BUILD
+    // 단일 객체용 개발 데이터 로드 함수
+    // Resources/DeveloperBuildDataFile/{fileName}.json을 읽는다.
+    private static bool TryLoadDeveloperBuildData<T>(
+        string fileName,
+        Func<T, bool> validateData,
+        out T data)
+    {
+        data = default(T);
+
+        TextAsset developerJson = Resources.Load<TextAsset>(
+            "DeveloperBuildDataFile/" + fileName
+        );
+
+        // 개발용 JSON이 없으면 기존 persistentDataPath 로드 흐름으로 넘어간다.
+        if (developerJson == null)
+            return false;
+
+        try
+        {
+            data = JsonUtility.FromJson<T>(developerJson.text);
+
+            if (IsValidLoadedData(data, validateData))
+            {
+                Debug.Log("[JsonManager] 개발 빌드 데이터 사용: " + fileName);
+                return true;
+            }
+
+            Debug.LogError(
+                "[JsonManager] 개발 빌드 JSON이 비어 있거나 유효하지 않습니다: "
+                + fileName
+            );
+            return false;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(
+                "[JsonManager] 개발 빌드 JSON 파싱 실패: "
+                + fileName + "\\n" + exception.Message
+            );
+            return false;
+        }
+    }
+
+    // 리스트용 개발 데이터 로드 함수
+    // JsonUtility 제약 때문에 기존과 동일하게 Wrapper<T> 형식으로 읽는다.
+    private static bool TryLoadDeveloperBuildDataList<T>(
+        string fileName,
+        out List<T> dataList)
+    {
+        dataList = null;
+
+        TextAsset developerJson = Resources.Load<TextAsset>(
+            "DeveloperBuildDataFile/" + fileName
+        );
+
+        if (developerJson == null)
+            return false;
+
+        try
+        {
+            Wrapper<T> wrapper =
+                JsonUtility.FromJson<Wrapper<T>>(developerJson.text);
+
+            if (wrapper != null && wrapper.datalist != null)
+            {
+                dataList = wrapper.datalist;
+                Debug.Log("[JsonManager] 개발 빌드 리스트 데이터 사용: " + fileName);
+                return true;
+            }
+
+            Debug.LogError(
+                "[JsonManager] 개발 빌드 리스트 JSON 형식이 올바르지 않습니다: "
+                + fileName
+            );
+            return false;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(
+                "[JsonManager] 개발 빌드 리스트 JSON 파싱 실패: "
+                + fileName + "\\n" + exception.Message
+            );
+            return false;
+        }
+    }
+#endif
 
     public void SaveData<T>(string fileName, T data)
     {
