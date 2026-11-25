@@ -1,25 +1,25 @@
 {
     "hasReadFirstLetter": true,
-    "questInProgress": false,
+    "questInProgress": true,
     "repeatQuestDreamCatcherList": [
         {
             "DCid": "JS_8000",
-            "DCcolor": 0,
-            "DCfeather1": 0,
-            "DCfeather2": 2,
+            "DCcolor": 2,
+            "DCfeather1": 1,
+            "DCfeather2": 1,
             "DCfeather3": 1
         },
         {
             "DCid": "JS_8001",
-            "DCcolor": 0,
-            "DCfeather1": 0,
-            "DCfeather2": 1,
+            "DCcolor": 1,
+            "DCfeather1": 1,
+            "DCfeather2": 2,
             "DCfeather3": 2
         },
         {
             "DCid": "JS_8002",
             "DCcolor": 0,
-            "DCfeather1": 0,
+            "DCfeather1": 2,
             "DCfeather2": 2,
             "DCfeather3": 2
         }
