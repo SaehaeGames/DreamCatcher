@@ -53,6 +53,11 @@ public class InventoryUIController : MonoBehaviour
     {
         InventoryItemSlot selectedSlot = inventoryManager.GetSelectedSlot();
 
+        if (selectedSlot == null)
+        {
+            return;
+        }
+
         if (deliveryManager.HasEnoughDreamCatchers(selectedSlot.GetSlotDreamCatcherInventoryData()))
         {
             deliveryUIController.OpenCheckWin(selectedSlot.GetSlotDreamCatcherInventoryData());
