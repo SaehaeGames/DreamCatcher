@@ -117,7 +117,7 @@ public class QuestActionController : MonoBehaviour
         System.Action onComplete = null)
     {
         Debug.Log("<color=cyan>Handle Set Quest End Active ----- Start</color>");
-        if (questIndex >= 2 && questIndex < mainQuests.Length)
+        if (questIndex >= 1 && questIndex < mainQuests.Length)
         {
             Transform endObject = mainQuests[questIndex].GetChild(1);
             if (endObject != null)
