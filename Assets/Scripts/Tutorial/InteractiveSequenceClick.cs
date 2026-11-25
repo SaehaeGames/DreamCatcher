@@ -101,6 +101,15 @@ public class InteractiveSequenceClick : InteractiveSequenceBase
     }
 
     /// <summary>
+    /// 런타임에 생성된 버튼을 클릭 대상으로 설정함.
+    /// Inspector에서 지정한 버튼이 있다면 런타임 설정으로 대체함.
+    /// </summary>
+    public void SetClickTarget(GameObject target)
+    {
+        clickBtn = target;
+    }
+
+    /// <summary>
     /// 클릭 대상과 클릭 기록 컴포넌트가 준비되어 있는지 검사함.
     /// </summary>
     private bool TryPrepareClickTarget()

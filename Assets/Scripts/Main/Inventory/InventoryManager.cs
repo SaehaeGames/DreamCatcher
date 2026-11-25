@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -24,19 +25,26 @@ public class InventoryManager : MonoBehaviour
     [Header("[Managers]")]
     public InventoryUIController inventoryUIController;
 
+    // 튜토리얼 대응
+    [Header("Tutorial")]
+    [SerializeField] InteractiveSequenceClick interactiveSequenceClick;
+
     // 데이터
     private FeatherDataManager featherDataManager;    //플레이어 깃털 정보
     private DreamCatcherDataManager dreamCatcherDataManager;
     private DreamCatcherInventoryDataManager dreamCatcherInventoryDataManager;
     private BirdInfo_Data birdInfo_Data;
+    private PlayerDataManager playerDataManager;
 
     // 선택된 슬롯
     private InventoryItemSlot selectedSlot;
+    private const int TUTORIALSCENE = 9;
 
     private void Awake()
     {
         featherDataManager = GameManager.instance.featherDataManager;
         birdInfo_Data = GameManager.instance.birdinfo_data;
+        playerDataManager = GameManager.instance.playerDataManager;
         dreamCatcherDataManager = GameManager.instance.dreamCatcherDataManager;
         dreamCatcherInventoryDataManager = GameManager.instance.dreamCatcherInventoryDataManager;
     }
@@ -143,10 +151,15 @@ public class InventoryManager : MonoBehaviour
         }
 
         //드림캐쳐
-        for(int i = 0; i<dreamCatcherInventoryDataManager.GetDreamCatcherInventoryDataListCount(); i++)
+        for (int i = 0; i<dreamCatcherInventoryDataManager.GetDreamCatcherInventoryDataListCount(); i++)
         {
             GameObject slot = itemList[listCnt];
             slot.SetActive(true);
+            if(playerDataManager.GetCurrentScene() == TUTORIALSCENE)
+            {
+                slot.AddComponent<InteractiveButton>();
+                interactiveSequenceClick.SetClickTarget(slot);
+            }
             DreamCatcherInventoryData inventoryData = dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i];
             slot.GetComponent<InventoryItemSlot>().SetSlotDreamCatcher(this, inventoryData, "드림 캐쳐", dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Description, dreamCatcherInventoryDataManager.dreamCatcherInventoryDataList[i].Number);
             listCnt ++;
